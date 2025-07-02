@@ -1,0 +1,232 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row  bg-white" style="border-radius: 30px;">
+      <div class="col">
+        <div class="pt-4 d-flex px-3">
+            <h2 style="display: inline;">Administrativo - Processos Digitais</h2>       
+              <a href="{% url 'empreendedor:processos_digitais_admin' %}" class="btn btn-dark ms-auto my-auto">
+                <i class="fa-solid fa-rotate-left me-2"></i> Voltar
+              </a>
+              <a href="#" class="btn btn-info my-auto ms-2">
+                <i class="fa-solid fa-check-double me-2"></i> Validar anexos
+              </a>
+              <a href="{% url 'empreendedor:requerimento_iss_admin' %}" class="btn btn-success ms-2 my-auto">
+                <i class="fa-solid fa-circle-arrow-right me-2"></i> Dar novo andamento
+              </a>
+                               
+            </div>
+            <div class="row">
+              <div class="col px-5 mt-4 d-flex">
+                <span class="py-0 px-2 rounded-pill" style="background-color: rgb(152, 190, 223);">{{processo.get_status_display}}</span>
+                <p class="ms-3">
+                  <strong class="my-auto">{{processo.get_tipo_processo_display}} - {{processo.n_protocolo}} - {{processo.dt_solicitacao|date:"d/m/y"}}</strong></p >
+                <p class="ms-auto my-auto"><strong>Solicitante:</strong> <a href="#">{{processo.solicitante.first_name}}</a></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col d-flex py-4 px-5">
+                <a class="btn btn-outline-dark" href="{{processo.rg.url}}" target="_blank">
+                  <i class="fa-solid fa-id-card me-2"></i>Visualizar RG
+                </a>
+                <a class="btn btn-outline-dark ms-3" href="{{processo.comprovante_endereco.url}}" target="_blank">
+                  <i class="fa-solid fa-address-card me-2"></i>Visualizar Comprovante de Endereço
+                </a>  
+              </div>
+            </div>
+            <div class="row">
+              <div class="col px-5 pt-3 d-flex">
+                <h4 class="my-auto py-0">Andamento do processo</h4>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                  {% if messages %}
+                    {% for message in messages %}
+                      <div class="alert {{ message.tags }}">
+                        {{ message }}
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+            <div class="row">
+                <div class="col px-5 pb-5 d-flex flex-column">
+                    <div class="menu mt-3 mb-4">
+                        <a href="#">
+                            Escolaridade
+                        </a>
+                        <a href="#" class="ms-3">
+                            Profissão
+                        </a>
+                        <a href="#" class="ms-3">
+                            Status do
+                        </a>
+                    </div>
+                    <div class="processos">
+                        <table class="table mt-4">
+                            <thead>
+                                <tr>
+                                    <th class="text-center"></th>
+                                    <th class="text-center">Status do andamento</th>
+                                    <th class="text-center">Status RG</th>
+                                    <th class="text-center">Status comprovante</th>
+                                    {% if processo.diploma_ou_certificado %}
+                                    <th>Status do Diploma/Certificado</th>
+                                    {% endif %}
+                                    {% if licenca_sanitaria %}
+                                    <th>Status da Licença Sanitaria</th>
+                                    {% endif %}
+                                    {% if espelho_iptu %}
+                                    <th>Status do espelho de IPTU</th>
+                                    {% endif %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                              {% for andamento in andamentos %}
+                                <tr>
+                                    <td class="text-center"{{andamento.dt_andamento|date:"d/m/y"}}</td>
+                                    <td class="text-center d-flex"><span class="mx-auto py-1 px-2 rounded-pill w-100" style="background-color: rgb(152, 190, 223);"dando>{{andamento.status}}</span></td>
+                         
+                                    <td class="text-center">
+                                      <a href="#"></a>
+                                      <select name="rg_status" id="id_rg_status_{{andamento.id}}" onchange="mudaStatusRG({{andamento.id}})">
+                                        <option value="0" {% if andamento.rg_status == '0' %}selected{% endif %}>Aguardando avaliação</option>
+                                      
+                                        <option value="1" {% if andamento.rg_status == '1' %}selected{% endif %}>Aprovado</option>
+                                      
+                                        <option value="2" {% if andamento.rg_status == '2' %}selected{% endif %}>Reprovado</option>
+                                      
+                                      </select>
+                                    </td>
+                                
+                                    <td class="text-center">                                      
+                                      <select name="comprovante_status" id="id_comprovante_status_{{andamento.id}}" onchange="mudaStatusComprovante({{andamento.id}})">
+                                        <option value="0" {% if andamento.comprovante_endereco_status == '0' %}selected{% endif %}>Aguardando avaliação</option>
+                                      
+                                        <option value="1" {% if andamento.comprovante_endereco_status == '1' %}selected{% endif %}>Aprovado</option>
+                                      
+                                        <option value="2" {% if andamento.comprovante_endereco_status == '2' %}selected{% endif %}>Reprovado</option>
+                                      
+                                      </select>
+                                    </td>                                 
+                                </tr>                               
+                              {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+      </div>
+    </div>
+</div>
+</div>
+<div class="row mx-auto px-5">
+  {% csrf_token %}
+  <script>
+    document.getElementById('empreendedor_admin').classList.add('s-nav-active');
+
+    let openfiltros = false
+    function showFiltros(){
+        if (openfiltros){      
+            document.getElementById('filtros').style.display='none'
+            openfiltros=false
+        }else{
+            document.getElementById('filtros').style.display='flex'
+            openfiltros=true
+        }
+    }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const menuButton = document.getElementById("openMenu");
+    const menu = document.querySelector(".menu");
+
+    menuButton.addEventListener("click", function() {
+      menu.classList.toggle("menu-open");
+    });
+  });
+
+  function mudaStatusRG(id){
+            const csrfTokenInput = document.querySelector("input[name='csrfmiddlewaretoken']");
+            const csrfToken = csrfTokenInput.value;
+            var select = document.getElementById('id_rg_status_'+String(id));
+            var status = select.options[select.selectedIndex].value;
+            let url = "{% url 'empreendedor:mudaStatusRG' %}";
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: id, status: status })
+            })
+            .then((response)=>{
+                response.json()
+                .then((data)=>{                    
+                    if (data.status == 'ok'){
+                        alert('Status alterado com sucesso!')
+                    }else{
+                        alert('Erro ao alterar status!')
+                    }
+                })
+            })
+    }
+
+    function mudaStatusComprovante(id){
+            const csrfTokenInput = document.querySelector("input[name='csrfmiddlewaretoken']");
+            const csrfToken = csrfTokenInput.value;
+            var select = document.getElementById('id_comprovante_status_'+String(id));
+            var status = select.options[select.selectedIndex].value;
+            let url = "{% url 'empreendedor:mudaStatusComprovante' %}";
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: id, status: status })
+            })
+            .then((response)=>{
+                response.json()
+                .then((data)=>{                    
+                    if (data.status == 'ok'){
+                        alert('Status alterado com sucesso!')
+                    }else{
+                        alert('Erro ao alterar status!')
+                    }
+                })
+            })
+    }
+  </script>
+</div>
+
+<style>
+    .menu {
+  display: none; /* Inicialmente, ocultar o menu */
+}
+
+.menu-open {
+  display: block; /* Quando a classe "menu-open" é adicionada, mostrar o menu */
+  /* Outros estilos para o menu aberto, como posição, cores, etc. */
+}
+    .border{
+        border-color: rgba(146, 146, 146, 0.2) !important;
+    }
+    #filtros{
+        display: none;
+    }
+</style>
+
+</script>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

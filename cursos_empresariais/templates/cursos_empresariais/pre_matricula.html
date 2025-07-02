@@ -1,0 +1,218 @@
+{% extends 'template.html' %}
+{% load bootstrap5 %}
+{% load static%}
+{% block title %}BEM VINDO - CURSOS LIVRES{% endblock %}
+{% block css %}
+
+{% endblock %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block prematricula %}fw-bold{% endblock %}
+{% block main %}
+<div class="row">
+  <div class="col d-flex pbp-5">
+    <div class="row w-100">
+      <div class="col-10 pb-4 m-auto bg-white" style="border-radius: 30px;">
+        <div class="row">
+          <div class="col pt-4 px-5 d-flex">
+            <h2 class="pb-2 pt-3">
+              Formulário de inscrição
+            </h2>
+            <img style="height: 50px;" class="ms-auto my-auto" src="{{curso.categoria.icone.url}}" alt="">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col px-5">
+            <h4 class="mb-2"><i class="fa-solid fa-arrow-right-long ms-2 me-1"></i> {{curso}}</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-dark px-4 pt-4">
+            <div class="row">
+              <div class="col px-5 pt-2 div-info-cursos">
+                <div class="pt-3  mb-4 px-4 border" style="border-radius: 30px;">
+                  <table class="table table-striped-columns table-borderless">
+                    <tbody>
+                      <tr>
+                        <th>Nome do candidato:</th>
+                        <td>{{pessoa.user.first_name}}</td>
+                        <th>Email do candidato:</th>
+                        <td>{{pessoa.email}}</td>
+                      </tr>
+                      <tr>
+                        <th>CPF do candidato:</th>
+                        <td>{{pessoa.cpf}}</td>
+                        <th>Telefone do candidato:</th>
+                        <td>{{pessoa.telefone}}</td>
+                      </tr>
+                      <tr>
+                        <th>Data de nascimento:</th>
+                        <td>{{pessoa.dt_nascimento}}</td>
+                        <th>Endereço:</th>
+                        <td>{{pessoa.endereco}}{%if pessoa.complemento %}, {{pessoa.complemento}}{% endif %} -
+                          {{pessoa.cep}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- <div class="div_info_candidato div-info-cursos-mobile">
+                <section>
+                  <h1>Nome do candidato:</h1>
+                  <p>{{pessoa.user.first_name}}</p><br>
+                  <h1>Email do candidato:</h1>
+                  <p>{{pessoa.email}}</p><br>
+                  <h1>CPF do candidato:</h1>
+                  <p>{{pessoa.cpf}}</p><br>
+                  <h1>Telefone do candidato:</h1>
+                  <p>{{pessoa.telefone}}</p><br>
+                  <h1>Data de nascimento:</h1>
+                  <p>{{pessoa.dt_nascimento}}</p><br>
+                  <h1>Endereço:</h1>
+                  <p>{{pessoa.endereco}}{%if pessoa.complemento %}, {{pessoa.complemento}}{% endif %} - {{pessoa.cep}}
+                  </p>
+                </section>
+              </div> -->
+              <div class="row">
+                <div class="col py-4 px-5">
+                  <!-- <h6 class="text-justify mb-4" style="text-indent: 20px;">
+                    <b>Atenção:</b>
+                    As atividades acontecem em diversos locais. Ao preencher o formulário, verifique se marcou a opção
+                    na localidade mais adequada para você! No primeiro dia de participação, o inscrito deverá apresentar
+                    um documento de identificação com foto. Todas as atividades terão lista de presença.
+                  </h6> -->
+                  <p class="text-justify py-1" style="text-indent: 20px;"><b>Comunicamos que,</b> em razão da
+                    necessidade de adequação à Lei Geral de Proteção de Dados (Lei 13.709/18), será necessário, nos
+                    termos do artigo 14 da referida lei, que os inscritos nas atividades manifestem formalmente seu consentimento para que seja feito o tratamento adequado de
+                    seus dados, visando a garantia de seus direitos.</p>
+                  <p class="text-justify py-1" style="text-indent: 20px;">Neste mesmo sentido, para que possamos cumprir nosso compromisso de respeito aos direitos
+                    fundamentais dos(as) que frequentam a nossa instituição ou acessem alguma atividade em outro
+                    local localizado externamente à prefeitura a fim de usufruir dos serviços prestados, é importante que seja
+                    assegurado o consentimento para uso da imagem com fins de divulgação em mídias sociais (rádio,
+                    televisão, jornais, revistas, internet, redes sociais etc.) única e exclusivamente para fins
+                    específicos de divulgação relacionados ao trabalho executado pela instituição.</p>
+                  <p class="text-justify py-1" style="text-indent: 20px;">Por isso, com o objetivo de proteger os dados
+                    pessoais e a imagem dos inscritos, solicitamos o aceite
+                    abaixo.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <form method="POST">
+            <div class="row px-5 pt-2 d-flex">
+              <div class="col px-4">
+                <p class="pb-2"><strong>Informe ou atualize seus dados abaixo:</strong></p>
+                {% csrf_token %}
+                {% bootstrap_form form %}
+
+                <div class="form_responsavel">
+                  {% if age < 18 %} <h2 class="pb-2">Formulário do responsável:</h2>
+                    {% bootstrap_form form_responsavel %}
+                    {% endif %}
+                    <div>
+                    </div>
+                </div>
+
+                <div class="row">
+                  <div class="col px-5 py-4 d-flex flex-column">
+                    <button class="btn btn-primary w-100 py-4 mt-3 btn-pre-inscricao">
+                      <b class="text-uppercase">Enviar pré-inscrição</b>
+                    </button>
+                  </div>
+                </div>
+          </form>
+          <!-- <div class="row px-5 d-flex">
+                          <div class="col painel">
+                              <a href="#">Candidatos</a>                                                            
+                              <a href="{% url 'adm_turmas_listar' %}">Turmas</a>
+                              <a href="#">Relatórios</a>
+                          </div>
+                      </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+  function icnpj(v) {
+    v = v.replace(/\D/g, "")                    //Remove tudo o que nao e digito
+    v = v.replace(/(\d{3})(\d)/, "$1.$2")       //Coloca um ponto entre o segundo e terceiro digitos
+    v = v.replace(/(\d{3})(\d)/, "$1.$2")       //Coloca um ponto entre o quinto e o sexto digitos
+    v = v.replace(/(\d{3})(\d)/, "$1/$2")       //Coloca um ponto entre o quinto e o sexto digitos
+    v = v.replace(/(\d{4})(\d)/, "$1-$2")       //Coloca um ponto entre o quinto e o sexto digitos
+    // v=v.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5")
+    return v
+  }
+  function icpf(v) {
+    v = v.replace(/\D/g, "")                    //Remove tudo o que nao e digito
+    v = v.replace(/(\d{3})(\d)/, "$1.$2")       //Coloca um ponto entre o segundo e terceiro digitos
+    v = v.replace(/(\d{3})(\d)/, "$1.$2")       //Coloca um ponto entre o quinto e o sexto digitos
+    v = v.replace(/(\d{3})(\d)/, "$1-$2")       //Coloca um ponto entre o quinto e o sexto digitos
+    // v=v.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5")
+    return v
+  }
+  function irg(v) {
+    v = v.replace(/\D/g, "")                    //Remove tudo o que nao e digito
+    v = v.replace(/(\d{2})(\d)/, "$1.$2")       //Coloca um ponto entre o segundo e terceiro digitos
+    v = v.replace(/(\d{3})(\d)/, "$1.$2")       //Coloca um ponto entre o quinto e o sexto digitos
+    v = v.replace(/(\d{3})(\d)/, "$1-$2")       //Coloca um ponto entre o quinto e o sexto digitos
+    // v=v.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5")
+    return v
+  }
+  function itelefone(v) {
+    v = v.replace(/\D/g, "")                 //Remove tudo o que nao e digito
+    v = v.replace(/^(\d\d)(\d)/g, "($1) $2") //Coloca parenteses em volta dos dois primeiros digitos
+    v = v.replace(/(\d{4})(\d)/, "$1-$2")    //Coloca hifen entre o quarto e o quinto digitos
+    return v
+  }
+  function icelular(v) {
+    v = v.replace(/\D/g, "")                 //Remove tudo o que nao e digito
+    v = v.replace(/^(\d\d)(\d)/g, "($1) $2") //Coloca parenteses em volta dos dois primeiros digitos
+    v = v.replace(/(\d{5})(\d)/, "$1-$2")    //Coloca hifen entre o quarto e o quinto digitos
+    return v
+  }
+  function icep(v) {
+    v = v.replace(/\D/g, "")
+    v = v.replace(/^(\d\d\d\d\d)(\d\d\d)/g, "$1-$2")
+    return v
+  }
+  function mascara(o, f) {
+    v_obj = o
+    v_fun = f
+    setTimeout("execmascara()", 1)
+  }
+  function execmascara() {
+    v_obj.value = v_fun(v_obj.value)
+  }
+  function itel(v) {
+    if (v.length == 15) {
+      v = v.replace(/\D/g, "")                 //Remove tudo o que nao e digito
+      v = v.replace(/^(\d\d)(\d)/g, "($1) $2") //Coloca parenteses em volta dos dois primeiros digitos
+      v = v.replace(/(\d{5})(\d)/, "$1-$2")
+    } else {
+      v = v.replace(/\D/g, "")                 //Remove tudo o que nao e digito
+      v = v.replace(/^(\d\d)(\d)/g, "($1) $2") //Coloca parenteses em volta dos dois primeiros digitos
+      v = v.replace(/(\d{4})(\d)/, "$1-$2")    // 
+    }
+    return v
+  }
+  document.getElementById('empreendedor_capacita').classList.add('s-nav-active');
+</script>
+
+<style>
+  .hidden {
+    display: none;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .table {
+    border-radius: 30px !important;
+  }
+</style>
+{% endblock %}

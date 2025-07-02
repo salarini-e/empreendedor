@@ -1,0 +1,40 @@
+{% extends 'template.html' %}
+{% load bootstrap5 %}
+{% load empreendedor_filters %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+  <div class="row">
+    <div class="col p-5 border d-flex flex-column" style="background-color: white; border-radius: 30px;">
+      <h1 class="text-center mb-4">Aguardando execução</h1>
+      <!-- <h2 class="text-center">{{contrato.titulo}}</h2> -->
+      <hr>
+      <p class="text-center">
+        O {{contrato.solicitacao_referente.get_tipo_display}} já foi entregue? Se sim, clique no botão abaixo para confirmar a entrega.
+      </p>
+     <div class="row mt-3">
+        <div class="col d-flex">
+          <form method="POST" class="d-flex w-100">
+            {% csrf_token %}
+            <button type="submit" class="ms-auto me-1 btn btn-success">
+                Confirmar entrega
+            </button>
+            <button class="me-auto ms-1 btn btn-danger">
+                Paralisar pedido 
+            </button>
+          </form> 
+        </div>
+     </div>
+    </div>    
+  </div>
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

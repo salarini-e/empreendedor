@@ -1,0 +1,90 @@
+{% extends 'template.html' %}
+{% load bootstrap5 %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+  <div class="row">
+    <div class="col d-flex flex-column">
+      <h1>Programa de Dinheiro Direto da Escola - Solicitação de Compra</h1>
+      <p class="text-secondary">
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quia, repellendus. 
+      </p>    
+      <a href="{% url 'empreendedor:pdde_escola' %}" class="btn btn-secondary ms-auto"><i class="fa-solid fa-arrow-left me-2"></i>Voltar</a>
+
+    </div>
+  </div>
+    <div class="row mt-4">
+      <div class="col">
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive pt-4 border" style="background-color: white; border-radius: 30px; padding: 20px;">
+                <h2 class="mb-5">Etapa 1</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    <label for="" class="form-label">
+                      Escola
+                    </label>
+                    <h3>{{escola.nome}}</h3>
+                    {% bootstrap_form form %}
+                    <button type="submit" class="btn btn-dark"><i class="fa-solid fa-file me-2"></i>Iniciar solicitação</button>
+                </form>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+<div class="row mx-auto px-5">
+  <script>
+    document.getElementById('empreendedor_empresa').classList.add('s-nav-active');
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Selecione o elemento da div que contém a opção '---------'
+        var emptyOptionDiv = document.querySelector('.form-check label[for="id_tipo_0"]').closest('.form-check');
+
+        // Verifique se o elemento existe antes de tentar removê-lo
+        if (emptyOptionDiv) {
+            // Remova o elemento
+            emptyOptionDiv.parentNode.removeChild(emptyOptionDiv);
+        }
+        var elementosParaRemover = document.querySelectorAll('.form-check-label');
+
+      // Itera sobre os elementos e remove aqueles com texto "---------"
+      elementosParaRemover.forEach(function (elemento) {
+        if (elemento.textContent.trim() === '---------') {
+          elemento.parentNode.parentNode.removeChild(elemento.parentNode);
+        }
+      });
+    });
+  </script>
+</div>
+
+<style>
+  .form-label{
+    font-weight: bold;
+  }
+  .border{
+    border-color: rgba(146, 146, 146, 0.2) !important;
+  }
+</style>
+
+</script>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

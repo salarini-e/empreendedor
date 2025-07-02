@@ -1,0 +1,61 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="row mx-auto pb-3">
+  <style>
+      body {
+          background-color: #f4f4f4;
+          font-family: Arial, sans-serif;
+          text-align: center;
+      }
+
+      .construction-icon {
+          font-size: 48px;
+          color: #e74c3c;
+      }
+
+      .message {
+          font-size: 24px;
+          margin-top: 20px;
+          color: #333;
+      }
+
+      .contact {
+          font-size: 18px;
+          margin-top: 20px;
+          color: #666;
+      }
+  </style>
+
+  <div class="py-5 d-flex flex-column">
+      <h3>Atualizar documento - {{documento}}</h3>
+
+      <div class="mx-auto mt-4 d-flex">
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <label for="id-{{documento}}"></label>
+          <input type="file" name="{{documento}}" id="id-{{documento}}" class="form-control-file">  
+          <button type="submit" class="btn btn-primary">
+            Enviar
+          </button>
+        </form>
+      </div>
+  </div>
+  <div class="row mx-auto px-5">
+    <script>
+      document.getElementById('empreendedor_protocolo').classList.add('s-nav-active');
+    </script>
+  </div>
+</div>
+
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}x

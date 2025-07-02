@@ -1,0 +1,86 @@
+{% extends 'template.html' %}
+{% load bootstrap5 %}
+{% load static%}
+{% block nav %}
+{% include 'nav_cursos.html' %}
+{% endblock %}
+{% block title %}BEM VINDO - CURSOS LIVRES{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/administrativo.css' %}">
+
+{% endblock %}
+{% block administrativo %}fw-bold{% endblock %}
+{% block main %}
+<div class="row">
+    <div class="col d-flex py-5"> 
+        <div class="row w-100">
+            <div class="col-10 pb-4 m-auto bg-white">
+                             
+                <div class="row">
+                    <div class="col text-dark px-4 pt-4">
+                       <div class="row">
+                        <div class="col">
+                          <h1 class="text-uppercase">
+                            Área do Estudante
+                          </h1>
+                        </div>
+                        <div class="col d-flex">
+                            <a href="{% url 'cursos:area_do_estudante' %}" class="btn btn-dark ms-auto my-auto">
+                              <i class="fa-solid fa-rotate-left me-1"></i> Voltar
+                              </a>           
+                        </div>
+                       </div>
+                        <div class="row px-2 pt-2 d-flex">
+                            <div class="col px-0 painel">
+                                <!-- <a href="{% url 'adm_turmas_cadastrar' %}"><i class="fa-solid fa-plus me-3"></i>cadastrar TURMA</a>
+                                <a href="{% url 'adm_turmas_listar' %}" class="ativo"><i class="fa-regular fa-file-lines me-3"></i>LISTAR/EDITAR TURMAS</a> -->
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12 pt-4">
+                            <form class="row px-2" method="POST">
+                              <div class="col-12">
+                                <!-- <div class="d-flex w-100">
+                                  <select class="form-select" name="acao" id="acao">
+                                    <option value="0">
+                                      Realizar ação em lote
+                                    </option>
+                                    <option value="1">
+                                      Encerrar turmas
+                                    </option>
+                                    <option value="1">
+                                      Lançar turmas
+                                    </option>
+                                  </select>
+                                  <button class="btn btn-primary px-3 ms-2">
+                                    Ir
+                                  </button>
+                                  <button class="btn btn-primary ms-1">
+                                    <i class="fa-solid fa-filter"></i>
+                                  </button>
+                                </div> -->
+                                <div class="w-100 h-100 pt-3 table-responsive">
+                                    <h4 class="mb-3">EDITAR CADASTRO</h4>
+                                    <form method="POST">
+                                      {% csrf_token %}
+                                      {% bootstrap_form form_pessoa %}                                    
+                                      <button class="btn btn-primary" type="submit">
+                                        Alterar
+                                      </button>
+                                    </form>
+                                </div>
+                              </div>                                                                                          
+                          </form>
+                          </div>                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</div>
+<script>
+     document.getElementById('s-estudante').classList.add('s-nav-active');
+</script>
+
+{% endblock %}

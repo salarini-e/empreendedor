@@ -1,0 +1,142 @@
+<div id="navegacao" class="container">
+    <div class="row">
+      <div class="col  d-flex justify-content-center">
+        <a href="{% url 'empreendedor:index' %}" class="me-3">
+          <div class="d-flex flex-column align-items-center">
+            <div id="empreendedor_inicio" class="s-nav rounded-circle"></div>
+            <p class="text-dark">Início</p>
+          </div>
+        </a>  
+   
+        <a href="{% url 'empreendedor:index' %}#servicos" class="me-3">
+          <div class="d-flex flex-column align-items-center">
+            <div id="empreendedor_servicos" class="s-nav rounded-circle"></div>
+            <p class="text-dark text-center">Serviços</p>
+          </div>
+      </a>           
+        <a href="{% url 'empreendedor:consultar_processos' %}" class="me-3">
+            <div class="d-flex flex-column align-items-center">
+              <div id="empreendedor_protocolo" class="s-nav rounded-circle"></div>
+              <p class="text-dark text-center">Consultar<br>processo</p>
+            </div>
+        </a>  
+        <a href="{% url 'empreendedor:cursos' %}" class="me-3">
+          <div class="d-flex flex-column align-items-center">
+            <div id="empreendedor_capacita" class="s-nav rounded-circle"></div>
+            <p class="text-dark">Capacitação</p>
+          </div>
+        </a> 
+        <a href="{% url 'empreendedor:minha_empresa' %}" class="me-3">
+          <div class="d-flex flex-column align-items-center">
+            <div id="empreendedor_empresa" class="s-nav rounded-circle"></div>
+            <p class="text-dark text-center">Minha<br>empresa </p>
+          </div>
+      </a>  
+        <a href="{% url 'empreendedor:vitrine_virtual' %}" class="me-3">
+          <div class="d-flex flex-column align-items-center">
+            <div id="empreendedor_vitrine" class="s-nav rounded-circle"></div>
+            <p class="text-dark text-center">Vitrine<br> virtual</p>
+          </div>
+      </a>  
+      <a href="{% url 'empreendedor:faccao_legal' %}" class="me-3">
+        <div class="d-flex flex-column align-items-center">
+          <div id="empreendedor_faccao_legal" class="s-nav rounded-circle"></div>
+          <p class="text-dark text-center">Facção<br>legal</p>
+        </div>
+      </a>  
+        <a href="{% url 'empreendedor:legislacao' %}" class="me-3">
+          <div class="d-flex flex-column align-items-center">
+            <div id="empreendedor_legis" class="s-nav rounded-circle"></div>
+            <p class="text-dark text-center">Legislação</p>
+          </div>
+        </a>
+        <a href="https://www.pmnf.rj.gov.br/licitacao/" target="_blank" class="me-3">
+          <div class="d-flex flex-column align-items-center">
+            <div id="empreendedor_lici" class="s-nav rounded-circle"></div>
+            <p class="text-dark text-center">Licitação</p>
+          </div>
+        </a>
+        {% if request.user.is_staff %}
+        <a href="{% url 'empreendedor:admin' %}" class="me-3">
+          <div class="d-flex flex-column align-items-center">
+            <div id="empreendedor_admin" class="s-nav rounded-circle"></div>
+            <p class="text-dark">Admin</p>
+          </div>
+        </a> 
+        <!-- <a href="#" class="me-3">
+          <div class="d-flex flex-column align-items-center">
+            <div id="admin" class="s-nav rounded-circle destaque"></div>
+            <p class="text-dark">DJ-Admin</p>
+          </div>
+        </a> -->
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <style>
+    #empreendedor_inicio{      
+      background-color: white !important;
+      background-image: url(/static/images/icones/empreendedor_inicio.png);
+      background-size: contain;
+    }
+    #empreendedor_capacita{      
+      background-color: white !important;
+      background-image: url(/static/images/icones/capacitacao-button.png);
+      background-size: contain;
+    }
+    #empreendedor_servicos{      
+      background-color: white !important;
+      background-image: url(/static/images/icones/empreendedor_servicos.png);
+      background-size: contain;
+    }
+    #empreendedor_protocolo{      
+      background-color: white !important;
+      background-image: url(/static/images/icones/empreendedor_protocolo.png);
+      background-size: contain;
+    }
+    #empreendedor_empresa{      
+      background-color: white !important;
+      background-image: url(/static/images/icones/empreendedor_empresa.png);
+      background-size: contain;
+    }
+    #empreendedor_faccao_legal{      
+      background-color: white !important;
+      background-image: url(/static/images/icones/empreendedor_faccao_legal.jpeg);
+      background-size: contain;
+    }
+    #empreendedor_vitrine{      
+      background-color: white !important;
+      background-image: url(/static/images/icones/empreendedor_vitrine_virtual.jpeg);
+      background-size: contain;
+    }
+    #empreendedor_nota{      
+      background-color: white !important;
+      background-image: url(/static/images/icones/empreendedor_nota.png);
+      background-size: contain;
+    }
+    #empreendedor_cert{      
+      background-color: white !important;
+      background-image: url(/static/images/icones/empreendedor_cert.png);
+      background-size: contain;
+    }
+    #empreendedor_legis{      
+      background-color: white !important;
+      background-image: url(/static/images/icones/empreendedor_legis.png);
+      background-size: contain;
+    }
+    #empreendedor_lici{      
+      background-color: white !important;
+      background-image: url(/static/images/icones/empreendedor_licitacao.png);
+      background-size: contain;
+    }
+    #empreendedor_forms{      
+      background-color: white !important;
+      background-image: url(/static/images/icones/financas_doc.png);
+      background-size: contain;
+    }
+    #admin{
+      background-color: white !important;
+      background-image: url(/static/images/icones/bemestaranimal_admin.png);
+      background-size: contain;
+    }
+  </style>

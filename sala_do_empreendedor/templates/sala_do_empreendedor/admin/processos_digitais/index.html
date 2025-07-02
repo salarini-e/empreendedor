@@ -1,0 +1,133 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row  bg-white" style="border-radius: 30px;">
+      <div class="col">
+        <div class="pt-4 d-flex px-3">
+            <h2 style="display: inline;">Administrativo - Processos Digitais</h2>       
+              <a href="{% url 'empreendedor:admin' %}" class="btn btn-dark ms-auto my-auto">
+                <i class="fa-solid fa-rotate-left"></i>
+              </a>
+              <button id="openFilter" class="btn btn-secondary ms-2 my-auto">
+                <i class="fa-solid fa-filter"></i>            
+              </button> 
+              <button id="openMenu" class="btn btn-secondary ms-2 my-auto">
+                <i class="fa-solid fa-gear"></i>          
+              </button> 
+              <a href="{% url 'empreendedor:requerimento_iss_admin' %}" class="btn btn-success ms-2 my-auto">
+                <i class="fa-solid fa-file-circle-plus me-2"></i> Criar processo
+              </a>
+              <a href="{% url 'empreendedor:processos_concluidos' %}" class="btn btn-dark ms-2 my-auto">
+                <i class="fa-solid fa-folder-closed me-2"></i>Finalizados
+              </a>                        
+            </div>
+            <!-- <div class="row">
+                <div class="col">
+                  {% if messages %}
+                    {% for message in messages %}
+                      <div class="alert {{ message.tags }}">
+                        {{ message }}
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div> -->
+            <div class="row">
+                <div class="col px-5 pb-5 d-flex flex-column">
+                    <div class="menu mt-3 mb-4">
+                      {% if agente_tributario %}
+                        <a href="{% url 'empreendedor:cadastrar_profissao' %}" class="ms-3 btn btn-dark">
+                          <i class="fa-solid fa-circle-plus me-2"></i>Criar nova opção de profissão
+                        </a>
+                      {% endif %}        
+                    </div>
+                    <div class="processos">
+                        <table class="table mt-4">
+                            <thead>
+                                <tr>
+                                    <th>Nº Protocolo</th>
+                                    <th>Status</th>
+                                    <th>Tipo</th>
+                                    <th>Solicitante</th>
+                                    <th class="text-center">Dt. atualização</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              {% for processo in processos %}
+                                <tr>
+                                    <td><strong>{{processo.n_protocolo}}</strong></td>
+                                    <td class="d-flex text-center"><span class="py-1 px-3 rounded-pill w-100" style="background-color: {% if processo.status == 'nv' %}rgb(124, 183, 235){% elif processo.status == 'ae' %}rgb(235, 137, 124){% elif processo.status == 'ar' %}rgb(228, 235, 124){% elif processo.status == 'aa' %}rgb(235, 176, 124){% elif processo.status == 'bg' %}rgb(124, 235, 124){% elif processo.status == 'cn' %}rgb(146, 146, 146){% endif %};">{{processo.get_status_display}}</span></td>
+                                    <td style="padding-top: 12px;"><span class="py-1 px-3 rounded-pill w-100" style="background-color: rgb(124, 235, 150);">{{processo.tipo_processo.nome}}</span></td>
+                                    <td><a target="_blank" href="#"><i class="fa-solid fa-user me-2"></i> {{processo.solicitante.first_name}}</a></td>
+                                    <td class="text-center">{{processo.dt_atualizacao|date:"d/m/y"}}</td>
+                                    <td class="text-center"><a href="{% url 'empreendedor:andamento_processo_admin' processo.id %}"><i st class="fa-solid fa-folder-open me-2"></i> Visualizar processo</a></td>
+                                </tr>
+                              {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+      </div>
+    </div>
+</div>
+</div>
+<div class="row mx-auto px-5">
+  <script>
+    document.getElementById('empreendedor_admin').classList.add('s-nav-active');
+
+    let openfiltros = false
+    function showFiltros(){
+        if (openfiltros){      
+            document.getElementById('filtros').style.display='none'
+            openfiltros=false
+        }else{
+            document.getElementById('filtros').style.display='flex'
+            openfiltros=true
+        }
+    }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const menuButton = document.getElementById("openMenu");
+    const menu = document.querySelector(".menu");
+
+    menuButton.addEventListener("click", function() {
+      menu.classList.toggle("menu-open");
+    });
+  });
+
+  
+  </script>
+</div>
+
+<style>
+    .menu {
+  display: none; /* Inicialmente, ocultar o menu */
+}
+
+.menu-open {
+  display: block; /* Quando a classe "menu-open" é adicionada, mostrar o menu */
+  /* Outros estilos para o menu aberto, como posição, cores, etc. */
+}
+    .border{
+        border-color: rgba(146, 146, 146, 0.2) !important;
+    }
+    #filtros{
+        display: none;
+    }
+</style>
+
+</script>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

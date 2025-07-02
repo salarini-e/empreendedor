@@ -1,0 +1,182 @@
+{% extends 'template.html' %}
+{% load bootstrap5 %}
+{% load empreendedor_filters %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+  <div class="row">
+    <div class="col p-5 border d-flex flex-column" style="background-color: white; border-radius: 30px;">
+      <h1 class="text-center mb-4">CONTRATO DE PRESTAÇÃO DE SERVIÇOS</h1>
+      <h2 class="text-center">{{contrato.titulo}}</h2>
+      <hr>
+      <p class="text-justify">
+        O Programa Dinheiro Direto na Escola (PDDE) tem por finalidade prestar
+assistência financeira para as escolas públicas de educação básica das
+redes estaduais, municipais e distrital e privadas de ensino especial que
+possuam alunos matriculados na educação básica, em caráter
+suplementar, a fim de contribuir para manutenção e melhoria da
+infraestrutura física e pedagógica, com consequente elevação do
+desempenho escolar. Também visa fortalecer a participação social e a
+autogestão escolar.
+
+      </p>
+      <ul class="mt-2">
+        <li><a style="color: blue;" target="_blank" href="https://pddeinterativo.mec.gov.br/images/pdf/manuais/guia_execucao_recursos_pdde.pdf">Guia de execução de recursos PDDE</a></li>
+        <li><a style="color: blue;" target="_blank" href="https://www.gov.br/fnde/pt-br/acesso-a-informacao/acoes-e-programas/programas/pdde">Informações do PDDE - GOV BR</a></li>
+      </ul>
+      <h4 class="mb-3 mt-3">DAS PARTES CONTRATANTES</h4>
+      <p class="mb-3">Decidem as partes, na melhor forma de direito, celebrar o presente CONTRATO DE PRESTAÇÃO DE SERVIÇOS, que reger-se-á mediante as cláusulas e condições adiante estipuladas.</p>
+     <div class="row">
+      <div class="col">
+        <p class="mb-3"><strong>CONTRATADA</strong></p>
+        <table class="mb-3">
+          <tbody>
+            <tr>
+              <td><strong>Nome:</strong></td>
+              <td>{{ contrato.proposta_vencedora.empresa.nome }}</td>
+            </tr>
+            <tr>
+              <td><strong>CNPJ:</strong></td>
+              <td>{{ contrato.proposta_vencedora.empresa.cnpj }}</td>
+            </tr>
+            <tr>
+              <td><strong>Endereço:</strong></td>
+              <td>{{contrato.proposta_vencedora.empresa.endereco}}</td>
+            </tr>
+            <tr>
+              <td><strong>Telefone:</strong></td>
+              <td>{{contrato.proposta_vencedora.empresa.telefone}}</td>
+            </tr>
+            <tr>
+              <td><strong>E-mail:</strong></td>
+              <td>{{contrato.proposta_vencedora.empresa.email}}</td>
+            </tr>
+            <tr>
+              <td><strong>Representante:</strong></td>
+              <td>{{contrato.proposta_vencedora.empresa.user_register.first_name}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col">
+        <p class="mb-3"><strong>CONTRATANTE</strong></p>
+      <table>
+        <tbody>
+          <tr>
+            <td><strong>Nome:</strong></td>
+            <td>{{contrato.solicitacao_referente.escola}}</td>
+          </tr>
+          <tr>
+            <td><strong>CNPJ:</strong></td>
+            <td>{{contrato.solicitacao_referente.escola.cnpj}}</td>
+          </tr>
+          <tr>
+            <td><strong>Endereço:</strong></td>
+            <td>{{contrato.solicitacao_referente.escola.endereco}}</td>
+          </tr>
+          <tr>
+            <td><strong>Telefone:</strong></td>
+            <td>{{contrato.solicitacao_referente.escola.telefone}}</td>
+          </tr>
+          <tr>
+            <td><strong>E-mail:</strong></td>
+            <td>{{contrato.solicitacao_referente.escola.email}}</td>
+          </tr>
+          <tr>
+            <td><strong>Representante:</strong></td>
+            <td>{{contrato.solicitacao_referente.escola.responsavel.first_name}}</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+     </div>
+      <hr>
+      <h4 class="mt-3">DO OBJETO</h4>
+      <p>O presente contrato tem por objeto a prestação de serviços profissionais especializados por parte da (CONTRATADA):</p>
+      <table class="mt-3"> 
+        <thead>
+          <th>Item</th>
+          <th>Quantidade</th>
+          <th>Descrição</th>
+        </thead>
+        <tbody>
+          {% for item in contrato.itens_solicitados.all %}
+          <tr>
+            <td>{{ item.nome }}</td>
+            <td>{{ item.quantidade }} {{ item.unidade }}</td>
+            <td>{{ item.descricao }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>           
+      </table>
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  table, th, td {
+    border: 1px solid #ddd;
+  }
+
+  th, td {
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  table tr td:first-child {
+    width: 150px !important;
+  }
+</style>
+
+      <h4 class="mb-2 mt-3">DA AVALIAÇÃO DE PERFORMANCE</h4>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eos ullam doloremque quaerat mollitia, iusto eius quo iste illum ipsum saepe quia rerum inventore dignissimos! Reiciendis veritatis ratione porro! Odit. </p>
+      <h4 class="mb-2 mt-3">CONDIÇÕES DE PAGAMENTO</h4>
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores dolor asperiores molestias dicta, ipsam dolorum quis esse consequuntur delectus. Molestias nesciunt corrupti laboriosam maxime voluptatum vitae accusamus mollitia animi nisi.</p>
+      <h4 class="mb-2 mt-3">CONDIÇÕES DE ENTREGA</h4>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo ea cum itaque at dignissimos rerum reprehenderit accusantium, porro sunt inventore labore placeat expedita illum omnis possimus laboriosam. In, perspiciatis sapiente?</p>
+      <h4 class="mt-4 mb-2">DECLARAÇÃO</h4>
+      <p>Declaro aceitar os termos da proposta acima, o qual me comprometo a entregar no prazo definido de {{contrato.proposta_vencedora.previsao_entrega}} dias. Declaro ainda estar em dia com as obrigações fiscais e trabalhistas - Federal, Estadual e Municipal -, bem como não possuir débitos e com a Seguridade Social (INSS).</p>      
+      <!-- <h4 class="mb-2 mt-3">LEIS APLICÁVEIS</h4>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt asperiores, voluptatem similique eum, reprehenderit incidunt provident nihil ipsa dolorem hic magni minus sit soluta omnis eveniet quos praesentium harum veniam.</p> -->
+      {% if contratado %}
+      {% if contrato.solicitacao_referente.status == '3' %}
+      <form class="row" method="POST">
+        <div class="col d-flex flex-column">
+          {% csrf_token %}
+        <button type="submit" class="mt-4 btn btn-success mx-auto">
+          Aceitar os termos<i class="fa-solid fa-check ms-2"></i>
+        </button>
+        </div>
+      </form>
+      {% else %}
+      <button class="btn btn-success mt-4 mx-auto px-4" disabled>
+        Contrato aceito<i class="fa-solid fa-check ms-2"></i>
+      </button>
+
+      {% endif %}
+      {% endif %}
+    </div>    
+  </div>
+</div>
+<style>
+  table tr td:first-child{
+    width: 150px !important;
+  }
+</style>
+
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

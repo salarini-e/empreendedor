@@ -1,0 +1,208 @@
+{% extends 'template.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="row mx-auto pb-3">
+  <style>
+      body {
+          background-color: #f4f4f4;
+          font-family: Arial, sans-serif;
+          text-align: center;
+      }
+
+      .construction-icon {
+          font-size: 48px;
+          color: #e74c3c;
+      }
+
+      .message {
+          font-size: 24px;
+          margin-top: 20px;
+          color: #333;
+      }
+
+      .contact {
+          font-size: 18px;
+          margin-top: 20px;
+          color: #666;
+      }
+  </style>
+
+  <div class="row">
+     <div class="col-8 mx-auto" style="text-align: left;">
+      <form method="POST">
+        <h3 class="mb-4">{{titulo_pag}}</h3>
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <div class="mb-3 hidden" id="div_cadastrar_empresa">
+          <div class="form-check">
+          <input type="checkbox" name="cadastrar_empresa" class="form-check-input" id="cadastrar_empresa">
+          <label class="form-check-label" for="cadastrar_empresa">Gostaria de cadastrar sua empresa em nosso sistema?</label>
+        </div>
+      </div>
+        <div class="row">
+          <div class="col d-flex">
+            <button type="submit" class="btn btn-primary mx-auto">
+              Finalizar cadastro de facção
+            </button>
+          </div>
+        </div>
+      </form>
+     </div>
+  </div>
+  <div class="row mx-auto px-5">
+    <script>
+      // // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
+      function findParentDiv(element) {
+        var parent = element.parentNode;
+        
+        // Continue subindo na árvore DOM até encontrar um elemento <div>
+        while (parent && parent.nodeName !== 'DIV') {
+          parent = parent.parentNode;
+        }
+
+        return parent;
+      }
+      // function toggleCnpjDiv(checkbox) {
+      //   var cnpjDiv = findParentDiv(checkbox);
+
+      //   if (checkbox.checked) {
+      //     cnpjDiv.style.display = 'block'; // Exibe a div do CNPJ
+      //   } else {
+      //     cnpjDiv.style.display = 'none'; // Oculta a div do CNPJ
+      //   }
+      // }
+      const possuiMeiCheckbox = document.getElementById('id_possui_mei');
+      const cnpjInput = document.getElementById('id_cnpj');
+
+        // Adicione um ouvinte de evento para o elemento 'possuiMeiCheckbox'
+      possuiMeiCheckbox.addEventListener('change', function() {
+            // Verifique se o checkbox 'possuiMeiCheckbox' está marcado
+            var cnpjDiv = findParentDiv(cnpjInput)
+            if (possuiMeiCheckbox.checked) {
+                // Se estiver marcado, exiba o elemento 'cnpjInput'
+                cnpjDiv.style.display = 'block';
+                cnpjInput.required=true;
+            } else {
+                // Se não estiver marcado, oculte o elemento 'cnpjInput'
+                cnpjDiv.style.display = 'none';
+                cnpjInput.required=false;
+            }
+      });
+
+      // Verifique o estado inicial e ajuste a exibição conforme necessário
+      var cnpjDiv = findParentDiv(cnpjInput)
+      if (possuiMeiCheckbox.checked) {
+            cnpjDiv.style.display = 'block';
+
+      } else {
+            cnpjDiv.style.display = 'none';
+      }
+
+      const possuiColaboradores = document.getElementById('id_possui_colaboradores');
+      const colaboradoresInput = document.getElementById('id_qtd_colaboradores');
+
+        // Adicione um ouvinte de evento para o elemento 'possuiColaboradores'
+        possuiColaboradores.addEventListener('change', function() {
+            // Verifique se o checkbox 'possuiColaboradores' está marcado
+            var colaboradoresDiv = findParentDiv(colaboradoresInput)
+            if (possuiColaboradores.checked) {
+                // Se estiver marcado, exiba o elemento 'colaboradoresInput'
+                colaboradoresDiv.style.display = 'block';
+                colaboradoresInput.required=true;
+            } else {
+                // Se não estiver marcado, oculte o elemento 'cnpjInput'
+                colaboradoresDiv.style.display = 'none';
+                colaboradoresInput.required=false;
+            }
+      });
+      var colaboradoresDiv = findParentDiv(colaboradoresInput)
+      if (possuiColaboradores.checked) {
+            colaboradoresDiv.style.display = 'block';
+
+      } else {
+            colaboradoresDiv.style.display = 'none';
+      }
+
+      function icnpj(inputValue) {
+        let value = inputValue.replace(/\D/g, ""); // Remove caracteres não numéricos
+        value = value.replace(/(\d{2})(\d)/, "$1.$2"); // Coloca um ponto entre o segundo e o terceiro dígitos
+        value = value.replace(/(\d{3})(\d)/, "$1.$2"); // Coloca um ponto entre o quarto e o quinto dígitos
+        value = value.replace(/(\d{3})(\d)/, "$1/$2"); // Coloca uma barra entre o sétimo e o oitavo dígitos
+        value = value.replace(/(\d{4})(\d{1,2})$/, "$1-$2"); // Coloca um hífen entre o décimo segundo e o décimo terceiro dígitos
+        return value;
+    }
+  
+    function mascara(o,f){
+                v_obj=o
+                v_fun=f
+                setTimeout("execmascara()",1)
+            }
+        
+    function execmascara(){
+                v_obj.value=v_fun(v_obj.value)
+            }
+
+      // GAMBIARRA ABAIXO
+      function removerElementos() {
+          // Seleciona todos os elementos label
+          const labels = document.querySelectorAll('label');
+
+          // Itera pelos elementos label
+          labels.forEach(function(label) {
+              // Verifica se o label contém um input e o texto "---------"
+              const input = label.querySelector('input');
+              if (input && label.textContent.trim() === '---------') {
+                  // Remove o elemento label do DOM
+                  findParentDiv(label).remove();
+                  // label.remove();
+              }
+          });
+      }
+      // Chama a função para remover os elementos
+      function checkCNPJ(cnpj){
+            const csrfTokenInput = document.querySelector("input[name='csrfmiddlewaretoken']");
+            const csrfToken = csrfTokenInput.value;
+            let url = "{% url 'empreendedor:checkcnpj' %}";
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ cnpj: cnpj })
+            })
+            .then((response)=>{
+                response.json()
+                .then((data)=>{
+                    const divCadastrarEmpresa = document.getElementById("div_cadastrar_empresa");                    
+                    if (data.exists) {
+                      console.log('existe')
+                      divCadastrarEmpresa.classList.contains('hidden') ? divCadastrarEmpresa.classList.remove('hidden') : null;
+                    } else {
+                      console.log('nao existe')
+                      divCadastrarEmpresa.classList.contains('hidden') ? null : divCadastrarEmpresa.classList.add('hidden');
+                    }
+                })
+            })
+            }
+      removerElementos();
+    </script>
+  </div>
+</div>
+
+<style>
+  .hidden {
+    display: none;
+  }
+</style>
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}x

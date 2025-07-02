@@ -1,0 +1,550 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row  bg-white" style="border-radius: 30px;">
+      <div class="col">
+        <div class="pt-4 d-flex px-3">
+            <h2 style="display: inline;">Processos Digitais</h2>       
+              <a href="{% url 'empreendedor:listar_processos' %}" class="btn btn-dark ms-auto my-auto">
+                <i class="fa-solid fa-rotate-left me-2"></i> Voltar
+              </a>             
+            </div>
+            <div class="row">
+              <div class="col px-5 mt-4 d-flex">
+                <span class="py-0 px-2 rounded-pill" style="background-color: {% if processo.status == 'nv' %}rgb(124, 183, 235){% elif processo.status == 'ae' %}rgb(235, 137, 124){% elif processo.status == 'ar' %}rgb(228, 235, 124){% elif processo.status == 'aa' %}rgb(235, 176, 124){% elif processo.status == 'bg' %}rgb(124, 235, 124){% elif processo.status == 'cn' %}#000000; color: white{% endif %};">{{processo.get_status_display}}</span>
+                <p class="ms-3">
+                  <strong class="my-auto">{{processo.tipo_processo.nome}} - {{processo.n_protocolo}} - {{processo.dt_solicitacao|date:"d/m/y"}}</strong>
+                </p>
+                <p class="ms-auto">
+                  <strong class="ms-3">Solicitante:</strong> <a href="#">{{processo.solicitante.first_name}}</a>
+                </p>
+                  <!-- <p class="ms-auto my-auto"><strong>Profissão:</strong> {{requerimento.profissao.nome}} {% if requerimento.autonomo_localizado == 's' %}(Localizado){% else %}(Não localizado){% endif %} <strong class="ms-3">Solicitante:</strong> <a href="#">{{processo.solicitante.first_name}}</a></p> -->
+              </div>
+            </div>
+            <div class="row">
+              <div class="col px-5 mt-4 d-flex">                
+                  <p class="my-auto"><strong>Profissão:</strong> {{requerimento.profissao.nome}} {% if requerimento.autonomo_localizado == 's' %}(Localizado){% else %}(Não localizado){% endif %}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col d-flex flex-column pt-4 pb-3 px-5">
+                <hr>
+                {% if processo.status == 'cn' %}
+                <div class="row">
+                  <div class="col">
+                    <p><b>Parabéns! Seu processo foi concluído!</b></p>
+
+                    <p class="text-center">Seu número de inscrição municipal:</p>
+                    <h3 class="text-center">{{requerimento.n_inscricao}}</h3>
+                  </div>
+                </div>
+                  <div class="row text-center">
+                    <div class="col pt-4">
+                      <p><i><b>Seu boleto foi gerado!</b></i></p>
+                      <a target="_blank" href="{{requerimento.boleto.url}}" class="btn btn-primary mt-3 mb-3">
+                        <i class="fa-solid fa-file-arrow-down me-2"></i>Downlaod do boleto
+                      </a>
+                    </div>
+                  </div>
+                {% endif %}
+                <!-- if licenca ambiental -->
+                <div class="w-100 pt-4 d-flex flex-column">
+                  <h4>Licença Ambiental</h4>
+                  <p class="mb-3 ">Informamos que para o pleno exercício de suas atividades no ramo, é imperativo obter a Licença Ambiental correspondente. Está solicitação a Secretária de Meio Ambiente está ocorrendo juntamente a este processo.</p>
+                  <!-- <p>Seu ramo de atividade necessita da liberação de Licença Ambiental. Se já possui, envie na caixa abaixo, caso contrário preencha o <a href="#">formulário</a> e solicite sua licença na Secretária de Meio Ambiente situada ao lado da Prefeitura no predio a antiga rodoviaria.</p> -->
+                  <div class="row">
+                    {% if status_documentos.contrato_locacao %}
+                    <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                      <label for="">Contrato de Locação</label>
+                      <p class="bg-status-{{status_documentos.contrato_locacao_status}}">{{status_documentos.get_contrato_locacao_status_display}}</p>
+                    </div>
+                    {% endif %}
+                    <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                      <label for="">Conta D'água</label>
+                      <p class="bg-status-{{status_documentos.conta_dagua_status}}">{{status_documentos.get_conta_dagua_status_display}}</p>
+                    </div>
+                    <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                      <label for="">Conta de Luz</label>
+                      <p class="bg-status-{{status_documentos.conta_luz_status}}">{{status_documentos.get_conta_luz_status_display}}</p>
+                    </div>                                      
+                  </div>
+                  {% if processo.status == 'ar' %}
+                  <div class="row text-center">
+                    {% if status_documentos.contrato_locacao %}
+                    <div class="col d-flex flex-column"> 
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='contrato_locacao' %}" class="border py-2" style="border-radius: 20px;">
+                        Atualizar contrato de locação
+                      </a>               
+                    </div>
+                    {% endif %}
+                    <div class="col d-flex flex-column">
+                      {% if status_documentos.conta_dagua_status == '2' %}
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='conta_dagua' %}" class="border py-2" style="border-radius: 20px;">
+                        Atualizar conta d'água
+                      </a>
+                      {% endif %}
+                    </div>
+                    <div class="col d-flex flex-column">
+                      {% if status_documentos.conta_luz_status == '2' %}
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='conta_luz' %}" class="border py-2" style="border-radius: 20px;">
+                        Atualizar conta de luz
+                      </a>
+                      {% endif %}
+                    </div>                  
+                  </div>
+                  {% endif %}  
+                  <div class="row">
+                    <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                      <label for="">Foto da empresa</label>
+                      <p class="bg-status-{{status_documentos.foto_status}}">{{status_documentos.get_foto_status_display}}</p>
+                    </div> 
+                    <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                      <label for="">Croqui de acesso</label>
+                      <p class="bg-status-{{status_documentos.croqui_acesso_status}}">{{status_documentos.get_croqui_acesso_status_display}}</p>
+                    </div>
+                    {% if status_documentos.contrato_locacao %}
+                    <div class="col d-flex py-2 pb-1 flex-column ms-2">                   
+                    </div>
+                    {% endif %}
+                  </div>
+                  {% if processo.status == 'ar' %}
+                  <div class="row text-center">
+                    {% if status_documentos.contrato_locacao %}
+                    <div class="col d-flex flex-column"> 
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='foto' %}" class="border py-2" style="border-radius: 20px;">
+                        Atualizar foto da empresa
+                      </a>               
+                    </div>
+                    {% endif %}
+                    <div class="col d-flex flex-column"> 
+                    <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='croqui_acesso' %}" class="border py-2" style="border-radius: 20px;">
+                      Atualizar croqui de acesso
+                    </a>               
+                  </div>
+                    {% if status_documentos.contrato_locacao %}
+                    <div class="col d-flex py-2 pb-1 flex-column ms-2">                   
+                    </div>
+                    {% endif %}
+                  </div>
+                  {% endif %}
+                </div>                       
+                {% if requerimento.boleto_meio_ambiente and requerimento.boleto_meio_ambiente_status == False %}
+                <div class="row text-center">
+                  <div class="col pt-4">
+                    <p><i><b>Seu boleto foi gerado!</b></i></p>
+                    <a target="_blank" href="{{requerimento.boleto_meio_ambiente.url}}" class="btn btn-primary mt-3 mb-3">
+                      <i class="fa-solid fa-file-arrow-down me-2"></i>Downlaod do boleto
+                    </a>
+                    <p class="my-3">Sua Licença Ambiental estará disponivel aqui após o reconhecimento do boleto pela Secretária de Meio Ambiente.</p>
+                  </div>
+                </div>
+                {% elif requerimento.boleto_meio_ambiente_status %}
+                <div class="row text-center">
+                  <div class="col pt-4">
+                    <p><i><b>Seu boleto foi pago! <span class="text-success ms-2"><i class="fa-solid fa-circle-check"></i></span></b></i></p>
+                    {% if status_documentos.licenca_ambiental %}
+                    <a target="_blank" href="{{status_documentos.licenca_ambiental.url}}" class="btn btn-primary mt-3 mb-3">
+                      <i class="fa-solid fa-file-arrow-down me-2"></i>Downlaod licença ambiental
+                    </a>
+                    {% endif %}
+                  </div>
+                </div>
+                {% else %}
+                <p class="my-3">Sua Licença Ambiental estará disponivel aqui após a aprovação da Secretária de Meio Ambiente.</p>
+                {% endif %}
+              <!-- </div>   -->
+                <!-- endif -->
+                <!-- if licenca sanitaria -->
+                {% if requerimento.profissao.licenca_sanitaria %}
+                <div class="d-flex flex-column w-100 pt-4">
+                  <h4>Licença Sanitária</h4>
+                  <p class="mb-3">Informamos que para o pleno exercício de suas atividades no ramo, é imperativo obter a Licença Sanitária correspondente. Está solicitação a Secretária de Saúde está ocorrendo juntamente a este processo.</p>
+                  <div class="row">
+                    <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                      <label for="">Comprovante limpeza caixa d'água</label>
+                      <p class="bg-status-{{status_documentos.comprovante_limpeza_caixa_dagua_status}}">{{status_documentos.get_comprovante_limpeza_caixa_dagua_status_display}}</p>
+                    </div>
+                    <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                      <label for="">Comprovante de manutenção de ar condicionado</label>
+                      <p class="bg-status-{{status_documentos.comprovante_ar_condicionado_status}}">{{status_documentos.get_comprovante_ar_condicionado_status_display}}</p>
+                    </div>
+                    <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                      <label for="">Plano de gerenciamento de resíduos</label>
+                      <p class="bg-status-{{status_documentos.plano_gerenciamento_de_residuos_status}}">{{status_documentos.get_plano_gerenciamento_de_residuos_status_display}}</p>
+                    </div>                    
+                  </div>
+                  {% if processo.status == 'ar' %}
+                  <div class="row text-center">
+                    <div class="col d-flex flex-column">
+                      {% if status_documentos.comprovante_limpeza_caixa_dagua_status == '2' %}
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='comprovante_limpeza_caixa_dagua' %}" class="border py-2" style="border-radius: 20px;">
+                        Atualizar comprovante caixa d'água
+                      </a>
+                      {% endif %}
+                    </div>
+                    <div class="col d-flex flex-column">
+                      {% if status_documentos.comprovante_ar_condicionado_status == '2' %}
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='comprovante_ar_condicionado' %}" class="border py-2" style="border-radius: 20px;">
+                        Atualizar compr. de manutenção de ar cond.
+                      </a>
+                      {% endif %}
+                    </div>
+                    <div class="col d-flex flex-column">
+                      {% if status_documentos.plano_gerenciamento_de_residuos_status == '2' %}
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='plano_gerenciamento_de_residuos' %}" class="border py-2" style="border-radius: 20px;">
+                        Atualizar plano de gerência de resíduos
+                      </a>
+                      {% endif %}
+                    </div>
+                  </div>
+                  {% endif %}
+                  {% if status_documentos.licenca_santinaria_anterior %}
+                  <div class="row">
+                      <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                        <label for="">Licença sanitária anterior</label>
+                        <p class="bg-status-{{status_documentos.licenca_santinaria_anterior_status}}">{{status_documentos.get_licenca_santinaria_anterior_status_display}}</p>
+                      </div>
+                      <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                      </div>
+                      <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                      </div>
+                  </div>
+                  {% endif %}                  
+                </div>
+                {% if requerimento.boleto_saude and requerimento.boleto_saude_status == False %}
+                <div class="row text-center">
+                  <div class="col pt-4">
+                    <p><i><b>Seu boleto foi gerado!</b></i></p>
+                    <a target="_blank" href="{{requerimento.boleto_saude.url}}" class="btn btn-primary mt-3 mb-3">
+                      <i class="fa-solid fa-file-arrow-down me-2"></i>Downlaod do boleto
+                    </a>
+                    <p class="my-3">Sua Licença Sanitária estará disponivel aqui após o reconhecimento do boleto pela Secretária de Saúde.</p>
+                  </div>
+                </div>
+                {% elif requerimento.boleto_saude_status %}
+                <div class="row text-center">
+                  <div class="col pt-4">
+                    <p><i><b>Seu boleto foi pago! <span class="text-success ms-2"><i class="fa-solid fa-circle-check"></i></span></b></i></p>
+                    {% if status_documentos.licenca_sanitaria %}
+                    <a target="_blank" href="{{status_documentos.licenca_sanitaria.url}}" class="btn btn-primary mt-3 mb-3">
+                      <i class="fa-solid fa-file-arrow-down me-2"></i>Downlaod licença sanitária
+                    </a>
+                    {% endif %}
+                  </div>
+                </div>
+                {% else %}
+                <p class="my-3">Sua Licença Sanitária estará disponivel aqui após a aprovação da Secretária de Saúde.</p>
+                {% endif %}
+                {% elif requerimento.autonomo_localizado == 's' and requerimento.profissao.licenca_sanitaria_com_alvara %}
+                <div class="d-flex flex-column w-100 pt-4">
+                  <h4>Licença Sanitária</h4>
+                  <p class="mb-3">Informamos que para o pleno exercício de suas atividades no ramo, é imperativo obter a Licença Sanitária correspondente. Está solicitação a Secretária de Saúde está ocorrendo juntamente a este processo.</p>
+                  <div class="row">
+                    <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                      <label for="">Comprovante limpeza caixa d'água</label>
+                      <p class="bg-status-{{status_documentos.comprovante_limpeza_caixa_dagua_status}}">{{status_documentos.get_comprovante_limpeza_caixa_dagua_status_display}}</p>
+                    </div>
+                    <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                      <label for="">Comprovante de manutenção de ar condicionado</label>
+                      <p class="bg-status-{{status_documentos.comprovante_ar_condicionado_status}}">{{status_documentos.get_comprovante_ar_condicionado_status_display}}</p>
+                    </div>
+                    <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                      <label for="">Plano de gerenciamento de resíduos</label>
+                      <p class="bg-status-{{status_documentos.plano_gerenciamento_de_residuos_status}}">{{status_documentos.get_plano_gerenciamento_de_residuos_status_display}}</p>
+                    </div>                    
+                  </div>
+                  {% if processo.status == 'ar' %}
+                  <div class="row text-center">
+                    <div class="col d-flex flex-column">
+                      {% if status_documentos.comprovante_limpeza_caixa_dagua_status == '2' %}
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='comprovante_limpeza_caixa_dagua' %}" class="border py-2" style="border-radius: 20px;">
+                        Atualizar comprovante caixa d'água
+                      </a>
+                      {% endif %}
+                    </div>
+                    <div class="col d-flex flex-column">
+                      {% if status_documentos.comprovante_ar_condicionado_status == '2' %}
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='comprovante_ar_condicionado' %}" class="border py-2" style="border-radius: 20px;">
+                        Atualizar compr. de manutenção de ar cond.
+                      </a>
+                      {% endif %}
+                    </div>
+                    <div class="col d-flex flex-column">
+                      {% if status_documentos.plano_gerenciamento_de_residuos_status == '2' %}
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='plano_gerenciamento_de_residuos' %}" class="border py-2" style="border-radius: 20px;">
+                        Atualizar plano de gerência de resíduos
+                      </a>
+                      {% endif %}
+                    </div>
+                  </div>
+                  {% endif %}
+                  {% if status_documentos.licenca_santinaria_anterior %}
+                    <div class="row">
+                      <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                        <label for="">Licença sanitária anterior</label>
+                        <p class="bg-status-{{status_documentos.licenca_santinaria_anterior_status}}">{{status_documentos.get_licenca_santinaria_anterior_status_display}}</p>
+                      </div>
+                      <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                      </div>
+                      <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                      </div>
+                    </div>
+                    {% if processo.status == 'ar' %}
+                    <div class="row text-center">
+                      <div class="col d-flex flex-column">
+                      {% if status_documentos.licenca_santinaria_anterior_status == '2' %}
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='licenca_santinaria_anterior' %}" class="border py-2" style="border-radius: 20px;">
+                        Atualizar licença sanitária anterior
+                      </a>
+                      </div>
+                      <div class="col d-flex py-2 pb-1 flex-column ms-2"></div>
+                      <div class="col d-flex py-2 pb-1 flex-column ms-2"></div>
+                    </div>
+                      {% endif %}
+                    {% endif%}
+                  {% endif %}                  
+                </div>
+                {% if requerimento.boleto_saude and requerimento.boleto_saude_status == False %}
+                <div class="row text-center">
+                  <div class="col pt-4">
+                    <p><i><b>Seu boleto foi gerado!</b></i></p>
+                    <a target="_blank" href="{{requerimento.boleto_saude.url}}" class="btn btn-primary mt-3 mb-3">
+                      <i class="fa-solid fa-file-arrow-down me-2"></i>Downlaod do boleto
+                    </a>
+                    <p class="my-3">Sua Licença Sanitária estará disponivel aqui após o reconhecimento do boleto pela Secretária de Saúde.</p>
+                  </div>
+                </div>
+                {% elif requerimento.boleto_saude_status %}
+                <div class="row text-center">
+                  <div class="col pt-4">
+                    <p><i><b>Seu boleto foi pago! <span class="text-success ms-2"><i class="fa-solid fa-circle-check"></i></span></b></i></p>
+                    {% if status_documentos.licenca_sanitaria %}
+                    <a target="_blank" href="{{status_documentos.licenca_sanitaria.url}}" class="btn btn-primary mt-3 mb-3">
+                      <i class="fa-solid fa-file-arrow-down me-2"></i>Downlaod licença sanitária
+                    </a>
+                    {% endif %}
+                  </div>
+                </div>
+                {% else %}
+                <p class="my-3">Sua Licença Sanitária estará disponivel aqui após a aprovação da Secretária de Saúde.</p>
+                {% endif %}
+                {% endif %}
+                <!-- endif -->
+                <div class="d-flex w-100 pt-3">
+                <h4>Demais anexos</h4>
+               
+                </div>
+                  <div class="row mt-1 mb-4">
+                    <div class="col d-flex flex-column">
+                      <label for="">Status RG</label>
+                      <p class="bg-status-{{status_documentos.rg_status}}">{{status_documentos.get_rg_status_display}}</p>
+                    </div>
+                    <div class="col d-flex flex-column ms-2">
+                      <label for="">Status Comprovante</label>
+                      <p class="bg-status-{{status_documentos.comprovante_endereco_status}}">{{status_documentos.get_comprovante_endereco_status_display}}</p>
+                    </div>
+                    {% if requerimento.profissao.escolaridade.id == 1  or requerimento.profissao.escolaridade.id == 2 or requerimento.profissao.escolaridade.id == 3 or requerimento.profissao.escolaridade.id == 4 %}
+                    <div class="col d-flex flex-column ms-2">
+                      <label for="">Status Diploma/Certificado</label>
+                      <p class="bg-status-{{status_documentos.diploma_ou_certificado_status}}">{{status_documentos.get_diploma_ou_certificado_status_display}}</p>
+                    </div>
+                  {% endif %}
+                  {% if requerimento.profissao.licenca_sanitaria_status %}
+                    <div class="col d-flex flex-column ms-2">
+                      <label for="">Status Licença Sanitária</label>
+                      <p class="bg-status-{{status_documentos.licenca_sanitaria_status}}">{{status_documentos.get_licenca_sanitaria_status_display}}</p>
+                    </div>
+                    {% endif %}
+                    {% if requerimento.autonomo_localizado == 's' %}
+                    <div class="col d-flex flex-column ms-2">
+                      <label for="">Status Espelho de IPTU</label>
+                      <p class="bg-status-{{status_documentos.espelho_iptu_status}}">{{status_documentos.get_espelho_iptu_status_display}}</p>
+                    </div>
+                    {% endif %}
+                  </div>
+                  {% if processo.status == 'ar' %}
+                  <div class="row text-center">
+                    <div class="col d-flex flex-column">
+                      {% if status_documentos.rg_status == '2' %}
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='rg' %}" class="border py-2" style="border-radius: 20px;">
+                        Atualizar RG
+                      </a>
+                      {% endif %}
+                    </div>
+                    <div class="col d-flex flex-column ms-2">
+                      {% if status_documentos.comprovante_endereco_status == '2' %}
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='comprovante_endereco' %}" class="border py-2" style="border-radius: 20px;">
+                        Atualizar Comprovante
+                      </a>
+                      {% endif %}
+                    </div>
+                    {% if requerimento.profissao.escolaridade.id == 1  or requerimento.profissao.escolaridade.id == 2 or requerimento.profissao.escolaridade.id == 3 or requerimento.profissao.escolaridade.id == 4 %}
+                    <div class="col d-flex flex-column ms-2">
+                      {% if status_documentos.diploma_ou_certificado_status == '2' %}
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='diploma_ou_certificado' %}" class="border py-2" style="border-radius: 20px;">
+                        Atualizar Diploma/Certificado
+                      </a>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                  {% if requerimento.profissao.licenca_sanitaria %}
+                    <div class="col d-flex flex-column ms-2">
+                      {% if status_documentos.licenca_sanitaria == '2' %}
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='licenca_sanitaria' %}" class="border py-2" style="border-radius: 20px;">
+                        Atualizar Licença Sanitária
+                      </a>
+                      {% endif %}
+                    </div>
+                    {% endif %}
+                    {% if requerimento.autonomo_localizado == 's' %}
+                    <div class="col d-flex flex-column ms-2">
+                      {% if status_documentos.espelho_iptu_status == '2' %}
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='espelho_iptu' %}" class="border py-2" style="border-radius: 20px;">
+                        Atualizar Espelho de IPTU
+                      </a>
+                      {% endif %}
+                    </div>
+                    {% endif %}
+                  </div>                  
+                  {% endif %}
+                <hr>
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col px-5 d-flex">
+                <h4 class="my-auto py-0">Andamento do processo</h4>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                  {% if messages %}
+                    {% for message in messages %}
+                      <div class="alert {{ message.tags }}">
+                        {{ message }}
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+            <div class="row">
+                <div class="col px-5 pb-5 d-flex flex-column">
+                    <div class="menu mt-3 mb-4">
+                        <a href="#">
+                            Escolaridade
+                        </a>
+                        <a href="#" class="ms-3">
+                            Profissão
+                        </a>
+                        <a href="#" class="ms-3">
+                            Status do
+                        </a>
+                    </div>
+                    <div class="processos">
+                        <table class="table mt-4">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th class="text-center">Status do andamento</th>
+                                    <th>Mensagem</th>
+                                    <th class="text-center">Data do andamento</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              {% for andamento in andamentos %}
+                                <tr {% if forloop.first %}style="background-color: #ebe3dd;"{% endif %}>
+                                    <td class="{% if forloop.first %}{% if processo.status == 'cn' %}text-success{% else %}text-dange{% endif %}{% else %}text-success{% endif %} text-center">
+                                      {% if forloop.first %}
+                                      {% if processo.status == 'cn' %}
+                                      <i class="fa-solid fa-check"></i>
+                                      {% else %}
+                                      <i class="fa-solid fa-exclamation"></i>                                    
+                                      {% endif %}
+                                      {% else %}
+                                      <i class="fa-solid fa-check"></i>
+                                      {% endif %}
+                                    </td>
+                                    <td class="text-center d-flex"><span class="mx-auto py-1 px-2 rounded-pill w-100"  style="background-color: {% if andamento.status == 'nv' %}rgb(124, 183, 235){% elif andamento.status == 'ae' %}rgb(228, 235, 124){% elif andamento.status == 'ar' %}rgb(228, 235, 124){% elif andamento.status == 'aa' %}rgb(235, 176, 124){% elif andamento.status == 'bg' %}rgb(124, 235, 124){% elif andamento.status == 'cn' %}#000000; color: white{% endif %}; max-width: 300px;">{{andamento.get_status_display}}</span></td>
+                                    <td>{% if andamento.observacao != 'n/h' %}{{andamento.observacao}}{% else %} <span class="text-secondary"><i>Não há mensagem.</i></span> {% endif %}</td>                  
+                                    <td class="text-center">{{andamento.dt_andamento|date:"d/m/y"}}</td>
+                                  
+                                </tr>                               
+                              {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+      </div>
+    </div>
+</div>
+</div>
+<div class="row mx-auto px-5">
+  {% csrf_token %}
+  <style>
+    .bg-status-0{
+      margin-top: 5px;
+      text-align: center;
+      background-color: rgb(243, 232, 78);
+      border-radius: 20px;
+    }
+    .bg-status-1{
+      margin-top: 5px;
+      text-align: center;
+      background-color: rgb(91, 193, 93);
+      border-radius: 20px;
+    }
+    .bg-status-2{
+      margin-top: 5px;
+      text-align: center;
+      background-color: rgb(181, 33, 33);
+      color: rgb(239, 196, 196);
+      border-radius: 20px;  
+    }
+  </style>
+  <script>
+
+    let openfiltros = false
+    function showFiltros(){
+        if (openfiltros){      
+            document.getElementById('filtros').style.display='none'
+            openfiltros=false
+        }else{
+            document.getElementById('filtros').style.display='flex'
+            openfiltros=true
+        }
+    }
+    document.getElementById('empreendedor_protocolo').classList.add('s-nav-active');
+  </script>
+</div>
+
+<style>
+    .menu {
+  display: none; /* Inicialmente, ocultar o menu */
+}
+
+.menu-open {
+  display: block; /* Quando a classe "menu-open" é adicionada, mostrar o menu */
+  /* Outros estilos para o menu aberto, como posição, cores, etc. */
+}
+    .border{
+        border-color: rgba(146, 146, 146, 0.2) !important;
+    }
+    #filtros{
+        display: none;
+    }
+</style>
+
+</script>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

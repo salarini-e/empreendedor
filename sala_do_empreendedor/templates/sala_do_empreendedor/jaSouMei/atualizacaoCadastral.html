@@ -1,0 +1,41 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row mx-auto ps-4 pb-3">
+        <h3 class="text-center">ATENÇÃO</h3>
+    </div>
+    <div class="row mx-auto mb-5">
+        <div class="col">
+            <p>
+                Sabemos que você não tem tempo a perder, mas erros podem acontecer no sistema do MEI! 
+                <br><br>
+                Tenha certeza de que existem pessoas trabalhando para evitar que erros ocorram e corrigi-los o mais rápido possível.
+                <br><br>
+                Pedimos a sua ajuda ao verificar alguma falha ou inconsistência de informações no Portal do Empreendedor, utilize o “Fale Conosco”  e nos diga o que está acontecendo. Melhor ainda se puder enviar uma imagem do problema.
+                <br><br>
+                Certamente isso nos ajudará e também fará um bem enorme a todas as pessoas que precisam dos serviços deste Portal
+            </p>
+        </div>
+        <p class="my-3"><b>Alteração de dados cadastrais:</b></p>
+        <p><b>Por que manter os dados atualizados? </b></p>
+        <p>O CCMEI deve representar a situação atual da empresa. Além disso, você tem a oportunidade de participar de ações do governo, acessar crédito nos bancos e se relacionar com outros parceiros que incentivam o desenvolvimento do seu negócio. É simples e rápido! </p>
+        <p><b>O que se pode alterar? </b></p>
+        <p>
+            Sempre que mudar seus dados empresariais (atividade, forma de atuação, endereço, nome fantasia etc.), você deve atualizar seus dados, gratuitamente, aqui no Portal do Empreendedor. 
+            Mas antes disso, não se esqueça de procurar a prefeitura para saber quais são as exigências do município, para os casos de inclusão ou alteração de uma nova atividade, forma de atuação ou endereço. <br><br>
+            Para realizar esse procedimento, basta ter em mãos o CNPJ da empresa e seus documentos pessoais (CPF, DIRPF dos últimos dois anos ou título de eleitor). Estes documentos são necessários para gerar o Código de Acesso ao Simples Nacional que permitirá́ realizar a alteração dos dados de sua empresa.
+        </p>
+    </div>
+     {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

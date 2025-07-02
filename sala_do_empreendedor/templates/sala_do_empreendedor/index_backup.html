@@ -1,0 +1,242 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% include 'slide_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+  <link rel="stylesheet" href="{% static 'css/empreendedor.css' %}">
+  <style>
+    /* Estilos inline para garantir que funcionem */
+    .modern-hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 60px 0;
+      color: white;
+      text-align: center;
+    }
+    
+    .modern-hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .modern-hero p {
+      font-size: 1.3rem;
+      opacity: 0.9;
+    }
+    
+    .modern-services {
+      padding: 60px 0;
+    }
+    
+    .service-card-modern {
+      background: white;
+      border-radius: 20px;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      margin: 15px;
+      border: none;
+      height: 100%;
+    }
+    
+    .service-card-modern:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .service-icon-modern {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: white;
+    }
+    
+    .btn-modern {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border: none;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-modern:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      color: white;
+      text-decoration: none;
+    }
+    
+    .contact-modern {
+      background: linear-gradient(135deg, #2c3e50, #34495e);
+      color: white;
+      padding: 60px 0;
+      text-align: center;
+    }
+    
+    .contact-card-modern {
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 40px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+  </style>
+{% endblock %}
+
+{% block main %}
+
+<!-- Hero Section Moderna -->
+<section class="modern-hero">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <h1>Sala do Empreendedor</h1>
+        <p class="lead">Seu parceiro no mundo dos negócios em Nova Friburgo</p>
+        <p>Oferecemos suporte completo para empreendedores, desde a abertura de empresas até o crescimento do seu negócio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Serviços Modernos -->
+<section class="modern-services" id="servicos">
+  <div class="container">
+    <h2 class="text-center mb-5 display-4 fw-bold">Nossos Serviços</h2>
+    
+    <div class="row">
+      <!-- MEI -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="service-card-modern">
+          <div class="service-icon-modern">
+            <i class="fas fa-user-tie"></i>
+          </div>
+          <h3 class="h5 mb-3">Microempreendedor Individual</h3>
+          <p class="text-muted mb-4">Formalize seu negócio como MEI de forma rápida e gratuita.</p>
+          <a href="{% url 'empreendedor:quero_ser_mei' %}" class="btn-modern">Quero ser MEI</a>
+        </div>
+      </div>
+      
+      <!-- Abertura de Empresa -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="service-card-modern">
+          <div class="service-icon-modern">
+            <i class="fas fa-building"></i>
+          </div>
+          <h3 class="h5 mb-3">Abertura de Empresa</h3>
+          <p class="text-muted mb-4">Processo completo para abertura de empresas com orientação.</p>
+          <a href="{% url 'empreendedor:abertura_de_empresa' %}" class="btn-modern">Abrir Empresa</a>
+        </div>
+      </div>
+      
+      <!-- Capacitação -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="service-card-modern">
+          <div class="service-icon-modern">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h3 class="h5 mb-3">Capacitação Profissional</h3>
+          <p class="text-muted mb-4">Cursos e treinamentos para desenvolver suas habilidades.</p>
+          <a href="{% url 'cursos_profissionais:index' %}" class="btn-modern">Ver Cursos</a>
+        </div>
+      </div>
+      
+      <!-- Linha de Crédito -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="service-card-modern">
+          <div class="service-icon-modern">
+            <i class="fas fa-hand-holding-usd"></i>
+          </div>
+          <h3 class="h5 mb-3">Linha de Crédito</h3>
+          <p class="text-muted mb-4">Acesso a linhas de crédito especiais para empreendedores.</p>
+          <a href="{% url 'empreendedor:solicitacao_linha_de_credito' %}" class="btn-modern">Solicitar Crédito</a>
+        </div>
+      </div>
+      
+      <!-- Oportunidades -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="service-card-modern">
+          <div class="service-icon-modern">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <h3 class="h5 mb-3">Oportunidades de Negócio</h3>
+          <p class="text-muted mb-4">Descubra novas oportunidades de mercado.</p>
+          <a href="{% url 'empreendedor:oportunidade' %}" class="btn-modern">Ver Oportunidades</a>
+        </div>
+      </div>
+      
+      <!-- Certidões -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="service-card-modern">
+          <div class="service-icon-modern">
+            <i class="fas fa-certificate"></i>
+          </div>
+          <h3 class="h5 mb-3">Certidões e Documentos</h3>
+          <p class="text-muted mb-4">Emissão de certidões e documentos necessários.</p>
+          <a href="https://servicoonline.novafriburgo.rj.gov.br/services/certidao_retirada.php" target="_blank" class="btn-modern">Emitir Certidão</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contato Moderno -->
+<section class="contact-modern">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="contact-card-modern">
+          <h2 class="mb-4">Fale Conosco</h2>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <i class="fab fa-whatsapp fs-2 me-3"></i>
+                <a href="https://api.whatsapp.com/send?phone=552225259151" target="_blank" class="text-white text-decoration-none fs-5">
+                  (22) 2525-9151
+                </a>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <i class="fas fa-phone fs-2 me-3"></i>
+                <span class="fs-5">(22) 2525-9151</span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3">
+            <i class="fas fa-map-marker-alt me-3"></i>
+            Av. Alberto Braune, 225 - Centro, Nova Friburgo - RJ
+          </div>
+          <div class="mt-2">
+            <i class="fas fa-clock me-3"></i>
+            09:00 às 17:00 de Segunda à Sexta-feira
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
+</script>
+
+{% endblock %}
+
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

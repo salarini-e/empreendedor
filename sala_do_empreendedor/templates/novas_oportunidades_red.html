@@ -1,0 +1,68 @@
+{% extends 'template.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="row mx-auto pb-3">
+  <style>
+      body {
+          background-color: #f4f4f4;
+          font-family: Arial, sans-serif;
+          text-align: center;
+      }
+
+      .construction-icon {
+          font-size: 48px;
+          color: #e74c3c;
+      }
+
+      .message {
+          font-size: 24px;
+          margin-top: 20px;
+          color: #333;
+      }
+
+      .contact {
+          font-size: 18px;
+          margin-top: 20px;
+          color: #666;
+      }
+  </style>
+
+  <div class="row">
+    <div class="col-8 mx-auto" style="text-align: left;">
+        <h3>Participe das Rodadas de Crédito com Instituições Bancárias!</h3>
+    <p>        
+            Garanta seu lugar agora uma das datas de sua preferência para participar da rodada de credito com a presença das instituições bancarias! <strong>Vagas limitadas!</strong>
+    </p>
+    <div class="row">
+        <div class="col d-flex pt-3">
+            <a href="https://forms.office.com/r/szbRw4mc5L" class="ms-auto me-1 btn btn-primary">
+            18/03 (seg) - a partir das 9h
+            </a>
+            <a onclick="alertar()" class="me-auto ms-1 btn btn-primary">
+            25/03 (seg) - a partir das 14h
+            </a>
+        </div>
+    </div>
+    <p class="mt-3">As rodadas serão realizadas no SEBRAE. Localizado em: Espaço Arp. Endereço: Av. Conselheiro Július Arp, 80 - bloco 2 - Centro, Nova Friburgo - RJ, 28623-000.</p>
+
+    </div>
+  </div>
+</div>
+<script>
+    
+    function alertar(){
+        alert('Essa data ainda não está confirmada!')
+    }
+</script>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}x

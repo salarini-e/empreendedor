@@ -1,0 +1,105 @@
+{% extends 'template.html' %}
+{% load bootstrap5 %}
+{% load static%}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/cursos.css">
+<script src="{% static 'js/cursos.js' %}"></script>
+{% endblock %}
+{% block main %}
+<div class="row">
+    <div class="col d-flex py-5"> 
+        <div class="row w-100">
+            <div class="col-10 pb-4 m-auto bg-white px-5" style="border-radius: 30px;">                                
+                <div class="row">
+                    <div class="col d-flex flex-column">
+                        <div class="row">
+                            <div class="col d-flex py-4">                                
+                                <h1 class="my-auto">
+                                    {{curso}}
+                                </h1> 
+                                <img style="height: 50px;" class="ms-auto my-auto" src="{{curso.categoria.icone.url}}" alt="">
+                            </div>
+                        </div>
+                        <img class="w-100 mx-auto" src="{% if curso.banner_maior %}{{curso.banner_maior.url}}{% else %}{{curso.banner.url}}{% endif %}" alt="" style="border-radius: 30px;">
+                    </div>
+                </div>   
+                <div class="row">
+                    <div class="col p-5 d-flex flex-column">
+                        <b>Descrição:</b>
+                        <p>{{curso.descricao}}</p>   
+                        <b class="mt-2">Categoria da atividade:</b>                      
+                        <p>{{curso.categoria}}</p>
+                        <b class="mt-2">Instituição:</b>
+                        <p>{{curso.instituicao}}</p>
+                        <b class="mt-2">Instrutore(s):</b>
+                        
+                            {% if turmas %}
+                            {% for turma in turmas %}
+                            {% if turma.instrutores %}
+                            {% for instrutor in turma.instrutores.all %}
+                            <p>
+                            {{instrutor}}
+                            </p>
+                            {% endfor %}
+                            {% else %}
+                            <p>
+                            <i class="text-secondary">Não há insformações a respeito dos instrutores.</i>
+                            </p>
+                            {% endif %}                            
+                            {% endfor %}
+                            {% else %}
+                            <p>
+                            <i class="text-secondary">Não há insformações a respeito dos instrutores.</i>
+                            </p>
+                            {% endif %}
+                                                                       
+                    </div>
+                    <div class="col-5 p-5 d-flex justify-content-between">
+                        <div class="row w-100">
+                           <div class="col d-flex flex-column">
+                            <p class="mb-4">
+                                <b>
+                                    <i class="fa-solid fa-clock me-3"></i>Duração:
+                                </b> 
+                                {{curso.carga_horaria}} {{curso.get_tipo_carga_horaria_display}}{% if curso.carga_horaria > 1 %}s{% endif %}
+                            </p>    
+                            <p class="mb-4"><b><i class="fa-solid fa-graduation-cap me-2"></i> Nível:</b> {{curso.get_nivel_ensino_display}}</p>
+                            <b class="mt-2">
+                                <i class="fa-solid fa-list-check me-2"></i>
+                                Requisitos:
+                            </b>
+                            {% if curso.requisitos.all %}
+                            <ul>
+                            {% for requisito in curso.requisitos.all %}                            
+                                <li>{{requisito}}</li>                            
+                            {% endfor %}             
+                            </ul>
+                            {% else %}               
+                            <ul>
+                                <li>Nenhum. </li>
+                            </ul>
+                            {% endif %}
+                            <a href="{% url 'cursos_empresariais:matricula' tipo curso.id %}" class=" btn_matricula btn btn-primary mt-4 rounded-pill w-100" style="font-size: 16pt; border-radius: 25px !important; background-color: #24364F; border-color: #24364F;">                                
+                                Quero me matricular
+                                <i class="fa-solid fa-clipboard-check ms-2"></i>
+                            </a> 
+                           </div>   
+                        </div>
+                        
+                        
+                        
+                    </div>
+                </div>                  
+           
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('empreendedor_capacita').classList.add('s-nav-active');
+</script>
+
+{% endblock %}

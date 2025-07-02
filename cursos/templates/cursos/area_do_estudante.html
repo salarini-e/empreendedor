@@ -1,0 +1,237 @@
+{% extends 'template.html' %}
+{% load bootstrap5 %}
+{% load static%}
+{% block nav %}
+{% include 'nav_cursos.html' %}
+{% endblock %}
+{% block title %}BEM VINDO - CURSOS LIVRES{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/administrativo.css' %}">
+
+{% endblock %}
+{% block administrativo %}fw-bold{% endblock %}
+{% block main %}
+<div class="row">
+  <div class="col d-flex py-5">
+    <div class="row w-100">
+      <div class="col-10 pb-4 m-auto bg-white">
+
+        <div class="row">
+          <div class="col text-dark px-4 pt-4">
+            <div class="row">
+              <div class="col">
+                <h1 class="text-uppercase">
+                  Área do Estudante
+                </h1>
+              </div>
+              <div class="col d-flex">
+                <a href="{% url 'cursos:editar_cadastro' %}" class="btn btn-dark ms-auto my-auto">
+                  <i class="fa-solid fa-user-gear me-1"></i> Editar cadastro
+                </a>
+                <a href="{% url 'cursos:alterar_senha' %}" class="btn btn-dark ms-1 my-auto">
+                  <i class="fa-solid fa-user-gear me-1"></i> Alterar senha
+                </a>
+                <button id="exibirButton" class="btn btn-dark ms-1 my-auto" onclick="exibirLista()">
+                  <i class="fa-solid fa-display me-1"></i> Exibir lista de espera
+                </button>
+              </div>
+            </div>
+            <div class="row px-2 pt-2 d-flex">
+              <div class="col px-0 painel">
+                <!-- <a href="{% url 'adm_turmas_cadastrar' %}"><i class="fa-solid fa-plus me-3"></i>cadastrar TURMA</a>
+                                <a href="{% url 'adm_turmas_listar' %}" class="ativo"><i class="fa-regular fa-file-lines me-3"></i>LISTAR/EDITAR TURMAS</a> -->
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 pt-4">
+                <form class="row px-2" method="POST">
+                  <div class="col-12">
+                    <div class="w-100 pt-3 table-responsive listaEspera div-info-cursos" style="display: none;">
+                      <div class="w-100 pt-3">
+                        <h5 class="mb-3">AGUARDANDO NOVA TURMA</h5>
+                        <table class="table table-striped table-primary">
+                          <thead>
+                            <th>Curso</th>
+                            <th>Aguardando desde</th>
+                          </thead>
+                          <tbody>
+                          {% for alerta in alertas %}
+                            <tr>
+                              <td>
+                                <li>{{alerta.curso}}</li>
+                              </td>
+                              <td>{{alerta.dt_inclusao}}</td>
+                            </tr>
+                          {% endfor %}
+                          </tbody>
+                        </table>
+                        <p class="text-danger mb-3">Lembre-se que você será NOTIFICADO quando abrir uma nova turma para
+                          você solicitar inscrição nela.</p>
+                      </div>
+                    </div>
+                    <div class="w-100 h-100 pt-3 table-responsive div-info-cursos">
+                      <h5 class="mb-3">CURSOS INSCRITOS</h5>
+                      <table class="table table-striped table-primary">
+                        <thead>
+                          <td>
+
+                          </td>
+                          <th>Turma</th>
+                          <th>Status</th>
+                          <th>Horário</th>
+                          <th>Curso</th>
+                          <th>Data Inicial</th>
+                          <th>Data final</th>
+                          <th>Status</th>
+                        </thead>
+                        <tbody>
+                          {% for matricula in matriculas %}
+                          <tr>
+                            <td>
+                            </td>
+                            <td class="text-uppercase">{{matricula.turma}}</td>
+                            <td>{{matricula.get_status_display}}</td>
+                            {% if matricula.turma.turnos.all %}
+                            
+                            <td>{% for i in matricula.turma.turnos.all %}
+                            <p>{{ i }}</p>
+                            {% endfor %}
+                            </td>
+                            {% else %}
+                            <td>Não especificado</td>
+                            {% endif %}
+                            <td>{{matricula.turma.curso.nome}}</td>
+                            <td>{{matricula.turma.data_inicio|date:"d/m/Y"}}</td>
+                            <td class="">{{matricula.turma.data_final|date:"d/m/Y"}}</td>
+                            <td class="text-center">
+                              {% if matricula.turma.status == 'pre' %}
+                              <div class="bg-danger w-100 rounded text-light">Pré-inscrição</div>
+                              {% elif matricula.turma.status == 'ati' %}
+                              <div class="bg-success w-100 rounded text-light">Ativa</div>
+                              {% elif matricula.turma.status == 'agu' %}
+                              <div class="bg-warning w-100 rounded text-dark">Aguardando</div>
+                              {% elif matricula.turma.status == 'acc' %}
+                              <div class="bg-info w-100 px-3 rounded text-dark">Ativa</div>
+                              {% elif matricula.turma.status == 'enc' %}
+                              <div class="bg-dark w-100 rounded text-light">Encerrada</div>
+                              {% endif %}
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                    <!-- <div class="w-100 pt-3 div-info-cursos-mobile listaEspera">
+                      <h5 class="mb-3">AGUARDANDO NOVA TURMA</h5>
+                      <div>
+                        {% for alerta in alertas %}
+                        <section>
+                          <h1>Curso</h1>
+                          <p>{{alerta.curso}}</p>
+                          <h1>Aguardando desde</h1>
+                          <p>{{alerta.dt_inclusao}}</p>
+                          {% endfor %}
+                        </section>
+                      </div>
+                      <p class="text-danger">Lembre-se que você será NOTIFICADO quando abrir uma nova turma
+                        para que você solicitar inscrição nela.</p>
+                    </div> -->
+                    <!-- <div class="w-100 h-100 pt-3 py-3 px-3 curso-estudante div-info-cursos-mobile ">
+                      <h5 class="mb-3">CURSOS INSCRITOS</h5>
+                      <div>
+                        {% for matricula in matriculas %}
+                        <section class="curso-inscrito">
+                          <h1>Turma</h1>
+                          <p>{{matricula.turma}}</p>
+                          <h1>Horário</h1>
+                          {% if matricula.turma.turnos.all %}
+                          {% for i in matricula.turma.turnos.all %}
+                          <p>{{ i }}</p>
+                          {% endfor %}
+                          {% else %}
+                          <p>Não especificado</p>
+                          {% endif %}
+                          <h1>Curso</h1>
+                          <p>{{matricula.turma.curso.nome}}</p>
+                          <h1>Data Inicial</h1>
+                          <p>{{matricula.turma.data_inicio|date:"d/m/Y"}}</p>
+                          <h1>Data final</h1>
+                          <p>{{matricula.turma.data_final|date:"d/m/Y"}}</p>
+                          <h1>Status</h1>
+                          {% if matricula.turma.status == 'pre' %}
+                          <p>Pré-inscrição</p>
+                          {% elif matricula.turma.status == 'ati' %}
+                          <p>Ativa</p>
+                          {% elif matricula.turma.status == 'agu' %}
+                          <p>Aguardando</p>
+                          {% elif matricula.turma.status == 'acc' %}
+                          <p>Ativa</p>
+                          {% elif matricula.turma.status == 'enc' %}
+                          <p>Encerrada</p>
+                          {% endif %}
+                        </section>
+                        {% endfor %}
+                      </div>
+                      <table class="table table-striped table-primary">
+                        <thead>
+                          <td class="text-center">
+                            {% if matricula.turma.status == 'enc' %}
+                            <a target="_blank" href="#">
+                              <i class="me-1 fa-solid fa-print"></i>
+                              Certificado
+                            </a>
+                            {% elif matricula.turma.status == 'ati' %}
+                            <a target="_blank" href="#">
+                              <i class="me-1 fa-solid fa-clock"></i>
+                              Horários
+                            </a>
+                            {% elif matricula.turma.status == 'acc' %}
+                            <a target="_blank" href="#">
+                              Horários
+                              <i class="ms-1 fa-solid fa-clock"></i>
+                            </a>
+                            {% else %}
+                            Aguarde
+                            {% endif %}
+                          </td>
+                          </tr>
+                          </tbody>
+                      </table>
+                    </div> -->
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  #listaEspera {
+    display: none;
+  }
+</style>
+<script>
+  document.getElementById('s-estudante').classList.add('s-nav-active');
+  div = document.querySelector('.listaEspera')
+  open = false
+
+  function exibirLista() {
+    div = document.querySelector('.listaEspera')
+    if (open) {
+      div.style.display = 'none'
+      open = false
+      document.getElementById('exibirButton').innerHTML = '<i class="fa-solid fa-display me-1"></i> Exibir lista de espera'
+    } else {
+      div.style.display = 'block'
+      document.getElementById('exibirButton').innerHTML = '<i class="fa-solid fa-xmark me-1"></i> Ocultar lista de espera'
+      open = true
+    }
+
+  }
+
+</script>
+
+{% endblock %}

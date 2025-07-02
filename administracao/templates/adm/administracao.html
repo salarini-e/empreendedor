@@ -1,0 +1,49 @@
+{% extends 'template.html' %}
+{% block title %}Desenvolve NF - Bem-Estar Animal - Painel{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/administrativo.css">
+{% endblock %}
+{% load bootstrap5 %}
+{% block nav %}
+{% include 'nav_bemestaranimal.html' %}
+{% endblock %}
+{% block main %}
+<div class="row">
+    <div class="col d-flex pb-5"> 
+        <div class="row w-100">
+            <div class="col-10 pb-4 m-auto bg-white">            
+                <div class="row">
+                    <div class="col text-dark px-4 pt-4">
+                        <h1 class="text-uppercase">
+                          Painel
+                        </h1>
+                        <div class="row px-4 pt-2 d-flex">
+                            <div class="col painel">
+                                <a href="{% url 'listar_tutor' %}"><i class="fa-solid fa-users me-3"></i>Tutores</a>
+                                <a href="{% url 'bemestaranimal:admListarParceiros' %}"><i class="fa-solid fa-users me-3"></i>Parceiros</a>
+                                <a href="{% url 'cadastrar_catalogo' %}"><i class="fa-solid fa-paw me-3"></i>Cadastrar animal para adoção</a>
+                            </div>
+                        </div>
+
+                        <div class="row px-4 d-flex">
+                          <div class="col painel">
+                            <a href="{% url 'cadastrar_errante' %}"><i class="fa-solid fa-bone me-3"></i>Cadastrar animal errante</a>                                                            
+                            <a href="{% url 'listar_entrevistas' %}"><i class="fa-solid fa-file-lines me-3"></i>Visualizar entrevistas prévias</a>
+                            <a href="{% url 'gerar_token' %}"><i class="fa-solid fa-ticket me-3"></i>Gerar cupons</a>                                                                                                        
+                          </div>
+                      </div>
+                      <div class="row px-4 d-flex">
+                        <div class="col painel">
+                            <a href="{% url 'censo' %}"><i class="fa-solid fa-chart-pie me-3"></i>Censo</a>          
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</div>
+<script>
+</script>
+{% endblock %}

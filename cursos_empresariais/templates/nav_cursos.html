@@ -1,0 +1,123 @@
+<div id="navegacao" class="container">
+  <div class="row">
+    <div class="col d-flex justify-content-center flex-wrap">
+      <a href="{% url 'cursos:home' %}" class="">
+        <div class="d-flex flex-column align-items-center">
+          <div
+            id="s-index"
+            class="s-nav rounded-circle {% block index %}{% endblock %}"
+          ></div>
+          <p class="text-dark">Início</p>
+        </div>
+      </a>
+      <a href="{% url 'cursos:cursos' tipo='cursos' %}" class="">
+        <div class="d-flex flex-column align-items-center">
+          <div id="s-cursos" class="s-nav rounded-circle"></div>
+          <p class="text-dark text-center">Cursos Livres</p>
+        </div>
+      </a>
+      <a href="{% url 'cursos:cursos' tipo='palestras' %}" class="">
+        <div class="d-flex flex-column align-items-center">
+          <div id="s-palestras" class="s-nav rounded-circle"></div>
+          <p class="text-dark">Palestras</p>
+        </div>
+      </a>
+      {% if request.user.is_authenticated %}
+      <a href="{% url 'cursos:area_do_estudante' %}">
+        <div class="d-flex flex-column align-items-center">
+          <div id="s-estudante" class="s-nav rounded-circle"></div>
+          <p class="text-dark text-center">Área do<br>estudante</p>
+        </div>
+      </a>
+      {% endif %}
+      <a href="{% url 'cursos:ensino_superior' %}" class="">
+        <div class="d-flex flex-column align-items-center">
+          <div id="s-en-superior" class="s-nav rounded-circle"></div>
+          <p class="text-dark">En. Superior</p>
+        </div>
+      </a>
+      <!-- <a href="{% url 'cursos:ensino_tecnico' %}" class="">
+          <div class="d-flex flex-column align-items-center">
+            <div id="s-en-tecnico" class="s-nav rounded-circle"></div>
+            <p class="text-dark">En. Técnico</p>
+          </div>
+        </a>
+        <a href="{% url 'cursos:curriculo_vitae' %}" class="">
+          <div class="d-flex flex-column align-items-center">
+            <div id="s-curriculo" class="s-nav rounded-circle"></div>
+            <p class="text-dark text-center">Currículo<br>Vitae</p>
+          </div>
+        </a>   -->
+      <a href="https://casadotrabalhador.pmnf.rj.gov.br/" class="">
+        <div class="d-flex flex-column align-items-center">
+          <div id="s-vaga" class="s-nav rounded-circle"></div>
+          <p class="text-dark text-center">Casa do<br />Trabalhador</p>
+        </div>
+      </a>
+      {% if request.user.is_staff %}
+      <a href="{% url 'administrativo2' %}" class="">
+        <div class="d-flex flex-column align-items-center">
+          <div id="s-admin" class="s-nav rounded-circle destaque"></div>
+          <p class="text-dark">Admin</p>
+        </div>
+      </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<style>
+  #s-index {
+    margin-right: 1rem !important;
+    background-color: white !important;
+    background-image: url(/static/images/icones/curso_home.png);
+    background-size: contain;
+  }
+  #s-cursos {
+    margin-right: 1rem !important;
+    background-color: white !important;
+    background-image: url(/static/images/icones/curso_cursos.png);
+    background-size: contain;
+  }
+  #s-palestras {
+    margin-right: 1rem !important;
+    background-color: white !important;
+    background-image: url(/static/images/icones/curso_palestras.png);
+    background-size: contain;
+  }
+  #s-vaga {
+    margin-right: 1rem !important;
+    background-color: white !important;
+    background-image: url(/static/images/icones/casa_do_trabalhador.png);
+    background-size: contain;
+  }
+  #s-estudante {
+    margin-right: 1rem !important;
+    background-color: white !important;
+    background-image: url(/static/images/icones/estudante.png);
+    background-size: contain;
+  }
+  #s-en-superior {
+    margin-right: 1rem !important;
+    background-color: white !important;
+    background-image: url(/static/images/icones/curso_superior.png);
+    background-size: contain;
+  }
+  #s-en-tecnico {
+    margin-right: 1rem !important;
+    background-color: white !important;
+    background-image: url(/static/images/icones/curso_tecnico.png);
+    background-size: contain;
+  }
+  #s-curriculo {
+    margin-right: 1rem !important;
+    background-color: white !important;
+    background-image: url(/static/images/icones/curso_curriculo.png);
+    background-size: contain;
+  }
+  #s-admin {
+    margin-right: 1rem !important;
+    background-color: white !important;
+    background-image: url(/static/images/icones/curso_admin.png);
+    background-size: contain;
+  }
+</style>

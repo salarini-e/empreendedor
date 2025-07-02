@@ -1,0 +1,54 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/quero-ser-mei.css'%}">
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row mx-auto ps-4 pb-3">
+        <h3 class="text-center">Quais as ocupações que podem ser MEI</h3>
+    </div>
+    <div class="row mx-auto mb-5">
+        <div class="col">
+            <p class="mt-4" style="text-align: justify;">
+                Veja se a sua ocupação é permitida (não se preocupe com o código CNAE, que é muito mais abrangente).
+                Por isso, é muito importante que você avalie atentamente a descrição de cada ocupação e verifique se o que está descrito é exatamente o que você já faz ou irá fazer. Se uma única ocupação não representa tudo que você fará, é possível escolher 1 ocupação como principal e outras 15 secundárias. 
+                Atente que essas ocupações definirão os impostos que serão pagos e as exigências municipais que você deverá cumprir. 
+                Depois que consultar suas ocupações, veja as exigências do Corpo de Bombeiro  e Vigilância Sanitária , clique nos cards abaixo.
+            </p>
+        </div>
+    </div>
+
+    {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
+    <style>
+        span {
+            text-align: center;
+        }
+    </style>
+    <div class="row mx-auto px-5">
+        <script>
+    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
+        </script>
+    </div>
+</div>
+
+<style>
+    .divLinks{
+        display: flex;
+        flex-direction: column;
+    }
+    .divLinks a{
+        background-color: lightgrey;
+        padding: 20px;
+        margin: 5px;
+        border-radius: 5px;
+    }
+</style>
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

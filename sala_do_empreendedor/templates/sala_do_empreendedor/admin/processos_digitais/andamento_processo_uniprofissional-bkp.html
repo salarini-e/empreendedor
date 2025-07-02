@@ -1,0 +1,223 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row  bg-white" style="border-radius: 30px;">
+      <div class="col">
+        <div class="pt-4 d-flex px-3">
+            <h2 style="display: inline;">Processos Digitais</h2>       
+              <a href="{% url 'empreendedor:listar_processos' %}" class="btn btn-dark ms-auto my-auto">
+                <i class="fa-solid fa-rotate-left me-2"></i> Voltar
+</a>             
+            </div>
+            <div class="row">
+              <div class="col px-5 mt-4 d-flex">
+                <span class="py-0 px-2 rounded-pill" style="background-color: {% if processo.status == 'nv' %}rgb(124, 183, 235){% elif processo.status == 'ar' %}rgb(228, 235, 124){% elif processo.status == 'aa' %}rgb(235, 176, 124){% elif processo.status == 'bg' %}rgb(124, 235, 124){% elif processo.status == 'cn' %}#000000; color: white{% endif %};">{{processo.get_status_display}}</span>
+                <p class="ms-3">
+                  <strong class="my-auto">{{processo.tipo_processo.nome}} - {{processo.n_protocolo}} - {{processo.dt_solicitacao|date:"d/m/y"}}</strong></p >
+                <p class="ms-auto my-auto"><strong>Solicitante:</strong> <a href="#">{{processo.solicitante.first_name}}</a></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col d-flex flex-column pt-4 pb-3 px-5">
+                <hr>
+                <div class="row">
+                  <div class="col">
+                    <p><b>Parabéns! Seu processo foi concluído!</b></p>
+
+                    <p class="text-center">Seu número de inscrição municipal:</p>
+                    <h3 class="text-center"></h3>
+                  </div>
+                </div>
+                <div class="d-flex w-100 pt-4">
+                <h4>Anexos</h4>
+               
+                </div>
+                  <div class="row my-4">
+                    <div class="col d-flex flex-column">
+                      <label for="">Status RG</label>
+                      <p class="bg-status-{{status_documentos.rg_status}}">dnasndksandkl</p>
+                    </div>
+                    <div class="col d-flex flex-column ms-2">
+                      <label for="">Status Comprovante</label>
+                      <p class="bg-status-{{status_documentos.comprovante_endereco_status}}">nslasalnsanlk</p>
+                    </div>
+                    <div class="col d-flex flex-column ms-2">
+                      <label for="">Status Diploma/Certificado</label>
+                      <p class="bg-status-{{status_documentos.diploma_ou_certificado_status}}">sahuhashiashi</p>
+                    </div>
+                    <div class="col d-flex flex-column ms-2">
+                      <label for="">Status Licença Sanitária</label>
+                      <p class="bg-status-{{status_documentos.licenca_sanitaria_status}}">dhasohdashdoihas</p>
+                    </div>
+                    <div class="col d-flex flex-column ms-2">
+                      <label for="">Status Espelho de IPTU</label>
+                      <p class="bg-status-{{status_documentos.espelho_iptu_status}}"></p>
+                    </div>
+                  </div>
+                  <div class="row text-center">
+                    <div class="col d-flex flex-column">
+                      <a href="#" class="border py-2" style="border-radius: 20px;">
+                        Atualizar RG
+                      </a>
+                    </div>
+                    <div class="col d-flex flex-column ms-2">
+                      <a href="#" class="border py-2" style="border-radius: 20px;">
+                        Atualizar Comprovante
+                      </a>
+                    </div>
+                    <div class="col d-flex flex-column ms-2">
+                      <a href="#" class="border py-2" style="border-radius: 20px;">
+                        Atualizar Diploma/Certificado
+                      </a>
+                    </div>
+                  
+                  </div>
+                  <div class="row text-center">
+                    <div class="col">
+                      <p><i><b>Seu boleto foi gerado!</b></i></p>
+                      <a target="_blank" href="#" class="btn btn-primary mt-3 mb-3">
+                        <i class="fa-solid fa-file-arrow-down me-2"></i>Downlaod do boleto
+                      </a>
+                    </div>
+                  </div>
+                <hr>
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col px-5 d-flex">
+                <h4 class="my-auto py-0">Andamento do processo</h4>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                  {% if messages %}
+                    {% for message in messages %}
+                      <div class="alert {{ message.tags }}">
+                        {{ message }}
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+            <div class="row">
+                <div class="col px-5 pb-5 d-flex flex-column">
+                    <div class="menu mt-3 mb-4">
+                        <a href="#">
+                            Escolaridade
+                        </a>
+                        <a href="#" class="ms-3">
+                            Profissão
+                        </a>
+                        <a href="#" class="ms-3">
+                            Status do
+                        </a>
+                    </div>
+                    <div class="processos">
+                        <table class="table mt-4">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th class="text-center">Status do andamento</th>
+                                    <th>Mensagem</th>
+                                    <th class="text-center">Data do andamento</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              {% for andamento in andamentos %}
+                                <tr {% if forloop.first %}style="background-color: #ebe3dd;"{% endif %}>
+                                    <td class="{% if forloop.first %}{% if processo.status == 'cn' %}text-success{% else %}text-dange{% endif %}{% else %}text-success{% endif %} text-center">
+                                      {% if forloop.first %}
+                                      {% if processo.status == 'cn' %}
+                                      <i class="fa-solid fa-check"></i>
+                                      {% else %}
+                                      <i class="fa-solid fa-exclamation"></i>                                    
+                                      {% endif %}
+                                      {% else %}
+                                      <i class="fa-solid fa-check"></i>
+                                      {% endif %}
+                                    </td>
+                                    <td class="text-center d-flex"><span class="mx-auto py-1 px-2 rounded-pill w-100"  style="background-color: {% if andamento.status == 'nv' %}rgb(124, 183, 235){% elif andamento.status == 'ae' %}rgb(228, 235, 124){% elif andamento.status == 'ar' %}rgb(228, 235, 124){% elif andamento.status == 'aa' %}rgb(235, 176, 124){% elif andamento.status == 'bg' %}rgb(124, 235, 124){% elif andamento.status == 'cn' %}#000000; color: white{% endif %}; max-width: 300px;">{{andamento.get_status_display}}</span></td>
+                                    <td>{% if andamento.observacao != 'n/h' %}{{andamento.observacao}}{% else %} <span class="text-secondary"><i>Não há mensagem.</i></span> {% endif %}</td>                  
+                                    <td class="text-center">{{andamento.dt_andamento|date:"d/m/y"}}</td>
+                                  
+                                </tr>                               
+                              {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+      </div>
+    </div>
+</div>
+</div>
+<div class="row mx-auto px-5">
+  {% csrf_token %}
+  <style>
+    .bg-status-0{
+      margin-top: 5px;
+      text-align: center;
+      background-color: rgb(243, 232, 78);
+      border-radius: 20px;
+    }
+    .bg-status-1{
+      margin-top: 5px;
+      text-align: center;
+      background-color: rgb(91, 193, 93);
+      border-radius: 20px;
+    }
+    .bg-status-2{
+      margin-top: 5px;
+      text-align: center;
+      background-color: rgb(181, 33, 33);
+      color: rgb(239, 196, 196);
+      border-radius: 20px;  
+    }
+  </style>
+  <script>
+
+    let openfiltros = false
+    function showFiltros(){
+        if (openfiltros){      
+            document.getElementById('filtros').style.display='none'
+            openfiltros=false
+        }else{
+            document.getElementById('filtros').style.display='flex'
+            openfiltros=true
+        }
+    }
+    document.getElementById('empreendedor_protocolo').classList.add('s-nav-active');
+  </script>
+</div>
+
+<style>
+    .menu {
+  display: none; /* Inicialmente, ocultar o menu */
+}
+
+.menu-open {
+  display: block; /* Quando a classe "menu-open" é adicionada, mostrar o menu */
+  /* Outros estilos para o menu aberto, como posição, cores, etc. */
+}
+    .border{
+        border-color: rgba(146, 146, 146, 0.2) !important;
+    }
+    #filtros{
+        display: none;
+    }
+</style>
+
+</script>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

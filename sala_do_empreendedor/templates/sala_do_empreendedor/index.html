@@ -1,0 +1,1462 @@
+{% extends 'template_new.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+  /* Sala do Empreendedor - Cores Oficiais da Prefeitura */
+  :root {
+    --primary-blue: #0051A4;
+    --primary-blue-dark: #003a7a;
+    --primary-green: #218A39;
+    --primary-green-dark: #1a6d2e;
+    --accent-gold: #D2B336;
+    --dark-gray: #363335;
+    --light-gray: #f8f9fa;
+  }
+  
+  /* Hero Section Moderno */
+  .hero-empreendedor {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
+    background-image: 
+      linear-gradient(rgba(0, 164, 137, 0.514), rgba(0, 59, 122, 0.568)),
+      url('/static/images/bg-prefeitura.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 100px 0 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hero-empreendedor::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill-opacity='0.05'%3E%3Cpolygon fill='%23fff' points='50 0 60 40 100 50 60 60 50 100 40 60 0 50 40 40'/%3E%3C/g%3E%3C/svg%3E") center/60px; */
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    text-align: center;
+  }
+  
+  .hero-title {
+    font-family: var(--font-secondary);
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  }
+  
+  .hero-title span {
+    color: var(--accent-gold);
+    position: relative;
+    display: inline-block;
+  }
+  
+  .hero-title span::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: var(--accent-gold);
+    opacity: 0.3;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    font-weight: 300;
+  }
+  .hero-subtitle span {
+    /* color: var(--accent-gold); */
+    font-weight: 600;
+    position: relative;
+    display: inline-block;
+  }
+  /* Search Box Destaque */
+  .search-highlight {
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 3rem auto;
+    max-width: 600px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  }
+  
+  .search-title {
+    color: var(--primary-blue);
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .search-input-group {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 1rem 1.5rem 1rem 3.5rem;
+    border: 2px solid #e0e7f1;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    background: white;
+  }
+  
+  .search-input:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 81, 164, 0.1), 0 0 0 1px var(--primary-blue);
+  }
+  
+  .search-input:focus-visible {
+    outline: 2px solid var(--accent-gold);
+    outline-offset: 2px;
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-blue);
+    font-size: 1.2rem;
+  }
+  
+  .quick-services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+  
+  .quick-service-tag {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+  }
+  
+  .quick-service-tag:hover {
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 81, 164, 0.3);
+  }
+  
+  /* Personas Section */
+  .personas-section {
+    padding: 80px 0;
+    background: #f8f9fa;
+  }
+  
+  .personas-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin-bottom: 1rem;
+    font-family: var(--font-secondary);
+  }
+  
+  .personas-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--dark-gray);
+    margin-bottom: 4rem;
+  }
+  
+  .persona-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: none;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .persona-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 81, 164, 0.05), transparent);
+    transition: left 0.6s ease;
+  }
+  
+  .persona-card:hover::before {
+    left: 100%;
+  }
+  
+  .persona-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+    opacity: 0;
+    transition: all 0.4s ease;
+  }
+  
+  .persona-card:hover::after {
+    opacity: 1;
+    width: 80px;
+  }
+  
+  .persona-card:focus-visible {
+    outline: 2px solid var(--accent-gold);
+    outline-offset: 4px;
+  }
+  
+  .persona-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0, 81, 164, 0.15);
+  }
+  
+  .persona-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .persona-card:hover .persona-icon {
+    transform: scale(1.1) rotate(5deg);
+  }
+  
+  .persona-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--primary-blue);
+    margin-bottom: 1rem;
+  }
+  
+  .persona-description {
+    color: var(--dark-gray);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  
+  .persona-link {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .persona-link:hover {
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 81, 164, 0.3);
+  }
+  
+  /* Services Grid Moderno */
+  .services-section {
+    padding: 80px 0;
+  }
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  
+  .section-title {
+    font-family: var(--font-secondary);
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(135deg, var(--accent-gold), #b8941f);
+    border-radius: 2px;
+  }
+  
+  .section-subtitle {
+    font-size: 1.2rem;
+    color: var(--dark-gray);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  
+  /* Service Cards Modernos */
+  .service-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(0, 81, 164, 0.1);
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 81, 164, 0.05), transparent);
+    transition: left 0.6s ease;
+  }
+  
+  .service-card:hover::before {
+    left: 100%;
+  }
+  
+  .service-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+    opacity: 0;
+    transition: all 0.4s ease;
+  }
+  
+  .service-card:hover::after {
+    opacity: 1;
+    width: 80px;
+  }
+  
+  .service-card:focus-visible {
+    outline: 2px solid var(--accent-gold);
+    outline-offset: 4px;
+  }
+  
+  .service-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 25px 50px rgba(0, 81, 164, 0.15);
+    border-color: rgba(0, 81, 164, 0.3);
+  }
+  
+  .service-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: white;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 8px 20px rgba(0, 81, 164, 0.3);
+  }
+  
+  .service-card:hover .service-icon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 12px 30px rgba(0, 81, 164, 0.4);
+  }
+  
+  .service-title {
+    font-family: var(--font-secondary);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--primary-blue);
+    line-height: 1.4;
+    min-height: 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .service-description {
+    color: var(--dark-gray);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .btn-service {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+    border: none;
+    color: white;
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn-service::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-green-dark), var(--primary-green));
+    transition: left 0.3s ease;
+    z-index: -1;
+  }
+  
+  .btn-service:hover::before {
+    left: 0;
+  }
+  
+  .btn-service:hover {
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(33, 138, 57, 0.4);
+  }
+  
+  .btn-service:focus-visible {
+    outline: 2px solid var(--accent-gold);
+    outline-offset: 4px;
+  }
+  
+  /* Stats Section */
+  .stats-section {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-green-dark));
+    padding: 80px 0;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    /* margin-top: 50px; */
+    z-index: 10;
+  }
+  
+  .stats-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      linear-gradient(rgba(0, 164, 137, 0.514), rgba(0, 59, 122, 0.568)),
+      url('/static/images/bg-kpis2.webp');
+    background-size: cover;
+    /* background-position: center; */
+    /* background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill-opacity='0.05'%3E%3Cpolygon fill='%23fff' points='50 0 60 40 100 50 60 60 50 100 40 60 0 50 40 40'/%3E%3C/g%3E%3C/svg%3E") center/60px; */
+  }
+  
+  .stat-card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    padding: 2.5rem 1.5rem;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .stat-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255,255,255,0.15);
+  }
+  
+  .stat-number {
+    font-size: 3rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-secondary);
+  }
+  
+  .stat-number::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: var(--accent-gold);
+    margin: 0.5rem auto;
+    border-radius: 3px;
+  }
+  
+  .stat-label {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.9);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Navigation Enhancement */
+  .nav-empreendedor {
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  
+  .nav-icon-modern {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    margin: 0 auto 0.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 81, 164, 0.3);
+  }
+  
+  .nav-label-modern {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-item-modern:hover .nav-label-modern {
+    color: var(--primary-blue);
+  }
+  
+  .nav-item-modern.active .nav-label-modern {
+    color: var(--primary-green);
+    font-weight: 600;
+  }
+  
+  .nav-item-modern {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: var(--dark-gray);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 12px;
+  }
+  
+  .nav-item-modern:hover {
+    color: var(--primary-blue);
+    text-decoration: none;
+  }
+  
+  .nav-item-modern:focus-visible {
+    outline: 2px solid var(--accent-gold);
+    outline-offset: 4px;
+  }
+  
+  .nav-item-modern.active {
+    color: var(--primary-green);
+    font-weight: 600;
+  }
+  
+  .nav-item-modern:hover .nav-icon-modern {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 12px 25px rgba(0, 81, 164, 0.4);
+  }
+  
+  .nav-item-modern.active .nav-icon-modern {
+    background: linear-gradient(135deg, var(--primary-green), var(--primary-green-dark));
+  }
+  
+  /* Contact Section */
+  .contact-section {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+    background: linear-gradient(135deg, rgba(0, 81, 164, 0.8), rgba(0, 59, 122, 0.8)),
+      url('/static/images/paisagem-banner.png');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .contact-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill-opacity='0.05'%3E%3Cpolygon fill='%23fff' points='50 0 60 40 100 50 60 60 50 100 40 60 0 50 40 40'/%3E%3C/g%3E%3C/svg%3E") center/60px; */
+  }
+  
+  .contact-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    padding: 3rem 2rem;
+    text-align: center;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    z-index: 2;
+  }
+  
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.2rem;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+  }
+  
+  .contact-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-5px);
+  }
+  
+  .contact-item i {
+    font-size: 1.8rem;
+    color: var(--accent-gold);
+  }
+  
+  .contact-item a {
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .contact-item a:hover {
+    color: var(--accent-gold);
+  }
+  
+  /* Testimonials Section */
+  .testimonials-section {
+    padding: 80px 0;
+    background: var(--light-gray);
+  }
+  
+  .testimonial-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 81, 164, 0.1);
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .testimonial-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 81, 164, 0.15);
+    border-color: rgba(0, 81, 164, 0.2);
+  }
+  
+  .testimonial-card:focus-visible {
+    outline: 2px solid var(--accent-gold);
+    outline-offset: 4px;
+  }
+  
+  .testimonial-text {
+    font-style: italic;
+    color: var(--dark-gray);
+    line-height: 1.8;
+    font-size: 1.05rem;
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding-top: 1.5rem;
+  }
+  
+  .testimonial-text::before {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--accent-gold);
+    font-family: serif;
+    opacity: 0.3;
+  }
+  
+  .testimonial-author {
+    font-weight: 600;
+    color: var(--primary-blue);
+    font-size: 1.1rem;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+    
+    .search-highlight {
+      margin: 2rem 1rem;
+      padding: 1.5rem;
+    }
+    
+    .personas-title,
+    .section-title {
+      font-size: 2rem;
+    }
+    
+    .persona-card,
+    .service-card {
+      margin-bottom: 2rem;
+    }
+    
+    .quick-services {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .quick-service-tag {
+      width: fit-content;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .hero-empreendedor {
+      padding: 80px 0 40px;
+    }
+    
+    .personas-section,
+    .services-section,
+    .stats-section {
+      padding: 60px 0;
+    }
+    
+    .persona-icon,
+    .service-icon {
+      width: 60px;
+      height: 60px;
+      font-size: 1.5rem;
+    }
+  }
+</style>
+  
+{% endblock %}
+
+{% block nav %}
+<!-- Navigation específica da Sala do Empreendedor -->
+<section class="nav-empreendedor" data-aos="fade-up">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="row text-center">
+          <div class="col-md-2 col-4 mb-3">
+            <a href="{% url 'empreendedor:index' %}" class="nav-item-modern active">
+              <div class="nav-icon-modern">
+                <i class="fas fa-home"></i>
+              </div>
+              <div class="nav-label-modern">Início</div>
+            </a>
+          </div>
+          <div class="col-md-2 col-4 mb-3">
+            <a href="#servicos" class="nav-item-modern">
+              <div class="nav-icon-modern">
+                <i class="fas fa-concierge-bell"></i>
+              </div>
+              <div class="nav-label-modern">Serviços</div>
+            </a>
+          </div>
+          <div class="col-md-2 col-4 mb-3">
+            <a href="{% url 'empreendedor:consultar_processos' %}" class="nav-item-modern">
+              <div class="nav-icon-modern">
+                <i class="fas fa-search"></i>
+              </div>
+              <div class="nav-label-modern">Consultar Processo</div>
+            </a>
+          </div>
+          <div class="col-md-2 col-4 mb-3">
+            <a href="{% url 'empreendedor:cursos' %}" class="nav-item-modern">
+              <div class="nav-icon-modern">
+                <i class="fas fa-graduation-cap"></i>
+              </div>
+              <div class="nav-label-modern">Capacitação</div>
+            </a>
+          </div>
+          <div class="col-md-2 col-4 mb-3">
+            <a href="{% url 'empreendedor:minha_empresa' %}" class="nav-item-modern">
+              <div class="nav-icon-modern">
+                <i class="fas fa-building"></i>
+              </div>
+              <div class="nav-label-modern">Minha Empresa</div>
+            </a>
+          </div>
+          <div class="col-md-2 col-4 mb-3">
+            <a href="#contato" class="nav-item-modern">
+              <div class="nav-icon-modern">
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+              <div class="nav-label-modern">Contato</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block main %}
+<!-- Hero Section com Busca em Destaque -->
+<section class="hero-empreendedor">
+  <div class="container">
+    <div class="hero-content" data-aos="fade-up">
+      <h1 class="hero-title"> Empreendorismo<span></span></h1>
+      <p class="hero-subtitle"><span>Transforme suas ideias em negócios de sucesso em Nova Friburgo</span></p>
+      
+      <!-- Search Highlight Box -->
+      <!-- <div class="search-highlight" data-aos="fade-up" data-aos-delay="200">
+        <h3 class="search-title">O que você procura?</h3>
+        <div class="search-input-group">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" class="search-input" id="searchInput" placeholder="Buscar serviços, MEI, alvará, certidões...">
+        </div>
+        <div class="quick-services">
+          <a href="{% url 'empreendedor:quero_ser_mei' %}" class="quick-service-tag">Quero ser MEI</a>
+          <a href="{% url 'empreendedor:abertura_de_empresa' %}" class="quick-service-tag">Abrir Empresa</a>
+          <a href="https://servicoonline.novafriburgo.rj.gov.br/services/site_login.php" target="_blank" class="quick-service-tag">Débitos e Taxas</a>
+          <a href="{% url 'empreendedor:consultar_processos' %}" class="quick-service-tag">Consultar Processo</a>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</section>
+
+<!-- Personas Section -->
+<section class="personas-section">
+  <div class="container">
+    <h2 class="personas-title" data-aos="fade-up">A Prefeitura Feita para Você</h2>
+    <p class="personas-subtitle" data-aos="fade-up" data-aos-delay="100">Serviços organizados por perfil de empreendedor</p>
+    
+    <div class="row g-4">
+      <!-- Futuro Empreendedor -->
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="persona-card">
+          <div class="persona-icon">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <h3 class="persona-title">Futuro Empreendedor</h3>
+          <p class="persona-description">Quer transformar sua ideia em negócio? Encontre orientação para formalizar e começar.</p>
+          <a href="{% url 'empreendedor:quero_ser_mei' %}" class="persona-link">Começar Agora</a>
+        </div>
+      </div>
+      
+      <!-- MEI Ativo -->
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="persona-card">
+          <div class="persona-icon">
+            <i class="fas fa-user-tie"></i>
+          </div>
+          <h3 class="persona-title">MEI Ativo</h3>
+          <p class="persona-description">Já é MEI? Acesse serviços específicos como alterações, baixa e orientações.</p>
+          <a href="{% url 'empreendedor:ja_sou_mei' %}" class="persona-link">Acessar Serviços</a>
+        </div>
+      </div>
+      
+      <!-- Empresário -->
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+        <div class="persona-card">
+          <div class="persona-icon">
+            <i class="fas fa-building"></i>
+          </div>
+          <h3 class="persona-title">Empresário</h3>
+          <p class="persona-description">Precisa abrir uma empresa? Conte com nosso suporte completo no processo.</p>
+          <a href="{% url 'empreendedor:abertura_de_empresa' %}" class="persona-link">Abrir Empresa</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+  <div class="container">
+    <div class="row g-4" data-aos="fade-up">
+      <div class="col-lg-3 col-md-6">
+        <div class="stat-card">
+          <div class="stat-number" data-count="750">0</div>
+          <div class="stat-label">Empresas Abertas</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="stat-card">
+          <div class="stat-number" data-count="1500">0</div>
+          <div class="stat-label">MEIs Formalizados</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="stat-card">
+          <div class="stat-number" data-count="450">0</div>
+          <div class="stat-label">Consultorias Realizadas</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="stat-card">
+          <div class="stat-number" data-count="98">0</div>
+          <div class="stat-label">% Satisfação</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services Section -->
+<section class="services-section" id="servicos">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <h2 class="section-title">Nossos Serviços</h2>
+      <p class="section-subtitle">Soluções completas para empreendedores em todas as fases do negócio</p>
+    </div>
+    
+    <div class="row g-4">
+      <!-- 1. Conheça Nossa Sala -->
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <h3 class="service-title">Conheça Nossa Sala</h3>
+          <p class="service-description">Saiba mais sobre nossos serviços e como podemos ajudar seu negócio a crescer.</p>
+          <a href="{% url 'empreendedor:conheca_nossa_sala' %}" class="btn-service">Saiba Mais</a>
+        </div>
+      </div>
+      
+      <!-- 2. Débitos e Taxas -->
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="150">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-receipt"></i>
+          </div>
+          <h3 class="service-title">Débitos e Taxas</h3>
+          <p class="service-description">Consulte e quite seus débitos municipais de forma rápida e segura online.</p>
+          <a href="https://servicoonline.novafriburgo.rj.gov.br/services/site_login.php" target="_blank" class="btn-service">Acessar Portal</a>
+        </div>
+      </div>
+      
+      <!-- 3. Cadastro de Fornecedores -->
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-clipboard-list"></i>
+          </div>
+          <h3 class="service-title">Cadastro de Fornecedores</h3>
+          <p class="service-description">Cadastre sua empresa como fornecedora da Prefeitura e participe de licitações.</p>
+          <a href="{% url 'empreendedor:compras_publicas' %}" class="btn-service">Cadastrar</a>
+        </div>
+      </div>
+      
+      <!-- 4. Fale Conosco (WhatsApp) -->
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="250">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fab fa-whatsapp"></i>
+          </div>
+          <h3 class="service-title">Fale Conosco</h3>
+          <p class="service-description">Entre em contato direto conosco via WhatsApp para esclarecimentos e suporte.</p>
+          <a href="https://api.whatsapp.com/send?phone=552225259151" target="_blank" class="btn-service">WhatsApp</a>
+        </div>
+      </div>
+      
+      <!-- 5. Quero ser MEI -->
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-user-tie"></i>
+          </div>
+          <h3 class="service-title">Quero ser MEI</h3>
+          <p class="service-description">Formalize seu negócio como MEI de forma rápida e gratuita. Orientação completa.</p>
+          <a href="{% url 'empreendedor:quero_ser_mei' %}" class="btn-service">Começar</a>
+        </div>
+      </div>
+      
+      <!-- 6. Já sou MEI -->
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="350">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-user-check"></i>
+          </div>
+          <h3 class="service-title">Já sou MEI</h3>
+          <p class="service-description">Serviços específicos para quem já é MEI: alterações, baixa e orientações.</p>
+          <a href="{% url 'empreendedor:ja_sou_mei' %}" class="btn-service">Acessar</a>
+        </div>
+      </div>
+      
+      <!-- 7. Abertura de Empresa -->
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-building"></i>
+          </div>
+          <h3 class="service-title">Abertura de Empresa</h3>
+          <p class="service-description">Processo completo para abertura de empresas com orientação e acompanhamento.</p>
+          <a href="{% url 'empreendedor:abertura_de_empresa' %}" class="btn-service">Abrir Empresa</a>
+        </div>
+      </div>
+      
+      <!-- 8. Capacitação -->
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="450">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h3 class="service-title">Capacitação Profissional</h3>
+          <p class="service-description">Cursos e treinamentos para desenvolver suas habilidades empreendedoras.</p>
+          <a href="{% url 'cursos_profissionais:index' %}" class="btn-service">Ver Cursos</a>
+        </div>
+      </div>
+      
+      <!-- 9. Certidões -->
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="500">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-certificate"></i>
+          </div>
+          <h3 class="service-title">Certidões</h3>
+          <p class="service-description">Emissão de certidões necessárias para o funcionamento legal da sua empresa.</p>
+          <a href="https://servicoonline.novafriburgo.rj.gov.br/services/certidao_retirada.php" target="_blank" class="btn-service">Emitir Certidão</a>
+        </div>
+      </div>
+      
+      <!-- 10. ISS Autônomos -->
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="550">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-file-invoice-dollar"></i>
+          </div>
+          <h3 class="service-title">ISS Autônomos</h3>
+          <p class="service-description">Informações e serviços relacionados ao ISS para profissionais autônomos.</p>
+          <a href="{% url 'empreendedor:iss_autonomos' %}" class="btn-service">Consultar ISS</a>
+        </div>
+      </div>
+      
+      <!-- 11. Nota Fiscal -->
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="600">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-file-invoice"></i>
+          </div>
+          <h3 class="service-title">Nota Fiscal</h3>
+          <p class="service-description">Acesse o sistema de Nota Fiscal Eletrônica do município.</p>
+          <a href="https://rj-novafriburgo-pm-nfs.cloud.el.com.br//paginas/sistema/login.jsf" target="_blank" class="btn-service">Sistema NFE</a>
+        </div>
+      </div>
+      
+      <!-- 12. Junta Comercial -->
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="650">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-stamp"></i>
+          </div>
+          <h3 class="service-title">Junta Comercial</h3>
+          <p class="service-description">Acesse os serviços da Junta Comercial do Estado do Rio de Janeiro.</p>
+          <a href="https://www.jucerja.rj.gov.br/" target="_blank" class="btn-service">JUCERJA</a>
+        </div>
+      </div>
+      
+      <!-- 13. Linha de Crédito -->
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="700">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-hand-holding-usd"></i>
+          </div>
+          <h3 class="service-title">Linha de Crédito</h3>
+          <p class="service-description">Acesso a linhas de crédito especiais para empreendedores com condições facilitadas.</p>
+          <a href="{% url 'empreendedor:solicitacao_linha_de_credito' %}" class="btn-service">Solicitar Crédito</a>
+        </div>
+      </div>
+      
+      <!-- 14. Oportunidades -->
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="750">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <h3 class="service-title">Oportunidades de Negócio</h3>
+          <p class="service-description">Descubra novas oportunidades de mercado e conecte-se com outros empreendedores.</p>
+          <a href="{% url 'empreendedor:oportunidade' %}" class="btn-service">Ver Oportunidades</a>
+        </div>
+      </div>
+      
+      <!-- 15. Consulta de Processo -->
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="800">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-search"></i>
+          </div>
+          <h3 class="service-title">Consulta de Processo</h3>
+          <p class="service-description">Consulte o andamento dos seus processos junto à Prefeitura.</p>
+          <a href="https://gpi18.cloud.el.com.br/ServerExec/acessoBase/?idPortal=008D9DCE8EF2707B45F47C2AD10B38E2" target="_blank" class="btn-service">Consultar</a>
+        </div>
+      </div>
+      
+      <!-- 16. Consulta de Dívidas -->
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="850">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-calculator"></i>
+          </div>
+          <h3 class="service-title">Consulta de Dívidas</h3>
+          <p class="service-description">Consulte suas dívidas municipais e regularize sua situação fiscal.</p>
+          <a href="https://servicoonline.novafriburgo.rj.gov.br/services/site_login.php" target="_blank" class="btn-service">Consultar Dívidas</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <h2 class="section-title">O que nossos empreendedores dizem</h2>
+      <p class="section-subtitle">Histórias reais de sucesso com nossa parceria</p>
+    </div>
+    
+    <div class="row g-4">
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="testimonial-card">
+          <p class="testimonial-text">"A Sala do Empreendedor foi fundamental para a abertura da minha confeitaria. O atendimento é excelente e o processo foi muito rápido e eficiente."</p>
+          <div class="testimonial-author">Maria Silva - Confeitaria Doce Vida</div>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="testimonial-card">
+          <p class="testimonial-text">"Consegui formalizar meu negócio como MEI em poucos dias. A equipe me orientou em todo o processo e tirou todas as minhas dúvidas com muita paciência."</p>
+          <div class="testimonial-author">João Santos - JS Reformas</div>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="testimonial-card">
+          <p class="testimonial-text">"Os cursos de capacitação me ajudaram muito a entender melhor o mercado e melhorar minha gestão empresarial. Recomendo a todos!"</p>
+          <div class="testimonial-author">Ana Costa - Boutique Ana</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section" id="contato">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="contact-card" data-aos="fade-up">
+          <h2 class="mb-4 text-center">Entre em Contato</h2>
+          <p class="text-center mb-4 opacity-75">Estamos aqui para ajudar você a transformar suas ideias em realidade</p>
+          
+          <div class="row">
+            <div class="col-md-6">
+              <div class="contact-item">
+                <i class="fab fa-whatsapp"></i>
+                <div>
+                  <strong>WhatsApp</strong><br>
+                  <a href="https://api.whatsapp.com/send?phone=552225259151" target="_blank">
+                    (22) 2525-9151
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <div>
+                  <strong>Telefone</strong><br>
+                  (22) 2525-9151
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="contact-item mt-4">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <strong>Endereço</strong><br>
+              Av. Alberto Braune, 225 - Centro, Nova Friburgo - RJ
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <i class="fas fa-clock"></i>
+            <div>
+              <strong>Horário de Funcionamento</strong><br>
+              09:00 às 17:00 de Segunda à Sexta-feira
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block js %}
+<script>
+  // Counter Animation
+  function animateCounters() {
+    const counters = document.querySelectorAll('[data-count]');
+    
+    counters.forEach(counter => {
+      const target = parseInt(counter.getAttribute('data-count'));
+      const duration = 2000;
+      const step = target / (duration / 16);
+      let current = 0;
+      
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        
+        if (target === 98) {
+          counter.textContent = Math.floor(current) + '%';
+        } else {
+          counter.textContent = Math.floor(current) + '+';
+        }
+      }, 16);
+    });
+  }
+  
+  // Trigger counter animation when stats section is visible
+  const statsSection = document.querySelector('.stats-section');
+  let hasAnimated = false;
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !hasAnimated) {
+        animateCounters();
+        hasAnimated = true;
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  if (statsSection) {
+    observer.observe(statsSection);
+  }
+  
+  // Smooth scroll enhancement
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        const headerHeight = document.querySelector('.modern-header').offsetHeight;
+        const targetPosition = target.offsetTop - headerHeight - 20;
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+  
+  // Navigation active state
+  // Counter Animation for Stats
+  function animateStats() {
+    const statsNumbers = document.querySelectorAll('.stat-number[data-count]');
+    
+    const animateNumber = (element) => {
+      const target = parseInt(element.getAttribute('data-count'));
+      const duration = 2000; // 2 seconds
+      const start = 0;
+      const increment = target / (duration / 16); // 60fps
+      
+      let current = start;
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          element.textContent = target;
+          clearInterval(timer);
+        } else {
+          element.textContent = Math.floor(current);
+        }
+      }, 16);
+    };
+    
+    // Intersection Observer for stats animation
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateNumber(entry.target);
+          statsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.7 });
+    
+    statsNumbers.forEach(stat => {
+      stat.textContent = '0';
+      statsObserver.observe(stat);
+    });
+  }
+  
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+  
+  // Service cards interaction enhancement
+  const serviceCards = document.querySelectorAll('.service-card');
+  serviceCards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-15px) scale(1.02)';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0) scale(1)';
+    });
+  });
+  
+  // Active navigation highlighting
+  const navItems = document.querySelectorAll('.nav-item-modern');
+  navItems.forEach(item => {
+    item.addEventListener('click', function() {
+      navItems.forEach(nav => nav.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+  
+  // Search functionality
+  function setupSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const serviceCards = document.querySelectorAll('.service-card');
+    
+    if (searchInput) {
+      searchInput.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        
+        serviceCards.forEach(card => {
+          const title = card.querySelector('.service-title').textContent.toLowerCase();
+          const description = card.querySelector('.service-description').textContent.toLowerCase();
+          
+          if (title.includes(searchTerm) || description.includes(searchTerm) || searchTerm === '') {
+            card.parentElement.style.display = 'block';
+            card.style.transform = 'translateY(0)';
+            card.style.opacity = '1';
+          } else {
+            card.parentElement.style.display = 'none';
+          }
+        });
+        
+        // Se não há termo de busca, mostra todos os cards
+        if (searchTerm === '') {
+          serviceCards.forEach(card => {
+            card.parentElement.style.display = 'block';
+            card.style.opacity = '1';
+          });
+        }
+      });
+      
+      // Busca ao pressionar Enter
+      searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const firstVisibleCard = Array.from(serviceCards).find(card => 
+            card.parentElement.style.display !== 'none'
+          );
+          if (firstVisibleCard) {
+            const link = firstVisibleCard.querySelector('.btn-service');
+            if (link) {
+              window.open(link.href, link.target || '_self');
+            }
+          }
+        }
+      });
+    }
+  }
+  
+  // Initialize animations
+  document.addEventListener('DOMContentLoaded', function() {
+    animateStats();
+    setupSearch();
+    
+    // AOS refresh for dynamic content
+    if (typeof AOS !== 'undefined') {
+      AOS.refresh();
+    }
+  });
+</script>
+{% endblock %}

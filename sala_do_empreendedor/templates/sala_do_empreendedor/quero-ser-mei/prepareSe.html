@@ -1,0 +1,69 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/quero-ser-mei.css'%}">
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row mx-auto ps-4 pb-3">
+        <h3 class="text-center">Prepare-se</h3>
+    </div>
+    <div class="row mx-auto mb-5">
+        <div class="col">
+            <p style="text-align: justify;">
+                Formalizar um negócio é muito simples. O desafio é manter essa empresa no mercado gerando lucro. Mas as dificuldades podem ser vencidas se você se planejar desde o 
+                início para ser dono ou dona de uma empresa e preparar o seu negócio para ser competitivo.
+            </p>
+            <div class="my-3">
+                <p><b>Para obter sucesso no seu empreendimento, uma boa dica é fazer os cursos indicados pelo Sebrae:</b></p>
+                <ul class="mt-3">
+                    <li><a style="color: #0d6efd;" href="https://www.sebrae.com.br/sites/PortalSebrae/sebraeaz/seu-negocio-comeca-bem-aqui,c744e44499f57410VgnVCM1000003b74010aRCRD">Começar Bem:</a>
+                        são palestras e oficinas que te ensinam, por exemplo, a aumentar o lucro e reduzir prejuízos;
+                    </li>
+                    <li><a style="color: #0d6efd;" href="https://www.sebrae.com.br/sites/PortalSebrae/cursosonline/aprender-a-empreender,b070b8a6a28bb610VgnVCM1000004c00210aRCRD">Aprender a Empreender</a>
+                        Aprender a Empreender: ajuda você a desenvolver atitudes que compõem o perfil empreendedor por meio da interação com conceitos sobre mercado, 
+                        finanças e empreendedorismo;
+                    </li>
+                    <li><a style="color: #0d6efd;" href="https://www.sebrae.com.br/sites/PortalSebrae/cursosonline/iniciando-um-pequeno-grande-negocio,5f60b8a6a28bb610VgnVCM1000004c00210aRCRD">Iniciando um Pequeno e Grande Negócio</a>
+                        Iniciando um Pequeno e Grande Negócio: auxilia na preparação para a abertura de negócios;
+                    </li>
+                    <li><a style="color: #0d6efd;" href="https://www.sebrae.com.br/sites/PortalSebrae/artigos/tudo-o-que-voce-precisa-saber-sobre-o-mei,caa7d72060589710VgnVCM100000d701210aRCRD">Curso Microempreendedor</a>
+                        Curso Microempreendedor Individual: descubra direitos, benefícios e obrigações que o MEI deve cumprir;                    
+                    </li>
+                </ul>
+            </div>
+            <hr>
+        </div>
+    </div>
+    <style>
+        .divLinks{
+            display: flex;
+            flex-direction: column;
+        }
+        .divLinks a{
+            background-color: lightgrey;
+            padding: 20px;
+            margin: 5px;
+            border-radius: 5px;
+        }
+    </style>
+    {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
+    <style>
+        span {
+            text-align: center;
+        }
+    </style>
+    <div class="row mx-auto px-5">
+        <script>
+    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
+        </script>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row mx-auto ps-4 pb-3">
+        <h3 class="text-center">Dispensa de alvará e licença</h3>
+    </div>
+    <div class="row mx-auto mb-5">
+        <div class="col">
+            <p class="text-justify">
+                Você que se formalizou como MEI antes de 1/9/2020, também está dispensado de alvarás e licenças de funcionamento. Mais uma importante conquista da Lei 
+                da Liberdade Econômica.
+                <br><br>
+                <b>Mas para ficar de fato dispensado do alvará você precisa atualizar os dados da sua empresa. Veja como:</b>
+                <br><br>
+                1)Clique no botão solicitar abaixo e insira os dados solicitados.
+                <br><br>
+                2)Leia com atenção os termos que aparecem no final do formulário.
+                <br><br>
+                3)Se concordar, aceite os termos e finalize o procedimento.
+                <br><br>
+                4)Pronto! A solicitação de dispensa de alvará foi feita! 
+                <br><br>
+                A partir deste momento, seu CCMEI tem validade de Dispensa de Alvarás e Licenças de Funcionamento.
+                <br>
+                <b>Pontos de Atenção:</b><br>
+                A dispensa de alvarás e licenças de funcionamento não desobriga de cumprir com as normas estabelecidas pelo poder público em relação ao funcionamento 
+                de sua atividade: os aspectos sanitários, ambientais, tributários, de segurança pública, uso e ocupação do solo, atividades domiciliares e restrições 
+                ao uso de espaços públicos. <br>
+                <b>Vamos resumir e descomplicar! </b>
+            </p>
+        </div>
+    </div>
+     {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

@@ -1,0 +1,240 @@
+{% extends 'template.html' %}
+{% load bootstrap5 %}
+{% load static%}
+{% block title %}BEM VINDO - CURSOS LIVRES{% endblock %}
+{% block css %}
+
+{% endblock %}
+{% block nav %}
+{% include 'nav_cursos.html' %}
+{% endblock %}
+{% block prematricula %}fw-bold{% endblock %}
+{% block main %}
+<div class="row">
+    <div class="col d-flex pbp-5"> 
+        <div class="row w-100">
+            <div class="col-10 pb-4 m-auto bg-white">
+                <div class="row">
+                    <div class="col d-flex">
+                        <h2 class="px-4 py-2 mt-3">
+                            Formulário de cadastro de usuário
+                        </h2>
+                        <a href="{% url 'adm_alunos_listar' %}" class="ms-auto my-auto me-3">
+                            <i class="fa-solid fa-rotate-left"></i> Voltar
+                        </a>   
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-dark px-4 pt-4">                      
+                        <!-- <div class="row">
+                          <div class="col px-5 pt-2">
+                            <h6 class="text-justify mb-4" style="text-indent: 20px;">
+                              <b>Atenção:</b>
+                          </div>
+                        </div>                                                     -->
+                        <form method="POST">
+                        <div class="row px-4 pt-2 d-flex">
+                            <div class="col px-4">
+                                
+                                    {% csrf_token %}
+                                    {% bootstrap_form form %}
+                                    <button class="btn btn-primary" type="submit">
+                                        Cadastrar
+                                    </button>
+                                
+
+                                      
+
+
+                                
+                            </div>
+                        </div>
+
+                      
+                      </form>
+                        <!-- <div class="row px-5 d-flex">
+                          <div class="col painel">
+                              <a href="#">Candidatos</a>                                                            
+                              <a href="{% url 'adm_turmas_listar' %}">Turmas</a>
+                              <a href="#">Relatórios</a>
+                          </div>
+                      </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</div>
+
+  <script>
+       function icnpj(v){
+        v=v.replace(/\D/g,"")                    //Remove tudo o que nao e digito
+        v=v.replace(/(\d{3})(\d)/,"$1.$2")       //Coloca um ponto entre o segundo e terceiro digitos
+        v=v.replace(/(\d{3})(\d)/,"$1.$2")       //Coloca um ponto entre o quinto e o sexto digitos
+        v=v.replace(/(\d{3})(\d)/,"$1/$2")       //Coloca um ponto entre o quinto e o sexto digitos
+        v=v.replace(/(\d{4})(\d)/,"$1-$2")       //Coloca um ponto entre o quinto e o sexto digitos
+        // v=v.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5")
+        return v
+    }
+    function icpf(v){
+        v=v.replace(/\D/g,"")                    //Remove tudo o que nao e digito
+        v=v.replace(/(\d{3})(\d)/,"$1.$2")       //Coloca um ponto entre o segundo e terceiro digitos
+        v=v.replace(/(\d{3})(\d)/,"$1.$2")       //Coloca um ponto entre o quinto e o sexto digitos
+        v=v.replace(/(\d{3})(\d)/,"$1-$2")       //Coloca um ponto entre o quinto e o sexto digitos
+        // v=v.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5")
+        return v
+    }
+    function irg(v){
+        v=v.replace(/\D/g,"")                    //Remove tudo o que nao e digito
+        v=v.replace(/(\d{2})(\d)/,"$1.$2")       //Coloca um ponto entre o segundo e terceiro digitos
+        v=v.replace(/(\d{3})(\d)/,"$1.$2")       //Coloca um ponto entre o quinto e o sexto digitos
+        v=v.replace(/(\d{3})(\d)/,"$1-$2")       //Coloca um ponto entre o quinto e o sexto digitos
+        // v=v.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5")
+        return v
+    }
+    function itelefone(v){
+        v=v.replace(/\D/g,"")                 //Remove tudo o que nao e digito
+        v=v.replace(/^(\d\d)(\d)/g,"($1) $2") //Coloca parenteses em volta dos dois primeiros digitos
+        v=v.replace(/(\d{4})(\d)/,"$1-$2")    //Coloca hifen entre o quarto e o quinto digitos
+        return v
+    }
+    function icelular(v){
+        v=v.replace(/\D/g,"")                 //Remove tudo o que nao e digito
+        v=v.replace(/^(\d\d)(\d)/g,"($1) $2") //Coloca parenteses em volta dos dois primeiros digitos
+        v=v.replace(/(\d{5})(\d)/,"$1-$2")    //Coloca hifen entre o quarto e o quinto digitos
+        return v
+    }
+    function icep(v){
+        v=v.replace(/\D/g,"")                 
+        v=v.replace(/^(\d\d\d\d\d)(\d\d\d)/g,"$1-$2")
+        return v
+    }
+    function mascara(o,f){
+        v_obj=o
+        v_fun=f
+        setTimeout("execmascara()",1)
+    }            
+    function execmascara(){
+        v_obj.value=v_fun(v_obj.value)
+    }
+    function itel(v){
+        if (v.length==15){
+            v=v.replace(/\D/g,"")                 //Remove tudo o que nao e digito
+            v=v.replace(/^(\d\d)(\d)/g,"($1) $2") //Coloca parenteses em volta dos dois primeiros digitos
+            v=v.replace(/(\d{5})(\d)/,"$1-$2")  
+        }else{
+            v=v.replace(/\D/g,"")                 //Remove tudo o que nao e digito
+            v=v.replace(/^(\d\d)(\d)/g,"($1) $2") //Coloca parenteses em volta dos dois primeiros digitos
+            v=v.replace(/(\d{4})(\d)/,"$1-$2")    // 
+        }
+        return v
+    }
+    function getAge(dateString) {
+      var today = new Date();
+      var birthDate = new Date(dateString);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+      }
+      return age;
+  }
+
+  function setRequired(...elements){
+    elements.forEach(e => {
+        e.setAttribute('required', '');
+    })
+}
+
+function removeRequired(...elements){
+    elements.forEach(e => {
+        e.removeAttribute('required');
+    })
+}
+
+  
+    window.addEventListener('load', function (){
+      const nascimento = document.querySelector("#id_candidato-dt_nascimento")
+      nascimento.addEventListener("change", async (e)=>{
+        if(!e.target.value) return
+        const form_responsavel = document.querySelector('.form_responsavel')
+
+        if(getAge(e.target.value) < 18){
+          form_responsavel.style.display = 'block'
+          setRequired(...Array.from(form_responsavel.querySelectorAll('input')))
+          setRequired(...Array.from(form_responsavel.querySelectorAll('select')))
+
+        } else {
+          form_responsavel.style.display = 'none'
+          removeRequired(...Array.from(form_responsavel.querySelectorAll('input')))
+          removeRequired(...Array.from(form_responsavel.querySelectorAll('select')))
+        }
+
+        /*
+        const response = await fetch('/turmas/autenticar_data', {
+            method: 'POST', 
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({dt_nascimento: e.target.value}),
+        })
+
+        const json = await response.json()
+        // TODO
+        // TENHO QUE MELHORAR ISSO AQUI
+        // Trocar para for loops ou usar find ou includes mas n posso usar com objetos
+        document.querySelectorAll('.curso').forEach(element=>{
+            let count = 0
+            element.querySelectorAll('.turma').forEach((e=>{
+
+                const input = e.querySelector('input')
+                let found = false
+                json.data.forEach(el=>{
+
+                    if(input.value == el.id){
+                        e.parentNode.classList.remove('hidden')
+                        found = true;
+                        // eu n to com saco para fazer um foor loop aqui, n vou usar break :)
+                    }
+                })
+                
+                if(!found){
+                        e.parentNode.classList.add('hidden')
+                        e.checked = false
+                        count++
+                }
+    
+            }))
+
+            if(count == element.length){
+                element.classList.add("hidden")
+            } else {
+                element.classList.remove("hidden")
+            }
+        })
+*/
+       
+    })
+
+      const form_responsavel = document.querySelector('.form_responsavel')
+      form_responsavel.style.display = 'none'
+      removeRequired(...Array.from(form_responsavel.querySelectorAll('input')))
+      removeRequired(...Array.from(form_responsavel.querySelectorAll('select')))
+
+
+      nascimento.dispatchEvent(new Event('change'))
+    });
+
+  </script>
+
+  <style>
+  
+    .hidden{
+        display: none;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+  </style>
+{% endblock %}

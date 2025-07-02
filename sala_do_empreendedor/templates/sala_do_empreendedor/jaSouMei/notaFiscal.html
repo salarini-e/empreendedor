@@ -1,0 +1,93 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row mx-auto ps-4 pb-3">
+        <h3 class="text-center">Nota Fiscal Eletrônica (NF-e) e Nota Fiscal de Serviço Eletrônica (NFS-e)</h3>
+    </div>
+    <div class="row mx-auto mb-5">
+        <div class="col">
+            <p class="text-justify">
+                Um dos grandes benefícios ao se formalizar como MEI é poder emitir nota fiscal (NF) e acessar novos mercados, vendendo para empresas e até mesmo órgãos 
+                públicos. Os tipos de nota fiscal variam de acordo com a ocupação que você exerce, entenda a diferença entre as notas fiscais: NF-e e  NFS-e. <br><br>
+                <b>Você sabe a diferença entre NF-e e NFS-e?</b><br><br>
+                A principal diferença está na função de cada modelo. A NF-e tem a função de registrar a venda de produtos, já a NFS-e tem a função de registrar a 
+                prestação de serviços. Vamos a um exemplo: uma loja de informática, quando são vendidas as peças, acessórios e computadores deve ser emitida uma NF-e. 
+                No caso de manutenção, consertos ou ajustes deve ser emitida uma NFS-e. <br><br>
+                <b>Acompanhe as principais diferença entre elas:</b>
+            </p>
+        </div>
+        <table class="my-4">
+            <thead>
+                <th colspan="2" class="text-center">NF-e</th>
+                <th class="text-center">NFS-e</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b>Quem pode utilizar</b></td>
+                    <td>Qualquer empresa que possuir CNPJ ou CPF + IE (produtor rural) e credenciada pela SEFAZ.</td>
+                    <td>Qualquer empresa que possuir CNPJ contribuinte do ISS.</td>
+                </tr>
+                <tr>
+                    <td><b>Fato Gerador</b></td>
+                    <td>Compra e venda de Produto.</td>
+                    <td>Prestação de serviço.</td>
+                </tr>
+                <tr>
+                    <td><b>Órgão Responsável</b></td>
+                    <td>Secretaria de Estado da Fazenda.</td>
+                    <td>Secretária de Finanças Municipal.</td>
+                </tr>
+                <tr>
+                    <td><b>Precisa de certificado digital?</b></td>
+                    <td>Sim! Precisa ter certificado digital, emitido por autoridade certificadora credenciada ao ICP-Brasil. Se for PF, precisa do eCPF, se for 
+                        empresa precisa do eCNPJ. Atenção: Exceção para o MEI que não tenha realizado o credenciamento para utilização da NF-e poderá emitir suas 
+                        notas avulsas por meio de login e senha de acesso diretamente na SEFAZ.</td>
+                    <td>Sim! Precisa ter certificado digital da empresa, emitido por autoridade certificadora credenciada ao ICP-Brasil. Atenção: Exceção para o 
+                        MEI que não precisa de certificado digital conforme LC 123/2006.</td>
+                </tr>
+                <tr>
+                    <td><b>Novidades</b></td>
+                    <td>Novo Emissor de NF-e do Sebrae O Sebrae disponibiliza o Emissor de NF-e gratuitamente para todo o país. O software é web, totalmente acessível 
+                        em nuvem. Principais vantagens: 
+                        <ul>
+                            <li>Pode ser acessado em qualquer computador, celular ou tablet;</li>
+                            <li>Não precisa ser instalado, e o acesso é feito via navegador web; </li>
+                            <li>Atualização automática; </li>
+                            <li>Armazenamento e backups gratuitos.</li>
+                        </ul>
+                    </td>
+                    <td>Para 2023 haverá a padronização nacional da NFS-e. Atualmente existem inúmeros padrões de Nota Fiscal de Serviço eletrônica em todo país, 
+                        pois cada município possui um software, muitas vezes personalizado para o município. Com a nacionalização da nota fiscal de serviço eletrônica, 
+                        haverá apenas um padrão para emissão, como também um ambiente de dados que assegure a integridade e disponibilize informações para os empresários, 
+                        simplificando as integrações com as prefeituras para algo semelhante aos modelos dos Documentos Fiscais eletrônicos que temos hoje.</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+        <p class="my-5"><b>MEI é obrigado a emitir Nota Fiscal?</b></p>
+        <p>Em regra não. Além de ser um benefício, você pode ter a obrigação de emitir esse documento em alguns casos:</p>
+        <ul>
+            <li>Sempre que vender ou prestar serviços para outras pessoas jurídicas (empresas ou governo), independentemente do tamanho delas;</li>
+            <li>Quando seus clientes (pessoa física) solicitarem, de acordo com o Código de Defesa do Consumidor;</li>
+            <li>Sempre que você precisar enviar seu produto para o cliente, independente se for empresa ou pessoa física, como por exemplo venda pela internet, telefone ou catálogo.</li>
+        </ul>
+        <p><b>MEI pode comprar sem Nota Fiscal?</b></p>
+        <p class="text-justify">Não, toda vez que você compra qualquer produto para a sua atividade como MEI é preciso solicitar a emissão da nota fiscal.
+            Toda empresa é obrigada e emitir nota fiscal. Se você comprou de um outro MEI, ele também é obrigado a emitir nota fiscal para você.
+            Lembra que o MEI é obrigado a emitir nota fiscal sempre que vende para outro CNPJ.
+            Guarde todas as notas fiscais dos produtos comprados ou serviços contratados e anexe junto ao relatório mensal .
+            Além de ser uma obrigação legal, guardar as notas fiscais de compra e venda também é uma forma de controle financeiro da sua empresa, fundamental para o sucesso do seu negócio!</p>
+    </div>
+     {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

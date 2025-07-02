@@ -1,0 +1,54 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/cursos.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+
+  <div class="row">
+    <div class="col d-flex flex-column">
+        <h1 class="" style="display: inline;">Capacitação</h1>
+        <p class="text-secondary">Escolha o caminho certo para o seu crescimento, amplie suas competências! Estamos de mãos dadas com o seu desenvolvimento!</p>
+        
+        <div class="row mx-auto px-5 py-4">
+            <div class="d-flex flex-wrap justify-content-around">
+                <div class="item border border d-flex flex-column mx-2 div_cursos">
+                    <a href="{% url 'cursos_profissionais:index' %}">
+                      <div class="c-img" style="position: relative;">
+                        <img class="banner-img" src="/static/images/icons_servicos/capacitacao-profissional.png" >
+                      </div>
+                    </a> 
+                  </div>
+                  <div class="item border border d-flex flex-column mx-2 div_cursos">
+                    <a href="{% url 'cursos_empresariais:home' %}">
+                      <div class="c-img" style="position: relative;">
+                        <img class="banner-img" src="/static/images/icons_servicos/capacitacao-empresarial.png" >
+                      </div>
+                    </a> 
+                  </div>
+            </div>
+        </div>
+<div class="row">
+  <div class="col pb-5">
+    <p class="text-justify">
+    <strong>Atenção!</strong>  A Sala do Empreendedor está aberta a novas parcerias com universidades, instituições educacionais e empresariais para a oferta de cursos gratuitos voltados à população em geral e aos microempreendedores. Nossa missão é fortalecer o empreendedorismo e capacitar os cidadãos, promovendo o desenvolvimento econômico local. Interessados devem encaminhar ofícios para a Sala do Empreendedor.
+  </p>
+  </div>
+</div>
+
+        <div class="row mx-auto px-5">
+        <script>
+            document.getElementById('empreendedor_capacita').classList.add('s-nav-active');
+        </script>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'instagram_desenvolve.html' %}
+{% endblock %}

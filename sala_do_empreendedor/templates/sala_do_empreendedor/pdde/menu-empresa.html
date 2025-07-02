@@ -1,0 +1,60 @@
+{% extends 'template.html' %}
+{% load bootstrap5 %}
+{% load empreendedor_filters %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+  <div class="row">
+    <div class="col px-5 py-4  border d-flex flex-column" style="background-color: white; border-radius: 30px;">
+      <div class="row">
+        <div class="col pb-4">
+          <h4 class="text-center">{{contrato.solicitacao_referente.get_status_display}}</h4>
+        </div>
+      </div>
+      <div class="d-flex m-auto">
+        <a href="{% url 'empreendedor:pdde_contratacao' contrato.hash %}" class="text-center {% if contrato.aceito_pela_empresa %}text-success{% endif %}">
+          {% if contrato.aceito_pela_empresa %}
+          <i class="fa-solid fa-file fa-3x"></i>
+          {% else %}
+          <i class="fa-solid fa-file-pen fa-3x"></i>
+          {% endif %}
+          <p>Contrato</p>
+        </a>
+        <a href="#" class="text-center {% if contrato.solicitacao_referente.status == '6' %}text-success{% elif contrato.solicitacao_referente.status == '5'%}text-primary{% elif contrato.solicitacao_referente.status == '7'%}text-success{% elif contrato.solicitacao_referente.status == '8'%}text-success{% else %}text-secondary{% endif %} mx-5">
+          <i class="fa-solid fa-money-bill-transfer fa-3x"></i>
+          <p>{% if contrato.solicitacao_referente.status == '6' %}Pagamento<br>efetuado{% elif contrato.solicitacao_referente.status == '5'%}Aguardando<br>pagamento{% elif contrato.solicitacao_referente.status == '7'%}Pagamento<br>efetuado{% elif contrato.solicitacao_referente.status == '8'%}Pagamento<br>efetuado{% else %}Aguardando<br>pagamento{% endif %}</p>
+        </a>
+        <a href="{% if contrato.solicitacao_referente.status == '6' %}{%url 'empreendedor:pdde_nota_fiscal' contrato.hash %}{% elif contrato.solicitacao_referente.status == '7' %}{{contrato.nota_fiscal.url}}{% elif contrato.solicitacao_referente.status == '8' %}{{contrato.nota_fiscal.url}}{% else %}#{% endif %}" class="text-center {% if contrato.solicitacao_referente.status == '7' %}text-success{% elif contrato.solicitacao_referente.status == '8' %}text-success{% elif contrato.solicitacao_referente.status == '6' %}text-primary{% else %}text-secondary{% endif %} mx-1">
+          {% if contrato.solicitacao_referente.status == '7' %}
+          <i class="fa-solid fa-file-arrow-down fa-3x"></i>
+          {% elif contrato.solicitacao_referente.status == '8' %}
+          <i class="fa-solid fa-file-arrow-down fa-3x"></i>
+          {% else %}
+          <i class="fa-solid fa-file-arrow-up fa-3x"></i>
+          {% endif %}
+          <p>Nota Fiscal</p>
+        </a>
+        <a href="#" class="text-center {% if contrato.solicitacao_referente.status == '8' %}text-success{%else%}text-secondary{% endif %} ms-5">
+          <i class="fa-solid fa-square-check fa-3x"></i>
+          <p>Avaliação<br>do Serviço</p>
+        </a>
+      </div>
+      <div class="row">
+        <div class="col pt-5 text-center">
+          <a class="" href="{% url 'empreendedor:minha_empresa' %}#pdde">Voltar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

@@ -1,0 +1,533 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row  bg-white" style="border-radius: 30px;">
+      <div class="col">
+        <div class="pt-4 d-flex px-3">
+            <h2 style="display: inline;">Administrativo - Processos Digitais</h2>       
+              <a href="{% url 'empreendedor:processos_digitais_admin' %}" class="btn btn-dark ms-auto my-auto">
+                <i class="fa-solid fa-rotate-left me-2"></i> Voltar
+              </a>
+              {% if processo.status != 'cn' %}
+              <a href="{% url 'empreendedor:novo_andamento_processo_admin' processo.id %}" class="btn btn-success ms-2 my-auto">
+                <i class="fa-solid fa-circle-arrow-right me-2"></i> Dar novo andamento
+              </a>
+              {% endif %}
+                               
+            </div>
+            <div class="row">
+              <div class="col px-5 mt-4 d-flex">
+                <span class="py-0 px-2 rounded-pill" style="background-color: rgb(152, 190, 223);">{{processo.get_status_display}}</span>
+                <p class="ms-3">
+                  <strong class="my-auto">{{processo.tipo_processo.nome}} - {{processo.n_protocolo}} - {{processo.dt_solicitacao|date:"d/m/y"}}</strong></p >
+                <p class="ms-auto my-auto"><strong>Profissão:</strong> {{requerimento.profissao.nome}} {% if requerimento.autonomo_localizado == 's' %}(Localizado){% else %}(Não localizado){% endif %} <strong class="ms-3">Solicitante:</strong> <a href="#">{{processo.solicitante.first_name}}</a></p>
+              </div>
+            </div>          
+            {% if processo.status == 'cn' %}
+            <div class="row">
+              <div class="col text-center pt-4">
+                <p><b>Processo encerrado!</b></p>
+                <p class="mt-4">Número de inscrição:</p>
+                <h3>
+                  {{requerimento.n_inscricao}}
+                </h3>
+              </div>
+            </div>
+            {% endif %}
+            <div class="row">
+              <div class="col d-flex flex-column pt-4 pb-3 px-5">
+                <hr>
+                <h4>Licença Ambiental</h4>
+                {% if agente_ambiental %}
+                <div class="row">
+                  <div class="col">
+                    opa
+                  </div>
+                </div>
+                {% else %}
+                <div class="row">
+                  {% if status_documentos.contrato_locacao %}
+                  <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                    <label for="">Contrato de Locação</label>
+                    <p class="bg-status-{{status_documentos.comprovante_limpeza_caixa_dagua_status}}">{{status_documentos.get_comprovante_limpeza_caixa_dagua_status_display}}</p>
+                  </div>
+                  <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                    <label for="">Conta D'água</label>
+                    <p class="bg-status-{{status_documentos.comprovante_ar_condicionado_status}}">{{status_documentos.get_comprovante_ar_condicionado_status_display}}</p>
+                  </div>
+                  <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                    <label for="">Conta de Luz</label>
+                    <p class="bg-status-{{status_documentos.plano_gerenciamento_de_residuos_status}}">{{status_documentos.get_plano_gerenciamento_de_residuos_status_display}}</p>
+                  </div>  
+                </div>
+                <div class="row">
+                  <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                    <label for="">Foto da empresa</label>
+                    <p class="bg-status-{{status_documentos.foto_status}}">{{status_documentos.get_foto_status_display}}</p>
+                  </div> 
+                  <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                    <label for="">Croqui de acesso</label>
+                    <p class="bg-status-{{status_documentos.croqui_acesso_status}}">{{status_documentos.get_croqui_acesso_status_display}}</p>
+                  </div>
+                  {% if status_documentos.contrato_locacao %}
+                  <div class="col d-flex py-2 pb-1 flex-column ms-2">                   
+                  </div>
+                  {% endif %}
+                </div>
+                  {% else %}
+                  <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                    <label for="">Conta D'água</label>
+                    <p class="bg-status-{{status_documentos.comprovante_ar_condicionado_status}}">{{status_documentos.get_comprovante_ar_condicionado_status_display}}</p>
+                  </div>
+                  <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                    <label for="">Conta de Luz</label>
+                    <p class="bg-status-{{status_documentos.plano_gerenciamento_de_residuos_status}}">{{status_documentos.get_plano_gerenciamento_de_residuos_status_display}}</p>
+                  </div>             
+                  <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                    <label for="">Foto da empresa</label>
+                    <p class="bg-status-{{status_documentos.foto_status}}">{{status_documentos.get_foto_status_display}}</p>
+                  </div> 
+                  <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                    <label for="">Croqui de acesso</label>
+                    <p class="bg-status-{{status_documentos.croqui_acesso_status}}">{{status_documentos.get_croqui_acesso_status_display}}</p>
+                  </div>
+              </div>
+              
+                  {% endif %}
+                  {% if status_documentos.licenca_ambiental %}
+                <div class="row">
+                  <div class="col d-flex mt-4 ">
+                    <div class="mx-auto">
+                      <a class="btn btn-outline-dark px-5" href="{{status_documentos.licenca_ambiental.url}}" target="_blank">
+                        <i class="fa-solid fa-id-card me-2"></i>Licença Ambiental
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+                {% endif %}
+                {% if requerimento.profissao.licenca_sanitaria %}
+                <div class="row mt-4">
+                  <h4>Licença Sanitária</h4>
+                  <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                    <label for="">Comprovante limpeza caixa d'água</label>
+                    <p class="bg-status-{{status_documentos.comprovante_limpeza_caixa_dagua_status}}">{{status_documentos.get_comprovante_limpeza_caixa_dagua_status_display}}</p>
+                  </div>
+                  <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                    <label for="">Comprovante Manutenção do Ar</label>
+                    <p class="bg-status-{{status_documentos.comprovante_ar_condicionado_status}}">{{status_documentos.get_comprovante_ar_condicionado_status_display}}</p>
+                  </div>
+                  <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                    <label for="">Plano de gerenciamento de resíduos</label>
+                    <p class="bg-status-{{status_documentos.plano_gerenciamento_de_residuos_status}}">{{status_documentos.get_plano_gerenciamento_de_residuos_status_display}}</p>
+                  </div>                    
+                {% if status_documentos.licenca_santinaria_anterior %}
+                    <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                      <label for="">Licença sanitáira anterior</label>
+                      <p class="bg-status-{{status_documentos.licenca_santinaria_anterior_status}}">{{status_documentos.get_licenca_santinaria_anterior_status_display}}</p>
+                    </div>
+                    
+                  {% endif %}
+                </div>
+                {% if status_documentos.licenca_sanitaria %}
+                <div class="row">
+                  <div class="col d-flex mt-4 ">
+                    <div class="mx-auto">
+                      <a class="btn btn-outline-dark px-5" href="{{status_documentos.licenca_sanitaria.url}}" target="_blank">
+                        <i class="fa-solid fa-id-card me-2"></i>Licença Sanitária
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+                
+                {% elif requerimento.autonomo_localizado == 's' and requerimento.profissao.licenca_sanitaria_com_alvara %}
+                <div class="row">
+                  <h4>Licença Sanitária</h4>
+                  <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                    <label for="">Comprovante limpeza caixa d'água</label>
+                    <p class="bg-status-{{status_documentos.comprovante_limpeza_caixa_dagua_status}}">{{status_documentos.get_comprovante_limpeza_caixa_dagua_status_display}}</p>
+                  </div>
+                  <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                    <label for="">Comprovante Manutenção do Ar</label>
+                    <p class="bg-status-{{status_documentos.comprovante_ar_condicionado_status}}">{{status_documentos.get_comprovante_ar_condicionado_status_display}}</p>
+                  </div>
+                  <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                    <label for="">Plano de gerenciamento de resíduos</label>
+                    <p class="bg-status-{{status_documentos.plano_gerenciamento_de_residuos_status}}">{{status_documentos.get_plano_gerenciamento_de_residuos_status_display}}</p>
+                  </div>                    
+                {% if status_documentos.licenca_santinaria_anterior %}
+                    <div class="col d-flex py-2 pb-1 flex-column ms-2">
+                      <label for="">Licença sanitáira anterior</label>
+                      <p class="bg-status-{{status_documentos.licenca_santinaria_anterior_status}}">{{status_documentos.get_licenca_santinaria_anterior_status_display}}</p>
+                    </div>
+                    
+                  {% endif %}
+                </div>
+                {% if status_documentos.licenca_sanitaria %}
+                <div class="row">
+                  <div class="col d-flex mt-4 ">
+                    <div class="mx-auto">
+                      <a class="btn btn-outline-dark px-5" href="{{status_documentos.licenca_sanitaria.url}}" target="_blank">
+                        <i class="fa-solid fa-id-card me-2"></i>Licença Sanitária
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+                {% endif %}
+                  <div class="row mt-3 mb-4">
+                    <h4>Demais anexos</h4>
+                    <div class="col">
+                    <div class="row my-3">
+                        <a class="btn btn-outline-dark col" href="{{status_documentos.rg.url}}" target="_blank">
+                          <i class="fa-solid fa-id-card me-2"></i>RG
+                        </a>
+                        <a class="btn btn-outline-dark col ms-2" href="{{status_documentos.comprovante_endereco.url}}" target="_blank">
+                          <i class="fa-solid fa-address-card me-2"></i>Comprovante de Endereço
+                        </a>
+                        {% if requerimento.profissao.escolaridade.id == 1  or requerimento.profissao.escolaridade.id == 2 or requerimento.profissao.escolaridade.id == 3 or requerimento.profissao.escolaridade.id == 4 %}
+                        <a class="btn btn-outline-dark col ms-2" href="{{status_documentos.diploma_ou_certificado.url}}" target="_blank">
+                          <i class="fa-solid fa-address-card me-2"></i>Diploma/Certificado
+                        </a>
+                        {% endif %}
+                        {% if requerimento.autonomo_localizado == 's' %} 
+                        <a class="btn btn-outline-dark col ms-2" href="{{status_documentos.espelho_iptu.url}}" target="_blank">
+                          <i class="fa-solid fa-address-card me-2"></i>Espelho de IPTU
+                        </a>
+                        {% endif %}  
+                    </div>
+                    <div class="row d-flex">
+                      <div class="col d-flex flex-column">
+                        <label for="">Status RG</label>
+                        <select class="form-select" name="rg_status" id="id_rg_status" onchange="mudaStatusRG({{status_documentos.id}})">
+                          <option value="0" {% if status_documentos.rg_status == '0' %}selected{% endif %}>Aguardando avaliação</option>
+                        
+                          <option value="1" {% if  status_documentos.rg_status == '1' %}selected{% endif %}>Aprovado</option>
+                        
+                          <option value="2" {% if  status_documentos.rg_status == '2' %}selected{% endif %}>Reprovado</option>
+                        
+                        </select>
+                      </div>
+                      <div class="col d-flex flex-column ms-2">
+                        <label for="">Status Comprovante de Endereço</label>
+                        <select class="form-select" name="comprovante_status" id="id_comprovante_status" onchange="mudaStatusComprovante({{ status_documentos.id}})">
+                          <option value="0" {% if  status_documentos.comprovante_endereco_status == '0' %}selected{% endif %}>Aguardando avaliação</option>
+                        
+                          <option value="1" {% if  status_documentos.comprovante_endereco_status == '1' %}selected{% endif %}>Aprovado</option>
+                        
+                          <option value="2" {% if  status_documentos.comprovante_endereco_status == '2' %}selected{% endif %}>Reprovado</option>
+                        
+                        </select>
+                      </div>
+                      {% if requerimento.profissao.escolaridade.id == 1  or requerimento.profissao.escolaridade.id == 2 or requerimento.profissao.escolaridade.id == 3 or requerimento.profissao.escolaridade.id == 4 %}
+                      <div class="col d-flex flex-column ms-2">
+                        <label for="">Status Diploma/Certificado</label>
+                        <select class="form-select" name="certificado_status" id="id_certificado_status" onchange="mudaStatusCertificado({{ status_documentos.id}})">
+                          <option value="0" {% if  status_documentos.diploma_ou_certificado_status == '0' %}selected{% endif %}>Aguardando avaliação</option>
+                        
+                          <option value="1" {% if  status_documentos.diploma_ou_certificado_status == '1' %}selected{% endif %}>Aprovado</option>
+                        
+                          <option value="2" {% if  status_documentos.diploma_ou_certificado_status == '2' %}selected{% endif %}>Reprovado</option>
+                        
+                        </select>
+                      </div>
+                    
+                    {% endif %}
+                      {% if requerimento.autonomo_localizado == 's' %}
+                      <div class="col d-flex flex-column ms-2">
+                        <label for="">Status Espelho de IPTU</label>
+                        <select class="form-select" name="espelho_status" id="id_espelho_status" onchange="mudaStatusEspelho({{ status_documentos.id}})">
+                          <option value="0" {% if  status_documentos.espelho_iptu_status == '0' %}selected{% endif %}>Aguardando avaliação</option>
+                        
+                          <option value="1" {% if  status_documentos.espelho_iptu_status == '1' %}selected{% endif %}>Aprovado</option>
+                        
+                          <option value="2" {% if  status_documentos.espelho_iptu_status == '2' %}selected{% endif %}>Reprovado</option>
+                        
+                        </select>
+                      </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                    </div>
+                  {% if processo.status == 'bg' %}
+                  <div class="row text-center">
+                    <div class="col">
+                      <p><i><b>Boleto foi gerado!</b> Aguardando usuário efetuar o pagamento.</i></p>
+                      <a target="_blank" href="{{processo.boleto.url}}" class="btn btn-primary mt-3 mb-3">
+                        <i class="fa-solid fa-file-arrow-down me-2"></i>Ver boleto
+                      </a>
+                    </div>
+                  </div>
+                  {% endif %}
+                <hr>
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col px-5 d-flex">
+                <h4 class="my-auto py-0">Andamento do processo</h4>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                  {% if messages %}
+                    {% for message in messages %}
+                      <div class="alert {{ message.tags }}">
+                        {{ message }}
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+            <div class="row">
+                <div class="col px-5 pb-5 d-flex flex-column">
+                    <div class="menu mt-3 mb-4">
+                        <a href="#">
+                            Escolaridade
+                        </a>
+                        <a href="#" class="ms-3">
+                            Profissão
+                        </a>
+                        <a href="#" class="ms-3">
+                            Status do
+                        </a>
+                    </div>
+                    <div class="processos">
+                        <table class="table mt-4">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th class="text-center">Status do andamento</th>
+                                    <th>Mensagem</th>
+                                    <th class="text-center">Data do andamento</th>
+                                    <th>Servidor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              {% for andamento in andamentos %}
+                                <tr {% if forloop.first %}style="background-color: #FFE5CC;"{% endif %}>
+                                    <td class="{% if forloop.first %}text-danger{% else %}text-success{% endif %} text-center">
+                                      {% if forloop.first %}
+                                      <i class="fa-solid fa-exclamation"></i>
+                                      {% else %}
+                                      <i class="fa-solid fa-check"></i>
+                                      {% endif %}
+                                    </td>
+                                    <td class="text-center d-flex"><span class="mx-auto py-1 px-2 rounded-pill w-100" style="background-color: rgb(152, 190, 223); max-width: 300px;">{{andamento.get_status_display}}</span></td>
+                                    <td>{% if andamento.observacao != 'n/h' %}{{andamento.observacao}}{% else %} <span class="text-secondary"><i>Não há mensagem.</i></span> {% endif %}</td>                  
+                                    <td class="text-center">{{andamento.dt_andamento|date:"d/m/y"}}</td>
+                                    <td>
+                                      {% if andamento.servidor %}
+                                     <a href="#"><i class="fa-solid fa-user me-2"></i>{{andamento.servidor.first_name}}</a>
+                                      {% else %}
+                                      <span class="text-secondary"><i>Criado pelo sistema.</i></span>
+                                      {% endif %}
+                                    </td>
+                                </tr>                               
+                              {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+      </div>
+    </div>
+</div>
+</div>
+<div class="row mx-auto px-5">
+  {% csrf_token %}
+  <script>
+    document.getElementById('empreendedor_admin').classList.add('s-nav-active');
+
+    let openfiltros = false
+    function showFiltros(){
+        if (openfiltros){      
+            document.getElementById('filtros').style.display='none'
+            openfiltros=false
+        }else{
+            document.getElementById('filtros').style.display='flex'
+            openfiltros=true
+        }
+    }
+
+
+  function mudaStatusRG(id){
+            const csrfTokenInput = document.querySelector("input[name='csrfmiddlewaretoken']");
+            const csrfToken = csrfTokenInput.value;
+            var select = document.getElementById('id_rg_status');
+            var status = select.options[select.selectedIndex].value;
+            let url = "{% url 'empreendedor:mudaStatusRG' %}";
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: id, status: status })
+            })
+            .then((response)=>{
+                response.json()
+                .then((data)=>{                    
+                    if (data.status == 'ok'){
+                        alert('Status alterado com sucesso!')
+                    }else{
+                        alert('Erro ao alterar status!')
+                    }
+                })
+            })
+    }
+
+    function mudaStatusComprovante(id){
+            const csrfTokenInput = document.querySelector("input[name='csrfmiddlewaretoken']");
+            const csrfToken = csrfTokenInput.value;
+            var select = document.getElementById('id_comprovante_status');
+            var status = select.options[select.selectedIndex].value;
+            let url = "{% url 'empreendedor:mudaStatusComprovante' %}";
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: id, status: status })
+            })
+            .then((response)=>{
+                response.json()
+                .then((data)=>{                    
+                    if (data.status == 'ok'){
+                        alert('Status alterado com sucesso!')
+                    }else{
+                        alert('Erro ao alterar status!')
+                    }
+                })
+            })
+    }
+    function mudaStatusCertificado(id){
+            const csrfTokenInput = document.querySelector("input[name='csrfmiddlewaretoken']");
+            const csrfToken = csrfTokenInput.value;
+            var select = document.getElementById('id_certificado_status');
+            var status = select.options[select.selectedIndex].value;
+            let url = "{% url 'empreendedor:mudaStatusCertificado' %}";
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: id, status: status })
+            })
+            .then((response)=>{
+                response.json()
+                .then((data)=>{                    
+                    if (data.status == 'ok'){
+                        alert('Status alterado com sucesso!')
+                    }else{
+                        alert('Erro ao alterar status!')
+                    }
+                })
+            })
+    }
+    function mudaStatusLicenca(id, tipo, input){
+            const csrfTokenInput = document.querySelector("input[name='csrfmiddlewaretoken']");
+            const csrfToken = csrfTokenInput.value;
+            var select = document.getElementById(input);
+            var status = select.options[select.selectedIndex].value;
+            let url = "{% url 'empreendedor:mudaStatusLicenca' %}"+tipo;
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: id, status: status })
+            })
+            .then((response)=>{
+                response.json()
+                .then((data)=>{                    
+                    if (data.status == 'ok'){
+                        alert('Status alterado com sucesso!')
+                    }else{
+                        alert('Erro ao alterar status!')
+                    }
+                })
+            })
+    }
+    function mudaStatusEspelho(id){
+            const csrfTokenInput = document.querySelector("input[name='csrfmiddlewaretoken']");
+            const csrfToken = csrfTokenInput.value;
+            var select = document.getElementById('id_espelho_status');
+            var status = select.options[select.selectedIndex].value;
+            let url = "{% url 'empreendedor:mudaStatusEspelho' %}";
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: id, status: status })
+            })
+            .then((response)=>{
+                response.json()
+                .then((data)=>{                    
+                    if (data.status == 'ok'){
+                        alert('Status alterado com sucesso!')
+                    }else{
+                        alert('Erro ao alterar status!')
+                    }
+                })
+            })
+    }
+  </script>
+</div>
+<style>
+  .bg-status-0{
+    margin-top: 5px;
+    text-align: center;
+    background-color: rgb(243, 232, 78);
+    border-radius: 20px;
+  }
+  .bg-status-1{
+    margin-top: 5px;
+    text-align: center;
+    background-color: rgb(91, 193, 93);
+    border-radius: 20px;
+  }
+  .bg-status-2{
+    margin-top: 5px;
+    text-align: center;
+    background-color: rgb(181, 33, 33);
+    color: rgb(239, 196, 196);
+    border-radius: 20px;  
+  }
+</style>
+<style>
+    .menu {
+  display: none; /* Inicialmente, ocultar o menu */
+}
+
+.menu-open {
+  display: block; /* Quando a classe "menu-open" é adicionada, mostrar o menu */
+  /* Outros estilos para o menu aberto, como posição, cores, etc. */
+}
+    .border{
+        border-color: rgba(146, 146, 146, 0.2) !important;
+    }
+    #filtros{
+        display: none;
+    }
+</style>
+
+</script>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

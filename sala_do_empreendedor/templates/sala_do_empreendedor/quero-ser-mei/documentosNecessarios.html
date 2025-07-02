@@ -1,0 +1,73 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/quero-ser-mei.css'%}">
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row mx-auto ps-4 pb-3">
+        <h3 class="text-center">Documentos Necessários para se Formalizar</h3>
+    </div>
+    <div class="row mx-auto mb-5">
+        <div class="col">
+            <div class="bg-secundary">
+                <p class="my-3"><b>
+                    Antes de começar o processo de formalização, veja a seguir os documentos que você precisa ter em
+                    mãos e o passo a passo deste processo.</b>
+                </p>
+            </div>
+
+            <ul>
+                <li><b>Dados pessoais:</b> RG, dados de contato e endereço residencial.</li>
+                <li><b>Dados do seu negócio:</b> tipo de ocupação, forma de atuação e local onde o negócio é realizado.
+                </li>
+                <li>Senha de acesso ao Portal de Serviços do Governo Federal - <a
+                        href="https://www.gov.br/governodigital/pt-br/conta-gov-br/conta-gov-br/">Plataforma gov.br</a>
+                </li>
+                <li>Se você <b>já possui</b> o cadastro a conta gov.br deve ter o nível <b>Prata ou Ouro;</b></li>
+                <li>Se ainda <b>não possui</b>, clique na opção Fazer Cadastro. Depois que finalizar, com a senha em
+                    mãos, acesse novamente o Portal do Empreendedor e clique em Formalize-se.</li>
+            </ul>
+
+            <p><b>Observação:</b></p>
+
+            <ul>
+                <li>Ter a conta gov.br :</li>
+            </ul>
+            <ul class="mb-4" style="list-style-type: decimal;">
+                <li>No caso de brasileiros, a conta gov.br deve ter o nível Prata ou Ouro. </li>
+                <li>No caso de estrangeiros, se a conta tiver o nível Bronze, será solicitado os dados de identificação
+                    civil do estrangeiro. Para os níveis Prata ou Ouro não será necessário informar esse dados.</li>
+                <ul>
+                    <li style="list-style-type:disc;">Dados de identificação civil do estrangeiro:</li>
+                    <li style="list-style-type:none;">-O país de nacionalidade, conforme cadastro CPF; (importante verificar se os dados do CPF estão atualizados junto à Receita Federal)
+                        -Dados de identificação civil do estrangeiro, conforme cadastro Polícia Federal. São aceitos os seguintes documentos emitidos pela PF: Carteira Nacional de Registro Migratório, Documento Provisório de Registro Nacional Migratório e Protocolo de Solicitação de Refúgio.</li>
+                </ul>
+            </ul>
+            <p><b>Observação:</b> Por questões de segurança, o sistema bloqueará o cadastro por 24 horas a partir da 3ª
+                tentativa de validação.</p>
+        </div>
+    </div>
+
+    {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
+    <style>
+        span {
+            text-align: center;
+        }
+    </style>
+    <div class="row mx-auto px-5">
+        <script>
+    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
+        </script>
+    </div>
+</div>
+
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

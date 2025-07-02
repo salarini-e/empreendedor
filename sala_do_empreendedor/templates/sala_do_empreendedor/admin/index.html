@@ -1,0 +1,77 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <h1>ADMIN</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+        <div class="col d-flex">
+          <div class="item border border d-flex flex-column mx-2 div_cursos">
+            <a href="{% url 'empreendedor:pdde_admin' %}">
+              <div class="c-img" style="position: relative;">
+                <img class="banner-img" src="/static/images/icones/pdde.png" >
+              </div>
+            </a> 
+          </div>
+          <div class="item border border d-flex flex-column mx-2 div_cursos">
+            <a href="{% url 'empreendedor:processos_digitais_admin' %}">
+              <div class="c-img" style="position: relative;">
+                <img class="banner-img" src="/static/images/icones/admin-processos-digitais.png" >
+              </div>
+            </a> 
+          </div>
+          <div class="item border border d-flex flex-column mx-2 div_cursos">
+            <a href="{% url 'empreendedor:mapeamento_empresa_e_fornecedores' %}">
+              <div class="c-img" style="position: relative;">
+                <img class="banner-img" src="/static/images/icones/admin-empresas-fornecedores.png" >
+              </div>
+            </a> 
+          </div>
+          <div class="item border border d-flex flex-column mx-2 div_cursos">
+            <a href="{% url 'cursos_empresariais:administrativo2' %}">
+              <div class="c-img" style="position: relative;">
+                <img class="banner-img" src="/static/images/icones/admin-cursos.png" >
+              </div>
+            </a> 
+          </div>
+      </div>
+    </div>
+</div>
+<div class="row mx-auto px-5">
+  <script>
+   document.getElementById('empreendedor_admin').classList.add('s-nav-active');
+  </script>
+</div>
+
+<style>
+  .border{
+    border-color: rgba(146, 146, 146, 0.2) !important;
+  }
+</style>
+
+</script>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

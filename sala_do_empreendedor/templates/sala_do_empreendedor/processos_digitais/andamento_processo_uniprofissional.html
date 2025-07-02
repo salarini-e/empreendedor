@@ -1,0 +1,384 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row  bg-white" style="border-radius: 30px;">
+      <div class="col">
+        <div class="pt-4 d-flex px-3">
+            <h2 style="display: inline;">Processos Digitais</h2>       
+              <a href="{% url 'empreendedor:listar_processos' %}" class="btn btn-dark ms-auto my-auto">
+                <i class="fa-solid fa-rotate-left me-2"></i> Voltar
+              </a>
+                               
+            </div>
+            <div class="row">
+              <div class="col px-5 mt-4 d-flex">
+                <span class="py-0 px-2 rounded-pill" style="background-color: rgb(152, 190, 223);">{{processo.get_status_display}}</span>
+                <p class="ms-3">
+                  <strong class="my-auto">{{processo.tipo_processo.nome}} - {{processo.n_protocolo}} - {{processo.dt_solicitacao|date:"d/m/y"}}</strong></p >
+                <p class="ms-auto my-auto"><strong>Solicitante:</strong> <a href="#">{{processo.solicitante.first_name}}</a></p>
+              </div>
+            </div>
+            {% if processo.status == 'cn' %}
+            <div class="row">
+              <div class="col text-center pt-4">
+                <p><b>Processo encerrado!</b></p>
+              </div>
+            </div>
+            {% endif %}
+            <div class="row">
+              <div class="col d-flex flex-column pt-4 pb-3 px-5">
+                <hr>
+                <div class="d-flex w-100 pt-4">
+                  
+                <h4>Status dos anexos</h4>
+                  </div>
+                  <div class="row">
+                    <div class="col d-flex pb-3 flex-wrap">
+                      <div class="mx-1 flex-fill d-flex flex-column">
+                          <p class="text-center">Contrato Social</p>
+                          <p class="bg-status-{{status_documentos.contrato_social_status}}">{{status_documentos.get_contrato_social_status_display}}</p>
+                          {% if status_documentos.contrato_social_status == '2' and processo.status == 'ar' %}
+                          <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='contrato_social' %}" class="border py-1 text-center w-100 mt-3 mx-auto" style="border-radius: 20px;">Atualizar Contrato Social</a>
+                          {% endif %}
+                      </div>
+                      <div class="mx-1 flex-fill d-flex flex-column">
+                        <p class="text-center">Carteira Orgão de Classe</p>
+                        <p class="bg-status-{{status_documentos.carteira_orgao_classe_status}}">{{status_documentos.get_carteira_orgao_classe_status_display}}</p>
+                        {% if status_documentos.carteira_orgao_classe_status == '2' and processo.status == 'ar' %}
+                        <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='carteira_orgao_classe' %}" class="border py-1 text-center w-100 mt-3 mx-auto" style="border-radius: 20px;">Atualizar Carteira Orgão de Classe</a>
+                        {% endif %}
+                      </div>
+                      <div class="mx-1 flex-fill d-flex flex-column">
+                        <p class="text-center">Alvará</p>
+                        <p class="bg-status-{{status_documentos.alvara_localizacao_status}}">{{status_documentos.get_alvara_localizacao_status_display}}</p>                    
+                        {% if status_documentos.alvara_localizacao_status == '2' and processo.status == 'ar' %}
+                        <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='alvara_localizacao' %}" class="border py-1 text-center w-100 mt-3 mx-auto" style="border-radius: 20px;">Atualizar Alvará</a>
+                        {% endif %}
+                      </div>
+                     
+                      <div class="mx-1 flex-fill d-flex flex-column">
+                        <p class="text-center">Balanço Patromonial</p>
+                        <p class="bg-status-{{status_documentos.balanco_patrimonial_status}}">{{status_documentos.get_balanco_patrimonial_status_display}}</p>
+                        {% if status_documentos.balanco_patrimonial_status == '2' and processo.status == 'ar' %}
+                        <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='balanco_patrimonial' %}" class="border py-1 text-center w-100 mt-3 mx-auto" style="border-radius: 20px;">Atualizar Balanço Patromonial</a>
+                        {% endif %}
+                      </div>
+                      <div class="mx-1 flex-fill d-flex flex-column">
+                        <p class="text-center">DRE</p>
+                        <p class="bg-status-{{status_documentos.dre_status}}">{{status_documentos.get_dre_status_display}}</p>
+                        {% if status_documentos.dre_status == '2' and processo.status == 'ar' %}
+                        <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='dre' %}" class="border py-1 text-center w-100 mt-3 mx-auto" style="border-radius: 20px;">Atualizar DRE</a>
+                        {% endif %}                      
+                      </div>
+                    </div>
+                  </div>
+                <div class="row">
+                  <div class="col d-flex">
+                    <div class="mx-1 flex-fill d-flex flex-column">
+                      <p class="text-center">Informações dos Empregados</p>
+                      <p class="bg-status-{{status_documentos.informacoes_cadastrais_dos_empregados_status}}">{{status_documentos.get_informacoes_cadastrais_dos_empregados_status_display}}</p>
+                      {% if status_documentos.informacoes_cadastrais_dos_empregados_status == '2' and processo.status == 'ar' %}
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='informacoes_cadastrais_dos_empregados' %}" class="border py-1 text-center w-100 mt-3 mx-auto" style="border-radius: 20px;">Atualizar Info. dos Empregados</a>
+                      {% endif %}                      
+                    </div>                              
+                    <div class="mx-1 flex-fill d-flex flex-column">
+                      <p class="text-center">Balancete Analítico</p>
+                      <p class="bg-status-{{status_documentos.balancete_analitico_status}}">{{status_documentos.get_balancete_analitico_status_display}}</p>
+                      {% if status_documentos.balancete_analitico_status == '2' and processo.status == 'ar' %}
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='balancete_analitico' %}" class="border py-1 text-center w-100 mt-3 mx-auto" style="border-radius: 20px;">Atualizar Balancete Analítico</a>
+                      {% endif %}                      
+                    </div>                   
+                    <div class="mx-1 flex-fill d-flex flex-column">
+                      <p class="text-center">CNPJ</p>
+                      <p class="bg-status-{{status_documentos.cnpj_copia_status}}">{{status_documentos.get_cnpj_copia_status_display}}</p>
+                      {% if status_documentos.cnpj_copia_status == '2' and processo.status == 'ar' %}
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='cnpj_copia' %}" class="border py-1 text-center w-100 mt-3 mx-auto" style="border-radius: 20px;">Atualizar CNPJ</a>
+                      {% endif %}                      
+                    </div>                  
+                    <div class="mx-1 flex-fill d-flex flex-column">
+                      <p class="text-center">Profissionais Habilitados</p>
+                      <p class="bg-status-{{status_documentos.profissionais_habilitados_status}}">{{status_documentos.get_profissionais_habilitados_status_display}}</p>
+                      {% if status_documentos.profissionais_habilitados_status == '2' and processo.status == 'ar' %}
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='profissionais_habilitados' %}" class="border py-1 text-center w-100 mt-3 mx-auto" style="border-radius: 20px;">Atualizar Profissionais Habilitados</a>
+                      {% endif %}                      
+                    </div>                  
+                    <div class="mx-1 flex-fill d-flex flex-column">
+                      <p class="text-center">IR Empresa</p>
+                      <p class="bg-status-{{status_documentos.ir_empresa_status}}">{{status_documentos.get_ir_empresa_status_display}}</p>
+                      {% if status_documentos.ir_empresa_status == '2' and processo.status == 'ar' %}
+                      <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='ir_empresa' %}" class="border py-1 text-center w-100 mt-3 mx-auto" style="border-radius: 20px;">Atualizar IR Empresa</a>
+                      {% endif %}                      
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col d-flex pt-3">
+                      <div class="me-auto d-flex flex-column">
+                        <p class="text-center">Simples Nacional</p>
+                        <p class="bg-status-{{status_documentos.simples_nacional_status}} px-4">{{status_documentos.get_simples_nacional_status_display}}</p>
+                        {% if status_documentos.simples_nacional_status == '2' and processo.status == 'ar' %}
+                        <a href="{% url 'empreendedor:atualizar_documento_processo' protocolo=processo.n_protocolo doc='simples_nacional' %}" class="border py-1 text-center w-100 mt-3 mx-auto" style="border-radius: 20px;">Atualizar Simples Nacional</a>
+                        {% endif %}                      
+                      </div>
+                  </div>
+                </div>
+                  <div class="row my-4">
+                <hr>
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="col px-5 d-flex">
+                <h4 class="my-auto py-0">Andamento do processo</h4>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col px-5 pb-5 d-flex flex-column">
+                    <div class="menu mt-3 mb-4">
+                        <a href="#">
+                            Escolaridade
+                        </a>
+                        <a href="#" class="ms-3">
+                            Profissão
+                        </a>
+                        <a href="#" class="ms-3">
+                            Status do
+                        </a>
+                    </div>
+                    <div class="processos">
+                        <table class="table mt-4">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th class="text-center">Status do andamento</th>
+                                    <th>Mensagem</th>
+                                    <th class="text-center">Data do andamento</th>
+                                    <th>Servidor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              {% for andamento in andamentos %}
+                                <tr {% if forloop.first %}style="background-color: #FFE5CC;"{% endif %}>
+                                    <td class="{% if forloop.first %}text-danger{% else %}text-success{% endif %} text-center">
+                                      {% if forloop.first %}
+                                      <i class="fa-solid fa-exclamation"></i>
+                                      {% else %}
+                                      <i class="fa-solid fa-check"></i>
+                                      {% endif %}
+                                    </td>
+                                    <td class="text-center d-flex"><span class="mx-auto py-1 px-2 rounded-pill w-100" style="background-color: rgb(152, 190, 223); max-width: 300px;">{{andamento.get_status_display}}</span></td>
+                                    <td>{% if andamento.observacao != 'n/h' %}{{andamento.observacao}}{% else %} <span class="text-secondary"><i>Não há mensagem.</i></span> {% endif %}</td>                  
+                                    <td class="text-center">{{andamento.dt_andamento|date:"d/m/y"}}</td>
+                                    <td>
+                                      {% if andamento.servidor %}
+                                     <a href="#"><i class="fa-solid fa-user me-2"></i>{{andamento.servidor.first_name}}</a>
+                                      {% else %}
+                                      <span class="text-secondary"><i>Criado pelo sistema.</i></span>
+                                      {% endif %}
+                                    </td>
+                                </tr>                               
+                              {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+      </div>
+    </div>
+</div>
+</div>
+<div class="row mx-auto px-5">
+  {% csrf_token %}
+  <script>
+    document.getElementById('empreendedor_admin').classList.add('s-nav-active');
+
+    let openfiltros = false
+    function showFiltros(){
+        if (openfiltros){      
+            document.getElementById('filtros').style.display='none'
+            openfiltros=false
+        }else{
+            document.getElementById('filtros').style.display='flex'
+            openfiltros=true
+        }
+    }
+
+
+  function mudaStatus(id, query){
+            const csrfTokenInput = document.querySelector("input[name='csrfmiddlewaretoken']");
+            const csrfToken = csrfTokenInput.value;
+            var select = document.getElementById('id_'+query+'_status');
+            var status = select.options[select.selectedIndex].value;
+            let url = "{% url 'empreendedor:mudaStatus' %}";
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: id, query: query, status: status })
+            })
+            .then((response)=>{
+                response.json()
+                .then((data)=>{                    
+                    if (data.status == 'ok'){
+                        alert('Status alterado com sucesso!')
+                    }else{
+                        alert('Erro ao alterar status!')
+                    }
+                })
+            })
+    }
+
+    function mudaStatusComprovante(id){
+            const csrfTokenInput = document.querySelector("input[name='csrfmiddlewaretoken']");
+            const csrfToken = csrfTokenInput.value;
+            var select = document.getElementById('id_comprovante_status');
+            var status = select.options[select.selectedIndex].value;
+            let url = "{% url 'empreendedor:mudaStatusComprovante' %}";
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: id, status: status })
+            })
+            .then((response)=>{
+                response.json()
+                .then((data)=>{                    
+                    if (data.status == 'ok'){
+                        alert('Status alterado com sucesso!')
+                    }else{
+                        alert('Erro ao alterar status!')
+                    }
+                })
+            })
+    }
+    function mudaStatusCertificado(id){
+            const csrfTokenInput = document.querySelector("input[name='csrfmiddlewaretoken']");
+            const csrfToken = csrfTokenInput.value;
+            var select = document.getElementById('id_certificado_status');
+            var status = select.options[select.selectedIndex].value;
+            let url = "{% url 'empreendedor:mudaStatusCertificado' %}";
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: id, status: status })
+            })
+            .then((response)=>{
+                response.json()
+                .then((data)=>{                    
+                    if (data.status == 'ok'){
+                        alert('Status alterado com sucesso!')
+                    }else{
+                        alert('Erro ao alterar status!')
+                    }
+                })
+            })
+    }
+    function mudaStatusLicenca(id){
+            const csrfTokenInput = document.querySelector("input[name='csrfmiddlewaretoken']");
+            const csrfToken = csrfTokenInput.value;
+            var select = document.getElementById('id_licenca_status');
+            var status = select.options[select.selectedIndex].value;
+            let url = "{% url 'empreendedor:mudaStatusLicenca' %}";
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: id, status: status })
+            })
+            .then((response)=>{
+                response.json()
+                .then((data)=>{                    
+                    if (data.status == 'ok'){
+                        alert('Status alterado com sucesso!')
+                    }else{
+                        alert('Erro ao alterar status!')
+                    }
+                })
+            })
+    }
+    function mudaStatusEspelho(id){
+            const csrfTokenInput = document.querySelector("input[name='csrfmiddlewaretoken']");
+            const csrfToken = csrfTokenInput.value;
+            var select = document.getElementById('id_espelho_status');
+            var status = select.options[select.selectedIndex].value;
+            let url = "{% url 'empreendedor:mudaStatusEspelho' %}";
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: id, status: status })
+            })
+            .then((response)=>{
+                response.json()
+                .then((data)=>{                    
+                    if (data.status == 'ok'){
+                        alert('Status alterado com sucesso!')
+                    }else{
+                        alert('Erro ao alterar status!')
+                    }
+                })
+            })
+    }
+  </script>
+</div>
+
+<style>
+    .menu {
+  display: none; /* Inicialmente, ocultar o menu */
+}
+
+.menu-open {
+  display: block; /* Quando a classe "menu-open" é adicionada, mostrar o menu */
+  /* Outros estilos para o menu aberto, como posição, cores, etc. */
+}
+    .border{
+        border-color: rgba(146, 146, 146, 0.2) !important;
+    }
+    #filtros{
+        display: none;
+    }
+    .bg-status-0{
+      margin-top: 5px;
+      text-align: center;
+      background-color: rgb(243, 232, 78);
+      border-radius: 20px;
+    }
+    .bg-status-1{
+      margin-top: 5px;
+      text-align: center;
+      background-color: rgb(91, 193, 93);
+      border-radius: 20px;
+    }
+    .bg-status-2{
+      margin-top: 5px;
+      text-align: center;
+      background-color: rgb(181, 33, 33);
+      color: rgb(239, 196, 196);
+      border-radius: 20px;  
+    }
+</style>
+
+</script>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

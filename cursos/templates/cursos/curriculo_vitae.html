@@ -1,0 +1,22 @@
+{% extends 'template.html' %}
+{% load bootstrap5 %}
+{% load static%}
+{% block nav %}
+{% include 'nav_cursos.html' %}
+{% endblock %}
+{% block css %}
+<script src="{% static 'js/cursos.js' %}"></script>
+{% endblock %}
+{% block main %}
+<div class="row container mx-auto">
+    <h2>Currículo Vitae</h2>
+</div>
+  <script>
+  
+    document.getElementById('s-en-superior').classList.add('s-nav-active');
+    
+  </script>
+{% endblock %}
+{% block footer %}
+{% include 'instagram_desenvolve.html' %}
+{% endblock %}

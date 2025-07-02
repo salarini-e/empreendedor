@@ -1,0 +1,228 @@
+<style>
+  /* Navegação Empreendedor - Nova Identidade Visual */
+  .nav-empreendedor {
+    background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,249,250,0.95));
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  
+  .nav-item-empreendedor {
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    padding: 0.5rem;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .nav-item-empreendedor::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 15px;
+  }
+  
+  .nav-item-empreendedor:hover::before {
+    opacity: 1;
+  }
+  
+  .nav-icon-empreendedor {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+  }
+  
+  .nav-icon-empreendedor i {
+    font-size: 1.8rem;
+    color: white;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-icon-empreendedor::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #764ba2, #667eea);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 50%;
+  }
+  
+  .nav-item-empreendedor:hover .nav-icon-empreendedor {
+    transform: translateY(-8px) scale(1.1);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+  }
+  
+  .nav-item-empreendedor:hover .nav-icon-empreendedor::before {
+    opacity: 1;
+  }
+  
+  .nav-item-empreendedor:hover .nav-icon-empreendedor i {
+    transform: scale(1.1);
+  }
+  
+  .nav-label-empreendedor {
+    color: var(--dark-color);
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1.3;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .nav-item-empreendedor:hover .nav-label-empreendedor {
+    color: #667eea;
+    transform: translateY(-2px);
+  }
+  
+  .nav-item-empreendedor.active .nav-icon-empreendedor {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+  }
+  
+  .nav-item-empreendedor.active .nav-label-empreendedor {
+    color: #ff6b6b;
+    font-weight: 700;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .nav-empreendedor {
+      padding: 1.5rem 1rem;
+      margin: 1rem 0;
+    }
+    
+    .nav-icon-empreendedor {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 0.5rem;
+    }
+    
+    .nav-icon-empreendedor i {
+      font-size: 1.5rem;
+    }
+    
+    .nav-label-empreendedor {
+      font-size: 0.8rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .nav-empreendedor {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .nav-container-empreendedor {
+      display: flex;
+      min-width: 600px;
+      justify-content: space-around;
+    }
+    
+    .nav-item-empreendedor {
+      flex: 0 0 auto;
+      margin: 0 0.5rem;
+    }
+  }
+</style>
+
+<div id="navegacao" class="container">
+  <div class="nav-empreendedor">
+    <div class="row nav-container-empreendedor">
+      <div class="col d-flex justify-content-center flex-wrap">
+        
+        <!-- Início -->
+        <a href="{% url 'empreendedor:index' %}" class="nav-item-empreendedor me-3 {% if request.resolver_match.url_name == 'index' %}active{% endif %}">
+          <div class="nav-icon-empreendedor">
+            <i class="fas fa-home"></i>
+          </div>
+          <p class="nav-label-empreendedor mb-0">Início</p>
+        </a>
+        
+        <!-- Serviços -->
+        <a href="{% url 'empreendedor:index' %}#servicos" class="nav-item-empreendedor me-3">
+          <div class="nav-icon-empreendedor">
+            <i class="fas fa-th-large"></i>
+          </div>
+          <p class="nav-label-empreendedor mb-0">Serviços</p>
+        </a>
+        
+        <!-- Consultar Processo -->
+        <a href="{% url 'empreendedor:consultar_processos' %}" class="nav-item-empreendedor me-3 {% if request.resolver_match.url_name == 'consultar_processos' %}active{% endif %}">
+          <div class="nav-icon-empreendedor">
+            <i class="fas fa-search"></i>
+          </div>
+          <p class="nav-label-empreendedor mb-0">Consultar<br>Processo</p>
+        </a>
+        
+        <!-- Capacitação -->
+        <a href="{% url 'empreendedor:cursos' %}" class="nav-item-empreendedor me-3 {% if request.resolver_match.url_name == 'cursos' %}active{% endif %}">
+          <div class="nav-icon-empreendedor">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <p class="nav-label-empreendedor mb-0">Capacitação</p>
+        </a>
+        
+        <!-- Minha Empresa -->
+        <a href="{% url 'empreendedor:minha_empresa' %}" class="nav-item-empreendedor me-3 {% if request.resolver_match.url_name == 'minha_empresa' %}active{% endif %}">
+          <div class="nav-icon-empreendedor">
+            <i class="fas fa-building"></i>
+          </div>
+          <p class="nav-label-empreendedor mb-0">Minha<br>Empresa</p>
+        </a>
+        
+        <!-- Vitrine Virtual -->
+        <a href="{% url 'empreendedor:vitrine_virtual' %}" class="nav-item-empreendedor me-3 {% if request.resolver_match.url_name == 'vitrine_virtual' %}active{% endif %}">
+          <div class="nav-icon-empreendedor">
+            <i class="fas fa-store"></i>
+          </div>
+          <p class="nav-label-empreendedor mb-0">Vitrine<br>Virtual</p>
+        </a>
+        
+        <!-- Facção Legal -->
+        <a href="{% url 'empreendedor:faccao_legal' %}" class="nav-item-empreendedor me-3 {% if request.resolver_match.url_name == 'faccao_legal' %}active{% endif %}">
+          <div class="nav-icon-empreendedor">
+            <i class="fas fa-balance-scale"></i>
+          </div>
+          <p class="nav-label-empreendedor mb-0">Facção<br>Legal</p>
+        </a>
+        
+        <!-- Legislação -->
+        <a href="{% url 'empreendedor:legislacao' %}" class="nav-item-empreendedor">
+          <div class="nav-icon-empreendedor">
+            <i class="fas fa-gavel"></i>
+          </div>
+          <p class="nav-label-empreendedor mb-0">Legislação</p>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+</div>

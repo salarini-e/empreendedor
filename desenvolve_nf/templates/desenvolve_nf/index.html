@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Favicon Icon -->
+  <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+  <title>{% block title %}{{titulo}}{% endblock %}</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <!-- BOOTSTRAP 5 -->
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" rel="stylesheet">
+  <script crossorigin="anonymous" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- FONTAWESOME -->
+  <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+  <!-- CUSTOM CSS -->
+  {% block custom_css %}
+  <!--<link rel="stylesheet" href={% static 'css/reset.css'%}>-->
+  <link rel="stylesheet" href="{% static 'css/desenvolve_nf/index.css'%}">
+  <link rel="stylesheet" href="{% static 'css/desenvolve_nf/index_responsive.css'%}">
+  <link rel="stylesheet" href="/static/css/carousel_desenvolve.css">
+  <link rel="stylesheet" href="/static/css/button_tremedera.css">
+
+  <link rel="stylesheet" href="/static/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/static/css/owl.theme.default.min.css">
+  {% endblock %}
+  <!-- CUSTOM JS-->
+  {% block custom_js %}
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6PFZS9T0XW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6PFZS9T0XW');
+</script>
+  <script src="{% static 'js/index_desenvolvenf.js' %}" defer></script>
+  {% endblock %}
+</head>
+
+<body id="body">
+  <div id="preloading" style="background-color: white;">
+    <img class="mx-auto mt-auto img-fluid logo" src="/static/images/logo_pmnf.png" alt="">
+    <div class="mx-auto mb-auto lds-ellipsis">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <style>
+    #preloading{
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100000;
+    }
+  </style>
+  <header>
+    <nav id="nav-superior">
+      <div class="logo-nf">
+        <!-- <img class="logo-1" src="{% static 'images/logo_pmnf.png' %}" alt="Brasão da Prefeitura Municipal de Nova Friburgo"> -->
+        <img class="logo-1" src="{% static 'images/brasao-nf.png' %}" alt="Brasão da Prefeitura Municipal de Nova Friburgo">
+        <span>|</span>
+        <img class="logo-2" src="{% static 'images/logo_desenvolvenf.png' %}" alt="Logo do DesenvolveNF">
+      </div>  
+      <div class="my-auto mx-auto">
+        <ul class="nav-a">
+          <!-- <li>
+            <div class="dropdown mx-2">
+            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuNav" data-bs-toggle="dropdown" aria-expanded="false">
+              Imprensa
+            </a>                                  
+            <ul id="menu-nav" class="dropdown-menu text-left" aria-labelledby="dropdownMenuNav">                 
+              <li class="mt-1 ms-3"><b>Sistemas:</b></li>
+              <li><a class="dropdown-item" target="_blank" href="https://plenussistemas.dioenet.com.br/list/nova-friburgo"><i class="fa-solid fa-paw me-2"></i>Diário Oficial Eletrônico</a></li>
+              <li><a class="dropdown-item" target="_blank" href="https://pmnf.rj.gov.br/noticias/"><i class="fa-solid fa-landmark me-2"></i>Notícias</a></li>
+            </ul>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown mx-2">
+            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuNav" data-bs-toggle="dropdown" aria-expanded="false">
+              Cidadão
+            </a>                                  
+            <ul id="menu-nav" class="dropdown-menu" aria-labelledby="dropdownMenuNav">                 
+              <li class="mt-1 ms-3"><b>Sistemas:</b></li>
+              <li><a class="dropdown-item" href="#"><i class="fa-solid fa-paw me-2"></i>Bem Estar Animal</a></li>
+              <li><a class="dropdown-item" href="https://casadotrabalhador.pmnf.rj.gov.br"><i class="fa-solid fa-landmark me-2"></i>Casa do Trabalhador</a></li>
+              <li><a class="dropdown-item" href="https://culturanf.novafriburgo.rj.gov.br"><i class="fa-solid fa-map-location-dot me-2"></i>Capacitação Profissional</a></li>
+              <li><a class="dropdown-item" href="https://culturanf.novafriburgo.rj.gov.br"><i class="fa-solid fa-map-location-dot me-2"></i>Cidade Inteligente</a></li>
+              <li><a class="dropdown-item" href="#"><i class="fa-solid fa-map-location-dot me-2"></i>Estágio</a></li>              
+              <li><a class="dropdown-item" href="#"><i class="fa-solid fa-landmark me-2"></i>Finanças</a></li>
+               
+              
+            </ul>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown mx-2">
+            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuNav" data-bs-toggle="dropdown" aria-expanded="false">
+              Empreendedor
+            </a>                                  
+            <ul id="menu-nav" class="dropdown-menu text-left" aria-labelledby="dropdownMenuNav">                 
+              <li class="mt-1 ms-3"><b>Sistemas:</b></li>
+              <li><a class="dropdown-item" href="https://casadotrabalhador.pmnf.rj.gov.br"><i class="fa-solid fa-landmark me-2"></i>Casa do Trabalhador</a></li>
+              <li><a class="dropdown-item" href="#"><i class="fa-solid fa-landmark me-2"></i>Finanças</a></li>
+              <li><a class="dropdown-item" href="https://senhas.novafriburgo.rj.gov.br"><i class="fa-solid fa-cart-flatbed-suitcase me-2"></i>Sala do Empreendedor</a></li>
+              <li><a class="dropdown-item" href="https://senhas.novafriburgo.rj.gov.br"><i class="fa-solid fa-cart-flatbed-suitcase me-2"></i>Senhas de Turismo</a></li>
+              <li><a class="dropdown-item" href="https://culturanf.novafriburgo.rj.gov.br"><i class="fa-solid fa-map-location-dot me-2"></i>Mapeamento Cultural</a></li>
+              
+            </ul>
+            </div>
+          </li> -->
+          <!-- <li><a class="mx-3" href="{% url 'cursos:home' %}">Capacitação Profissional</a></li> -->
+              <!-- <li><a class="mx-3" href="{% url 'cursos:cidade_inteligente' %}">Cidade Inteligente</a></li>               -->
+              <!-- <li><a class="mx-3" href="/bem-estar-animal/">Bem Estar Animal</a></li> -->
+              <li><a class="mx-3" href="https://casadotrabalhador.pmnf.rj.gov.br">Casa do Trabalhador</a></li>
+              <li><a class="mx-3" href="/financas/">Secretaria de Finanças</a></li>
+              <li><a class="mx-3" href="{% url 'empreendedor:index' %}">Sala do Empreendedor</a></li>
+              <li>
+                <div class="dropdown mx-2">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuNav" data-bs-toggle="dropdown" aria-expanded="false">
+                  Outros Sistemas
+                </a>                                  
+                <ul id="menu-nav" class="dropdown-menu" aria-labelledby="dropdownMenuNav" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 24px, 0px);" data-popper-placement="bottom-start">
+                  <!-- <li><a class="btn btn-outline-primary" href="#">
+                    Acessar
+                  </a></li>
+                  <li><hr class="dropdown-divider"></li> -->
+                  <li class="mt-1 ms-3"><b>Sistemas:</b></li>
+                  <!-- <li><a class="dropdown-item" href="/bem-estar-animal/"><i class="fa-solid fa-paw me-2"></i>Bem Estar Animal</a></li> -->
+                  <li><a class="dropdown-item" href="https://casadotrabalhador.pmnf.rj.gov.br"><i class="fa-solid fa-landmark me-2"></i>Casa do Trabalhador</a></li>
+                  <li><a class="dropdown-item" href="https://cevest.pmnf.rj.gov.br"><i class="fa-solid fa-landmark me-2"></i>Ciência e Tecnologia</a></li>
+                  <li><a class="dropdown-item" href="/financas/"><i class="fa-solid fa-landmark me-2"></i>Secretaria de Finanças</a></li>
+                  <li><a class="dropdown-item" href="/servicos/iluminacao/"><i class="fa-solid fa-lightbulb me-2"></i>Iluminação Pública</a></li>                                        
+                  <li><a class="dropdown-item" href="https://senhas.novafriburgo.rj.gov.br"><i class="fa-solid fa-cart-flatbed-suitcase me-2"></i>Senhas de Turismo</a></li>
+                  <li><a class="dropdown-item" href="https://culturanf.novafriburgo.rj.gov.br"><i class="fa-solid fa-map-location-dot me-2"></i>Mapeamento Cultural</a></li>
+                  
+                </ul>
+                </div>
+              </li>
+              <!-- <li>
+                <div class="dropdown mx-2">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuNav" data-bs-toggle="dropdown" aria-expanded="false">
+                  Links úteis
+                </a>                                  
+                <ul id="menu-nav" class="dropdown-menu text-left" aria-labelledby="dropdownMenuNav">                 
+                  <li class="mt-1 ms-3"><b>Sistemas:</b></li>
+                  <li><a class="dropdown-item" target="_blank" href="https://servicos.receita.fazenda.gov.br/Servicos/CPF/ConsultaSituacao/ConsultaPublica.asp"><i class="fa-solid fa-paw me-2"></i>Situação Cadastral CPF</a></li>
+                  <li><a class="dropdown-item" target="_blank" href="https://cadastro.saude.gov.br/segcartao/"><i class="fa-solid fa-landmark me-2"></i>CADSUS WEB</a></li>
+                  <li><a class="dropdown-item" target="_blank" href="https://novafriburgo.rj.gov.br/paginas-centralizadas/10_Meio-Ambiente.html"><i class="fa-solid fa-landmark me-2"></i>Meio Ambiente e Dev. Sustentável</a></li>
+                  <li><a class="dropdown-item" target="_blank" href="http://www.rota116.com.br/"><i class="fa-solid fa-lightbulb me-2"></i>Concessionária Rota 116 S/A</a></li>                                        
+                  <li><a class="dropdown-item" target="_blank" href="http://www.detran.rj.gov.br/"><i class="fa-solid fa-cart-flatbed-suitcase me-2"></i>Detran</a></li>
+                  <li><a class="dropdown-item" target="_blank" href="http://www.detran.rj.gov.br/"><i class="fa-solid fa-map-location-dot me-2"></i>Energisa</a></li>
+                  
+                </ul>
+                </div>
+              </li> -->
+        </ul>
+      </div>
+      <!-- Menu de navegação mobile (Necessita de alterações)-->
+      <!-- Offcanvas sem utilizar bootstrap-->
+      <div class="menu-wrapper">
+        <ul class="menu">
+          <li><a href="{% url 'cursos:home' %}">Capacitação Profissional</a></li>
+          <li><a href="{% url 'cursos:cidade_inteligente' %}">Cidade Inteligente</a></li>              
+          <!-- <li><a href="#">Eventos</a></li> -->
+          <li><a href="#">Secretaria de Finanças</a></li>
+          <li>
+            <div class="dropdown">
+              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuNav" data-bs-toggle="dropdown" aria-expanded="false">Outros sistemas</a>
+              <ul id="menu-nav" class="dropdown-menu" aria-labelledby="dropdownMenuNav">
+                <li class="mt-1"><b>Sistemas:</b></li>
+                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-paw me-2"></i>Bem Estar Animal</a></li>
+                <li><a class="dropdown-item" href="https://casadotrabalhador.pmnf.rj.gov.br"><i class="fa-solid fa-landmark me-2"></i>Casa do Trabalhador</a></li>
+                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-person-military-pointing me-2"></i>Iluminação Pública</a></li>                                        
+                <li><a class="dropdown-item" href="https://senhas.novafriburgo.rj.gov.br"><i class="fa-solid fa-cart-flatbed-suitcase me-2"></i>Senhas de Turismo</a></li>
+                <li><a class="dropdown-item" href="https://culturanf.novafriburgo.rj.gov.br"><i class="fa-solid fa-map-location-dot me-2"></i>Mapeamento Cultural</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+        <div class="nv-login ms-3 mt-2 my-auto">
+          {% if not request.user.is_authenticated %}
+          <a href="{% url 'autenticacao:login' %}" class="pe-2 btn btn-acesso btLogin" type="submit">
+            <i class="fa-solid fa-user-check me-2"></i>
+            Acessar</a>
+          {% else %}
+          <div class="dropdown">
+            <button class="btn btn-acesso" type="button" id="dropdownMenuPerfil" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="fa-solid fa-user-check me-2"></i>
+              {{ request.user.first_name }}
+            </button>
+            <ul id="menu-perfil" class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+              {% if request.pessoa.acesso_interno %}
+              <li><a class="dropdown-item py-2 text-center" href="/admin/">Administração</a></li>
+              {% endif %}
+              <li>
+                <a class="dropdown-item text-center py-2" href="{% url 'autenticacao:logout' %}">
+                  <i class="fa-solid fa-arrow-right-from-bracket me-2"></i></i> Logout
+                </a>
+              </li>
+            </ul>
+          </div>
+          {% endif %}
+        </div>
+        <div class="nv-social ms-auto d-flex">
+          <div class="d-flex my-auto">
+            <div class="rounded-circle d-social d-flex mx-2"><a href="https://www.instagram.com/desenvolvenf/" class="a-social m-auto MobileSocial"><i class="fa-brands fa-instagram"></i></a></div>
+            <div class="rounded-circle d-social d-flex"><a href="https://www.facebook.com/desenvolvenf/" class="a-social m-auto MobileSocial"><i class="fa-brands fa-facebook-f"></i></a></div>
+          </div>
+        </div>
+        <button class="menu-close" aria-label="fecha menu">x</button>
+      </div>
+      <!-- Fim do offcanvas -->
+
+      <div class="nv-social ms-auto d-flex navegacaoMobile">
+        <div class="d-flex my-auto navegacaoMobile">
+          <div class="rounded-circle d-social d-flex mx-2 navegacaoMobile"><a href="https://www.instagram.com/desenvolvenf/" class="a-social m-auto navegacaoMobile"><i
+                class="fa-brands fa-instagram"></i></a></div>
+          <div class="rounded-circle d-social d-flex navegacaoMobile"><a href="https://www.facebook.com/desenvolvenf/" class="a-social m-auto navegacaoMobile"><i
+                class="fa-brands fa-facebook-f"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="nv-login ms-5 my-auto navegacaoMobile">
+        {% if not request.user.is_authenticated %}
+        <a href="{% url 'autenticacao:login' %}" class="pe-3 btn btn-acesso btLogin" type="submit">
+          <i class="fa-solid fa-user-check me-2"></i>
+          Acessar</a>
+        {% else %}
+        <div class="dropdown">
+          <button class="btn btn-acesso" type="button" id="dropdownMenuPerfil" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="fa-solid fa-user-check me-2"></i>
+            {{ request.user.first_name }}
+          </button>
+          <ul id="menu-perfil" class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+            {% if request.pessoa.acesso_interno %}
+            <li><a class="dropdown-item py-2 text-center" href="/admin/">Administração</a></li>
+            {% endif %}
+            <!-- <li><a class="dropdown-item py-2 text-center" href="#">Meu perfil</a></li> -->
+            <!-- <li><a class="dropdown-item py-2" href="#">Meu perfil</a></li> -->
+            <li>
+              <a class="dropdown-item text-center py-2" href="{% url 'autenticacao:logout' %}">
+                <i class="fa-solid fa-arrow-right-from-bracket me-2"></i></i> Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+<!-- Fim do menu de navegação mobile -->
+    </nav>
+  </header>
+  <div id="bannerMain" class="row">
+    <div class="col d-flex" style="background-image: url('/static/images/paisagem-banner.png'); background-size: cover; background-repeat: no-repeat; height: 40vh; background-position: center;">
+      <img src="{% static 'images/desenvolve-site.png' %}" class="m-auto" alt="">
+    </div>
+  </div>
+  <div id="navegacao">
+    <div class="row">
+      <div class="col d-flex flex-wrap justify-content-center">
+        <a href="#" class="me-2">
+          <div class="d-flex flex-column align-items-center btn-tremura">
+            <div id="atualizacao-cadastral" class="s-nav "></div>
+            <p class="text-dark text-center">Atualização Cadastral</p>
+          </div>
+        </a>  
+        <a href="#" class="me-2">
+          <div class="d-flex flex-column align-items-center btn-tremura">
+            <div id="bemestaranimal" class="s-nav "></div>
+            <p class="text-dark text-center">Bem Estar<br>Animal</p>
+          </div>
+        </a>        
+        <a href=" https://julianasalvatore.github.io/smctieps_newmod/" class="me-2">
+          <div class="d-flex flex-column align-items-center btn-tremura">
+            <div id="cienciaEtecnologia" class="s-nav "></div>
+            <p class="text-dark text-center">Sec. Ciência e<br>Tecnologia</p>
+          </div>
+        </a>
+        <a href="https://casadotrabalhador.pmnf.rj.gov.br" class="me-2">
+          <div class="d-flex flex-column align-items-center btn-tremura">
+            <div id="casadotrabalhador" class="s-nav "></div>
+            <p class="text-dark text-center">Casa do <br>Trabalhador</p>
+          </div>
+        </a>
+        <!-- <a href="https://casadotrabalhador.pmnf.rj.gov.br" class="me-2">
+          <div class="d-flex flex-column align-items-center btn-tremura">
+            <div id="cidadeinteligente" class="s-nav "></div>
+            <p class="text-dark text-center">Cidade<br>Inteligente</p>
+          </div>
+        </a> -->
+        <!-- <a href="#" class="me-2">
+          <div class="d-flex flex-column align-items-center btn-tremura">
+            <div id="eventos" class="s-nav "></div>
+            <p class="text-dark text-center">Eventos</p>
+          </div>
+        </a> -->
+        <!-- <a href="#" class="me-2">
+          <div class="d-flex flex-column align-items-center btn-tremura">
+            <div id="estagio" class="s-nav "></div>
+            <p class="text-dark text-center">Estágio</p>
+          </div>
+        </a> -->
+        <a href="#" class="me-2">
+          <div class="d-flex flex-column align-items-center btn-tremura">
+            <div id="financas" class="s-nav "></div>
+            <p class="text-dark text-center">Secretaria de Finanças</p>
+          </div>
+        </a>
+        <a href="#" class="me-2">
+          <div class="d-flex flex-column align-items-center btn-tremura">
+            <div id="iluminacaopublica" class="s-nav "></div>
+            <p class="text-dark text-center">Iluminação<br>Pública</p>
+          </div>
+        </a>
+        <a href="https://www.pmnf.rj.gov.br/licitacao/" class="me-2">
+          <div class="d-flex flex-column align-items-center btn-tremura">
+            <div id="licitacao" class="s-nav "></div>
+            <p class="text-dark text-center">Licitações</p>
+          </div>
+        </a>    
+        <a href="{% url 'empreendedor:index' %}" class="me-2">
+          <div class="d-flex flex-column align-items-center btn-tremura">
+            <div id="sala" class="s-nav "></div>
+            <p class="text-dark text-center">Sala do<br>Empreendedor</p>
+          </div>
+        </a>    
+        <a href="https://senhas.novafriburgo.rj.gov.br" class="me-2">
+          <div class="d-flex flex-column align-items-center btn-tremura">
+            <div id="senhas" class="s-nav "></div>
+            <p class="text-dark text-center">Senhas de<br>Turismo</p>
+          </div>
+        </a>
+        <a href="https://culturanf.novafriburgo.rj.gov.br/" class="me-2">
+          <div class="d-flex flex-column align-items-center btn-tremura">
+            <div id="mapeamento" class="s-nav "></div>
+            <p class="text-dark text-center">Mapeamento<br>Cultural</p>
+          </div>
+        </a>
+        {% if request.pessoa.acesso_interno %}
+        <a href="/admin/" class="me-2">
+          <div class="d-flex flex-column align-items-center btn-tremura">
+            <div id="admin" class="s-nav-admin  destaque"></div>
+            <p class="text-dark">Admin</p>
+          </div>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div id="main-carousel" class="row">
+    <div class="col px-0">
+      <div class="owl-carousel owl-theme">
+        {% for item in carousel %}
+        <div class="item">
+          {% if item.url %}<a href="{{item.url}}">{% endif %}
+            <img src="{{item.image.url}}" class="d-block w-100" alt="{{item.nome}}">
+            {% if item.url %}</a>{% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <main class="container-fluid">
+    <!-- <div class="row"
+      style="background-image: url(/static/images/friburgo-bg.jpg); background-size:cover; background-position: center;">
+      <div class="col" style="background-color: #242525;">
+        <div class="row py-5 border">
+          <div class="col d-flex">
+            <div class="m-auto py-5" style="max-width: 500px;  color: #fff;">
+              <h1 class="mb-4" style="color: #FFAD00; font-weight: bolder;">ID Friburguense Digital</h1>
+              <p class="text-justify">Em vez de ter um novo cadastro, login e senha em cada lugar, sua ID Friburguense
+                Digital é o login único que está sendo gradualmente integrado a cada serviço digital da Prefeitura de
+                Nova Friburgo.</p>
+              <p class="mt-4 text-justify">Você se cadastra apenas uma vez e navega de maneira transparente entre
+                diferentes serviços da Prefeitura. O mesmo login servirá para todos os serviços que estejam integrados
+                ao ID Friburguense Digital.</p>
+              <p class="mt-4 text-justify">Além disso, queremos que seus dados informados anteriormente à Prefeitura não
+                sejam pedidos novamente em outros serviços integrados. Tudo com respeito à sua privacidade e segurança.
+                Para você não precisar informar os seus dados repetidamente em lugares diferentes.</p>
+              <p class="mt-4 text-justify">Afinal, você é único. A sua identidade é friburguense.</p>
+            </div>
+          </div>
+          <div class="col py-5 d-flex flex-column justify-content-center me-5" style="border-radius: 30px;">
+            
+            <div class="m-auto" style="width: 500px; height: 333px; border-radius: 30px; border: 1px dashed white;"
+              src="/static/images/teste2.jpg" alt="">
+            </div>
+            <button class="btn btn-outline-primary btn-details mx-auto mt-5 px-5"
+              style="background-color: #FFAD00; color: white !important; font-weight: bolder;" id="esp3">ATUALIZE O SEU
+              CADASTRO</button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div class="row container mx-auto py-5 px-5 mb-5">
+      <div class="col d-flex pt-4">
+        <div class="mx-auto" style="max-width: 800px;">
+          <h1 class="text-center"><b>Bem-vindo a nossa plataforma!</b></h1>
+          <p class="text-justify">Bem-vindo ao site da Desenvolve NF! Aqui você encontrará uma ampla gama de recursos e informações destinados a ajudar a promover o crescimento econômico e o desenvolvimento social em nossa cidade. Oferecemos serviços e programas para ajudar indivíduos e empresas a se manterem atualizados em relação às últimas tecnologias e inovações, bem como a aprimorar suas habilidades e oportunidades de carreira por meio de cursos, palestras e capacitações profissionais.</p>
+          <img class="img-fluid m-auto" src="/static/images/laptop.png" alt="Desenvolve Nova Friburgo">
+          <p class="text-justify mt-3">Confira as várias abas de recursos da nossa secretaria e prefeitura navegando pelo nosso site, para descobrir como podemos ajudá-lo e se manter atualizado em relação à ciência, tecnologia, desenvolvimento inovador, além de fornecer informações sobre a cidade inteligente e as oportunidades de emprego e de carreira disponíveis na Casa do Trabalhador. E não se esqueça de conferir a seção de eventos, que contém informações sobre as próximas capacitações, palestras e cursos oferecidos pela nossa secretaria.</p>
+          <div class="row container mx-auto pt-5 px-5 mb-5">      
+            <h2 class="text-center"><strong>Faça seu cadastro!</strong></h2>
+            <div class="col d-flex pt-4">
+              <div class="mx-auto" style="max-width: 800px;">
+                <div class="row">
+                  <div class="col ">
+                    <a href="{% url 'autenticacao:cadastrar_usuario' %}" class="h-100 2-100 btn btn-primary px-5 py-3" style="background: linear-gradient(0deg, rgb(241, 176, 55) 0%, rgba(223,146,0,1) 100%); border: none; color: black; border-radius: 10px !important; font-family: 'Inter'; font-style: normal; font-weight: 600;">
+                    <h4 class="py-0 my-0">Cadastrar-se</h4>
+                    </a>
+                  </div>                
+                </div>
+              </div>
+            </div>          
+          </div>
+          <p class="text-justify mt-3">Entre em contato conosco para saber mais sobre como podemos trabalhar juntos para construir um futuro melhor e mais próspero para nossa cidade. 
+        </div>
+      </div>      
+    </div>  
+
+    <div class="row pb-5 carrosel" style="background-color: #2F2F2F;">
+      <div class="col px-0 py-4 d-flex justify-content-evenly flex-wrap">
+        <div class="owl-carousel owl-theme pt-4">
+          <div class="item d-flex">
+            <div class=" d-flex flex-column ps-5 pe-3">
+              <!-- <img class="mx-auto mt-auto" src="/static/images/desenvolve_economia.png" alt="" style="width: 336px;"> -->
+                
+              <img src="/static/images/desenvolve economia.png" class="img-fluid " alt="">
+            </div>            
+          </div>
+          <div class="item d-flex">
+            <div class=" d-flex flex-column ps-5 pe-3">
+              <img src="/static/images/desenvolve tech.png" class="img-fluid " alt="">
+            </div>            
+          </div>
+          <div class="item d-flex">
+            <div class=" d-flex flex-column ps-5 pe-3">
+              <img style="border-radius: 30px;" src="/static/images/desenvolve financas.png" class="img-fluid " alt="">
+            </div>            
+          </div>
+          <!-- <div class="item d-flex">
+            <div class=" d-flex flex-column ps-5 pe-3">
+              <img class="me-auto mt-auto" src="/static/images/desenvolve_economia.png" alt="" style="width: 336px;">
+                
+              <img style="border-radius: 30px;" src="/static/images/desenvolve economia.png" class="img-fluid " alt="">
+            </div>            
+          </div>   -->
+          <!-- <div class="item d-flex">
+            <div class=" d-flex flex-column ps-5 pe-3">
+              <img class="me-auto mt-auto" src="/static/images/desenvolve_financas.png" alt="" style="max-width: 336px;">
+                
+              <img style="border-radius: 30px;" src="/static/images/c.png" class="img-fluid " alt="">
+            </div>            
+          </div> -->
+        </div>
+      </div>
+    </div>
+    
+    <!-- <section>
+      <div class="px-0 py-5 mt-4">
+        <div id="empregados_destaque">
+          <div class="wrapper-1">
+            <div class="item d-flex flex-column p-5">
+              <img style="width: 200px; height: 200px;" class="rounded-circle m-auto s-avatar" src="/static/images/pessoas/jony.jfif" alt="">
+              <h2 class="text-center mt-3 mb-2">Johnny Maycon</h2>
+              <h6 class="text-center mb-4"><b class="mx-auto">Prefeito de Nova Friburgo</b></h6>
+              <img style="width: 40px;" class="mx-auto brasao" src="/static/images/brasao.jpeg" alt="">
+            </div>
+            <div class="item d-flex flex-column p-5">
+              <img style="width: 200px; height: 200px;" class="rounded-circle m-auto s-avatar" src="static/images/pessoas/sergio.jfif" alt="">
+              <h2 class="text-center mt-3 mb-2">Sérgio dos Santos</h2>
+              <h6 class="text-center mb-4"><b class="mx-auto">Vice-Prefeito de Nova Friburgo</b></h6>
+              <img style="width: 40px;" class=" mx-auto brasao" src="/static/images/brasao.jpeg" alt="">
+            </div>
+          </div>
+          <div class="wrapper-2">
+            <div class="item d-flex flex-column p-5">
+              <img style="width: 200px; height: 200px;" class="rounded-circle m-auto s-avatar" src="/static/images/pessoas/wallter_oliveira.png" alt="">
+              <h2 class="text-center mt-3 mb-2">Walter Oliveira</h2>
+              <h6 class="text-center mb-4"><b class="mx-auto">Secretario de Ciência e Tecnologia</b></h6>
+              <img style="width: 40px;" class="mx-auto brasao" src="/static/images/brasao.jpeg" alt="">
+            </div>
+            <div class="item d-flex flex-column p-5">
+              <img style="width: 200px; height: 200px;" class="rounded-circle m-auto s-avatar" src="/static/images/pessoas/rodrigo.png" alt="">
+              <h2 class="text-center mt-3 mb-2">Rodrigo França</h2>
+              <h6 class="text-center mb-4"><b class="mx-auto">Secretario de Finanças</b></h6>
+              <img style="width: 40px;" class="mx-auto brasao" src="/static/images/brasao.jpeg" alt="">
+            </div>
+          </div>
+        </div>
+     
+      </div>
+    </div>
+    </section> -->
+    <section id="newsletter" class="pb-5" style="background-color: #fff;">
+      <div class="row border-top">
+        <div class="col d-flex d-flex px-5 pt-5">
+          <div class="mx-auto d-flex">
+            <img src="/static/images/blue-envelope.jpg" style="width: 100px; transform: rotate(-0.265rad);" alt="">
+            <span class="display-5 my-auto ms-4" style="font-family: 'Inter', sans-serif;">Receba nossas novidades!</span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col d-flex pt-3">
+          <div class="m-auto d-flex flex-column">
+            <p class="text-center">Fique por dentro dos nossos principais assuntos, basta socilitar abaixo esse serviço!
+            </p>
+            <a href="{% url 'newsletter' %}" class="mx-auto btn btn-primary mt-4 px-5">Solicitar</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  {% include 'desenvolve_nf/instagram.html' %}
+  <footer class="row f-principal" style="border-top: 1px solid rgb(184, 184, 184); ">
+    <div class="col">
+      <div class="row  pt-5 pb-4 mobile-flex-column footer-sup text-light">
+        <div class="col d-flex flex-column justify-content-center">
+          <img class="img-fluid logo m-auto" src="/static/images/logo_desenvolve_2.png" alt="">
+          <p class="mx-auto mt-4 text-f">Prefeitura Municipal de Nova Friburgo.
+            Av. Alberto Braune, 225 - Centro, Nova Friburgo - RJ, 28613-001.<br>
+            09:00 às 17:00 de Seg. à Sex. <br>
+            (22) 2525-9329</p>
+          <p class="mx-auto mt-4 text-light">
+            <a class="text-light" target="_blank" href="https://www.facebook.com/desenvolvenf/">
+              <i class="fa-brands fa-facebook me-4 mb-2"></i>
+            </a>
+            <a class="text-light" target="_blank" href="https://www.instagram.com/desenvolvenf/">
+              <i class="fa-brands fa-instagram me-4 mb-2"></i>
+            </a>
+          </p>
+        </div>
+        <div class="col d-flex justify-content-center">
+          <div class="me-5 my-auto">
+            <p class="text-light pb-3 text-center">Plataformas</p>  
+            <ul>
+              <li><a href="https://pmnf.rj.gov.br/site/">Prefeitura Municipal</a></li>
+              <li><a href="{% url 'cursos:home' %}">Capacitação Profissional</a></li>
+              <li><a href="{% url 'cursos:cidade_inteligente' %}">Cidade Inteligente</a></li>
+              <!-- <li><a href="#">Eventos</a></li> -->
+              <li><a href="#">Secretaria de Finanças</a></li>
+            </ul>
+          </div>
+          <div class="my-auto">
+            <p class="text-light pb-3 text-center">Sistemas</p>
+            <ul>
+              <li><a href="#">Bem Estar Animal</a></li>
+              <li><a href="https://casadotrabalhador.pmnf.rj.gov.br/">Casa do Trabalhador</a></li>
+              <li><a href="#">Iluminação Pública</a></li>
+              <li><a href="https://senhas.novafriburgo.rj.gov.br/login/?next=/">Senhas de Turismo</a></li>              
+              <li><a href="https://culturanf.novafriburgo.rj.gov.br/">Mapeamento Cultural</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col text-center py-2 bg-f">
+          <a href="#">
+            &copy SUBSECRETARIA DE PLANEJAMENTO E DESENVOLVIMENTO ECONÔMICO - 2024
+          </a>
+          <a class="ms-4" href="">
+            Política de Privacidade
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Cidade Inteligente - Lado Esquerdo -->
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasExampleLabel">Cidade Inteligente</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body  d-flex flex-column">
+      <div>
+        <img class="img-fluid" src="/static/images/Screenshot_2.png" alt="">
+      </div>
+      <div>
+        <b>Status:</b>
+        <button class="btn btn-danger w-100">ALERTA</button>
+      </div>
+      <div class="mt-3" style="text-align: justify; text-indent: 30px;">
+        <!-- Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists,
+        etc. -->
+      </div>
+      <div class="mt-5">
+        <img class="img-fluid" src="/static/images/alerta_cheia.png" alt="">
+      </div>
+      <button class="btn btn-primary px-5 m-auto">Acessar site</button>
+    </div>
+  </div>
+
+
+
+  <!-- <script>
+        window.onload = () => {
+          document.getElementById('body').style.overflow = 'auto'
+          document.getElementById('preloading').style.display = 'none'
+        }
+    </script> -->
+    <div id="overlay"></div>
+    <div id="modalBanner" class="alert"  style="background-color: #ffffff;">
+      <div class="row">
+        <div class="col d-flex pt-3">
+          <div class="w-100 d-flex flex-column">
+            <a href="https://www.instagram.com/p/DDKe6ZBxiDM/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" class="w-100 mx-auto">
+              <img src="{% static 'images/concilia-site.png' %}" class="w-100" alt="Banner aviso">
+            </a>
+          </div>
+        <span id="close-btn-banner" class="ms-auto" style="color: black;" onclick="closeModalBanner()">
+          <i class="fa-solid fa-circle-xmark"></i>
+        </span>
+        </div>
+      </div>
+      
+    </div>
+    <style>
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.822);
+            z-index: 0;
+        }
+
+        #modalBanner {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: auto;
+            max-width: 90%; /* Defina a largura máxima do modal */
+            padding: 20px 40px; 
+            /* background-color: #fff; */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 10px; /* Adicione bordas arredondadas ao modalBanner */
+        }
+        @media (max-width: 500px) {
+          #modalBanner {
+            width: 100vw !important;
+            padding: 0px !important;
+            background-color: transparent !important;
+            top: 25%;
+          }
+          #modalBanner img{
+            border-radius: 25px;
+          }
+          #modalBanner #close-btn-banner{
+            margin-top: 20px;
+            color: white !important;
+          }
+
+        }
+
+        #modalBanner h2 {
+            margin-top: 0;
+            color: #333; /* Cor do título do modalBanner */
+        }
+        #close-btn-banner {
+            cursor: pointer;
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 18px;
+            color: #888; /* Cor do botão de fechar */
+        }
+
+        #close-btn:hover {
+            color: #555; /* Cor do botão de fechar ao passar o mouse */
+        }
+
+        /* Adicione mais estilos conforme necessário */
+
+        #modalBanner .row {
+            margin-bottom: 10px;
+        }
+
+        /* Adicione estilos específicos para a mensagem usando as classes de tags */
+        #modalBanner.error {
+            border: 2px solid #ff3333;
+            background-color: #ffeeee;
+        }
+
+        #modalBanner.success {
+            border: 2px solid #33cc33;
+            background-color: #eeffef;
+        }
+   
+    </style>
+    <script>
+       function openmodalBanner() {
+            document.getElementById('modalBanner').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closeModalBanner() {
+            document.getElementById('modalBanner').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+        window.onclick = function(event) {
+            var modalBanner = document.getElementById('modalBanner');
+            var overlay = document.getElementById('overlay');
+            if (event.target === overlay) {
+                modalBanner.style.display = 'none';
+                overlay.style.display = 'none';
+            }
+        }
+      openmodalBanner()
+    </script>
+      <style>
+        .error{
+          background-color: rgb(238, 171, 171);
+          color: darkred;
+          font-weight: 600;
+        }
+        .success{
+          background-color: rgb(182, 238, 171);
+          color: rgb(0, 139, 19);
+          font-weight: 600
+        }
+        .warning{
+          background-color: rgb(238, 226, 171);
+          color: rgb(139, 107, 0);
+          font-weight: 600
+        }
+      </style>
+
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"
+    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script src="/static/js/owl.carousel.min.js"></script>
+  <script>
+    $('.owl-carousel').owlCarousel({
+      center: true,
+      items: 2,
+      loop: true,
+      margin: 10,
+      autoWidth: true,
+      autoplay: true,
+      nav: true,
+      responsive: {
+        0: {
+          items: 1
+        },
+        600: {
+          items: 3
+        },
+        1000: {
+          items: 5
+        }
+      }
+    });
+    $('.loop').owlCarousel({
+      center: true,
+      items: 2,
+      loop: true,
+      margin: 5,
+      responsive: {
+        600: {
+          items: 4
+        }
+      }
+    });
+  </script>
+  <script>
+    window.onload = () => {
+      document.getElementById('body').style.overflow = 'auto'
+      document.getElementById('preloading').style.display = 'none'
+    }
+  </script>
+<!-- <script>
+  window.embeddedChatbotConfig = {
+  chatbotId: "z7UIFuZtloxQWbjvmlYWt",
+  domain: "www.chatbase.co"
+  }
+  </script>
+  <script
+  src="https://www.chatbase.co/embed.min.js"
+  chatbotId="z7UIFuZtloxQWbjvmlYWt"
+  domain="www.chatbase.co"
+  defer>
+  </script> -->
+<style>
+  #atualizacao-cadastral
+  {
+    background-image: url('/static/images/icones/atualizacao-cadastral.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  #admin
+  {
+    background-image: url('/static/images/icones/admin.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+@media(max-width: 450px){
+  .px-5{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+}
+  .row{
+  -bs-gutter-x: 0rem !important;
+}
+html, body, main{
+  overflow-x: hidden !important;
+}
+</style>   
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<div vw class="enabled">
+<div vw-access-button class="active"></div>
+<div vw-plugin-wrapper>
+  <div class="vw-plugin-top-wrapper"></div>
+</div>
+</div>
+<script>
+new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+</body>
+</html>

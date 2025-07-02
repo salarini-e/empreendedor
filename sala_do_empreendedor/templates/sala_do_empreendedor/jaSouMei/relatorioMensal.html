@@ -1,0 +1,41 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row mx-auto ps-4 pb-3">
+        <h3 class="text-center">Relatório Mensal de Receitas Brutas</h3>
+    </div>
+    <div class="row mx-auto mb-5">
+        <div class="col">
+            <p class="text-justify">
+                Ao contrário do que muita gente pensa, o Relatório Mensal de Receitas Brutas é uma obrigação prevista em lei, que você passa a ter após a formalização.
+                <br>
+                Apesar de não precisar ser entregue em nenhum órgão, ele deve ser preenchido até o dia 20 do mês seguinte às vendas ou prestações de serviços. 
+                Ele deve ser arquivado, junto com as Notas fiscais de compras e vendas, por um período mínimo de 5 anos. 
+                <br><br>
+                Este relatório, além de te ajudar a controlar a média de faturamento mensal, também facilitará o envio da sua Declaração Anual de Faturamento (DASN), 
+                pois ela é o somatório de todos os relatórios preenchidos durante o ano.
+                <br>
+                Se a sua ocupação for de ‘Comércio’ preencha os campos indicados como revenda de mercadorias.Caso a sua ocupação seja de ‘Indústria’ preencha os 
+                campos indicados como venda dos produtos industrializados
+                <br><br>
+                Se a ocupação for de ‘Prestação de Serviços em geral ou Serviço de transporte municipal’ preencha os campos indicados como prestações de serviço.
+                <br>
+                Se a ocupação for de ‘Serviço de transporte intermunicipal ou interestadual’ escolha o campo de venda ou revenda de mercadorias.
+                <br>
+                <a href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/arquivos-e-imagens/relatorio-mensal-das-receitas-brutas-1.pdf">Clique aqui</a> e acesse o modelo do relatório!
+            </p>
+        </div>
+    </div>
+     {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'template.html' %}
+{% load bootstrap5 %}
+{% load static%}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/ensino_superior.css">
+<script src="{% static 'js/cursos.js' %}"></script>
+{% endblock %}
+{% block main %}
+<div class="row container mx-auto div_main_enSup">
+  <h1 class="">Ensino Superior</h1>
+  <div class="row">
+    <div class="col pb-5">
+      <p class="text-secondary"><i>Conheça os cursos de nível superior ofertados em Nova Friburgo e suas respectivas instituições!</i></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col d-flex pb-5">
+      <a href="https://www.cecierj.edu.br/" class="card-universidade btn btn-primary me-auto">
+        <img class="img-fluid mx-auto" src="/static/images/universidades_publicas/cecierj.png" alt="">
+      </a>
+      <a href="http://www.cefet-rj.br/" class="card-universidade btn btn-primary mx-auto">
+        <img class="img-fluid mx-auto" src="/static/images/universidades_publicas/cefet.png" alt="">
+      </a>
+      <a href="https://www.uff.br/" class="card-universidade btn btn-primary mx-auto">
+        <img class="img-fluid mx-auto" src="/static/images/universidades_publicas/uff.png" alt="">
+      </a>
+      <a href="https://www.uerj.br/" class="card-universidade btn btn-primary  ms-auto">
+        <img class="img-fluid mx-auto" src="/static/images/universidades_publicas/uerj.png" alt="">
+      </a>
+      <style>
+        .card-universidade{                    
+          display: flex;
+          background-color: white;
+          width: 300px;
+          height: 110px;
+          border-radius: 30px;          
+          color: rgb(59, 59, 59);
+          border-color: rgb(255, 255, 255);
+          box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);          
+          padding-top: 20px;
+          padding-bottom: 20px;
+        }
+        .card-universidade:hover{
+          background-color: white !important;
+          border-color: whitesmoke !important;
+        }
+        .card-universidade img{
+          max-height: 100px;
+
+        }
+      </style>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col pb-3">
+      <div class="d-flex" style="font-size: 25pt; font-weight: 600;">
+        <div>Cursos</div>
+        <div class="dropdown ms-auto">
+          <span class="ps-2" type="button" style="text-decoration: none; color: black; font-size: 18pt;">            
+            CECIERJ
+          </span>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col d-flex flex-wrap">
+      {% for curso in cursos %}
+      <div class="item  mx-auto mb-4">
+        <div class="c-img" style="position: relative;">
+          <img class="img-fluid" style="border-radius: 10px;" src="{{curso.img.url}}" alt="">
+        </div>
+        <div class="cursos-text mx-2 d-flex flex-column">
+          <h5 class="mb-3">{{curso.nome}}</h5>
+          <a target="_blank" href="{{curso.url}}" class="btn btn-outline-primary rounded-1 btn-details py-1  mt-auto" id="esp-2">Ver detalhes</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+  <script>
+
+    document.getElementById('s-en-superior').classList.add('s-nav-active');
+
+  </script>
+  {% endblock %}
+  {% block footer %}
+  {% include 'instagram_desenvolve.html' %}
+  {% endblock %}

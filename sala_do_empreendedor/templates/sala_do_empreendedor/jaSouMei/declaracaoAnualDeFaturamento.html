@@ -1,0 +1,44 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row mx-auto ps-4 pb-3">
+        <h3 class="text-center">Declaração Anual de Faturamento - DASN</h3>
+    </div>
+    <div class="row mx-auto mb-5">
+        <div class="col">
+            <p class="text-justify">
+                Em regra, a DASN-SIMEI deve ser transmitida até 31 de maio do ano-calendário subsequente ao da ocorrência dos fatos geradores dos tributos previstos 
+                no Simei.
+            </p>
+            <p class="my-4"><b>Importante!</b></p>
+            <ul>
+                <li>Ao entregar a declaração em atraso você fica sujeito ao pagamento de multa, no valor mínimo de R$ 50,00 (cinquenta reais).O boleto para pagamento 
+                    da multa é gerado no momento da transmissão da declaração e pode ser impresso junto do recibo de entrega da DASN- SIMEI. Caso o pagamento seja feito 
+                    em até 30 dias, a multa será reduzida em 50%, totalizando R$ 25,00.</li>
+                <li>Lembre-se que nos casos de baixa de MEI, também é necessário entregar a DASN-SIMEI.</li>
+                <li>A declaração deve ser enviada mesmo que a empresa não tenha tido faturamento durante o ano.</li>
+                <li>
+                    Caso extrapole o limite permitido de faturamento do MEI, será preciso buscar o apoio de um(a) profissional de contabilidade e realizar seu 
+                    desenquadramento do regime do MEI, pois a empresa passará a recolher impostos como Simples Nacional.
+                </li>
+            </ul>
+            <p class="my-4"><b>Observação:</b></p>
+            <p>A Declaração Anual Simplificada para o Microempreendedor Individual (DASN-SIMEI) de <b>situação especial</b>, para o MEI que tenha baixado o CNPJ a partir 
+                de 01/01/2023, já está disponível.</p>
+            <p>O prazo para transmissão, para o MEI que baixou o CNPJ entre 01/01/2023 e 31/04/2023, encerra-se em 30/06/2023. A  orientação está publicada em 
+                "Notícias Simples Nacional" <a href="https://www8.receita.fazenda.gov.br/SimplesNacional/Noticias/NoticiaCompleta.aspx?id=832c4b57-e808-46bf-967a-10b37863994c">DASN SIMEI Situação Especial de Baixa Disponível</a></p>
+        </div>
+    </div>
+     {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

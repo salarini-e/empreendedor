@@ -1,0 +1,112 @@
+{% extends 'template.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% block nav %}
+{% include 'nav_cidade_inteligente.html' %}
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/static/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="/static/css/cidade_inteligente_estilo.css">
+{% endblock %}
+
+{% block index %}
+.s-nav-active
+{% endblock %}
+
+{% block main %}
+<div id="main-carousel" class="row">
+  <div class="col px-0">
+    <div class="owl-carousel owl-theme">
+      {% for item in carousel %}
+      <div class="item">
+        {% if item.url %}<a href="{{item.url}}">{% endif %}
+          <img src="{{item.image.url}}" class="d-block w-100" alt="{{item.nome}}">
+          {% if item.url %}</a>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<section  class="container">  
+  <div class="row">
+    <div class="col">
+    <h2 class="mb-4">
+      Programa Municipal de Vigilância Comunitária
+    </h2>
+    <div class="row">
+      <div class="col px-4 text-justify">
+        <p class="mb-3" style="text-indent: 0px;">
+          Como participar:
+        </p>
+        <p class="mb-2">
+          <strong>I</strong> – Disponibilidade de infraestrutura local dotada de câmeras fixas ou móveis,
+          com resolução mínima em HD (High Definition) de 1 MPixel, voltadas para o
+          logradouro público, cuja qualidade da imagem capturada seja capaz de
+          identificar uma pessoa ou a licença (placa), modelo e cor de um veículo, tanto
+          parados como em movimento, a pelo menos 30 (trinta) metros de distância, à
+          luz do dia ou à noite.  
+        </p>
+        <p class="mb-2">
+          <strong>II</strong> – O Sistema de Gerenciamento de Imagens da infraestrutura local (CFTV) do
+          CONCEDENTE (DVR, NVR ou qualquer outro sistema de gerenciamento de
+          imagem) deverá ser capaz de permitir o acesso
+          tanto às imagens gravadas como às imagens em tempo real.
+        </p>
+        <p class="mb-2">
+          <strong>III</strong> – A infraestrutura do CFTV ou VIDEOMONITORAMENTO do CONCEDENTE
+          deve também ser provida de acessibilidade via INTERNET (protocolo TCP/IP) ou
+          link dedicado com a Central de Operações Nova Friburgo Cidade Inteligente, e permitir
+          através desta conexão, o acesso às imagens de todas as câmeras concedidas no sistema,
+          gravadas ou em tempo real. No caso de imagem em tempo real, poderá ser através de
+          acesso diretamente nas câmeras, ou através do sistema de gerenciamento de imagens
+          (DVR, NVR ou outro sistema de gerenciamento de imagens).    
+        </p>
+        <p>
+          (*) O link dedicado interligando a estrutura do CONCEDENTE à Central de
+          Operações Nova Friburgo Cidade Inteligente para acesso às imagens será
+          tratado à parte, conforme critérios que serão posteriormente definidos e
+          propostos ao CONCEDENTE.
+        </p>
+        <p class="mt-5" style="text-align: left; text-indent: 0px;">
+          EM CASOS DE DÚVIDAS ENTRE EM CONTATO COM A NOSSA EQUIPE QUE ENVIAREMOS TÉCNICOS PARA REALIZAR A INTEGRAÇÃO.
+        </p>
+        <p class="mt-4" style="text-align: left; text-indent: 0px;">
+          Telefone da Central de Operações e Monitoramento - Nova Friburgo Cidade Inteligente
+          (22) 2528-0091
+        </p>
+        <p class="mt-3" style="text-align: left; text-indent: 0px;">
+          Nossas redes sociais:
+        </p>
+        <p style="text-align: left; text-indent: 0px;">
+          Facebook: <a href="https://www.facebook.com/NFCidadeInteligente/" target="_blank">https://www.facebook.com/NFCidadeInteligente/</a>
+        </p>
+        <p style="text-align: left; text-indent: 0px;">
+          Twitter: <a href="https://twitter.com/NovaFriburgoCI" target="_blank">https://twitter.com/NovaFriburgoCI</a>
+        </p>
+      </div>
+      <div class="col">
+        <h3>Formulário de Cadastro</h3>
+        <form method="POST">
+          {% csrf_token %}
+          {% bootstrap_form form %}
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+<style>
+  .form-label{
+    font-weight: bold;
+  }
+</style>
+<!-- <h4>Perguntas Frequentes</h4> -->
+<script>
+    document.querySelector("#ver-detalhes").addEventListener("click", verMais)
+
+  </script>
+{% endblock %}
+

@@ -1,0 +1,72 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <style>
+        .text-justify {
+            text-align: justify;
+            text-indent: 40px;
+        }
+    </style>
+    <div class="row" style="border-radius: 30px;">
+        <div class="col py-4 px-5">
+            <div class="row pb-3">
+                <div class="col px-4">
+                    <h3>CONHEÇA NOSSA SALA</h3>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class=" col d-flex flex-wrap justify-content-center px-4">
+                        <p class="mb-3 text-justify">A Sala do Empreendedor de Nova Friburgo, inaugurada em 2015 em parceria com o SEBRAE, desempenha um papel crucial na promoção do empreendedorismo local e no suporte aos micro e pequenos empreendedores. Ao centralizar os processos de abertura de novos negócios, a sala proporciona maior conveniência e eficiência, reduzindo os prazos necessários para estabelecer novas empresas na região.</p>
+                        <img class="my-4 img-fluid" src="{% static 'images/sala-do-empreendedor.jpg' %}" alt="sala do empreendedor nova friburgo" style="border-radius: 30px;">
+                        <p class="mb-2 text-justify">Além de facilitar a burocracia associada à abertura de empresas, a Sala do Empreendedor desempenha um papel importante na capacitação dos empreendedores locais. Oferecendo cursos de capacitação, a sala auxilia os micro e pequenos empreendedores a adquirirem as habilidades necessárias para gerir seus negócios com eficiência. Isso não apenas aumenta a taxa de sobrevivência das empresas, mas também contribui para o sucesso e crescimento sustentável dos empreendimentos locais.</p>
+                        <p class="mb-2 text-justify">A premiação concedida pelo SEBRAE à Sala do Empreendedor em 2017 é um reconhecimento significativo de seus esforços e impacto positivo na comunidade empreendedora. O fato de ter sido destacada em diversas categorias, como dinamismo, empreendedorismo rural e escolar, rede de agentes e simplificação de processos, ressalta a abordagem abrangente e eficaz da sala em relação ao suporte aos empreendedores em várias áreas.</p>
+                        <p class="mb-3 text-justify">Em 2022 a Sala foi completamente remodelada e, desde então, vem trabalhando em parceria com contadores e administradores no sentido de desburocratização e modernização dos processos.</p>
+                        <p class="mb-3 text-justify">A remodelação realizada em 2022 demonstra o compromisso contínuo da Sala do Empreendedor com a inovação e a melhoria constante dos serviços oferecidos. A colaboração com contadores e administradores para desburocratizar e modernizar os processos é uma abordagem estratégica que visa criar um ambiente de negócios mais ágil e propício ao crescimento empresarial.</p>
+                        <div class="row my-4">
+                            <div class="col">
+                                <img style="border-radius: 30px;" src="{% static 'images/sala-do-empreendedor-3.jpg' %}" class="img-fluid" alt=" fachada sala do empreendedor nova friburgo">
+                            </div>
+                            <div class="col">
+                                <img style="border-radius: 30px;" src="{% static 'images/sala-do-empreendedor-2.jpg' %}" class="img-fluid" alt="dentro da sala do empreendedor nova friburgo">
+                            </div>
+                        </div>
+                        <p class="mb-3 text-justify">No geral, a Sala do Empreendedor de Nova Friburgo desempenha um papel vital no fomento ao empreendedorismo local, na promoção do desenvolvimento econômico da região e na capacitação dos empreendedores para enfrentar os desafios do mercado. Sua parceria com o SEBRAE e sua abordagem abrangente fazem dela um exemplo inspirador de apoio eficaz aos micro e pequenos empreendedores.</p>
+                </div>
+            </div>
+            {% include 'servicos.html' %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col d-flex flex-column pe-4">
+          <h2 class="ms-5 pt-3 pb-4">FALE CONOSCO</h2>
+          <div class="d-flex item border py-4 w-100 mx-5 text-center" style="font-size: 20pt;">
+            <div class="d-flex m-auto w-100 px-5">
+              <span class="mx-auto"><i class="fa-brands fa-whatsapp me-2"></i>(22) 2525-9151</span>
+              <span class="mx-auto"><i class="fa-solid fa-phone me-2"></i>(22) 2525-9151</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <style>
+        span {
+            text-align: center;
+        }
+    </style>
+    <div class="row mx-auto px-5">
+        <script>
+    document.getElementById('empreendedor_servicos').classList.add('s-nav-active');
+        </script>
+    </div>
+</div>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/quero-ser-mei.css'%}">
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row mx-auto ps-4 pb-3">
+        <h3 class="text-center">Registro no Cadastur</h3>
+    </div>
+    <div class="row mx-auto mb-5">
+        <div class="col">
+            <p style="text-align: justify;">CADASTUR é o sistema de cadastro de pessoas físicas e jurídicas que atuam no setor de turismo. O programa é executado pelo Ministério do Turismo, em parceria com os órgãos oficiais de turismo, nos 26 estados e no Distrito Federal.<br>
+
+                O cadastro é totalmente online, gratuito e é obrigatório para Acampamentos Turísticos, Agências de Turismo, Meios de Hospedagem, Organizadoras de Eventos, Parques Temáticos, Transportadoras Turísticas e Guias de Turismo. 
+                Além disso, garante diversas vantagens e oportunidades aos seus cadastrados e é também uma importante fonte de consulta para o turista.<br>
+
+                Outras atividades também podem se cadastrar facultativamente: Restaurante, Cafeteria, Bar e Similar; Locadora de Veículos; Prestador Especializado em Segmentos Turísticos; Casa de Espetáculos; 
+                Empreendimento de Entretenimento e Lazer e Parque Aquático; Empreendimento Náutico; Infraestrutura de Apoio para Eventos; e Centro de Convenções.<br>
+
+                Alguns dos benefícios são:<br>
+            </p>
+            <ul>
+                <li>
+                    Acesso a financiamento por meio de bancos oficiais;
+                </li>
+                <li>
+                    Apoio em eventos, feiras e ações do Ministério do Turismo;
+                </li>
+                <li>
+                    Incentivo à participação em programas e projetos do governo federal;
+                </li>
+                <li>
+                    Participação em programas de qualificação promovidos e apoiados pelo Ministério do Turismo.
+                </li>
+            </ul>
+            <p style="text-align: justify;" class="mt-4">
+                Cadastre-se aqui. É bom para você. É bom para o turismo.<br>
+                Confira alguns dos programas ofertados pelo Ministério do Turismo:
+            </p>
+            <ul>
+                <li><a style="color: #0d6efd;" href="https://www.gov.br/turismo/pt-br/acesso-a-informacao/acoes-e-programas/qualificacao">
+                    Programa de Qualificação no Turismo
+                </a></li>
+                <li><a style="color: #0d6efd;" href="https://www.turismo.gov.br/seloresponsavel/">
+                    Selo de Turismo Responsável
+                </a></li>
+                <li><a style="color: #0d6efd;" href="https://www.gov.br/turismo/acl_users/credentials_cookie_auth/require_login?came_from=https%3A//www.gov.br/turismo/pt-br/acesso-a-informacao/acoes-e-programas/fungetur">
+                    Fundo Geral do Turismo – Fungetur
+                </a></li>
+            </ul>
+            <p style="text-align: justify;" class="mt-4">
+                Conforme a Lei do Turismo nº 11.771, de setembro de 2008, <br> os empreendimentos que exercerem suas atividades sem o <br> devido cadastro, ou com este vencido, estão sujeitos às penalidades de:
+            </p>
+            <ul>
+                <li>
+                    multa;
+                </li>
+                <li>
+                    interdição de local, atividade, instalação, estabelecimento empresarial, empreendimento ou equipamento; e
+                </li>
+                <li>
+                    cancelamento do cadastro.
+                </li>
+            </ul>
+            <p style="text-align: justify;" class="mt-4">
+                Legislação correlata: Lei do Turismo nº 11.771, de setembro de 2008; Lei nº 8.623, de 28 de janeiro de 1993; <br> Decreto nº 7.381, de 2 de dezembro de 2010; Decreto nº 946, de 1º de outubro de 1993 e Portaria MTur nº 105, de junho de 2018.
+            </p>
+            <hr>
+        </div>
+    </div>
+    {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
+    <style>
+        span {
+            text-align: center;
+        }
+    </style>
+    <div class="row mx-auto px-5">
+        <script>
+    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
+        </script>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="row mx-auto pb-3">
+  <style>
+      body {
+          background-color: #f4f4f4;
+          font-family: Arial, sans-serif;
+          text-align: center;
+      }
+
+      .construction-icon {
+          font-size: 48px;
+          color: #e74c3c;
+      }
+
+      .message {
+          font-size: 24px;
+          margin-top: 20px;
+          color: #333;
+      }
+
+      .contact {
+          font-size: 18px;
+          margin-top: 20px;
+          color: #666;
+      }
+  </style>
+
+  <div class="row">
+      <div class="col pb-5">
+        <h1 class="text-justify mb-4">{{titulo_pag}}</h1>
+        <!-- <p class="text-secondary text-justify mb-4">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quia, repellendus. 
+        </p>    -->
+        <p class="text-justify mb-3" style="text-indent: 40px;"> Este é o espaço para fornecimento de bens e serviços diretamente para as Escolas dentro do Programa PDDE (Programa de Dinheiro Direto da Escola) todos os anos são movimentados cerca de 3 milhões de negócios nesse programa, somente em Nova Friburgo.</p>
+        <p class="text-justify mb-3" style="text-indent: 40px;">Cadastre sua empresa e receba as notificações de oportunidades para venda direta para a Prefeitra e para PDDE:</p>
+        <div class="mx-auto mt-3 item border border d-flex flex-column mx-2 div_cursos">
+          <a href="{% url 'empreendedor:cadastrar_empresa' %}">
+            <div class="c-img" style="position: relative;">
+              <img class="banner-img" src="/static/images/icons_servicos/sala_cadastrar_empresa.jpg" >
+            </div>
+          </a> 
+        </div>
+        <h4 class="mt-5 mb-3">Outros serviços:</h4>
+        <div class="row">
+          <div class="col d-flex">
+            <div class="ms-auto item border border d-flex flex-column mx-2 div_cursos">
+              <a target="_blank" href="https://www.pmnf.rj.gov.br/licitacao/">
+                <div class="c-img" style="position: relative;">
+                  <img class="banner-img" src="/static/images/icons_servicos/licitacoes.jpg" >
+                </div>
+              </a> 
+            </div>
+            <div class="me-auto item border border d-flex flex-column mx-2 div_cursos">
+              <a href="{% url 'empreendedor:pdde_index' %}">
+                <div class="c-img" style="position: relative;">
+                  <img class="banner-img" src="/static/images/icons_servicos/pdde.jpg" >
+                </div>
+              </a> 
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="row mx-auto px-5">
+    <script>
+      document.getElementById('empreendedor_servicos').classList.add('s-nav-active');
+    </script>
+  </div>
+</div>
+
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}x

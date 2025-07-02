@@ -1,0 +1,198 @@
+{% extends 'template.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">  
+  
+  <div class="row">
+    <div class="col">
+      <div class="row">
+        <div class="col">
+            <h1>Seu cadastro foi concluído com sucesso! </h1>
+            <p>Fique atento às informações divulgadas em nosso grupo de whatsapp com detalhes do evento!</p>
+            <a href="https://chat.whatsapp.com/E4nS3zX0qU9CsuotLmY6s1" class="btn btn-success mt-3 mx-auto" target="_blank">
+              <i class="fab fa-whatsapp"></i>
+              Acessar Grupo do WhatsApp
+            </a>
+        </div>
+    </div>
+      
+    </div>
+  </div>
+</div>
+<div class="row mx-auto px-5">
+  <script>
+    document.getElementById('empreendedor_servicos').classList.add('s-nav-active');
+
+    function icpf(v){
+                v=v.replace(/\D/g,"")                    //Remove tudo o que nao e digito
+                v=v.replace(/(\d{3})(\d)/,"$1.$2")       //Coloca um ponto entre o terceiro e o quarto digitos
+                v=v.replace(/(\d{3})(\d)/,"$1.$2")       //Coloca um ponto entre o terceiro e o quarto digitos
+                                                        //de novo (para o segundo bloco de numeros)
+                v=v.replace(/(\d{3})(\d{1,2})$/,"$1-$2") //Coloca um hifen entre o terceiro e o quarto digitos
+                return v
+            }
+    
+    function mascara(o,f){
+                v_obj=o
+                v_fun=f
+                setTimeout("execmascara()",1)
+            }
+        
+    function execmascara(){
+                v_obj.value=v_fun(v_obj.value)
+            }
+    function findParentDiv(element) {
+        var parent = element.parentNode;
+        
+        // Continue subindo na árvore DOM até encontrar um elemento <div>
+        while (parent && parent.nodeName !== 'DIV') {
+          parent = parent.parentNode;
+        }
+
+        return parent;
+      }
+      function esconderCampos() {
+        findParentDiv(document.getElementById('id_o_que_pretende_comercializar')).style.display = 'none';
+        findParentDiv(document.getElementById('id_produto_1')).style.display = 'none';
+        findParentDiv(document.getElementById('id_produto_2')).style.display = 'none';
+        findParentDiv(document.getElementById('id_dias_que_pode_trabalhar')).style.display = 'none';
+      }
+
+      // Função para exibir os campos novamente usando findParentDiv
+      function exibirCampos() {
+        findParentDiv(document.getElementById('id_o_que_pretende_comercializar')).style.display = 'block';
+        findParentDiv(document.getElementById('id_produto_1')).style.display = 'block';
+        findParentDiv(document.getElementById('id_produto_2')).style.display = 'block';
+        findParentDiv(document.getElementById('id_dias_que_pode_trabalhar')).style.display = 'block';
+      }
+
+      esconderCampos()
+
+      function removerElementos() {
+          // Seleciona todos os elementos label
+          const labels = document.querySelectorAll('label');
+
+          // Itera pelos elementos label
+          labels.forEach(function(label) {
+              // Verifica se o label contém um input e o texto "---------"
+              const input = label.querySelector('input');
+              if (input && label.textContent.trim() === '---------') {
+                  // Remove o elemento label do DOM
+                  findParentDiv(label).remove();
+                  // label.remove();
+              }
+          });
+    }
+    function toggleCamposSelecao() {
+        var atividades = document.getElementsByName('atividade_manual');
+        var camposCostura = document.getElementById('id_tipo_costura').parentElement;
+        var camposAlimentos = document.getElementById('id_tipo_producao_alimentos').parentElement;
+        var camposBebidas = document.getElementById('id_tipo_producao_bebidas').parentElement;
+
+        // Verifica se a opção selecionada é Costura, Produção de Alimentos ou Produção de Bebidas
+        var costuraSelecionada = false;
+        var alimentosSelecionada = false;
+        var bebidasSelecionada = false;
+        for (var i = 0; i < atividades.length; i++) {
+            if (atividades[i].checked) {
+                if (atividades[i].value === '2') { // Costura
+                    costuraSelecionada = true;
+                }
+                if (atividades[i].value === '7') { // Produção de Alimentos
+                    alimentosSelecionada = true;
+                }
+                if (atividades[i].value === '8') { // Produção de Bebidas
+                    bebidasSelecionada = true;
+                }
+            }
+        }
+
+        // Exibe ou oculta os campos de seleção correspondentes
+        camposCostura.style.display = costuraSelecionada ? 'block' : 'none';
+        camposAlimentos.style.display = alimentosSelecionada ? 'block' : 'none';
+        camposBebidas.style.display = bebidasSelecionada ? 'block' : 'none';
+    }
+
+    // Adiciona um listener de evento de mudança para o campo de atividades manuais
+    var atividades = document.getElementsByName('atividade_manual');
+    for (var i = 0; i < atividades.length; i++) {
+        atividades[i].addEventListener('change', toggleCamposSelecao);
+    }
+
+    // Executa a função toggleCamposSelecao quando a página carrega
+    toggleCamposSelecao();
+    removerElementos();
+      document.getElementById('cadastro-artesao').style.display = 'none';
+      function checkCPFArtesao(){
+        var cpf = document.getElementById('id_cpf').value;
+        var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        fetch('/sala-do-empreendedor/oportunidade-de-negocios/natal-do-artesao/checkcpf/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+          },
+          body: JSON.stringify({ cpf: cpf })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.valid) {
+            // CPF is valid, proceed with the form submission
+            document.getElementById('btnEnviar').disabled = false;
+          } else {
+            // CPF is invalid, show an error message
+            document.getElementById('cadastro-artesao').style.display = 'block';
+            
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      }
+      function seguirEtapa(){
+        checkCPFArtesao()
+        exibirCampos()
+        document.getElementById('btnSeguir').style.display = 'none';
+        document.getElementById('btnEnviar').style.display = 'block';
+        // Seleciona todos os elementos com id 'id_cpf'
+        const cpfInputs = document.querySelectorAll('#id_cpf');
+
+        // Verifica se existe mais de um elemento com esse id
+        if (cpfInputs.length > 1) {
+          // Encontra o div pai do segundo elemento e remove-o
+          const parentDiv = findParentDiv(cpfInputs[1]);
+          if (parentDiv) {
+            parentDiv.remove();
+          }
+        }
+      }
+  </script>
+</div>
+
+<style>
+  .border{
+    border-color: rgba(146, 146, 146, 0.2) !important;
+  }
+  label{
+    font-weight: bold;
+  }
+  .checkbox label, .radio label{
+    font-weight: normal;
+  }
+  #btnEnviar{
+    display: none;
+  }
+</style>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

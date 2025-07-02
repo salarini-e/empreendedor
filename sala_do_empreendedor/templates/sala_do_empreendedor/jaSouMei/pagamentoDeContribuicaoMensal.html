@@ -1,0 +1,86 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row mx-auto ps-4 pb-3">
+        <h3 class="text-center">Pagamento da Contribuição Mensal (Das)</h3>
+    </div>
+    <div class="row mx-auto mb-5">
+        <div class="col">
+            <p class="text-center"><b>Atenção!</b></p>
+            <p class="text-justify">
+                Essa informação é para você MEI registrado nos municípios de Bertioga, Caraguatatuba, Guarujá, Ilhabela, São Sebastião e Ubatuba de São Paulo.
+                <br><br>
+                Entendemos que situação decorrente do desastre natural não está fácil!
+                <br><br>
+                Com a decretação de calamidade pública, foi prorrogado os prazos para o pagamento dos tributos do MEI.
+                <br><br>
+                Confira os detalhes <a href="https://www8.receita.fazenda.gov.br/SimplesNacional/Noticias/NoticiaCompleta.aspx?id=43fe753a-de9c-4fc4-ad2f-d927e99726c1">aqui.</a>
+                <br><br>
+                Mas fica uma dica!
+                <br><br>
+                Se for possível, mantenha o pagamento do DAS em dia para que não acumule com os meses que foram prorrogados.                
+            </p>
+            <ul class="my-4">
+                <p><b>Agora que já está com o CNPJ em mãos, pode ter direito aos seguintes benefícios previdenciários:</b></p>
+                <li>Aposentadoria por idade</li>
+                <li>Aposentadoria por invalidez</li>
+                <li>Auxílio-doença</li>
+                <li>Licença-maternidade</li>
+                <li>Auxílio-reclusão</li>
+                <li>Pensão por morte</li>
+                <p class="text-justify">
+                    Para conseguir todos estes benefícios, basta pagar a contribuição mensal (DAS) em dia e cumprir a carência necessária para cada um.
+                    Se deixar de pagar estes boletos, além da possibilidade de ocorrer o cancelamento automático do MEI, você pode comprometer o recebimento 
+                    destes benefícios.
+                </p>
+            </ul>
+            <p><b>Mas afinal, o que é pago no DAS?</b></p>
+            <ul>
+                <li>É por meio deste boleto que você, MEI, vai recolher seus impostos e a contribuição para o INSS.</li>
+                <li>Veja o que você vai pagar, dependendo de suas ocupações:</li>
+            </ul>
+            <table class="mx-auto my-3">
+                <thead>
+                    <th>O que é pago?</th>
+                    <th>Valor</th>
+                    <th>Quais Ocupações Pagam?</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>INSS(Previdência Social)</td>
+                        <td>5% do salário mínimo vigente</td>
+                        <td>Todas as ocupações</td>
+                    </tr>
+                    <tr>
+                        <td>ICMS(Imposto sobre Circulação de Mercadorias e Serviços)</td>
+                        <td>R$1,00</td>
+                        <td>Comércio, indústria e transporte entre estados e municípios</td>
+                    </tr>
+                    <tr>
+                        <td>ISS(Imposto sobre Serviços)</td>
+                        <td>R$ 5,00</td>
+                        <td>Prestação de Serviços em geral</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="my-3">
+                Como MEI, além de um valor baixo, os impostos são fixos, independente do seu faturamento (desde que dentro do limite anual). 
+                Assim você pode colocar este gasto no seu controle de despesas fixas e não ter surpresas no final do mês.
+                <br><br>
+                Agora clique no botão Como pagar seu DAS, veja como você pode efetuar o pagamento. 
+            </p>
+        </div>
+    </div>
+     {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

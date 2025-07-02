@@ -1,0 +1,37 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row mx-auto ps-4 pb-3">
+        <h3 class="text-center">EMISSÃO DE COMPROVANTE (CCMEI)</h3>
+    </div>
+    <div class="row mx-auto mb-5">
+        <div class="col">
+            <p style="text-align: justify;" class="mb-3"><b>Certificado da Condição do Microempreendedor Individual (CCMEI)</b></p>
+            <p>
+                O Certificado da Condição do Microempreendedor Individual (CCMEI) é o documento que certifica que sua empresa está aberta e comprova a sua inscrição no CNPJ e na Junta Comercial do seu Estado.
+                <br><br>
+                O Certificado de Condição de MEI (CCMEI) tem efeito de Dispensa de Alvará e Licença de Funcionamento, desde que obedecidas as exigências legais necessárias ao bom funcionamento da empresa.
+                <br><br>
+                Caso não saiba quais são essas exigências, procure a Prefeitura de sua cidade para verificar se existe necessidade de alguma adequação no negócio.
+                <br><br>
+                O CCMEI é geralmente solicitado para a abertura de conta de pessoa jurídica, venda de produtos e serviços para grandes empresas, órgãos públicos e comprovação do CNPJ para demais fins.
+                <br><br>
+                <b>Atenção:</b>
+                <br><br>
+                Para consultar o CCMEI, informe os dados da sua conta de acesso único do governo (conta gov.br).
+            </p>
+        </div>
+    </div>
+     {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

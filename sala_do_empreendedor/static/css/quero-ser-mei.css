@@ -1,0 +1,72 @@
+#menu-grid{
+    height: max-content;
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 5vw;
+    margin-bottom: 5vw;
+}
+
+.item{
+    height: min(200px, 18vw);
+    width: min(300px,23vw);
+    font-size: 1rem !important;
+    margin: auto !important;
+}
+.item a div:last-child{
+    padding-left: 3rem;
+    padding-right: 3rem;
+    display: inline-block;
+}
+
+
+/* Telas pequenas e laptops*/
+@media(min-width:769px) and (max-width:1024px){
+    #menu-grid{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .item a div:last-child{
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    .texto-nf{
+        width: 120px;
+        font-size: 0.8em;
+    }
+}
+/* iPads e tablets*/
+@media(min-width:481px) and (max-width:768px){
+    #menu-grid{
+        grid-template-columns: 1fr;
+    }
+    .item{
+        height: 150px;
+        width: 250px;
+        font-size: 1rem !important;
+    }
+    .item a div span i {
+        display: none;
+    }
+    .item a div:last-child{
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+}
+/* Celulares */
+@media (max-width:480px){
+    #menu-grid{
+        grid-template-columns: 1fr;
+    }
+    .item{
+        height: 150px;
+        width: 250px;
+        font-size: 1rem !important;
+    }
+    .item a div span i {
+        display: none;
+    }
+    .item a div:last-child{
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+}
+

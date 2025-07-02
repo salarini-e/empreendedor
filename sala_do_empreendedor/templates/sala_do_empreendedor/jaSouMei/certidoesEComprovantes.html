@@ -1,0 +1,62 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row mx-auto ps-4 pb-3">
+        <h3 class="text-center">Certidões e Comprovantes</h3>
+    </div>
+    <div class="row mx-auto mb-5">
+        <div class="col">
+            <p class="text-justify">
+                As certidões e comprovantes de regularidade são documentos que certificam que você está em dia com suas obrigações. Elas podem ser solicitadas 
+                para abrir conta bancária, solicitar empréstimo, participar de licitações, entre outros. Veja abaixo as principais declarações e para que serve 
+                cada uma delas.
+            </p>
+            <p class="my-4"><b>Certidão de regularidade fiscal (CND)</b></p>
+            <p class="text-justify">
+                É um documento que comprova a prova de regularidade fiscal perante a Fazenda Nacional para quaisquer fins é efetuada mediante apresentação de 
+                certidão expedida conjuntamente pela Secretaria Especial da Receita Federal do Brasil (RFB) e pela Procuradoria-Geral da Fazenda Nacional (PGFN), 
+                referente a todos os créditos tributários federais e à Dívida Ativa da União (DAU) por elas administrados.
+                <br><br>
+                Para obter segunda via de certidões já emitidas utilize o serviço Consultar certidões emitidas pela Receita Federal.
+            </p>
+            <p class="my-4"><b>Certidão do FGTS – Caixa Econômica Federal</b></p>
+            <p class="text-justify">
+                É um documento que comprova a quitação do pagamento do fundo de garantia por tempo de Serviço. Este documento é importante para você que é MEI 
+                comprovar a quitação de suas obrigações, e para o seu empregado solicitar o saque do fundo de garantia ou mesmo para comprovar uma eventual 
+                situação de desemprego.
+            </p>
+            <p class="my-4"><b>Certidão do INSS – Previdência Social</b></p>
+            <p class="text-justify">
+                A certidão negativa INSS é um certificado emitido pela Receita Federal que mostra que o MEI não tem pendências com a Previdência Social nem débitos 
+                previdenciários, ou seja, é o atestado de regularidade junto ao Instituto Nacional do Seguro Social (INSS).
+                <br><br>
+                Diversos processos exigem a certidão negativa INSS, entre eles estão a entrada de documentação para a aposentadoria, a revalidação de registro de 
+                imóveis e a requisição de indenização do INSS. É possível também que precise dessa certidão para abrir conta em banco, solicitar um crédito, iniciar um 
+                financiamento, vender ou comprar imóvel, até mesmo para participar de uma concorrência pública.
+            </p>
+            <p class="my-4"><b>Certidão Negativa de Débitos Trabalhistas</b></p>
+            <p class="text-justify">A certidão negativa de débito trabalhistas é um documento de extrema importância tanto para o MEI quanto para o empregado. Esta certidão comprova a 
+                regularidade ou não do empregador com a Justiça do Trabalho. Também, é um dos documentos analisados na hora de participar de licitações para fornecimento
+                 de serviços ou produtos.</p>
+            <p class="my-4"><b>Comprovante de Situação Cadastral no CPF</b></p>
+            <p class="text-justify">O Comprovante de Situação Cadastral no CPF é o documento que informa sobre a regularidade cadastral do MEI perante a Receita Federal 
+                em relação ao seu CPF (Cadastro de Pessoas Físicas) e é importante para que você abra contas bancárias, de poupança ou de investimentos e garanta todos os
+                 direitos da sua família e o seu como MEI</p>
+            <p class="my-4"><b>Comprovante de Situação Cadastral CNPJ</b></p>
+            <p class="text-justify">A situação cadastral de CNPJ é o registro da empresa junto à Receita Federal. A partir da análise, é possível saber qual é a 
+                situação da sua empresa. É possível ver se há processos judiciais, dívidas tributárias, protestos em aberto e pendências comerciais e judiciais. </p>
+        </div>
+    </div>
+     {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

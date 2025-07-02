@@ -1,0 +1,197 @@
+{% extends 'template.html' %}
+{% load bootstrap5 %}
+{% load static%}
+{% block title %}BEM VINDO - CURSOS LIVRES{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/administrativo.css' %}">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+{% endblock %}
+{% block administrativo %}fw-bold{% endblock %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block main %}
+<div class="row pt-4">
+    <div class="col d-flex pt-5">
+        <h3>Detalhes do curso {{curso.nome}}</h3>
+        <a class="ms-auto btn btn-dark" href="{% url 'cursos_empresariais:adm_cursos_listar' %}">Voltar</a>
+        <button class="btn btn-primary ms-2" id="btn_lista_interessados" onclick="showList()">Lista de Interessados</button>
+
+        <button class="btn btn-primary ms-2" id="btn_matriz_curricular" onclick="showMatrix()">Matriz Curricular</button>
+        <a href="{% url 'cursos_empresariais:adm_cursos_interessados_excel' id %}" class="btn btn-success ms-2"><i class="fa-solid fa-file-arrow-down me-2"></i>Excel</a>
+    </div>
+</div>
+
+<div class="row" id="lista_interessados">
+    <div class="col d-flex pt-3">
+        <table class="table">
+           <thead>
+            <th>Nome</th>
+            <th>Dt. inclusão</th>
+            <th>CPF</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Bairro</th>
+            <th></th>
+           </thead>
+           <tbody>
+            {% for interessado in interessados %}
+            <tr id="int_{{interessado.id}}">
+            
+                <td>
+                    {{interessado.aluno.pessoa.nome}}
+                </td>
+                <td>
+                    {{interessado.dt_inclusao|date:"d/m/y"}}
+                </td>
+                <td>
+                    {{interessado.aluno.pessoa.cpf}}
+                </td>
+                <td>
+                    {{interessado.aluno.pessoa.email}}
+                </td>
+                <td>
+                    {{interessado.aluno.pessoa.telefone}}
+                    <a class="ms-1" href="https://api.whatsapp.com/send?phone=55{{interessado.aluno.pessoa.telefone}}" target="_blank">
+                        <i class="fa-brands fa-square-whatsapp" style="font-size: 18pt; color: forestgreen;"></i>
+                    </a>
+                </td>
+                <td>
+                    {{interessado.aluno.pessoa.bairro}}
+                </td>
+                <td>
+                    <a id="btn_{{interessado.id}}" href="#" onclick="mostrarModal({{interessado.id}}, '{{interessado.aluno.pessoa.nome}}', '{{interessado.curso.nome}}')">
+                        <i class="fa-solid fa-rectangle-xmark text-danger" style="font-size: 18pt;"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+           </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row" id="matriz_curricular" style="display: none;">
+    <div class="col d-flex flex-column py-3">
+        <a href="#" class="btn btn-primary me-auto"><i class="fa-solid fa-plus"></i> add disciplina</a>
+        <table class="table">
+            <thead>
+             <th>Curso</th>
+             <th>Nome</th>
+             <th>Nº de aulas</th>
+             <th>Carga horária</th>
+            </thead>
+            <tbody>
+             {% for matriz in matrizesCur %}
+             <tr>
+                <td>
+                    <a href="#">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                </td>
+                 <td>
+                     {{matriz.curso}}
+                 </td>
+                 <td>
+                     {{matriz.nome}}
+                 </td>
+                 <td>
+                     {{matriz.n_aulas}}
+                 </td>
+                 <td>
+                     {{matriz.carga_horaria}}
+                 </td>
+             </tr>
+             {% endfor %}
+            </tbody>
+         </table>
+    </div>
+</div>
+<script>
+    var id_excluir;
+</script>
+<!-- MODAL -->
+<div class="modal fade" id="excluirInteressado" aria-hidden="true" aria-labelledby="respostaLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header border-0">
+          <h5 class="modal-title text-dark text-center" id="exampleModalToggleLabel"></h5>
+        </div>
+        <div class="modal-body px-5 text-center">
+          <p class="px-4 py-3 text-center">
+            Você tem certeza que gostaria de remover este da lista de interessados?
+          </p>
+          <p class="alert-warning py-2" id="msg-alert"></p>
+          <p class="text-center"><strong>Nome:</strong> <span id="nome"></span></p>
+          <p class="text-center"><strong>Curso:</strong> <span id="curso"></span></p>
+          <button class="btn btn-success mt-3" onclick="remover(id_excluir)">
+            Remover da lista
+          </button>
+        </div>
+        <div class="modal-footer border-0">
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+    const matriz = document.querySelector("#matriz_curricular")
+    const lista = document.querySelector("#lista_interessados")
+    
+    function showList(){
+        matriz.style.display = "none"
+        lista.style.display = "flex";
+    }
+
+    function showMatrix(){
+        lista.style.display = "none"
+        matriz.style.display = "flex";
+    }
+
+    function mostrarModal(id, nome, curso) {
+        id_excluir = id; 
+        const button = document.querySelector('.btn-success')
+        document.getElementById('msg-alert').classList.remove('py-2')
+        document.getElementById('msg-alert').innerText = '';
+        button.classList.remove('btn-success'); 
+            button.classList.add('btn-danger')
+        button.textContent = 'Remover da lista';
+        document.getElementById('nome').innerText = nome;
+        document.getElementById('curso').innerText = curso;
+        let myModal_Ineressados = new bootstrap.Modal(document.getElementById('excluirInteressado'))
+        myModal_Ineressados.toggle()
+    }
+
+    function remover(id) {        
+        fetch(`/sala-do-empreendedor/remover-interessado/${id}/`) 
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const tr = document.querySelector(`#int_${id}`);
+                tr.style.backgroundColor = '#ffe6e6'; 
+                const button = document.querySelector('.btn-danger'); 
+                button.classList.remove('btn-danger');
+                button.classList.add('btn-success'); 
+                const icon = document.querySelector(`#btn_${id} i`);
+                const link = document.querySelector(`#btn_${id}`);
+                link.removeAttribute('onclick');    
+                icon.classList.remove('text-danger');
+                icon.classList.add('text-secondary');
+                button.textContent = 'Removido';
+            } else {
+                document.getElementById('msg-alert').classList.add('py-2')
+                document.getElementById('msg-alert').innerText = 'Falha ao tentar remover este interessado.';
+            }
+        })
+        .catch(error => {
+            document.getElementById('msg-alert').classList.add('py-2')
+            document.getElementById('msg-alert').innerText = 'Erro na solicitação: '+error;
+            });
+            
+    }
+    // funcao fetch para remover interessado
+    function removerInteressado(id) {
+    
+}
+</script>
+
+{% endblock %}

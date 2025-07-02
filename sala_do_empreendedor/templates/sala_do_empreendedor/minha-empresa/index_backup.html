@@ -1,0 +1,228 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Minha empresa</h1>
+      <p class="text-secondary">
+        Aqui estão suas empresas e alguns dos serviços vantajosos que a prefeitura oferece para a comunidade, contribuindo para uma cidade mais eficiente e acolhedora!
+      </p>      
+    </div>
+  </div>
+    <div class="row mt-4">
+      <div class="col">
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive pt-4 border" style="background-color: white; border-radius: 30px; padding: 20px;">
+                <table class="table table-borderless">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>CNPJ</th>
+                      <th>Nome</th>
+                      <th>Porte da empresa</th>
+                      <th class="text-center">Vitrine Virtual</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for empresa in empresas %}
+                    <tr>
+                      <td>
+                        
+                      </td>
+                      <td>
+                       {{empresa.cnpj}} <a class="ms-3" href="{% url 'empreendedor:editar_empresa' empresa.id %}"><i class="fa-solid fa-pen-to-square"></i></a>
+                      </td>
+                      <td>
+                       {{empresa.nome}}
+                      </td>
+                      <td>
+                        {{empresa.porte}}
+                      </td>
+                      <td class="text-center">
+                        {% if empresa.cadastrada_na_vitrine %}
+                        <a style="max-width: 180px;" href="{% url 'empreendedor:minha_vitrine' empresa.id %}" class="w-100 m-auto py-0 btn btn-success">
+                          Ver sua vitrine
+                        </a>
+                        {% else %}
+                        <a style="max-width: 180px;" href="{% url 'empreendedor:cadastrar_vitrine' empresa.id %}" class="w-100 m-auto py-0 btn btn-primary">
+                          Cadastrar
+                        </a>
+                        {% endif %}
+                      </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                      <td colspan="6" class="px-5">
+                        <a href="{% url 'empreendedor:cadastrar_empresa' %}" class="w-100 btn btn-primary">Cadastre sua empresa</a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    <!-- <tr>
+                      <td>
+                        {{estudante.}}
+                      </td>
+                    </tr> -->
+                  </tbody>
+                </table>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <a href="{% url 'empreendedor:pca' %}" class="col">
+        <img src="/static/images/pca-banner2025.png" class="my-4" style="border-radius: 30px;" alt="">    
+      </a>
+    </div>
+{% if pdde_count > 0 %}
+<div class="row mt-3 mb-2"  id="pdde">
+  <div class="col">
+    <h2>Serviços</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+      <div class="table-responsive pt-4 border" style="background-color: white; border-radius: 30px; padding: 20px;">
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Código da Solicitação</th>
+                <th>Empresa</th>
+                <th>Tipo</th>
+                <th>Escola</th>
+                <th>Status</th>                
+                <th>Descrição</th>
+                <th>Qnt. itens</th>
+                <th>Andamento</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for contrato in pdde %}
+              <tr>
+                <td></td>
+                <td>
+                  {{contrato.solicitacao_referente.codigo}}
+                </td>
+                <td>
+                  {{contrato.proposta_vencedora.empresa.nome}}
+                </td>
+                <td>
+                 {{contrato.solicitacao_referente.get_tipo_display}}
+                </td>
+                <td>
+                  {{contrato.solicitacao_referente.escola}}
+                </td>
+                <td>
+                 {{contrato.solicitacao_referente.get_status_display}}
+                </td>                
+                <td class="text-center">
+                  {{contrato.solicitacao_referente.descricao}}                  
+                </td>
+                <td>
+                  {{contrato.solicitacao_referente.qnt_itens}}
+                </td>
+                <td>
+                  <a class="btn btn-primary py-0  " href="{% url 'empreendedor:pdde_empresa_menu' hash=contrato.hash %}">
+                    <i class="fa-solid fa-eye me-2"></i> Visualizar
+                  </a>
+                </td>
+                <td></td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="6" class="px-5">
+                  <a href="{% url 'empreendedor:cadastrar_empresa' %}" class="w-100 btn btn-primary">Cadastre sua empresa</a>
+                </td>
+              </tr>
+              {% endfor %}
+              <!-- <tr>
+                <td>
+                  {{estudante.}}
+                </td>
+              </tr> -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+{% endif %}
+</div>
+<div class="row mt-4">
+  <div class="col px-5">
+    <h3>Serviços para sua empresa</h3>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="d-flex flex-wrap px-5">
+    <div class="item border border d-flex flex-column mx-auto div_cursos">
+      <a target="_blank" href="https://servicoonline.novafriburgo.rj.gov.br/services/site_login.php">
+        <div class="c-img" style="position: relative;">
+          <img class="banner-img" src="/static/images/icons_servicos/debitos-e-taxas.jpeg" >
+        </div>
+      </a> 
+    </div>
+    <div class="item border border d-flex flex-column mx-auto div_cursos">
+      <a href="{% url 'empreendedor:solicitacao_linha_de_credito' %}">
+        <div class="c-img" style="position: relative;">
+          <img class="banner-img" src="/static/images/icons_servicos/linha-credito.jpeg" >
+        </div>
+      </a> 
+    </div>
+      <div class="item border border d-flex flex-column mx-auto div_cursos">
+        <a href="{% url 'empreendedor:compras_publicas' %}">
+          <div class="c-img" style="position: relative;">
+            <img class="banner-img" src="/static/images/icons_servicos/licitacoes.jpg" >
+          </div>
+        </a> 
+      </div>
+      <div class="item border border d-flex flex-column mx-auto div_cursos">
+        <a href="{% url 'empreendedor:pdde_index' %}">
+          <div class="c-img" style="position: relative;">
+            <img class="banner-img" src="/static/images/icons_servicos/pdde.jpg" >
+          </div>
+        </a> 
+      </div>
+    <!-- <div class="item border border d-flex flex-column mx-2 div_cursos">
+      <a href="{% url 'empreendedor:quero_ser_mei' %}">
+        <div class="c-img" style="position: relative;">
+          <img class="banner-img" src="/static/images/icons_servicos/empreendedor.jpeg" >
+        </div>
+      </a> -->
+  </div>
+</div>
+</div>
+<div class="row mx-auto px-5">
+  <script>
+    document.getElementById('empreendedor_empresa').classList.add('s-nav-active');
+  </script>
+</div>
+
+<style>
+  .border{
+    border-color: rgba(146, 146, 146, 0.2) !important;
+  }
+</style>
+
+</script>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

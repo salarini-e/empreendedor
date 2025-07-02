@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+  <title>
+    {% block title %}{{titulo}}{% endblock %}
+  </title>
+  <!-- GOOGLE FONTS -->
+  <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500&family=Montserrat&family=Roboto:wght@700;900&display=swap" rel="stylesheet">
+   -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
+  <!-- BOOTSTRAP 5 -->
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" rel="stylesheet">
+  <script crossorigin="anonymous" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- FONTAWESOME -->
+  <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+  <!-- CUSTOM CSS -->
+  <link rel="stylesheet" href="/static/css/template.css">
+   <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6PFZS9T0XW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6PFZS9T0XW');
+</script>
+  {% block css %}{% endblock%}
+</head>
+
+<body id="body" class="container-fluid d-flex flex-column">
+  <div id="preloading" style="background-color: white;">
+    <!-- <img class="mx-auto mt-auto img-fluid logo" src="/static/images/logo_pmnf.png" alt=""> -->
+    <div class="mx-auto mb-auto lds-ellipsis">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <style>
+    #preloading{
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100000;
+    }
+  </style>
+  <header class="row fixed-top">
+    <div class="col" style="border-bottom: 1px solid rgb(255, 255, 255);">
+      <div class="row" id="nav-superior">
+        <div class="col px-4 d-flex text-light">
+          <div class="logo-nf nv-sp">
+            <a href="#">
+              <img src="{% static 'images/brasao-nf.png' %}" class="img-fluid">
+            </a>
+          </div>
+          <p class="texto-nf my-auto ms-3">PREFEITURA DE NOVA FRIBURGO</p>
+          <div class="my-auto mx-auto">
+            <ul class="d-flex nav-a">
+              <!-- <li><a class="mx-3" href="{% url 'cursos:home' %}">Capacitação Profissional</a></li>
+              <li><a class="mx-3" href="{% url 'cursos:cidade_inteligente' %}">Cidade Inteligente</a></li>              
+              <li><a class="mx-3" href="#">Estágios</a></li> -->
+              <!-- <li><a class="mx-3" href="/bem-estar-animal/">Bem Estar Animal</a></li> -->
+              <li><a class="mx-3" href="https://casadotrabalhador.pmnf.rj.gov.br">Casa do Trabalhador</a></li>
+              <li><a class="mx-3" href="/financas/">Finanças</a></li>
+              <li><a class="mx-3" href="{% url 'empreendedor:index' %}">Sala do Empreendedor</a></li>
+              <li><div class="dropdown mx-2">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuNav" data-bs-toggle="dropdown" aria-expanded="false">
+                  Outros sistemas
+                </a>                                  
+                <ul id="menu-nav" class="dropdown-menu" aria-labelledby="dropdownMenuNav">
+                  <!-- <li><a class="btn btn-outline-primary" href="#">
+                    Acessar
+                  </a></li>
+                  <li><hr class="dropdown-divider"></li> -->
+                  <li class="mt-1"><b>Sistemas:</b></li>
+                  <!-- <li><a class="dropdown-item" href="#"><i class="fa-solid fa-paw me-2"></i>Bem Estar Animal</a></li> -->
+                  <li><a class="dropdown-item" href="https://casadotrabalhador.pmnf.rj.gov.br"><i class="fa-solid fa-landmark me-2"></i>Casa do Trabalhador</a></li>
+                  <li><a class="dropdown-item" href="https://julianasalvatore.github.io/smctieps_newmod/"><i class="fa-solid fa-landmark me-2"></i>Ciência e Tecnologia</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="fa-solid fa-landmark me-2"></i>Finanças</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="fa-solid fa-lightbulb me-2"></i>Iluminação Pública</a></li>                                        
+                  <li><a class="dropdown-item" href="https://senhas.novafriburgo.rj.gov.br"><i class="fa-solid fa-cart-flatbed-suitcase me-2"></i>Senhas de Turismo</a></li>
+                  <li><a class="dropdown-item" href="https://culturanf.novafriburgo.rj.gov.br"><i class="fa-solid fa-map-location-dot me-2"></i>Mapeamento Cultural</a></li>
+                  
+                </ul>
+              </div></li>
+              <li class="menuMobile"><a href="#offcanvasExample" data-bs-target="#offcanvasExample" data-bs-toggle="offcanvas" role="button" aria-controls="offcanvasExample">&#9776;</a></li>
+            </ul>
+          </div>
+          <div class="my-auto mx-auto offcanvas offcanvas-start" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <ul class="nav-a offcanvas-body">
+              <li><a href="{% url 'cursos:home' %}">Capacitação Profissional</a></li>
+              <li><a href="{% url 'cursos:cidade_inteligente' %}">Cidade Inteligente</a></li>              
+              <li><a href="#">Eventos</a></li>
+              <li><a href="#">Finanças</a></li>
+              <li><div class="dropdown">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuNav" data-bs-toggle="dropdown" aria-expanded="false">
+                  Outros sistemas
+                </a>                                  
+                <ul id="menu-nav" class="dropdown-menu" aria-labelledby="dropdownMenuNav">
+                  <!-- <li><a class="btn btn-outline-primary" href="#">
+                    Acessar
+                  </a></li>
+                  <li><hr class="dropdown-divider"></li> -->
+                  <li class="mt-1"><b>Sistemas:</b></li>
+                  <li><a class="dropdown-item" href="#"><i class="fa-solid fa-paw me-2"></i>Bem Estar Animal</a></li>
+                  <li><a class="dropdown-item" href="https://casadotrabalhador.pmnf.rj.gov.br"><i class="fa-solid fa-landmark me-2"></i>Casa do Trabalhador</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="fa-solid fa-person-military-pointing me-2"></i>Iluminação Pública</a></li>                                        
+                  <li><a class="dropdown-item" href="https://senhas.novafriburgo.rj.gov.br"><i class="fa-solid fa-cart-flatbed-suitcase me-2"></i>Senhas de Turismo</a></li>
+                  <li><a class="dropdown-item" href="https://culturanf.novafriburgo.rj.gov.br"><i class="fa-solid fa-map-location-dot me-2"></i>Mapeamento Cultural</a></li>
+                  
+                </ul>
+              </div></li>
+              <div class="nv-login my-auto ms-auto">
+                {% if not request.user.is_authenticated %}
+                <a href="{% url 'autenticacao:login' %}" class="btn my-auto btn-acesso" type="submit">
+                  <i class="fa-solid fa-user-check me-2"></i> Login</a>
+                {% else %}
+                <div class="dropdown">
+                  <button class="btn btn-acesso my-auto" type="button" id="dropdownMenuPerfil" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="fa-solid fa-user-check me-2"></i>
+                    {{ request.user.first_name }}
+                  </button>
+                  <ul id="menu-perfil" class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                    {% if request.user.is_superuser %}
+                    <li><a class="dropdown-item py-2 text-center" href="/admin/">Administração</a></li>
+                    {% endif %}
+                    <!-- <li><a class="dropdown-item py-2 text-center" href="#">Meu perfil</a></li> -->
+                    <!-- <li><a class="dropdown-item py-2" href="#">Meu perfil</a></li> -->
+                    <li>
+                      <a class="dropdown-item text-center py-2" href="{% url 'autenticacao:logout' %}">
+                        <i class="fa-solid fa-arrow-right-from-bracket me-2"></i></i> Logout
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                {% endif %}
+              </div>
+            </ul>
+          </div>
+          <div class="linkLogin nv-login my-auto ms-auto">
+            {% if not request.user.is_authenticated %}
+            <a href="{% url 'autenticacao:login' %}" class="btn my-auto btn-acesso" type="submit">
+              <i class="fa-solid fa-user-check me-2"></i> Login</a>
+            {% else %}
+            <div class="dropdown">
+              <button class="btn btn-acesso my-auto" type="button" id="dropdownMenuPerfil" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="fa-solid fa-user-check me-2"></i>
+                {{ request.user.first_name }}
+              </button>
+              <ul id="menu-perfil" class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                {% if request.user.is_superuser %}
+                <li><a class="dropdown-item py-2 text-center" href="/admin/">Administração</a></li>
+                {% endif %}
+                <!-- <li><a class="dropdown-item py-2 text-center" href="#">Meu perfil</a></li> -->
+                <!-- <li><a class="dropdown-item py-2" href="#">Meu perfil</a></li> -->
+                <li>
+                  <a class="dropdown-item text-center py-2" href="{% url 'autenticacao:logout' %}">
+                    <i class="fa-solid fa-arrow-right-from-bracket me-2"></i></i> Logout
+                  </a>
+                </li>
+              </ul>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="row" id="nav-inferior">
+        <div class="col d-flex">
+          <!-- <div class="img-logo my-auto">
+            <a href="/">
+              <img src="{% static 'images/logo_desenvolvenf_white.png' %}" class="img-fluid">
+            </a>
+          </div> -->
+          <div class="nv-titulo my-auto ms-3">
+            <h1> {{titulo}}</h1>
+          </div>
+          <div class="nv-social ms-auto d-flex">
+            <div class="d-flex my-auto me-3">
+              <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
+            </div>
+            <div class="d-flex my-auto">
+              <div class="d-social d-flex mx-2"><a href="https://www.instagram.com/desenvolvenf/" class="a-social m-auto"><i
+                    class="fa-brands fa-instagram"></i></a></div>
+              <div class="d-social d-flex me-4"><a href="https://www.facebook.com/desenvolvenf/" class="a-social m-auto"><i class="fa-brands fa-facebook-f"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>  
+  {% block nav %}{% endblock %}
+
+  <div id="mainBlock" class="main-content pt-5 pb-5 px-5 mx-4">
+   {% block main %}{% endblock %}
+  </div>
+  {% block footer %}
+  
+  {% endblock %}
+  {% include 'footer.html' %}
+  <!-- CUSTOM JS -->
+  <script>
+    window.onload = () => {
+      document.getElementById('body').style.overflow = 'auto'
+      document.getElementById('preloading').style.display = 'none'
+    }
+  </script>
+  <!-- <script>
+    window.embeddedChatbotConfig = {
+    chatbotId: "z7UIFuZtloxQWbjvmlYWt",
+    domain: "www.chatbase.co"
+    }
+    </script>
+    <script
+    src="https://www.chatbase.co/embed.min.js"
+    chatbotId="z7UIFuZtloxQWbjvmlYWt"
+    domain="www.chatbase.co"
+    defer>
+    </script> -->
+    {% if messages %}              
+
+    <div id="overlay"></div>
+
+    {% for message in messages %}
+    <div id="modal" class="alert  {% if message.tags %}{{message.tags}}{% endif %}">
+      <div class="row">
+        <div class="col d-flex py-3">
+          <div class="m-auto {{ message.tags }}">
+            {{ message|escape }}
+          </div>
+        <span id="close-btn" class="ms-auto" style="color: black;" onclick="closeModal()">
+          <i class="fa-solid fa-circle-xmark"></i>
+        </span>
+        </div>
+      </div>
+      
+    </div>
+    {% endfor %}
+    <style>
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+
+        #modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            max-width: 90%; /* Defina a largura máxima do modal */
+            padding: 20px;
+            /* background-color: #fff; */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 10px; /* Adicione bordas arredondadas ao modal */
+        }
+
+        #modal h2 {
+            margin-top: 0;
+            color: #333; /* Cor do título do modal */
+        }
+        #close-btn {
+            cursor: pointer;
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 18px;
+            color: #888; /* Cor do botão de fechar */
+        }
+
+        #close-btn:hover {
+            color: #555; /* Cor do botão de fechar ao passar o mouse */
+        }
+
+        /* Adicione mais estilos conforme necessário */
+
+        #modal .row {
+            margin-bottom: 10px;
+        }
+
+        /* Adicione estilos específicos para a mensagem usando as classes de tags */
+        #modal.error {
+            border: 2px solid #ff3333;
+            background-color: #ffeeee;
+        }
+
+        #modal.success {
+            border: 2px solid #33cc33;
+            background-color: #eeffef;
+        }
+    </style>
+    <script>
+       function openModal() {
+            document.getElementById('modal').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+        window.onclick = function(event) {
+            var modal = document.getElementById('modal');
+            var overlay = document.getElementById('overlay');
+            if (event.target === overlay) {
+                modal.style.display = 'none';
+                overlay.style.display = 'none';
+            }
+        }
+      openModal()
+    </script>
+      <!-- <script>
+      const myModal = new bootstrap.Modal(document.getElementById('resposta'))
+      myModal.toggle()
+      </script> -->
+      <style>
+        .error{
+          background-color: rgb(238, 171, 171);
+          color: darkred;
+          font-weight: 600;
+        }
+        .success{
+          background-color: rgb(182, 238, 171);
+          color: rgb(0, 139, 19);
+          font-weight: 600
+        }
+        .warning{
+          background-color: rgb(238, 226, 171);
+          color: rgb(139, 107, 0);
+          font-weight: 600
+        }
+      </style>
+    {% endif %}
+
+</body>
+
+</html>

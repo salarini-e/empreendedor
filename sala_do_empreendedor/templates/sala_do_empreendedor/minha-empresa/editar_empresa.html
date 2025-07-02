@@ -1,0 +1,87 @@
+{% extends 'template.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row d-flex">
+      <div class="col-6 mx-auto">
+        <form method="POST">
+          <h3>EDITAR DA DADOS DA EMPRESA</h3>
+          <div class="row d-flex my-3">
+            <div class="col">
+              <p><b>CNPJ:</b> {{empresa.cnpj}}</p>
+            </div>
+        </div>
+          {% csrf_token %}
+          {% bootstrap_form form %}
+          <button type="submit" class="btn btn-primary w-100">Alterar</button>
+        </form>
+      </div>
+    </div>
+    <div class="row d-flex">
+      <div class="col-6 pt-5 mx-auto ps-4">
+        <h4>Por que realizar o cadastro da sua empresa?</h4>
+        <ul class="my-3">
+          <li>Item 1</li>
+          <li>Item 2</li>
+          <li>Item 3</li>
+        </ul>
+        <h3>Vitrine Virtual</h3>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam, ipsum omnis! Labore ad quas facilis explicabo culpa, quae iste nam qui harum hic incidunt quo ab, reiciendis, impedit earum autem?</p>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iste enim unde, temporibus consequatur, consectetur optio minus numquam ab voluptate expedita voluptatum possimus praesentium sequi ipsa ullam delectus reiciendis voluptates autem?</p>
+      </div>
+      
+    </div>
+</div>
+<script>
+  document.getElementById('empreendedor_empresa').classList.add('s-nav-active');
+
+  function icnpj(inputValue) {
+      let value = inputValue.replace(/\D/g, ""); // Remove caracteres não numéricos
+      value = value.replace(/(\d{2})(\d)/, "$1.$2"); // Coloca um ponto entre o segundo e o terceiro dígitos
+      value = value.replace(/(\d{3})(\d)/, "$1.$2"); // Coloca um ponto entre o quarto e o quinto dígitos
+      value = value.replace(/(\d{3})(\d)/, "$1/$2"); // Coloca uma barra entre o sétimo e o oitavo dígitos
+      value = value.replace(/(\d{4})(\d{1,2})$/, "$1-$2"); // Coloca um hífen entre o décimo segundo e o décimo terceiro dígitos
+      return value;
+  }
+  function itel(v){
+      v=v.replace(/\D/g,"")                 //Remove tudo o que nao e digito
+      v=v.replace(/^(\d\d)(\d)/g,"($1) $2") //Coloca parenteses em volta dos dois primeiros digitos
+      console.log(v.length)
+      if (v.length<14){
+        v=v.replace(/(\d{4})(\d)/,"$1-$2")    //Coloca hifen entre o quarto e o quinto digitos
+      }else{
+        v=v.replace(/(\d{4,5})(\d)/,"$1-$2")    //Coloca hifen entre o quarto e o quinto digitos
+      }
+      
+      return v
+  }
+  function mascara(o,f){
+              v_obj=o
+              v_fun=f
+              setTimeout("execmascara()",1)
+          }
+      
+  function execmascara(){
+              v_obj.value=v_fun(v_obj.value)
+          }
+</script>
+
+<style>
+  .border{
+    border-color: rgba(146, 146, 146, 0.2) !important;
+  }
+</style>
+
+
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

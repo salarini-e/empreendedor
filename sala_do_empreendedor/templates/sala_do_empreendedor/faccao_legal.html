@@ -1,0 +1,194 @@
+{% extends 'template.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="row mx-auto pb-3">
+  <style>
+      body {
+          background-color: #f4f4f4;
+          font-family: Arial, sans-serif;
+          text-align: center;
+      }
+
+      .construction-icon {
+          font-size: 48px;
+          color: #e74c3c;
+      }
+
+      .message {
+          font-size: 24px;
+          margin-top: 20px;
+          color: #333;
+      }
+
+      .contact {
+          font-size: 18px;
+          margin-top: 20px;
+          color: #666;
+      }
+  </style>
+  {% if request.user.is_superuser %}
+  <div class="row mb-3">
+    <div class="col-8 mx-auto d-flex" style="text-align: left; background-color: white; padding: 20px; border-radius: 20px;">
+      <h3 style="line-height: auto; margin: auto 0px;"><strong>ADMIN</strong></h3>
+      <a href="{% url 'empreendedor:exportar_faccao' %}" class="btn btn-success ms-auto my-auto">
+        <i class="fa-solid fa-file-excel me-1"></i> Exportar dados
+      </a>
+    </div>
+  </div>
+  {% endif %}
+  {% if faccao %}
+  <div class="row mb-3">
+    <div class="col-8 mx-auto d-flex" style="text-align: left;">
+      <h3>Seus dados</h3>
+      <a href="{% url 'empreendedor:apagar_faccao' %}" class="btn btn-danger ms-auto my-auto">
+        Apagar meus dados
+      </a>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-4 ms-auto" style="text-align: left;">
+      {% if faccao.possui_mei %}
+      <p class="mb-2"><strong>CNPJ:</strong> <br>{{faccao.cnpj}}</p>            
+      {% endif %}
+      <p class="mb-2"><strong>Trabalha com facção há quanto tempo?</strong> <br>{{faccao.get_tempo_que_trabalha_display}}</p>
+      <p><strong>Trabalha com:</strong></p>
+      {% for item in faccao.trabalha_com.all %}
+      <p>{{item}}</p>
+      {% endfor %}
+      <p class="mt-2"><strong>Equipamento(s) que possui</strong></p>
+      {% for item in faccao.equipamentos.all %}
+      <p>{{item}}</p>
+      {% endfor %}  
+      <p class="mb-2"><strong>Possui área de trabalho separada da residência?</strong><br>{{faccao.get_area_display}}</p>
+      <p class="mb-2"><strong>Tamanho área de trabalho:</strong> <br>{{faccao.get_tamanho_area_display}}</p>
+      
+      {% if faccao.possui_colaboradores %}
+      <p class="mb-2"><strong>Quantidade de colaboradores:</strong> <br>{{faccao.qtd_colaboradores}}</p>
+      {% endif %}   
+    </div>
+    <div class="col col-4 me-auto" style="text-align: left;">      
+      <p><strong>Tipo(s) de produto(s):</strong></p>
+      {% for item in faccao.tipo_produto.all %}
+      <p>{{item}}</p>
+      {% endfor %}
+      {% if faccao.outro_produto %}
+      <p class="my-2">{{faccao.outro_produto}}</p>
+      {% endif %}
+      <p class="mb-2"><strong>Geralmente, como está de trabalho?</strong> <br>{{faccao.get_situacao_trabalho_display}}</p>
+      <p class="mb-2"><strong>Como considera a renda que obtêm com seu trabalho?'</strong> <br>{{faccao.get_situacao_remuneracao_display}}</p>
+      <p class="mb-2"><strong>Você prefere:</strong> <br>{{faccao.get_voce_prefere_display}}</p>
+      <p class="mb-2"><strong>Qual seu sonho no setor?</strong><br>
+      {{faccao.qual_seu_sonho_no_setor}}</p>
+    </div>
+  </div>
+  {% endif %}
+  <div class="row">
+     <div class="col-8 mx-auto" style="text-align: left;">
+      <h3 class="mb-4">{{titulo_pag}}</h3>
+      <p class="mb-3">O Facção Legal é um projeto da Prefeitura de Nova Friburgo, em parceria com o SINDVEST, SINDITEXTIL e com Governo do Estado do RJ, através das Secretarias da Mulher e Secretaria de Desenvolvimento Econômico.</p>
+      <p class="mb-3">O Facção Legal visa melhorar as condições de trabalho e renda de milhares de pessoas que atuam no ramo de costura, corte, bordado ou estamparia, prestando serviços para confecções de maior porte ou indústria de nosso polo de moda.</p>
+      <p class="mb-4">O Programa Facção Legal se divide em diversas etapas:</p>
+    <ol  class="mb-3">
+      <li class="mb-3">Realização do cadastro (Diagnóstico de condições de trabalho e expectativas)</li>
+      <li class="mb-3">Auxílio para Formalização como MEI (Aumentando a sua segurança e abrindo portas para produzir para novas empresas.)</li>
+      <li class="mb-3">CAPACITAÇÃO TÉCNICA E OUTRAS MÁQUINAS OU SERVIÇOS E EM GESTÃO. (Você vai aprender a calcular o valor de seu trabalho, a controlar o caixa, administrar seu negócio, planejar o crescimento de sua empresa...)</li>
+      <li class="mb-3">CONECTA – Você será incluída num aplicativo onde divulgará o seu trabalho e receberá informações de empresas que estão oferecendo peças para produção.</li>
+      <li class="mb-3">LINHAS DE CRÉDITOS – Você terá acesso a empréstimos com taxas especiais para compra de equipamentos ou melhorias de sua célula de trabalho.</li>
+      <li class="mb-3">INCENTIVO PÚBLICO – Você poderá receber recursos públicos para a melhoria dos seus equipamentos ou célula de trabalho.</li>
+      <!-- <li class="mb-3">CAPACITAÇÃO 2 – Caso desejar, receberá capacitação para a produção de suas próprias peças e em venda, para aprender a comercializar seus produtos.</li>
+      <li class="mb-3">Terá acesso a um portal de vendas online para comercializar seus produtos.</li> -->
+    </ol>
+     </div>
+    {% if request.user.is_authenticated %}
+    <div class="mx-auto my-3">
+      <a href="{% url 'empreendedor:cadastrar_faccao_legal' %}" id="cadastroBtn" class="btn btn-primary mt-0 mb-3">
+        Realizar cadastro
+      </a>
+    </div>
+    {% else %}
+    <form method="POST" class="mx-auto pt-4">
+      <strong class="mt-4">CADASTRAR-SE</strong>
+      {% csrf_token %}
+      <input type="text" name="cpf" id="cpf" onkeydown="mascara(this, icpf)" class="form-control mx-auto mt-3 mb-0" style="max-width: 300px;" placeholder="Primeiro, informe seu cpf"><br>
+      <button type="submit" id="cadastroBtn" class="btn btn-primary mt-0 mb-3 disabled">
+        Realizar cadastro
+      </button>
+    </form>
+    <script>
+      function icpf(v){
+                v=v.replace(/\D/g,"")                    //Remove tudo o que nao e digito
+                v=v.replace(/(\d{3})(\d)/,"$1.$2")       //Coloca um ponto entre o terceiro e o quarto digitos
+                v=v.replace(/(\d{3})(\d)/,"$1.$2")       //Coloca um ponto entre o terceiro e o quarto digitos
+                                                        //de novo (para o segundo bloco de numeros)
+                v=v.replace(/(\d{3})(\d{1,2})$/,"$1-$2") //Coloca um hifen entre o terceiro e o quarto digitos
+                return v
+            }
+  
+    function mascara(o,f){
+                v_obj=o
+                v_fun=f
+                setTimeout("execmascara()",1)
+            }
+        
+    function execmascara(){
+                v_obj.value=v_fun(v_obj.value)
+            }
+      // Obter referências aos elementos HTML
+      const cpfInput = document.getElementById('cpf');
+      const cadastroBtn = document.getElementById('cadastroBtn');
+  
+      // Adicionar um ouvinte de evento 'input' ao campo de entrada (input)
+      cpfInput.addEventListener('input', function() {
+          // Verificar se o comprimento do valor do campo é igual a 14
+          if (cpfInput.value.length === 14) {
+            console.log('ok')
+            if (cadastroBtn.classList.contains('disabled')) {
+              cadastroBtn.classList.remove('disabled');
+            }
+          } else {
+            if (!cadastroBtn.classList.contains('disabled')) {
+              cadastroBtn.classList.add('disabled');
+            }
+          } 
+      });
+  </script>
+    {% endif %}
+  </div>
+  <div class="row mx-auto px-5">
+    <script>
+      // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
+      function findParentDiv(element) {
+        var parent = element.parentNode;
+        
+        // Continue subindo na árvore DOM até encontrar um elemento <div>
+        while (parent && parent.nodeName !== 'DIV') {
+          parent = parent.parentNode;
+        }
+
+        return parent;
+      }
+      function toggleCnpjDiv(checkbox) {
+        var cnpjDiv = findParentDiv(checkbox);
+
+        if (checkbox.checked) {
+          cnpjDiv.style.display = 'block'; // Exibe a div do CNPJ
+        } else {
+          cnpjDiv.style.display = 'none'; // Oculta a div do CNPJ
+        }
+      }
+    </script>
+  </div>
+</div>
+
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}x

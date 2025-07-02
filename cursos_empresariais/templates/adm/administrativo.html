@@ -1,0 +1,52 @@
+{% extends 'template.html' %}
+{% load bootstrap5 %}
+{% load static%}
+{% block title %}BEM VINDO - CURSOS LIVRES{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/administrativo.css' %}">
+
+{% endblock %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block main %}
+<div class="row">
+    <div class="col d-flex pb-5"> 
+        <div class="row w-100">
+            <div class="col-10 pb-4 m-auto bg-white">            
+                <div class="row">
+                    <div class="col text-dark px-4 pt-4">
+                        <h1 class="text-uppercase">
+                          Painel
+                        </h1>
+                        <div class="row px-4 pt-2 d-flex">
+                            <div class="col painel">
+                                <a href="{% url 'cursos_empresariais:adm_locais_listar' %}"><i class="fa-solid fa-location-dot me-3"></i>Locais de Cursos</a>
+                                <a href="{% url 'cursos_empresariais:adm_instituicoes_listar' %}"><i class="fa-solid fa-school me-3"></i>Instituições</a>
+                                <a href="{% url 'cursos_empresariais:adm_categorias_listar' %}"><i class="fa-solid fa-font-awesome me-3"></i>Categorias de Atividades</a>                                                                          
+                            </div>
+                        </div>
+                        <div class="row px-4 d-flex">
+                          <div class="col painel">
+                            <a href="{% url 'cursos_empresariais:adm_cursos_listar' %}"><i class="fa-solid fa-graduation-cap me-3"></i>Cursos</a>
+                              <a href="{% url 'cursos_empresariais:adm_alunos_listar' %}"><i class="fa-solid fa-user me-3"></i>Alunos</a>                                                            
+                              <a href="{% url 'cursos_empresariais:adm_professores_listar' %}"><i class="fa-solid fa-user-graduate me-3"></i>Instrutores</a>          
+                          </div>
+                      </div>
+                      <div class="row px-4 d-flex">
+                        <div class="col painel">
+                            <a href="{% url 'cursos_empresariais:adm_turmas_listar' %}"><i class="fa-solid fa-users me-3"></i>Turmas</a> 
+                            <a href=""><i class="fa-solid fa-chalkboard me-3"></i>Palestras</a>                                                          
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</div>
+
+  <script>
+   
+  </script>
+{% endblock %}

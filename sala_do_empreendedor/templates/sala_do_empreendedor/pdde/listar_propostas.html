@@ -1,0 +1,18 @@
+{% load bootstrap5 %}
+{% load empreendedor_filters %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>Empresa</th>
+      <th>Valor</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for proposta in propostas %}
+    <tr>
+      <td>{{ proposta.proposta.empresa.nome}}</td>
+      <td>R$ {{ proposta.preco|formatarPreco }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

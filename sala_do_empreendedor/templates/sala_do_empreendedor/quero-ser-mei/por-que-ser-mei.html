@@ -1,0 +1,49 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/quero-ser-mei.css'%}">
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+<div class="row mx-auto ps-4 pb-3">
+<h3 class="text-center">Por que ser MEI?</h3>
+</div>
+<div class="row mx-auto mb-5">
+  <div class="col">
+    <p class="mb-3">A formalização como MEI traz uma série de vantagens. Veja algumas delas:</p>
+    <ul>
+        <li>Ter um CNPJ</li>
+        <li>Isenção de taxas para registro do MEI.</li>
+        <li>Pagamento tributos com valores fixos mensais (INSS, ICMS e/ou ISS).</li>
+        <li>Inicio imediato das atividades, sem prévio alvará ou licença.</li>
+        <li>Emissão de notas fiscais.</li>
+        <li>Maior poder de negociação com fornecedores, podendo obter descontos para pessoa jurídica.</li>
+        <li>Acesso mais fácil a serviços financeiros, como conta bancária jurídica, máquina de cartão, acesso ao crédito, entre outros.</li>
+        <li>Vender e prestar serviços para outras empresas e para o governo.</li>
+    </ul>
+    <p class="mt-3">Viu só? Se tornar um MEI traz várias vantagens e simplificações para ajudar no dia a dia do seu negócio, mas exige cumprir algumas condições.</p>
+    </div>
+</div>
+
+{% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
+  <style>
+    span{
+        text-align: center;
+    }
+  </style>
+<div class="row mx-auto px-5">
+  <script>
+    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
+  </script>
+</div>
+</div>
+
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+  <div class="row mx-auto ps-4 pb-3">
+    <h3>JÁ SOU MEI</h3>
+  </div>
+  <style>
+    .item {
+      margin: auto !important;
+    }
+  </style>
+     {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
+
+  <style>
+    span {
+      text-align: center;
+    }
+  </style>
+  <div class="row mx-auto px-5">
+    <script>
+    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
+    </script>
+  </div>
+</div>
+
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}x

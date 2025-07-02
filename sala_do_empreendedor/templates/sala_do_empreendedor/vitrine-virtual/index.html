@@ -1,0 +1,111 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <!-- Menu -->
+        </div>
+    </div>
+    <div class="row">
+      <h2>{{empresa.nome}} - {{empresa.cnpj}}</h2>
+        
+    </div>
+    <div class="row">
+        <div class="col-2">
+            {% if rg_vitrine.logo %}
+            <a href="{% url 'empreendedor:enviar_ou_trocar_logo' empresa.id %}" class="btn m-auto p-3 btn-outline-dark d-flex flex-column text-center" style="border-color:rgba(146, 146, 146, 0.2) ;border-radius: 30px !important; background-color: white;">
+                <img class="mx-auto mb-2" style="width: 80px; border-radius: 10px;" src="{{ rg_vitrine.logo.url}}" alt="logo da empresa">
+                Trocar logo
+            </a>
+            {% else %}
+            <a href="{% url 'empreendedor:enviar_ou_trocar_logo' empresa.id %}" class="btn m-auto p-3 mt-1 btn-outline-dark d-flex flex-column text-center" style="border-color:rgba(146, 146, 146, 0.2) ;border-radius: 30px !important; background-color: white;">
+                <img class="mx-auto mb-2" style="width: 80px;" src="{% static 'images/adicionar_img.png' %}" alt="">
+                Adicionar logo
+            </a>
+            {% endif %}
+        </div>
+        <div class="col">
+            <div class="table-responsive pt-4 border" style="background-color: white; border-radius: 30px; padding: 20px;">
+                <table class="table table-borderless">
+                  <thead>
+                    <tr>
+                      <th>
+                        Imagem do produto/serviço
+                      </th>
+                      <th>
+                        Nome
+                      </th>
+                      <th>
+                        Descrição
+                      </th>         
+                      <th class="text-center">
+                        Excluir
+                      </th>            
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for produto in produtos %}
+                    <tr>
+                      <td>
+                        <img src="{{produto.imagem.url}}" style="height: 100px;" alt="">
+                      </td>
+                      <td>
+                        {{produto.nome}}
+                      </td>
+                      <td>
+                        {{produto.descricao}}
+                      </td>
+                      <td class="text-center">
+                        <a href="{% url 'empreendedor:excluir_produto' rg_vitrine.id produto.id %}" class="text-danger">
+                          <i class="fa-solid fa-trash-can"></i>
+                        </a>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                      <td colspan="4" class="text-left"> 
+                        {% if pode_cadastrar %}
+                        <a href="{% url 'empreendedor:cadastrar_produto' empresa.id %}" style="max-width: 180px;" class="ps-1 py-0 btn btn-primary me-auto d-flex">
+                            <i class="me-2 fa-solid my-auto fa-circle-plus"></i>
+                            <span class="m-auto">Cadastrar produto</span>
+                        </a>                       
+                        {% endif %}
+                    </td>
+                    </tr>
+                    
+                    <!-- <tr>
+                      <td>
+                        {{estudante.}}
+                      </td>
+                    </tr> -->
+                  </tbody>
+                </table>
+        </div>
+    </div>
+    </div>
+</div>
+<div class="row mx-auto px-5">
+  <script>
+    document.getElementById('empreendedor_empresa').classList.add('s-nav-active');
+  </script>
+</div>
+
+<style>
+  .border{
+    border-color: rgba(146, 146, 146, 0.2) !important;
+  }
+</style>
+
+</script>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

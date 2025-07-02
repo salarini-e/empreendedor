@@ -1,0 +1,92 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row  bg-white" style="border-radius: 30px;">
+        <div class="col d-flex flex-column p-5">
+            <div class="row">
+                <div class="col d-flex">
+                    <h2>Escolhe o tipo de processo:</h2>
+                    <a href="{% url 'empreendedor:listar_processos' %}" class="btn btn-dark ms-auto my-auto">
+                        <i class="fa-solid fa-rotate-left"></i>
+                      </a>    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col d-flex">
+                    <div class="item border d-flex flex-column mx-2 div_cursos mt-3">
+                        <a target="_blank" href="{% url 'empreendedor:requerimento_issqn' %}">
+                          <div class="c-img" style="position: relative;">
+                            <img class="banner-img" src="/static/images/icons_servicos/iss-uniprofissional.jpg" >
+                          </div>
+                        </a> 
+                      </div>
+                      <div class="item border d-flex flex-column ms-2 div_cursos mt-3">
+                        <a target="_blank" href="{% url 'empreendedor:requerimento_iss' %}">
+                          <div class="c-img" style="position: relative;">
+                            <img class="banner-img" src="/static/images/icons_servicos/solicitacao-iss-desenvovle.jpg" >
+                          </div>
+                        </a> 
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mx-auto px-5">
+  <script>
+    document.getElementById('empreendedor_protocolo').classList.add('s-nav-active');
+
+    let openfiltros = false
+    function showFiltros(){
+        if (openfiltros){      
+            document.getElementById('filtros').style.display='none'
+            openfiltros=false
+        }else{
+            document.getElementById('filtros').style.display='flex'
+            openfiltros=true
+        }
+    }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const menuButton = document.getElementById("openMenu");
+    const menu = document.querySelector(".menu");
+
+    menuButton.addEventListener("click", function() {
+      menu.classList.toggle("menu-open");
+    });
+  });
+
+  
+  </script>
+</div>
+
+<style>
+    .menu {
+  display: none; /* Inicialmente, ocultar o menu */
+}
+
+.menu-open {
+  display: block; /* Quando a classe "menu-open" é adicionada, mostrar o menu */
+  /* Outros estilos para o menu aberto, como posição, cores, etc. */
+}
+    .border{
+        border-color: rgba(146, 146, 146, 0.2) !important;
+    }
+    #filtros{
+        display: none;
+    }
+</style>
+
+</script>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

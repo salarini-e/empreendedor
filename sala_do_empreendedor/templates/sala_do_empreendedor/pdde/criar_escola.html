@@ -1,0 +1,66 @@
+{% extends 'template.html' %}
+{% load bootstrap5 %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+  <div class="row">
+    <div class="col d-flex flex-column">
+      <h1>PDDE - Registrar escola</h1>
+      <div class="d-flex">
+        <p class="text-secondary">
+          Cadastre sua escola agora e esteja pronto para aproveitar as oportunidades de negócios diretos com nossos fornecedores cadastrados.
+          <!-- Potencialize sua participação no Programa PDDE em Nova Friburgo: Cadastre sua empresa agora e esteja pronto para aproveitar as oportunidades de negócios diretos com as escolas -->
+        </p>          
+        <a href="{% url 'empreendedor:pdde_escola' %}" class="btn btn-secondary ms-auto"><i class="fa-solid fa-arrow-left me-2"></i>Voltar</a>
+      </div>
+
+    </div>
+  </div>
+    <div class="row mt-4">
+      <div class="col">
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive pt-4 border" style="background-color: white; border-radius: 30px; padding: 20px;">
+                <form method="POST">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </form>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+<div class="row mx-auto px-5">
+  <script>
+    document.getElementById('empreendedor_empresa').classList.add('s-nav-active');
+  </script>
+</div>
+
+<style>
+  .border{
+    border-color: rgba(146, 146, 146, 0.2) !important;
+  }
+</style>
+
+</script>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

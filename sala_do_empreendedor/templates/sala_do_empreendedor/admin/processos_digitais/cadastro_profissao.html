@@ -1,0 +1,66 @@
+{% extends 'template.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row  bg-white" style="border-radius: 30px;">
+      <div class="col">
+        <div class="pt-4 d-flex px-3">
+            <h2 style="display: inline;">Administrativo - Processos Digitais</h2>                        
+              <a href="{% url 'empreendedor:admin' %}" class="btn btn-dark ms-auto my-auto">
+                <i class="fa-solid fa-rotate-left"></i>
+              </a>                        
+            </div>
+            <div class="row">
+                <div class="col">
+                  {% if messages %}
+                    {% for message in messages %}
+                      <div class="alert {{ message.tags }}">
+                        {{ message }}
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+            <div class="row">
+                <div class="col px-5 py-5 d-flex flex-column">
+                   <form method="POST" enctype="multipart/form-data">
+                    <h2 class="mb-4">Cadastrar Profissão</h2>
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <button class="btn btn-primary">
+                      Cadastrar
+                    </button>
+                   </form>
+                </div>
+            </div>
+      </div>
+    </div>
+</div>
+</div>
+<div class="row mx-auto px-5">
+  <script>
+    document.getElementById('empreendedor_admin').classList.add('s-nav-active');
+
+   
+  </script>
+</div>
+
+<style>
+    .border{
+        border-color: rgba(146, 146, 146, 0.2) !important;
+    }
+</style>
+
+</script>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

@@ -1,0 +1,492 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<style>
+  /* Cursos Profissionais - Nova Identidade Visual */
+  :root {
+    --prof-primary: #667eea;
+    --prof-secondary: #764ba2;
+    --prof-accent: #f093fb;
+    --prof-success: #4ecdc4;
+    --prof-warning: #ffa726;
+  }
+  
+  .cursos-prof-hero {
+    background: linear-gradient(135deg, var(--prof-primary), var(--prof-secondary));
+    color: white;
+    padding: 60px 0;
+    margin-bottom: 60px;
+    border-radius: 0 0 50px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .cursos-prof-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill-opacity='0.1'%3E%3Cpolygon fill='%23fff' points='50 0 60 40 100 50 60 60 50 100 40 60 0 50 40 40'/%3E%3C/g%3E%3C/svg%3E") center/60px;
+  }
+  
+  .hero-content-prof {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  
+  .filter-section {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  
+  .filter-toggle {
+    background: linear-gradient(135deg, var(--prof-primary), var(--prof-secondary));
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .filter-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  }
+  
+  .category-filter {
+    background: white;
+    border: 2px solid var(--prof-primary);
+    color: var(--prof-primary);
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.5rem;
+  }
+  
+  .category-filter:hover {
+    background: var(--prof-primary);
+    color: white;
+    transform: translateY(-2px);
+  }
+  
+  .category-filter.active {
+    background: var(--prof-primary);
+    color: white;
+  }
+  
+  .category-filter img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+  
+  .course-card-prof {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: none;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  
+  .course-card-prof:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 20px 60px rgba(102, 126, 234, 0.2);
+  }
+  
+  .course-image-prof {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+    background: linear-gradient(135deg, var(--prof-primary), var(--prof-secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .course-image-prof img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  
+  .course-card-prof:hover .course-image-prof img {
+    transform: scale(1.1);
+  }
+  
+  .course-status {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .status-open {
+    background: linear-gradient(135deg, var(--prof-success), #26a69a);
+  }
+  
+  .status-closed {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+  }
+  
+  .status-soon {
+    background: linear-gradient(135deg, var(--prof-warning), #f39c12);
+  }
+  
+  .course-content-prof {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .course-category {
+    color: var(--prof-primary);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .course-title-prof {
+    font-family: var(--font-secondary);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+    line-height: 1.4;
+  }
+  
+  .course-info {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  
+  .course-info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .course-info-item i {
+    color: var(--prof-primary);
+    width: 16px;
+  }
+  
+  .btn-course-prof {
+    background: linear-gradient(135deg, var(--prof-primary), var(--prof-secondary));
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-align: center;
+    margin-top: auto;
+  }
+  
+  .btn-course-prof:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  }
+  
+  .btn-course-prof.disabled {
+    background: var(--gray-400);
+    cursor: not-allowed;
+  }
+  
+  .btn-course-prof.disabled:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  
+  .courses-grid-prof {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  
+  .section-title-prof {
+    font-family: var(--font-secondary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .section-title-prof::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--prof-accent);
+    border-radius: 2px;
+  }
+  
+  .stats-section-prof {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    padding: 60px 0;
+    border-radius: 50px;
+    margin: 4rem 0;
+  }
+  
+  .stat-item-prof {
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .stat-number-prof {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--prof-primary), var(--prof-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+  
+  .stat-label-prof {
+    color: var(--gray-600);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .section-title-prof {
+      font-size: 2rem;
+    }
+    
+    .courses-grid-prof {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .filter-section {
+      padding: 1.5rem;
+    }
+    
+    .cursos-prof-hero {
+      padding: 40px 0;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block main %}
+<!-- Hero Section -->
+<section class="cursos-prof-hero">
+  <div class="container">
+    <div class="hero-content-prof" data-aos="fade-up">
+      <h1 class="section-title-prof">Cursos Profissionais</h1>
+      <p class="lead">Capacitação profissional de qualidade para impulsionar sua carreira</p>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <!-- Slide Section -->
+  <div class="row mx-auto pb-5" data-aos="fade-up">
+    {% include 'slide_cursos_pro.html' %}
+  </div>
+
+  <!-- Filter Section -->
+  <div class="filter-section" data-aos="fade-up">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <h2 style="margin: 0;">Cursos Disponíveis</h2>
+      </div>
+      <div class="col-md-6 text-md-end">
+        <button class="filter-toggle" onclick="toggleFilters()">
+          <i class="fa-solid fa-filter"></i>
+          Filtrar Cursos
+        </button>
+      </div>
+    </div>
+    
+    <div id="filtros" class="row mt-3" style="display: none;">
+      <div class="col-12">
+        <div class="d-flex flex-wrap">
+          {% for categoria in categorias %}
+          <a href="#" class="category-filter" data-category="{{categoria.categoria}}">
+            {% if not categoria.nome == 'CEVEST' %}
+              <img src="{{categoria.icone.url}}" alt="{{categoria.nome}}">
+              <span>{{categoria.nome}}</span>
+            {% else %}
+              <img src="{% static 'images/cevest_logo.png' %}" alt="CEVEST">
+              <span>CEVEST</span>
+            {% endif %}
+          </a>
+          {% endfor %}
+          <a href="#" class="category-filter active" data-category="todos">
+            <span>Todos os Cursos</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Courses Grid -->
+  <div class="courses-grid-prof">
+    {% for curso in object_list %}
+    <div class="course-card-prof" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:100 }}" data-category="{{curso.categoria.categoria}}">
+      <div class="course-image-prof">
+        {% if curso.banner %}
+          <img src="{{curso.banner.url}}" alt="{{curso.nome}}">
+        {% else %}
+          <div style="color: white; font-size: 3rem;">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+        {% endif %}
+        <div class="course-status status-open">
+          Inscrições Abertas
+        </div>
+      </div>
+      <div class="course-content-prof">
+        <div class="course-category">{{curso.categoria.nome}}</div>
+        <h5 class="course-title-prof">{{curso.nome}}</h5>
+        <div class="course-info">
+          <div class="course-info-item">
+            <i class="fas fa-clock"></i>
+            <span>{{curso.get_tipo_display}} - {{curso.carga_horaria}} {{curso.get_tipo_carga_horaria_display}}{% if curso.carga_horaria > 1 %}s{% endif %}</span>
+          </div>
+          {% if curso.data_inicio %}
+          <div class="course-info-item">
+            <i class="fas fa-calendar"></i>
+            <span>Início: {{curso.data_inicio|date:"d/m/Y"}}</span>
+          </div>
+          {% endif %}
+          {% if curso.vagas %}
+          <div class="course-info-item">
+            <i class="fas fa-users"></i>
+            <span>{{curso.vagas}} vagas disponíveis</span>
+          </div>
+          {% endif %}
+        </div>
+        <a href="{% url 'cursos_profissionais:inscricao' curso.id %}" class="btn-course-prof">
+          Inscrever-se
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Statistics Section -->
+  <div class="stats-section-prof" data-aos="fade-up">
+    <div class="container">
+      <div class="text-center mb-4">
+        <h2 class="section-title-prof">Nossos Resultados</h2>
+      </div>
+      <div class="row">
+        <div class="col-md-3 col-6">
+          <div class="stat-item-prof">
+            <div class="stat-number-prof">1200+</div>
+            <div class="stat-label-prof">Profissionais Capacitados</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="stat-item-prof">
+            <div class="stat-number-prof">80+</div>
+            <div class="stat-label-prof">Cursos Realizados</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="stat-item-prof">
+            <div class="stat-number-prof">92%</div>
+            <div class="stat-label-prof">Taxa de Conclusão</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="stat-item-prof">
+            <div class="stat-number-prof">5</div>
+            <div class="stat-label-prof">Anos de Excelência</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleFilters() {
+    const filtros = document.getElementById('filtros');
+    if (filtros.style.display === 'none') {
+      filtros.style.display = 'block';
+    } else {
+      filtros.style.display = 'none';
+    }
+  }
+
+  // Filter functionality
+  document.querySelectorAll('.category-filter').forEach(filter => {
+    filter.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Remove active class from all filters
+      document.querySelectorAll('.category-filter').forEach(f => f.classList.remove('active'));
+      
+      // Add active class to clicked filter
+      this.classList.add('active');
+      
+      const category = this.dataset.category;
+      const courses = document.querySelectorAll('.course-card-prof');
+      
+      courses.forEach(course => {
+        if (category === 'todos' || course.dataset.category === category) {
+          course.style.display = 'block';
+        } else {
+          course.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+
+{% endblock %}
+
+{% block footer %}
+{% include 'instagram_desenvolve.html' %}
+{% endblock %}

@@ -1,0 +1,429 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% include 'slide_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+  <style>
+    .hero-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 60px 0;
+      margin-bottom: 50px;
+    }
+    
+    .hero-content {
+      color: white;
+      text-align: center;
+    }
+    
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .hero-subtitle {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+    
+    .stats-section {
+      background: #f8f9fa;
+      padding: 40px 0;
+      margin: 50px 0;
+    }
+    
+    .stat-card {
+      text-align: center;
+      padding: 30px 20px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      margin: 10px;
+      transition: transform 0.3s ease;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #667eea;
+      margin-bottom: 10px;
+    }
+    
+    .stat-label {
+      font-size: 1.1rem;
+      color: #6c757d;
+      font-weight: 500;
+    }
+    
+    .services-section {
+      margin: 60px 0;
+    }
+    
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 50px;
+      color: #2c3e50;
+      position: relative;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 2px;
+    }
+    
+    .service-card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      margin: 15px;
+      border: none;
+      height: 100%;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .service-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: white;
+    }
+    
+    .service-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+    
+    .service-description {
+      color: #6c757d;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    
+    .btn-service {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border: none;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-service:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      color: white;
+      text-decoration: none;
+    }
+    
+    .contact-section {
+      background: linear-gradient(135deg, #2c3e50, #34495e);
+      color: white;
+      padding: 60px 0;
+      margin: 60px 0 0;
+    }
+    
+    .contact-card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .contact-item {
+      margin: 20px 0;
+      font-size: 1.2rem;
+    }
+    
+    .contact-item i {
+      font-size: 1.5rem;
+      margin-right: 15px;
+      color: #3498db;
+    }
+    
+    .testimonials-section {
+      background: #f8f9fa;
+      padding: 60px 0;
+      margin: 50px 0;
+    }
+    
+    .testimonial-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 20px;
+      color: #2c3e50;
+      line-height: 1.6;
+    }
+    
+    .testimonial-author {
+      font-weight: 600;
+      color: #667eea;
+    }
+    
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .service-card {
+        margin: 10px 0;
+      }
+    }
+  </style>
+{% endblock %}
+{% block main %}
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="hero-content">
+          <h1 class="hero-title">Sala do Empreendedor</h1>
+          <p class="hero-subtitle">Seu parceiro no mundo dos negócios em Nova Friburgo</p>
+          <p class="lead">Oferecemos suporte completo para empreendedores, desde a abertura de empresas até o crescimento do seu negócio.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-3 col-sm-6">
+        <div class="stat-card">
+          <div class="stat-number">500+</div>
+          <div class="stat-label">Empresas Abertas</div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="stat-card">
+          <div class="stat-number">1200+</div>
+          <div class="stat-label">MEIs Formalizados</div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="stat-card">
+          <div class="stat-number">300+</div>
+          <div class="stat-label">Consultorias Realizadas</div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="stat-card">
+          <div class="stat-number">98%</div>
+          <div class="stat-label">Satisfação dos Clientes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services Section -->
+<section class="services-section" id="servicos">
+  <div class="container">
+    <h2 class="section-title">Nossos Serviços</h2>
+    
+    <div class="row">
+      <!-- MEI Services -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-user-tie"></i>
+          </div>
+          <h3 class="service-title">Microempreendedor Individual</h3>
+          <p class="service-description">Formalize seu negócio como MEI de forma rápida e gratuita. Orientação completa sobre direitos e deveres.</p>
+          <a href="{% url 'empreendedor:quero_ser_mei' %}" class="btn-service">Quero ser MEI</a>
+        </div>
+      </div>
+      
+      <!-- Company Opening -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-building"></i>
+          </div>
+          <h3 class="service-title">Abertura de Empresa</h3>
+          <p class="service-description">Processo completo para abertura de empresas com toda orientação necessária e acompanhamento.</p>
+          <a href="{% url 'empreendedor:abertura_de_empresa' %}" class="btn-service">Abrir Empresa</a>
+        </div>
+      </div>
+      
+      <!-- Professional Training -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h3 class="service-title">Capacitação Profissional</h3>
+          <p class="service-description">Cursos e treinamentos para desenvolver suas habilidades empreendedoras e técnicas.</p>
+          <a href="{% url 'cursos_profissionais:index' %}" class="btn-service">Ver Cursos</a>
+        </div>
+      </div>
+      
+      <!-- Credit Line -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-hand-holding-usd"></i>
+          </div>
+          <h3 class="service-title">Linha de Crédito</h3>
+          <p class="service-description">Acesso a linhas de crédito especiais para empreendedores com condições facilitadas.</p>
+          <a href="{% url 'empreendedor:solicitacao_linha_de_credito' %}" class="btn-service">Solicitar Crédito</a>
+        </div>
+      </div>
+      
+      <!-- Business Opportunities -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <h3 class="service-title">Oportunidades de Negócio</h3>
+          <p class="service-description">Descubra novas oportunidades de mercado e conecte-se com outros empreendedores.</p>
+          <a href="{% url 'empreendedor:oportunidade' %}" class="btn-service">Ver Oportunidades</a>
+        </div>
+      </div>
+      
+      <!-- Certificates -->
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-certificate"></i>
+          </div>
+          <h3 class="service-title">Certidões e Documentos</h3>
+          <p class="service-description">Emissão de certidões e documentos necessários para o funcionamento da sua empresa.</p>
+          <a href="https://servicoonline.novafriburgo.rj.gov.br/services/certidao_retirada.php" target="_blank" class="btn-service">Emitir Certidão</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+  <div class="container">
+    <h2 class="section-title">O que nossos empreendedores dizem</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="testimonial-card">
+          <p class="testimonial-text">"A Sala do Empreendedor foi fundamental para a abertura da minha empresa. O atendimento é excelente e o processo foi muito rápido."</p>
+          <div class="testimonial-author">Maria Silva - Confeitaria Doce Vida</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="testimonial-card">
+          <p class="testimonial-text">"Consegui formalizar meu negócio como MEI em poucos dias. A equipe me orientou em todo o processo e tirou todas as minhas dúvidas."</p>
+          <div class="testimonial-author">João Santos - JS Reformas</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="testimonial-card">
+          <p class="testimonial-text">"Os cursos de capacitação me ajudaram muito a entender melhor o mercado e melhorar minha gestão empresarial."</p>
+          <div class="testimonial-author">Ana Costa - Boutique Ana</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Contact Section -->
+<section class="contact-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="contact-card">
+          <h2 class="text-center mb-4">Fale Conosco</h2>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="contact-item">
+                <i class="fab fa-whatsapp"></i>
+                <a href="https://api.whatsapp.com/send?phone=552225259151" target="_blank" class="text-white text-decoration-none">
+                  (22) 2525-9151
+                </a>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                (22) 2525-9151
+              </div>
+            </div>
+          </div>
+          <div class="contact-item mt-3">
+            <i class="fas fa-map-marker-alt"></i>
+            Av. Alberto Braune, 225 - Centro, Nova Friburgo - RJ
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-clock"></i>
+            09:00 às 17:00 de Segunda à Sexta-feira
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="row mx-auto px-5">
+  <script>
+    document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
+  </script>
+</div>
+
+</div>
+
+<script src="{% static 'js/empreendedor.js' %}"></script>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

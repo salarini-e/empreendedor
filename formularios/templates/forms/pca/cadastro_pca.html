@@ -1,0 +1,138 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+<!-- {% include 'nav_empreendedor.html' %} -->
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container mt-5 pt-5">
+<div class="row pt-5">
+  <div class="col d-flex flex-wrap justify-content-center">
+    <form method="post" class="w-100 d-flex flex-column">       
+    <div class="row">
+      <div class="col d-flex">
+        <h1>{% if form.instance.pk %}Editar Cadastro{% else %}Novo Cadastro{% endif %}</h1>
+        <a href="{% url 'forms:lista_cadastros_pca' %}" class="btn btn-success ms-auto my-auto">Voltar</a>
+      </div>
+    </div>
+    {% if not form.instance.pk %}
+    <p class="mb-4">Aqui você cadastrará item por item do PCA.</p>
+    {% endif %}
+        {% csrf_token %}
+        {{ form }}        
+        <button type="submit" class="btn btn-primary mb-5">Salvar</button>
+    </form>
+  </div>
+</div>
+
+<div class="row mx-auto px-5">
+  <script>
+    // document.getElementById('empreendedor_protocolo').classList.add('s-nav-active');
+  </script>
+</div>
+</div>
+<style>
+  input[type="checkbox"]{
+    margin-bottom: 15px;
+  }
+</style>
+<script>
+function iprazo(v){
+  v = v.replace(/\D/g,""); // Remove tudo o que não é dígito
+  if (v.length > 0 && parseInt(v) == 0) {
+    v = ""; // Se o valor for zero, remove-o
+  }
+  return v;
+}
+function itel(v){
+  v=v.replace(/\D/g,"")                 //Remove tudo o que nao e digito
+  v=v.replace(/^(\d\d)(\d)/g,"($1) $2") //Coloca parenteses em volta dos dois primeiros digitos
+  // console.log(v.length)
+  if (v.length<14){
+    v=v.replace(/(\d{4})(\d)/,"$1-$2")    //Coloca hifen entre o quarto e o quinto digitos
+  }else{
+    v=v.replace(/(\d{4,5})(\d)/,"$1-$2")    //Coloca hifen entre o quarto e o quinto digitos
+  }
+  
+  return v
+}
+function ipreco(v){
+  v = v.replace(/\D/g,""); // Remove tudo o que não é dígito
+  v = v.replace(/(\d{2})$/g, ",$1"); // Coloca a vírgula antes dos últimos 2 dígitos
+  v = v.replace(/(?=(\d{3})+(\D))\B/g, "."); // Coloca os pontos nos grupos de 3 dígitos antes da vírgula
+  return v;
+}
+
+function mascara(o,f){
+  v_obj=o
+  v_fun=f
+setTimeout("execmascara()",1)
+}
+  
+function execmascara(){
+  v_obj.value=v_fun(v_obj.value)
+}
+function toggleFields() {
+    const origemPrecoReferencia = document.getElementById("id_origem_preco_referencia");
+    const ataRegistroInput = document.getElementById("id_ata_registro");
+    const outroInput = document.getElementById("id_outro");
+
+    if (!origemPrecoReferencia || !ataRegistroInput || !outroInput) {
+        console.error("Um ou mais elementos não foram encontrados.");
+        return; // Sai da função se algum elemento não for encontrado
+    }
+
+    // Esconde os labels e os inputs inicialmente
+    ataRegistroInput.previousElementSibling.style.display = "none"; // Esconde o label de Ata de Registro
+    ataRegistroInput.style.display = "none"; // Esconde o input de Ata de Registro
+    outroInput.previousElementSibling.style.display = "none"; // Esconde o label de Outro
+    outroInput.style.display = "none"; // Esconde o input de Outro
+    // Mostra os labels e inputs com base na seleção
+    if (origemPrecoReferencia.value === "AR") { // "AR" para Ata de Registro
+        ataRegistroInput.previousElementSibling.style.display = "block"; // Mostra o label de Ata de Registro
+        ataRegistroInput.style.display = "block"; // Mostra o input de Ata de Registro
+    } else if (origemPrecoReferencia.value === "OT") { // "OT" para Outro
+        outroInput.previousElementSibling.style.display = "block"; // Mostra o label de Outro
+        outroInput.style.display = "block"; // Mostra o input de Outro
+    }
+}
+function validateDate(input) {
+  let value = input.value.replace(/\D/g, ""); // Remove tudo que não é dígito
+
+  // Limita o valor a no máximo 6 dígitos (2 para o mês e 4 para o ano)
+  if (value.length > 6) {
+      value = value.slice(0, 6);
+  }
+
+  if (value.length > 4) {
+      value = value.replace(/^(\d{2})(\d{0,4})/, "$1/$2"); // Formata para mm/yyyy
+  } else if (value.length > 2) {
+      value = value.replace(/^(\d{2})(\d{0,2})/, "$1/$2"); // Formata para mm/
+  } else if (value.length > 0) {
+      value = value.replace(/^(\d{2})/, "$1"); // Mantém apenas mm
+  }
+
+  input.value = value;
+}
+function imoeda(v){
+  v=v.replace(/\D/g,"") //Remove tudo o que não é dígito
+  v=v.replace(/(\d)(\d{2})$/,"$1,$2") //Coloca a virgula   
+  v=v.replace(/(\d)(?=(\d{3})+(?!\d))/g,"$1.") //inserir ponto a cada 3 ou multiplo digitos
+  return v
+}
+document.addEventListener("DOMContentLoaded", function() {
+    toggleFields();
+});
+
+</script>
+{% if form.instance.pk %}
+<script>
+  mascara(document.getElementById('id_telefone'), itel)
+</script>
+{% endif %}
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}x

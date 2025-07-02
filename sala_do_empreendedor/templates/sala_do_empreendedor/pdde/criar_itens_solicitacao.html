@@ -1,0 +1,377 @@
+{% extends 'template.html' %}
+{% load bootstrap5 %}
+{% load empreendedor_filters %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+  <div class="row">
+    <div class="col d-flex flex-column">
+      <h1>Programa de Dinheiro Direto da Escola</h1>
+      <div class="d-flex">
+        {% if solicitacao.status == '0' %}
+        <h2 class="text-secondary">Solicitação de Compra</h2>
+        {% endif %}
+        <a href="{% url 'empreendedor:pdde_listar_solicitacoes' solicitacao.escola.id %}" class="btn btn-secondary ms-auto my-auto"><i class="fa-solid fa-arrow-left me-2"></i>Voltar</a>
+      </div>
+    </div>
+  </div>
+    <div class="row mt-4">
+      <div class="col">
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive pt-4 border" style="background-color: white; border-radius: 30px; padding: 20px;">
+                {% if solicitacao.status == '0' %}
+                <h2 class="mb-4">Etapa 2 - Adicionar itens</h2>
+                <h3>Solicitação {{solicitacao.id}}</h3>
+                <p>{{solicitacao.descricao}}</p>
+                <p id="upHere">{{solicitacao.get_tipo_display}}</p>
+                {% else %}
+                <h2 class="mb-4">Acompanhamento de solicitação</h2>
+                <p><strong>ID:</strong> {{solicitacao.id}}</p>
+                <p><strong>Escola:</strong> {{solicitacao.escola.nome}} - {{solicitacao.escola.cnpj}}</p>
+                <p><strong>Tipo:</strong> Solicitação de {{solicitacao.get_tipo_display}}(s)</p>
+                <p class="">
+                  <strong>Descrição:</strong> {{solicitacao.descricao}}
+                </p>
+                {% endif %}
+                
+                {% if solicitacao.status == '0' %}
+                <form method="POST">
+                {% endif %}
+                <div class="row py-4  ">
+                  <div class="col">
+                    
+                    <table class="table table-striped" id="tabela-itens">
+                      <thead class="border-0 {% if solicitacao.status == '1' %}thead-dark{% endif %}">
+                        <tr style="background-color: rgb(37, 37, 37); color: white;">
+                          <th class="{% if solicitacao.status == '0' %}border-0{% endif %}">Item</th>
+                          <th class="{% if solicitacao.status == '0' %}border-0{% endif %} text-center">Quantidade</th>
+                          <th class="{% if solicitacao.status == '0' %}border-0{% endif %}">Descrição</th>
+                          {% if solicitacao.status != '0' %}
+                          <th>Prop. Mín (unidade/total)</th>
+                          <th>Prop. Máx (unidade/total)</th>
+                          <th class="text-center">Ver todas prop.</th>
+                          {% endif %}
+                          {% if solicitacao.status == '0'%}
+                          <th class="border-0"></th>
+                          {% endif %}
+                        </tr>
+                      </thead>
+                      <tbody class="border-0">
+                      {% for item in itens %}                      
+                      <tr id='item-{{item.id}}' class="border-0">
+                        <td class="{% if solicitacao.status == '0' %}border-0{% endif %}">
+                          {{item.nome}}
+                        </td>
+                        <td class="{% if solicitacao.status == '0' %}border-0{% endif %} text-center">
+                          {{item.quantidade}} {{item.unidade}}                          
+                        </td>
+                        <td class="{% if solicitacao.status == '0' %}border-0{% endif %}">                         
+                          {{item.descricao|limitarCaracteres:30}}                          
+                        </td>
+                        {% if solicitacao.status != '0' %}
+                        <td>
+                          <span style="color: rgb(255, 46, 46);">R${{item.id|menorValorProposta|valorUnitario:item.quantidade}}</span>/<span style="color: rgb(5, 78, 5)">R${{item.id|menorValorProposta}}</span>
+                          <i style="cursor: pointer;" class="ms-2 fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="{{item.id|menorEmpresaProposta}}"></i>                          
+                        </td>
+                        <td>
+                          <span style="color: rgb(255, 46, 46);">R${{item.id|maiorValorProposta|valorUnitario:item.quantidade}}</span>/<span style="color: rgb(5, 78, 5)">R$ {{item.id|maiorValorProposta}}</span>
+                          <i style="cursor: pointer;" class="ms-2 fa-solid fa-circle-info" data-toggle="tooltip" data-placement="top" title="{{item.id|maiorEmpresaProposta}}"></i>                          
+                        </td>
+                        <td class="text-center"><button class="btn btn-dark py-0"  data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="listarProposta('{{item.solicitacao_de_compra.id}}', '{{item.id}}')">Visualizar</button></td>
+                        {% endif %}
+                        {% if solicitacao.status == '0'%}
+                        <td class="border-0">
+
+                          <a class="btn btn-danger" style="padding-left: 15px !important; padding-right: 15px !important;" onclick="removerItem(this, '{{item.id}}')"><i class="fa-solid fa-trash"></i></a>
+                        </td>
+                        {% endif %}
+                      </tr>
+                      {% empty %}
+                      <tr>
+                        <td colspan="4" class="text-center text-secondary"><i>Nenhum item cadastrado.</i></td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                    {% if lista_propostas.0 %}
+                    <table class="mt-4 table"> 
+                      <thead class="thead-dark">
+                        <tr style="background-color: rgb(37, 37, 37); color: white;">
+                          <th colspan="4">Melhor proposta</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <td class="d-flex">
+                        
+                            <span><strong>Empresa:</strong> {{lista_propostas.0.proposta.empresa.nome}}</span>
+                            <span class="ms-3"><strong>Valor total:</strong> R${{lista_propostas.0.valor_total|formatarPreco}}</span>
+                            <span class="ms-3"><strong>Data da proposta:</strong> {{lista_propostas.0.proposta.dt_register}}</span>
+                            <button class="btn  btn-dark py-0 my-auto ms-auto" data-bs-toggle="modal" data-bs-target="#melhorPropostaModal">
+                              Ver proposta de cada item
+                            </button>
+                            <div class="modal fade" id="melhorPropostaModal" tabindex="-1" aria-labelledby="melhorPropostaModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                  <div class="modal-header" style="border-bottom: none ;">
+                                    <h5 class="modal-title" id="melhorPropostaModalLabel">{{lista_propostas.0.proposta.empresa.nome}}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body d-flex">
+                                    <table class="table">
+                                      <thead>
+                                        <tr>
+                                          <th>Item</th>
+                                          <th>Valor da proposta</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {% for item in lista_propostas.0.itens %}
+                                        <tr>
+                                          <td>{{item.item_solicitacao.nome}}</td>
+                                          <td>R${{item.preco|formatarPreco}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                        <tr>
+                                          <td><strong>Total</strong></td>
+                                          <td><strong>R${{lista_propostas.0.valor_total|formatarPreco}}</strong></td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                  <div class="modal-footer" style="border-top: none;">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          
+                        </td>
+                      </tbody>
+                    </table>
+                    {% endif %}
+                  </div>
+                  {% if solicitacao.status != '1' and solicitacao.status != '2' %}
+                  <div class="col">
+                      {% csrf_token %}
+                      <div class="row" id="0">
+                        <div class="col">
+                          <h3>{{escola.nome}}</h3>
+                          {% bootstrap_form form %}
+                          <a class="btn btn-dark w-100" onclick="adicionarItem()"><i class="fa-solid fa-plus me-2"></i>Adicionar item</a>                          
+                        </div>
+                      </div>
+                  </div>
+                  {% endif %}
+                </div>
+                <div class="row">
+                  <div class="col d-flex">
+                    {% if solicitacao.status == '0' %}
+                          <button type="submit" class="btn btn-success w-100 mt-3"><i class="fa-solid fa-file-contract me-2"></i>Iniciar processo</button>
+                    {% elif solicitacao.status == '1' %}
+                      <p class="text-center mx-auto"><strong class="text-danger">Data final para envio de propostas:<br>{{solicitacao.dt_envio_propostas|date:"d/m/Y"}}</strong></p>
+                    {% elif solicitacao.status == '2' %}
+                      <button class="btn btn-success m-auto"  data-bs-toggle="modal" data-bs-target="#orcamentoModal">
+                        <i class="fa-solid fa-handshake me-2"></i> Aceitar orçamento da melhor proposta
+                      </button>
+                      <div class="modal fade" id="orcamentoModal" tabindex="-1" aria-labelledby="orcamentoModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header" style="border-bottom: none ;">
+                              <h5 class="modal-title" id="orcamentoModalLabel">Você tem certeza que deseja aceitar o orçamento?</h5>
+                            </div>
+                            <div class="modal-body d-flex flex-column"F>
+                              <form method="POST">
+                                {% csrf_token %}
+                                <p class="ms-3"><strong>Empresa:</strong> {{lista_propostas.0.proposta.empresa.nome}}</p>
+                                <p class="ms-3"><strong>Valor total:</strong> R${{lista_propostas.0.valor_total|formatarPreco}}</p>
+                                <p class="ms-3"><strong>Data da proposta:</strong> {{lista_propostas.0.proposta.dt_register}}</p>
+                                <p class="ms-3"><strong>Previsão de entrega após contrato:</strong> {{lista_propostas.0.proposta.previsao_entrega}} dias</p>
+                                <div class="d-flex mt-4">
+                                  <button class="btn px-4 btn-success me-1 ms-auto" type="submit">Sim</button>                              
+                                  <a class="btn px-4 btn-danger ms-1 me-auto" data-bs-dismiss="modal">Não</a>
+                                </div>
+                            </form>
+                            </div>
+                            <div class="modal-footer" style="border-top: none;">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+                {% if solicitacao.status == '0' %}
+              </form>
+              {% endif %}
+
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+<div class="row mx-auto px-5">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"></script>
+  <script>  
+    document.getElementById('empreendedor_empresa').classList.add('s-nav-active');
+
+    {% if solicitacao.status == '0' %}
+    document.addEventListener("DOMContentLoaded", function() {
+        // Selecione o elemento da div que contém a opção '---------'
+        var emptyOptionDiv = document.querySelector('.form-check label[for="id_tipo_0"]').closest('.form-check');
+
+        // Verifique se o elemento existe antes de tentar removê-lo
+        if (emptyOptionDiv) {
+            // Remova o elemento
+            emptyOptionDiv.parentNode.removeChild(emptyOptionDiv);
+        }
+    });
+    {% endif %}
+
+    // função featch para adicionar item na url pdde_criar_itens_solicitacao_fetch, lembrando que o retorno vai retorna mais de um item
+    function atualizaItens(data){
+      var tabela = document.getElementById("tabela-itens").getElementsByTagName('tbody')[0];
+            tabela.innerHTML = "";
+
+            data.forEach(item => {
+              var newRow = tabela.insertRow();
+              newRow.id = 'item-' + item.id;
+
+              var cell1 = newRow.insertCell(0);
+              cell1.innerHTML = item.nome;
+
+              var cell2 = newRow.insertCell(1);
+              cell2.innerHTML = item.quantidade;
+
+              var cell3 = newRow.insertCell(2);
+              cell3.innerHTML = item.descricao;
+
+              var cell4 = newRow.insertCell(3);
+              cell4.innerHTML = '<a class="btn btn-danger" onclick="removerItem(this, ' + item.id + ')"><i class="fa-solid fa-trash"></i></a>';
+            });
+            document.getElementById("upHere").scrollIntoView({ behavior: "smooth" });
+    }
+    function adicionarItem() {
+      var url = "{% url 'empreendedor:pdde_criar_itens_solicitacao_fetch' %}";
+      var form = document.querySelector('form');
+      var formData = new FormData(form);
+
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': '{{ csrf_token }}',
+        },
+        body: formData,
+      })
+        .then(response => response.json())
+        .then(data => {
+          // console.log(data)
+          if (data.length > 0) {
+            atualizaItens(data)
+          }
+        })
+        .catch(error => {
+          console.error('Erro ao obter itens:', error);
+        });
+    }
+    function removerItem(e, id){
+      console.log(id)
+      var formData = new FormData();
+      formData.append('id', id);
+      formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+      var url = "{% url 'empreendedor:pdde_remover_item_solicitacao_fetch' %}";
+
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': '{{ csrf_token }}',
+        },
+        body: formData,
+      })
+      .then(response => response.json())
+      .then(data => {
+        atualizaItens(data)
+      })
+      .catch(error => {
+        console.error('Erro ao remover item:', error);
+      });
+    }
+
+    // $(function () {
+    //   $('[data-toggle="tooltip"]').tooltip()
+    // })
+    function listarProposta(id, id_item){
+      document.getElementById('listar-propostas').innerHTML = 'Carregando...'
+      var url = '/sala-do-empreendedor/adm/pdde/solicitacao/'+id+'/detalhes/item/'+id_item+'/';
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          'X-CSRFToken': '{{ csrf_token }}',
+        },
+      })
+      .then(response => response.text())
+      .then(data => {
+        // console.log(data)
+        document.getElementById('listar-propostas').innerHTML = data
+      })
+      .catch(error => {
+        console.error('Erro ao obter itens:', error);
+      });
+    }
+
+    {% if solicitacao.status != '1' and solicitacao.status != '2' %}
+    // Obtém todos os elementos de input e textarea no formulário
+    var elementosDoFormulario = document.querySelectorAll('input[required], textarea[required]');
+
+    // Itera sobre os elementos e remove o atributo required
+    elementosDoFormulario.forEach(function(elemento) {
+        elemento.removeAttribute('required');
+    });
+    {% endif %}
+
+    
+  </script>
+</div>
+
+<style>
+  .form-label{
+    font-weight: bold;
+  }
+  .border{
+    border-color: rgba(146, 146, 146, 0.2) !important;
+  }
+</style>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: none ;">
+        <h5 class="modal-title" id="exampleModalLabel">Propostas</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="listar-propostas">
+        Carregando....
+      </div>
+      <div class="modal-footer" style="border-top: none;">
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

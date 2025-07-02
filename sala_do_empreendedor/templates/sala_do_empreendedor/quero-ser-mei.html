@@ -1,0 +1,32 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/quero-ser-mei.css'%}">
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+<div class="row mx-auto ps-4 pb-3">
+<h3>QUERO SER MEI</h3>
+</div>
+{% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
+  <style>
+    span{
+        text-align: center;
+    }
+  </style>
+<div class="row mx-auto px-5">
+  <script>
+    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
+  </script>
+</div>
+</div>
+
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}x

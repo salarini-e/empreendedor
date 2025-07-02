@@ -1,0 +1,111 @@
+{% extends 'template.html' %}
+{% load static %}
+{% load empreendedor_filters %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+  <div class="row">
+    <div class="col d-flex flex-column">
+      <h1>Programa de Dinheiro Direto da Escola</h1>
+      <div class="d-flex">
+        <h4 class="text-secondary">
+          <strong>{{escola.nome}} ({{escola.cnpj}})</strong>
+        </h4>
+        <a href="{% url 'empreendedor:pdde_escola' %}" class="btn btn-secondary ms-auto my-auto">
+          <i class="fa-solid fa-arrow-left me-2"></i>
+          Voltar
+        </a>
+        <a href="{% url 'empreendedor:pdde_criar_solitacao_de_compra' escola.id %}" class="btn btn-success ms-2 mt-auto">
+
+          <i class="fa-solid fa-plus me-2"></i>Novo processo
+        </a>
+        <a href="#" class="btn btn-dark ms-2 mt-auto">
+          <i class="fa-solid fa-box-archive me-2"></i>Processos concluídos
+        </a>
+      </div>    
+    </div>
+  </div>
+    <div class="row mt-4">
+      <div class="col">
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive pt-4 border" style="background-color: white; border-radius: 30px; padding: 20px;">
+                <table class="table table-borderless">
+                  <thead>
+                    <tr>
+                      <th class="text-center">ID Solicitação</th>
+                      <th>Status</th>
+                      <th>Descrição</th>
+                      <th class="text-center">Qnt. Itens</th>
+                      <th></th>                 
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for solicitacao in solicitacoes %}
+                    <tr {% if loop.index is odd %}class="linha-impar"{% endif %}>                        
+                        <td class="text-center">
+                            {{solicitacao.id}}
+                        </td>
+                        <td>
+                          <button class="py-0 btn btn-dark" style="background-color: {% if solicitacao.status == '0' %}gray{% elif solicitacao.status == '1' %}green{% elif solicitacao.status == '2' %}orange{% else %}{% endif %}; color: {% if solicitacao.status == '0' %}white{% elif solicitacao.status == '1' %}white{% elif solicitacao.status == '2' %}white{% else %}{% endif %}; border-color: {% if solicitacao.status == '0' %}gray{% elif solicitacao.status == '1' %}green{% elif solicitacao.status == '2' %}orange{% else %}{% endif %}">
+                            {{solicitacao.get_status_display}}
+                          </button>
+                        </td>
+                        <td>{{solicitacao.descricao|limitarCaracteres:100}}</td>
+                        <td class="text-center">{{solicitacao.id|contarItensProcessos}}</td>
+                        <td class="text-end"><a class="btn btn-dark py-0" href="{% url 'empreendedor:pdde_criar_item_solicitacao' solicitacao.id %}"><i class="fa-solid fa-eye me-2"></i>Ver solicitação</a></td>                    
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="px-5 text-center text-secondary py-5s">
+                            <i>Nenhum processo cadastrado.</i>
+                        </td>
+                    </tr>
+                {% endfor %}
+                    <!-- <tr>
+                      <td>
+                        {{estudante.}}
+                      </td>
+                    </tr> -->
+                  </tbody>
+                </table>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+<div class="row mx-auto px-5">
+  <script>
+    document.getElementById('empreendedor_admin').classList.add('s-nav-active');
+  </script>
+</div>
+
+<style>
+  .linha-impar {
+    background-color: #f0f0f0; /* Cor de fundo para linhas ímpares */
+  }
+  .border{
+    border-color: rgba(146, 146, 146, 0.2) !important;
+  }
+</style>
+
+</script>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

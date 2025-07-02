@@ -1,0 +1,161 @@
+{% extends 'template.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">  
+  {% if request.user.is_superuser %}
+  <div class="row mb-3">
+    <div class="col mx-auto d-flex border" style="text-align: left; background-color: white !important; padding: 20px; border-radius: 20px;">
+      <h3 style="line-height: auto; margin: auto 0px;"><strong>ADMIN</strong></h3>
+      <a href="{% url 'empreendedor:exportar_faccao' %}" class="btn btn-success ms-auto my-auto">
+        <i class="fa-solid fa-file-excel me-1"></i> Exportar dados
+      </a>
+    </div>
+  </div>
+  {% endif %}
+  <div class="row">
+    <div class="col">
+      <h1>Cadastro Natal do Artesão</h1>
+      <p class="mb-3">
+        Aqui está a oportunidade única para você divulgar e comercializar seus produtos! Neste evento especial, artesãos de diversas áreas poderão expor seu trabalho, compartilhar suas criações com o público e aumentar sua visibilidade. Aproveite para participar e fazer parte dessa celebração, valorizando o talento e a cultura artesanal neste Natal. Inscreva-se agora: 
+      </p>
+      <div class="row">
+        <div class="col">
+            <form method="POST">                
+                {% csrf_token %}
+                <div class="mb-3"><label class="form-label" for="id_cpf">CPF</label><input type="text" name="cpf" onkeydown="mascara(this, icpf)" maxlength="14" class="form-control" placeholder="CPF" title="" required="" id="id_cpf"></div>
+                {% bootstrap_form form %}
+                <p style="margin-top: 20px; font-size: 0.9em; text-align: justify; color: #555;">
+                  Ao clicar em "Enviar", <strong>você declara estar ciente e de acordo com o envio das informações fornecidas neste formulário</strong> à Prefeitura de Nova Friburgo, autorizando o uso dos dados conforme a Lei Geral de Proteção de Dados (LGPD). Caso deseje solicitar a exclusão de suas respostas, encaminhe um ofício formal à Prefeitura de Nova Friburgo, direcionado à Sala do Empreendedor, com a solicitação expressa de exclusão de dados.
+              </p>
+                <input class="mt-3 btn btn-primary" type="submit" value="Enviar">
+            </form>
+        </div>
+    </div>
+      
+    </div>
+  </div>
+</div>
+<div class="row mx-auto px-5">
+  <script>
+    document.getElementById('empreendedor_servicos').classList.add('s-nav-active');
+
+    function icpf(v){
+                v=v.replace(/\D/g,"")                    //Remove tudo o que nao e digito
+                v=v.replace(/(\d{3})(\d)/,"$1.$2")       //Coloca um ponto entre o terceiro e o quarto digitos
+                v=v.replace(/(\d{3})(\d)/,"$1.$2")       //Coloca um ponto entre o terceiro e o quarto digitos
+                                                        //de novo (para o segundo bloco de numeros)
+                v=v.replace(/(\d{3})(\d{1,2})$/,"$1-$2") //Coloca um hifen entre o terceiro e o quarto digitos
+                return v
+            }
+    function itel(v){
+                    v=v.replace(/\D/g,"")                 //Remove tudo o que nao e digito
+                    v=v.replace(/^(\d\d)(\d)/g,"($1) $2") //Coloca parenteses em volta dos dois primeiros digitos
+                    console.log(v.length)
+                    if (v.length<14){
+                      v=v.replace(/(\d{4})(\d)/,"$1-$2")    //Coloca hifen entre o quarto e o quinto digitos
+                    }else{
+                      v=v.replace(/(\d{4,5})(\d)/,"$1-$2")    //Coloca hifen entre o quarto e o quinto digitos
+                    }
+                    
+                    return v
+                }
+    function mascara(o,f){
+                v_obj=o
+                v_fun=f
+                setTimeout("execmascara()",1)
+            }
+        
+    function execmascara(){
+                v_obj.value=v_fun(v_obj.value)
+            }
+    function findParentDiv(element) {
+        var parent = element.parentNode;
+        
+        // Continue subindo na árvore DOM até encontrar um elemento <div>
+        while (parent && parent.nodeName !== 'DIV') {
+          parent = parent.parentNode;
+        }
+
+        return parent;
+      }
+    // GAMBIARRA ABAIXO
+    function removerElementos() {
+          // Seleciona todos os elementos label
+          const labels = document.querySelectorAll('label');
+
+          // Itera pelos elementos label
+          labels.forEach(function(label) {
+              // Verifica se o label contém um input e o texto "---------"
+              const input = label.querySelector('input');
+              if (input && label.textContent.trim() === '---------') {
+                  // Remove o elemento label do DOM
+                  findParentDiv(label).remove();
+                  // label.remove();
+              }
+          });
+    }
+    function toggleCamposSelecao() {
+        var atividades = document.getElementsByName('atividade_manual');
+        var camposCostura = document.getElementById('id_tipo_costura').parentElement;
+        var camposAlimentos = document.getElementById('id_tipo_producao_alimentos').parentElement;
+        var camposBebidas = document.getElementById('id_tipo_producao_bebidas').parentElement;
+
+        // Verifica se a opção selecionada é Costura, Produção de Alimentos ou Produção de Bebidas
+        var costuraSelecionada = false;
+        var alimentosSelecionada = false;
+        var bebidasSelecionada = false;
+        for (var i = 0; i < atividades.length; i++) {
+            if (atividades[i].checked) {
+                if (atividades[i].value === '2') { // Costura
+                    costuraSelecionada = true;
+                }
+                if (atividades[i].value === '7') { // Produção de Alimentos
+                    alimentosSelecionada = true;
+                }
+                if (atividades[i].value === '8') { // Produção de Bebidas
+                    bebidasSelecionada = true;
+                }
+            }
+        }
+
+        // Exibe ou oculta os campos de seleção correspondentes
+        camposCostura.style.display = costuraSelecionada ? 'block' : 'none';
+        camposAlimentos.style.display = alimentosSelecionada ? 'block' : 'none';
+        camposBebidas.style.display = bebidasSelecionada ? 'block' : 'none';
+    }
+
+    // Adiciona um listener de evento de mudança para o campo de atividades manuais
+    var atividades = document.getElementsByName('atividade_manual');
+    for (var i = 0; i < atividades.length; i++) {
+        atividades[i].addEventListener('change', toggleCamposSelecao);
+    }
+
+    // Executa a função toggleCamposSelecao quando a página carrega
+    toggleCamposSelecao();
+    removerElementos();
+  </script>
+</div>
+
+<style>
+  .border{
+    border-color: rgba(146, 146, 146, 0.2) !important;
+  }
+  label{
+    font-weight: bold;
+  }
+  .checkbox label, .radio label{
+    font-weight: normal;
+  }
+</style>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

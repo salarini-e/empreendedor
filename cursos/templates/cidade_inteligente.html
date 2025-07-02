@@ -1,0 +1,227 @@
+{% extends 'template.html' %}
+{% load static %}
+
+{% block nav %}
+{% include 'nav_cursos.html' %}
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/static/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="/static/css/cidade_inteligente_estilo.css">
+{% endblock %}
+
+{% block index %}
+.s-nav-active
+{% endblock %}
+
+{% block main %}
+<div id="main-carousel" class="row">
+  <div class="col px-0">
+    <div class="owl-carousel owl-theme">
+      {% for item in carousel %}
+      <div class="item">
+        {% if item.url %}<a href="{{item.url}}">{% endif %}
+          <img src="{{item.image.url}}" class="d-block w-100" alt="{{item.nome}}">
+          {% if item.url %}</a>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<section  class="container">
+  {% include 'slide_cidade_inteligente.html' %}
+  <!-- <div class="row banner_destaque d-flex flex-column flex-xl-row bg-white img-txt" id="cidade-banner">
+    <div  id="cidade-img" class="col">
+      <img class="img-fluid margin-0" src="/static/images/cidade_inteligente_destaque.png" style="border-radius: 30px;" alt="">
+      
+    </div>
+      <div class="col" id='banner-txt'>
+        <h3>Central Integrada de Operações e Monitoramento</h3>
+        <p class="text-justify">O programa Nova Friburgo Cidade Inteligente é um sistema de 
+          monitoramento, mantido pela Prefeitura local, com foco na mobilidade urbana, 
+          segurança pública e atendimento à população friburguense, prestando relevante 
+          serviço de utilidade pública, mantendo a população informada, através de transmissões 
+          ao vivo realizadas diariamente redes sociais</p>
+        <p class="text-justify">A operacionalidade da Central de Operações e Monitoramento é 
+          realizada por membros de instituições públicas, como: Guarda Civil Municipal, Defesa 
+          Civil Municipal, Policia Militar, Policia Civil e e representantes da Secretaria de 
+          Ciência, Tecnologia e Inovação de Nova Friburgo, que é responsável pela gestão e 
+          manutenção da Central.</p>
+          <button id="ver-detalhes" class="btn btn-outline-primary rounded-1 btn-details">Ver Mais</button>
+      </div>
+    <div class="info">
+      <p class="text-justify">Tendo sua inauguração oficial, ocorrido no dia 07 de agosto de 2015, 
+      contando inicialmente, com 32 câmeras de última geração, espalhadas do bairro de Conselheiro 
+      Paulino (lado norte da cidade), passando pela região central da cidade, até os bairros do 
+      Cônego e Ponte da Saudade (lado do sul da cidade), interligadas através de 25,5 km de fibra 
+      óptica.</p>
+      <p class="text-justify">No ano de 2016 a cidade de Nova Friburgo ficou entre os finalistas da 
+        9ª edição do Prêmio Sebrae "Prefeito Empreendedor – Rio de Janeiro". Concorrendo na categoria 
+        “Inovação e  com o projeto Cidade Inteligente, sistema de monitoramento de vias públicas por 
+        meio de câmeras de segurança, pioneiro das cidades do interior do estado.</p>
+      <p class="text-justify">Desde 2018 o sistema da Central de Operações e Monitoramento, vem sendo 
+        ampliado sem gerar nenhum custo aos cofres públicos, graças ao Programa Municipal de Vigilância 
+        Comunitária, por conta desse programa a Central , superou o quantitativo de 200 câmeras 
+        espalhadas por toda a cidade, entre as quais, câmeras originais do programa e câmeras integradas 
+        cedidas por comerciantes, representantes de escolas, moradores de condomínios e residências e 
+        através de parcerias com empresas do setor de segurança privada que fazem parte da história de 
+        Nova Friburgo.</p>
+      <p class="text-justify">Desde a inauguração da Central de Operações e Monitoramento, os indicies 
+        de criminalidade na cidade de Nova Friburgo reduziram significativamente. Em função desses 
+        fatores, desde 2017, segundo o Instituto de Pesquisa Econômica Aplicada (IPEA), a cidade de 
+        Nova Friburgo foi sendo considerada a 3° cidade mais segura do estado do Rio de Janeiro, até 
+        o ano de 2021, alcançando o 2° lugar, no ano de 2022.</p>
+      <p class="text-justify">Para mais informações sobre o Programa Municipal de Vigilância Comunitária, 
+        <a href="http://bit.ly/2FiItA8">clique aqui</a></p></div>
+  </div> -->
+  <div class="row">
+  </div>
+</section>
+<!-- <h4>Perguntas Frequentes</h4> -->
+<section class="mt-5" id="perguntas">
+    <div class="pergunta">
+      <div class="d-flex mb-3">
+        <img class="ms-0 me-3" src="/static/images/perguntas_icons/car-collision.png">
+        <h6 class="my-auto ms-3">Sofri um acidente de trâsito, posso ver as imagens?</h6>
+      </div>
+      <p class="mb-3">Sim, desde que sejam cumpridos os procedimentos legais, são eles:</p>
+      <ul>
+        <li>Faça o BRAT on-line, <a href="https://ebrat.pmerj.rj.gov.br/brat/">cliando aqui</a> ou vá ao 
+          Posto Policial Comunitário mais próximo</li>
+        <li>Xerox do BRAT e do seu documento com foto;</li>
+        <li>Munido de original e xerox, venha até a central de operações;</li>
+        <li>Aqui na Central, mediante as informações constantes no BRAT, as imagens serão analisadas junto de você.</li>
+        <li>Cópias das imagens gravadas, somente serão liberadas por determinação judicial.</li>
+        <li>A solicitação de verificação das imagens é realizada das 13h às 17h, de segunda a sexta;</li>
+        <li>Imagens ficam disponíveis por um prazo de 30 dias, a contar da data do ocorrido</li>
+      </ul>
+    </div>
+    <div class="pergunta">
+      <div class="d-flex mb-3">
+        <img class="ms-0 me-3" src="/static/images/perguntas_icons/tracking.png">
+        <h6 class="my-auto ms-3">Fui furtado/assaltado, posso ver as imagens?</h6>
+      </div>
+      <p class="mb-3">Sim, desde que sejam cumpridos os procedimento legais, são eles:</p>
+      <ul>
+        <li>Vá a delegacia e faça o registro de ocorrência;</li>
+        <li>Xerox do registro de ocorrência e do seu documento com foto; Munido de original e xerox, venha até a Central de Operações;</li>
+        <li>Aqui na Central, mediante as informações constantes no registro de ocorrências, as imagens serão analisadas junto você.</li>
+        <li>Cópias das imagens gravadas, somente serão liberadas por determinação judicial.</li>
+        <li>A solicitação de verificação das imagens é realizada de 13h às 17h, de segunda a sexta;</li>
+        <li>Imagens ficam disponíveis por um prazo de 30 dias, a contar da data do ocorrido.</li>
+      </ul>
+    </div>
+    <div class="pergunta">
+      <div class="d-flex mb-3">
+        <img class="ms-0 me-3" src="/static/images/perguntas_icons/car.png">
+        <h5 class="my-auto ms-3">Recebi uma multa, o que fazer?</h5>
+      </div>
+      <p>O setor responsável pela gestão de infrações de trânsito, é a Secretaria Municipal de Ordem e Mobilidade Urbana - SMOMU.</p>
+      <p>Munido com o registro da infração, documento com foto e o requerimento, o cidadão deve se dirigir a Secretaria Municipal de Ordem e Mobilidade Urbana, localizada na rua Vicente Sobrinho, 80 - Olaria, Nova Friburgo/RJ, 28623-400.</p>
+      <p>Tenha acesso ao requerimento, <a href="http://www.pmnf.rj.gov.br/uploads/pagina/arquivos/Defesa-Previa-Recurso-SMOMU-Novo.pdf">clicando aqui.</a></p>
+    </div>
+    <div class="pergunta">
+      <div class="d-flex mb-3">
+        <img class="ms-0 me-3" src="/static/images/perguntas_icons/visitor.png">
+        <h5 class="my-auto ms-3">Posso conhecer a Central de Operações e Monitoramento?</h5>
+      </div>
+      <p>Claro!</p>
+      <p>A Central de Operações e Monitoramento, recebe visitas previamente agendadas através dos nossos canais de comunicação.</p>
+    </div>
+    <div class="aviso">
+      <div class="d-flex mb-3">
+        <img class="ms-auto my-auto" src="/static/images/perguntas_icons/warning.png">
+        <h5 class="me-auto my-auto">Atenção!</h5>
+      </div>
+      <p class="text-justify">Imagens captadas pelas câmeras do sistema ficam disponíveis por um prazo de 30 dias, a contar da data do ocorrido, seguindo a Lei Municipal Nº 4.417, DE 16/10/2015. Imagens das câmeras cedidas a Central de Operações, através do Programa Vigilância Comunitária, não se enquadram na mesma lei que rege o programa, em função dessas imagens serem uma cessão por parte do responsável, que pode ser revogada.</p>
+      <p class="text-justify">As integrações são complementares ao sistema pré-existente da Central de Operações, não figurando como parte do sistema da Central, servindo apenas como complemento, eximindo tanto o responsável pelas imagens cedidas, quanto a Central de Operações, de quaisquer responsabilidade sob as imagens e outras questões que possam as envolver, de mesma forma, que a Central de Operações está isenta de disponibilizar quaisquer informações sobre as integrações sem prévia outorga por parte do responsável concedente das integrações.</p>
+    </div>
+  </div>
+</section>
+<section>
+  <div id="fales" class="row pb-5 px-5 mx-4" >
+    <h4>Fale conosco</h4>
+      <div class="fale">
+          <img src="/static/images/fale_icons/endereco.png">
+          <h4> Nosso endereço </h4>
+          <a href="https://www.google.com/maps/place/Av.+Alberto+Braune,+224+-+Centro,+Nova+Friburgo+-+RJ,+28613-000/@-22.2878926,-42.5345742,17z/data=!4m6!3m5!1s0x978a8cd787bab7:0xd8068ac41412582!8m2!3d-22.2878976!4d-42.5319939!16s%2Fg%2F11hbgq58_z" >
+            Av. Alberto Braune, 224 - Centro, Nova Friburgo/RJ</a>
+      </div>
+      <div class="fale"> 
+          <img src="/static/images/fale_icons/email.png">
+          <h4> Nosso e-mail </h4>
+          <a href="mailto:conf.nfci@gmail.com" >conf.nfci@gmail.com
+          </a>
+      </div>
+      <div class="fale"> 
+          <img src="/static/images/fale_icons/telefone.png">
+          <h4> Nosso telefone </h4>
+          <a href="tel:+552225280091">+55 (22) 2528-0091</a>
+      </div>
+  </div>
+</section>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"
+    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script src="/static/js/owl.carousel.min.js"></script>
+  <script>
+    // $('.owl-carousel').owlCarousel({
+    //   center: true,
+    //   items: 2,
+    //   loop: true,
+    //   margin: 10,
+    //   autoWidth: true,
+    //   autoplay: true,
+    //   nav: true,
+    //   responsive: {
+    //     0: {
+    //       items: 1
+    //     },
+    //     600: {
+    //       items: 3
+    //     },
+    //     1000: {
+    //       items: 5
+    //     }
+    //   }
+    // });
+    // $('.loop').owlCarousel({
+    //   center: true,
+    //   items: 2,
+    //   loop: true,
+    //   margin: 5,
+    //   responsive: {
+    //     600: {
+    //       items: 4
+    //     }
+    //   }
+    // });
+    
+    // function verMais(){
+    //   const info = document.querySelector(".info");
+    //   const ver = document.querySelector("#ver-detalhes");
+    //   const fontSize = window.getComputedStyle(document.body,null).getPropertyValue("font-family");
+    //   console.log(fontSize);
+    //   //info.style.opacity="1";
+    //   // info.style.animationName = "mover";
+    //   // info.style.animationDuration = "2s"; 
+    //   if(ver.innerHTML != "Ver Menos"){
+    //     // info.innerHTML =
+    //     ver.innerHTML = "Ver Menos";
+    //     info.classList.add("open-info");
+    //     //info.setAttribute("style", " height: 400px; padding-top: 3%; padding-bottom: 4%;");
+    //     }
+    //   else{
+    //       // info.innerHTML = "";
+    //       ver.innerHTML = "Ver Mais";
+    //       info.classList.remove("open-info");
+    //       //info.setAttribute("style", "padding-top: 0; padding-bottom: 0; height: 0;");
+    //   }
+    // }
+
+    // document.querySelector("#ver-detalhes").addEventListener("click", verMais)
+    document.getElementById('s-palestras').classList.add('s-nav-active');
+
+  </script>
+{% endblock %}
+

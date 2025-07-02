@@ -1,0 +1,125 @@
+{% extends 'template.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row  bg-white" style="border-radius: 30px;">
+      <div class="col">
+        <div class="pt-4 d-flex px-3">
+            <h2 style="display: inline;">Administrativo - Processos Digitais</h2>                        
+              <a href="{% url 'empreendedor:admin' %}" class="btn btn-dark ms-auto my-auto">
+                <i class="fa-solid fa-rotate-left"></i>
+              </a>                        
+            </div> 
+            <div class="row">
+                <div class="col">
+                  {% if messages %}
+                    {% for message in messages %}
+                      <div class="alert {{ message.tags }}">
+                        {{ message }}
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col px-5 mt-4 d-flex">
+                  <span class="py-0 px-2 rounded-pill" style="background-color: rgb(152, 190, 223);">{{processo.get_status_display}}</span>
+                  <p class="ms-3">
+                    <strong class="my-auto">{{processo.get_tipo_processo_display}} - {{processo.n_protocolo}} - {{processo.dt_solicitacao|date:"d/m/y"}}</strong></p >
+                  <p class="ms-auto my-auto"><strong>Solicitante:</strong> <a href="#">{{processo.solicitante.first_name}}</a></p>
+                </div>
+              </div>
+            <div class="row">
+                <div class="col px-5 py-5 d-flex flex-column">
+                   <form method="POST" enctype="multipart/form-data">
+                    <h2 class="mb-4">DAR ANDAMENTO NO PROCESSO</h2>
+                    {% csrf_token %}
+                    <div class="mb-3 hidden" id="cpfNaoEncontrado">
+                      <span class="alert-danger py-2 px-4 ">
+                        Ninguém encontrado com esse CPF em nosso sistema.
+                      </span>
+                    </div>
+                    <div class="mb-3 hidden" id="cpfEncontrado">
+                      <label class="form-label" for="user">Nome do solicitante:</label>
+                      <input class="form-control" type="text" id="id_user" name="user" value="Eduardo Salarini" readonly>
+                    </div>
+                    {% bootstrap_form form %}
+                    <div id="boleto" class="mb-3">
+                      <label for="formFile" class="form-label">Anexe o boleto</label>
+                      <input class="form-control" type="file" id="id_boleto" name="boleto">
+                    </div>                    
+                    <div id="licenca_sanitaria" class="mb-3">
+                      <label for="formFile" class="form-label">Anexe a Licenca Sanitária (O nome dos arquivos anexados não devem conter acentos, cedilha ou caracteres especiais. Exemplo: ç, á, é, ã, õ, ô, ì, ò, ë, ù, ï, ü, etc.)</label>
+                      <input class="form-control" type="file" id="id_licenca_sanitaria" name="licenca_sanitaria">
+                    </div>                                        
+                    <button class="btn btn-primary">
+                      Enviar requerimento
+                    </button>
+                   </form>
+                </div>
+            </div>
+      </div>
+    </div>
+</div>
+</div>
+<div class="row mx-auto px-5">
+  <script>
+    document.getElementById('empreendedor_admin').classList.add('s-nav-active');    
+    function exibirInput() {
+            var selectValue = document.getElementById("id_status").value;
+            console.log(selectValue)
+            var divBoleto = document.getElementById("boleto");
+            var divLicenca = document.getElementById("licenca_sanitaria");            
+            if (selectValue === "bs") {
+                divBoleto.style.display = "block";
+                divLicenca.style.display = "none";
+
+            } else if (selectValue === "se") {
+                divBoleto.style.display = "none";
+                divLicenca.style.display = "block";
+            } else {
+                divBoleto.style.display = "none";
+                divLicenca.style.display = "none";
+            }
+        } 
+  </script>        
+    
+</div>
+
+<style>
+    .border{
+        border-color: rgba(146, 146, 146, 0.2) !important;
+    }
+    #filtros{
+        display: none;
+    }
+    .hidden {
+      display: none;
+    }
+    label{
+      font-weight: bold;
+    }
+    #id_profissao label{
+      font-weight: normal;
+    }
+    #boleto{
+      display: none;
+    }
+    #licenca_sanitaria{
+      display: none;
+    }
+</style>
+
+</script>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

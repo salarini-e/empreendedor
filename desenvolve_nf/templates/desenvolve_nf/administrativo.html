@@ -1,0 +1,49 @@
+{% extends 'template.html' %}
+{% load bootstrap5 %}
+{% load static%}
+{% block title %}BEM VINDO - CURSOS LIVRES{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/administrativo.css' %}">
+{% endblock %}
+{% block main %}
+<div class="row">
+    <div class="col d-flex pb-5 mt-5"> 
+        <div class="row w-100 mt-5">
+            <div class="col-10 mt-5 pb-4 m-auto bg-white">            
+                <div class="row">
+                    <div class="col text-dark px-4 pt-4">
+                        <h1 class="text-uppercase">
+                          Painel
+                        </h1>
+                        <div class="row px-4 pt-2 d-flex">
+                            <div class="col painel">
+                                <a href="/django/"><i class="fa-solid fa-lock me-3"></i></i>Django Admin</a>
+                                <a href="{% url 'forms:lista_cadastros_pca' %}"><i class="fa-solid fa-location-dot me-3"></i>PCA</a>
+                                
+                            </div>
+                        </div>
+                        <div class="row px-4 d-flex">
+                          <div class="col painel">
+                            <!-- <a href="{% url 'adm_cursos_listar' %}"><i class="fa-solid fa-graduation-cap me-3"></i>Cursos</a> -->
+                              <!-- <a href="{% url 'adm_alunos_listar' %}"><i class="fa-solid fa-user me-3"></i>Alunos</a>                                                             -->
+                              <!-- <a href="{% url 'adm_professores_listar' %}"><i class="fa-solid fa-user-graduate me-3"></i>Instrutores</a>           -->
+                          </div>
+                      </div>
+                      <div class="row px-4 d-flex">
+                        <div class="col painel">
+                            <!-- <a href="{% url 'adm_turmas_listar' %}"><i class="fa-solid fa-users me-3"></i>Turmas</a>  -->
+                            <!-- <a href="{% url 'adm_eventos_listar' %}"><i class="fa-solid fa-calendar me-3"></i>Eventos</a>                                                           -->
+                            <!-- <a href=""><i class="fa-solid fa-chalkboard me-3"></i>Palestras</a>                                                           -->
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</div>
+
+  <script>
+   
+  </script>
+{% endblock %}

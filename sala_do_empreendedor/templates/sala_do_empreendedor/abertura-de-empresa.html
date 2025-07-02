@@ -1,0 +1,65 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row mx-auto ps-4 pb-3">
+        <h3>ABERTURA DE EMPRESAS</h3>
+    </div>
+    <style>
+        .item {
+            margin: auto !important;
+        }
+    </style>
+    <div class="row mx-auto">
+        <div class="d-flex flex-wrap justify-content-center">
+            <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
+                <a target="_blank" class="w-100 h-100"
+                    href="https://servicoonline.novafriburgo.rj.gov.br/services/lancamentos_diversos.php?cod=MF">
+                    <div class="d-flex flex-column w-100 h-100">
+                        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
+                        <span class="mx-auto mb-auto mt-2 px-5">Taxa de Alvará Anual</span>
+                    </div>
+                </a>
+            </div>
+            <div class="item d-flex flex-column border" style="width: 300x; height: 200px;">
+                <a target="_blank" class="w-100 h-100"
+                    href="https://servicoonline.novafriburgo.rj.gov.br/services/extrato_pagamento.php">
+                    <div class="d-flex flex-column w-100 h-100">
+                        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
+                        <span class="mx-auto mb-auto mt-2 px-5">Relatória da dívida</span>
+                    </div>
+                </a>
+            </div>
+            <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
+                <a target="_blank" class="w-100 h-100"
+                    href="https://www.jucerja.rj.gov.br/regin.externo/CON_ViabilidadeSelecaoExterno.aspx">
+                    <div class="d-flex flex-column w-100 h-100">
+                        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
+                        <span class="mx-auto mt-2 mb-auto px-5">Acompanhamento de processos no regin</span>
+                        <!-- <span class="mx-auto mb-AUTO mt-2 px-5" style="color: black !important">Caso tenha dificuldade procure a sala do empreendedor</span> -->
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <style>
+        span {
+            text-align: center;
+        }
+    </style>
+    <div class="row mx-auto px-5">
+        <script>
+    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
+        </script>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}x

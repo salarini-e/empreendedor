@@ -1,0 +1,386 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_cursos.html' %}
+{% endblock %}
+{% block css %}
+<style>
+  /* Cursos - Nova Identidade Visual */
+  :root {
+    --cursos-primary: #667eea;
+    --cursos-secondary: #764ba2;
+    --cursos-accent: #f093fb;
+    --cursos-success: #4ecdc4;
+  }
+  
+  .cursos-hero {
+    background: linear-gradient(135deg, var(--cursos-primary), var(--cursos-secondary));
+    color: white;
+    padding: 60px 0;
+    margin-bottom: 60px;
+    border-radius: 0 0 50px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .cursos-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill-opacity='0.1'%3E%3Cpolygon fill='%23fff' points='50 0 60 40 100 50 60 60 50 100 40 60 0 50 40 40'/%3E%3C/g%3E%3C/svg%3E") center/60px;
+  }
+  
+  .cursos-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  
+  .section-title-modern {
+    font-family: var(--font-secondary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .section-title-modern::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--cursos-accent);
+    border-radius: 2px;
+  }
+  
+  .course-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: none;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .course-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 20px 60px rgba(102, 126, 234, 0.2);
+  }
+  
+  .course-image {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+  }
+  
+  .course-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  
+  .course-card:hover .course-image img {
+    transform: scale(1.1);
+  }
+  
+  .course-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .course-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .course-title {
+    font-family: var(--font-secondary);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+    line-height: 1.4;
+  }
+  
+  .course-meta {
+    color: var(--gray-600);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .course-meta i {
+    color: var(--cursos-primary);
+  }
+  
+  .btn-course {
+    background: linear-gradient(135deg, var(--cursos-primary), var(--cursos-secondary));
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-align: center;
+    margin-top: auto;
+  }
+  
+  .btn-course:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  }
+  
+  .view-more-link {
+    color: var(--cursos-primary);
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .view-more-link:hover {
+    color: var(--cursos-secondary);
+    transform: translateX(5px);
+  }
+  
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+  }
+  
+  .stats-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .stats-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .stats-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--cursos-primary), var(--cursos-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .stats-label {
+    color: var(--gray-600);
+    font-weight: 500;
+    margin-top: 0.5rem;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .section-title-modern {
+      font-size: 2rem;
+    }
+    
+    .courses-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .section-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    
+    .cursos-hero {
+      padding: 40px 0;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block main %}
+<!-- Hero Section -->
+<section class="cursos-hero">
+  <div class="container">
+    <div class="cursos-hero-content" data-aos="fade-up">
+      <h1 class="section-title-modern">Capacitação Profissional</h1>
+      <p class="lead">Desenvolva suas habilidades com nossos cursos e programas de qualificação profissional</p>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <!-- Slide Section -->
+  <div class="row mx-auto pb-5" data-aos="fade-up">
+    {% include 'slide_cevest.html' %}
+  </div>
+
+  <!-- Cursos Section -->
+  <div class="section-header" data-aos="fade-up">
+    <h2 class="section-title-modern">Cursos Disponíveis</h2>
+    <a href="{% url 'cursos:cursos' %}" class="view-more-link">
+      Ver todos os cursos <i class="fas fa-arrow-right"></i>
+    </a>
+  </div>
+
+  <div class="courses-grid">
+    {% for curso in cursos %}
+    <div class="course-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:100 }}">
+      <div class="course-image">
+        <img src="{{curso.banner.url}}" alt="{{curso.nome}}" class="banner-img">
+        <span class="course-badge" style="background-color: {{curso.categoria.cor}};">
+          {{curso.categoria.nome}}
+        </span>
+      </div>
+      <div class="course-content">
+        <h5 class="course-title">{{curso.nome}}</h5>
+        <div class="course-meta">
+          <i class="fas fa-clock"></i>
+          <span>{{curso.get_tipo_display}} - {{curso.carga_horaria}} {{curso.get_tipo_carga_horaria_display}}{% if curso.carga_horaria > 1 %}s{% endif %}</span>
+        </div>
+        <a href="{% url 'cursos:curso_detalhe' 'curso' curso.id %}" class="btn-course">
+          Ver detalhes
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Ensino Superior Section -->
+  <div class="section-header" data-aos="fade-up">
+    <h2 class="section-title-modern">Ensino Superior</h2>
+    <a href="{% url 'cursos:ensino_superior' %}" class="view-more-link">
+      Ver todos os cursos <i class="fas fa-arrow-right"></i>
+    </a>
+  </div>
+
+  <div class="courses-grid">
+    {% for curso in cursos_en %}
+    <div class="course-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:200 }}">
+      <div class="course-image">
+        <img src="{{curso.img.url}}" alt="{{curso.nome}}" class="banner-img">
+        <span class="course-badge" style="background: linear-gradient(135deg, var(--cursos-success), #26a69a);">
+          Superior
+        </span>
+      </div>
+      <div class="course-content">
+        <h5 class="course-title">{{curso.nome}}</h5>
+        <div class="course-meta">
+          <i class="fas fa-graduation-cap"></i>
+          <span>Ensino Superior</span>
+        </div>
+        <a href="{% url 'cursos:curso_detalhe' 'ensino_superior' curso.id %}" class="btn-course">
+          Ver detalhes
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Ensino Técnico Section -->
+  <div class="section-header" data-aos="fade-up">
+    <h2 class="section-title-modern">Ensino Técnico</h2>
+    <a href="{% url 'cursos:ensino_tecnico' %}" class="view-more-link">
+      Ver todos os cursos <i class="fas fa-arrow-right"></i>
+    </a>
+  </div>
+
+  <div class="courses-grid">
+    {% for curso in cursos_tec %}
+    <div class="course-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:300 }}">
+      <div class="course-image">
+        <img src="{{curso.img.url}}" alt="{{curso.nome}}" class="banner-img">
+        <span class="course-badge" style="background: linear-gradient(135deg, #ff6b6b, #ee5a24);">
+          Técnico
+        </span>
+      </div>
+      <div class="course-content">
+        <h5 class="course-title">{{curso.nome}}</h5>
+        <div class="course-meta">
+          <i class="fas fa-tools"></i>
+          <span>Ensino Técnico</span>
+        </div>
+        <a href="{% url 'cursos:curso_detalhe' 'ensino_tecnico' curso.id %}" class="btn-course">
+          Ver detalhes
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Estatísticas Section -->
+  <div class="section-header" data-aos="fade-up">
+    <h2 class="section-title-modern">Nossos Números</h2>
+  </div>
+  
+  <div class="row g-4 mb-5">
+    <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="100">
+      <div class="stats-card">
+        <div class="stats-number">500+</div>
+        <div class="stats-label">Alunos Formados</div>
+      </div>
+    </div>
+    <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="200">
+      <div class="stats-card">
+        <div class="stats-number">50+</div>
+        <div class="stats-label">Cursos Oferecidos</div>
+      </div>
+    </div>
+    <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="300">
+      <div class="stats-card">
+        <div class="stats-number">95%</div>
+        <div class="stats-label">Taxa de Aprovação</div>
+      </div>
+    </div>
+    <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="400">
+      <div class="stats-card">
+        <div class="stats-number">15</div>
+        <div class="stats-label">Anos de Experiência</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+{% block footer %}
+{% include 'instagram_desenvolve.html' %}
+{% endblock %}

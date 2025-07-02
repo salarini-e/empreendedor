@@ -1,0 +1,79 @@
+{% extends 'template.html' %}
+{% load bootstrap5 %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <h2>REQUERIMENTO PARA ISSQN COMO SOCIEDADE UNIPROFISSIONAL</h2>
+        <p>Fundamentação Legal – CTM – LC 124/2018 – art. 178 a 180</p>
+ 
+      </div>
+    </div>
+      <div class="row mt-4">
+        <div class="col">
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert {{ message.tags }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive border" style="background-color: white; border-radius: 30px; padding: 40px;">
+                <p class="mb-3">Com ciência dos requisitos legais para o enquadramento como SOCIEDADE UNIPROFISSIONAL, e declarando o cumprimento de todos eles, solicitamos a</p>
+
+                <form action="#" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    {% bootstrap_form form_req %}
+                    <p class="mt-4"><strong>DOCUMENTOS PEDIDOS</strong></p>
+                    <p class="mb-3">A não apresentação de quaisquer dos documentos solicitados ou ilegível ou fora do período solicitado ou em forma diferente do pedido, acarretará no INDEFERIMENTO DO PEDIDO, sem análise do pedido</p>
+                    <p class="alert-warning py-1 px-3 mb-3">
+                      <strong>O nome dos arquivos anexados não devem conter acentos, cedilha ou caracteres especiais. Exemplo: ç, á, é, ã, õ, ô, ì, ò, ë, ù, ï, ü, etc.</strong>
+                    </p>
+                    {% bootstrap_form documentos_pedido_form %}
+
+                    <button class="btn btn-primary" type="submit">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function icnpj(inputValue) {
+        let value = inputValue.replace(/\D/g, ""); // Remove caracteres não numéricos
+        value = value.replace(/(\d{2})(\d)/, "$1.$2"); // Coloca um ponto entre o segundo e o terceiro dígitos
+        value = value.replace(/(\d{3})(\d)/, "$1.$2"); // Coloca um ponto entre o quarto e o quinto dígitos
+        value = value.replace(/(\d{3})(\d)/, "$1/$2"); // Coloca uma barra entre o sétimo e o oitavo dígitos
+        value = value.replace(/(\d{4})(\d{1,2})$/, "$1-$2"); // Coloca um hífen entre o décimo segundo e o décimo terceiro dígitos
+        return value;
+    }
+    function itel(v){
+                        v=v.replace(/\D/g,"")                 //Remove tudo o que nao e digito
+                        v=v.replace(/^(\d\d)(\d)/g,"($1) $2") //Coloca parenteses em volta dos dois primeiros digitos
+                        console.log(v.length)
+                        if (v.length<14){
+                          v=v.replace(/(\d{4})(\d)/,"$1-$2")    //Coloca hifen entre o quarto e o quinto digitos
+                        }else{
+                          v=v.replace(/(\d{4,5})(\d)/,"$1-$2")    //Coloca hifen entre o quarto e o quinto digitos
+                        }
+                        
+                        return v
+                    }
+    function mascara(o,f){
+                v_obj=o
+                v_fun=f
+                setTimeout("execmascara()",1)
+            }
+        
+    function execmascara(){
+                v_obj.value=v_fun(v_obj.value)
+            }
+</script>
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'template.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <!-- <div class="row pb-5">
+        <div class="col pb-3">
+            <img class="banner_img_destaque w-100 h-100" style="border-radius: 30px;" src="/static/images/banner_teste.png">
+        </div>
+    </div> -->
+    <div class="row">
+      <div class="col">
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    <div class="row d-flex">
+      <div class="col-6 mx-auto">
+        <form method="POST">
+          <h3 class="text-center">FORMULÁRIO DE CADASTRO DE EMPRESA</h3>
+          <p class="text-justify text-secondary mb-3" style="text-indent: 30px;">Ao preencher esse formulário você poderá receber notificações de compras da prefeitura e informativos de programas que podem ser importantes para o crescimento da sua empresa.</p>
+          {% csrf_token %}
+          {% bootstrap_form form %}
+          <p class="mb-2"><strong>Atualmente qual a(s) sua(s) maior(es) necessidade(s) para desenvolver a sua empresa?</strong></p>
+          {% bootstrap_form form_necessidades %}
+          <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+        </form>
+      </div>
+    </div>
+    <div class="row d-flex">
+      <div class="col-6 pt-5 mx-auto ps-4">
+        <h4>Por que realizar o cadastro da sua empresa?</h4>
+        <p class="text-justify mb-3" style="text-indent: 40px;">Ao cadastrar sua empresa em nossa plataforma, você ganha visibilidade instantânea. A Sala do Empreendedor é um ponto de referência para empresários e cidadãos de Nova Friburgo que buscam produtos e serviços locais. Isso significa que sua empresa será facilmente encontrada por potenciais clientes e parceiros de negócios.
+        <p class="text-justify mb-3" style="text-indent: 40px;">Ao se cadastrar, sua empresa se tornará elegível para receber  notificações de oportunidades para venda direta para a Prefeitra e para PDDE as escolas no âmbito do Programa PDDE (Programa de Dinheiro Direto da Escola). Anualmente, são movimentados cerca de 3 milhões de negócios nesse programa somente em Nova Friburgo. Ser parte desta lista de fornecedores pode abrir portas para oportunidades significativas de negócios.</p>
+        <p class="text-justify mb-4" style="text-indent: 40px;">O cadastro na Sala do Empreendedor também o conecta a uma rede de oportunidades de negócios. Você terá acesso a informações sobre licitações, eventos empresariais e programas de apoio governamental, tudo projetado para ajudar sua empresa a prosperar.</p>
+        <h4>Vitrine Virtual</h4>
+        <p class="text-justify mb-3" style="text-indent: 40px;">
+          Além disso, caso você deseje, seu cadastro permite que sua empresa faça parte da "Vitrine Virtual" da plataforma, onde você pode exibir seus produtos e serviços para um público ainda maior. Destaque-se na Vitrine Virtual e alcance mais clientes agora!
+        </p>
+      </div>
+      
+    </div>
+  </div>
+  <script>
+    document.getElementById('empreendedor_empresa').classList.add('s-nav-active');
+
+    function icnpj(inputValue) {
+        let value = inputValue.replace(/\D/g, ""); // Remove caracteres não numéricos
+        value = value.replace(/(\d{2})(\d)/, "$1.$2"); // Coloca um ponto entre o segundo e o terceiro dígitos
+        value = value.replace(/(\d{3})(\d)/, "$1.$2"); // Coloca um ponto entre o quarto e o quinto dígitos
+        value = value.replace(/(\d{3})(\d)/, "$1/$2"); // Coloca uma barra entre o sétimo e o oitavo dígitos
+        value = value.replace(/(\d{4})(\d{1,2})$/, "$1-$2"); // Coloca um hífen entre o décimo segundo e o décimo terceiro dígitos
+        return value;
+    }
+    function itel(v){
+                        v=v.replace(/\D/g,"")                 //Remove tudo o que nao e digito
+                        v=v.replace(/^(\d\d)(\d)/g,"($1) $2") //Coloca parenteses em volta dos dois primeiros digitos
+                        console.log(v.length)
+                        if (v.length<14){
+                          v=v.replace(/(\d{4})(\d)/,"$1-$2")    //Coloca hifen entre o quarto e o quinto digitos
+                        }else{
+                          v=v.replace(/(\d{4,5})(\d)/,"$1-$2")    //Coloca hifen entre o quarto e o quinto digitos
+                        }
+                        
+                        return v
+                    }
+    function mascara(o,f){
+                v_obj=o
+                v_fun=f
+                setTimeout("execmascara()",1)
+            }
+        
+    function execmascara(){
+                v_obj.value=v_fun(v_obj.value)
+            }
+
+    function toggleOutro() {
+      var idOutroDescricao = document.getElementById('id_outro_descricao').parentElement;
+      idOutroDescricao.style.display = (idOutroDescricao.style.display === 'none') ? 'block' : 'none';
+    }
+    document.getElementById('id_outro_descricao').parentElement.style.display='none';
+    </script>
+
+<style>
+  .border{
+    border-color: rgba(146, 146, 146, 0.2) !important;
+  }
+  
+</style>
+  {% endblock %}
+  {% block footer %}
+  {% include 'desenvolve_nf/instagram.html' %}
+  {% endblock %}
+  
+
+</body>
+</html>

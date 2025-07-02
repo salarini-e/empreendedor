@@ -1,0 +1,126 @@
+{% extends 'template.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>Solicitação de Linha de Crédito</h1>
+      <p class="mb-3">A Prefeitura de Nova Friburgo, por meio da Sala do Empreendedor, está intermediando com diversas instituições a possibilidade de fornecimento de linhas de crédito para MEIs, micro e pequenas empresas. Se esta for uma necessidade para sua empresa, preencha o formulário abaixo e entraremos em contato em breve.</p>
+      <div class="row">
+        <div class="col">
+            <form method="POST">                
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <input class="btn btn-primary" type="submit" value="Enviar">
+            </form>
+        </div>
+    </div>
+      
+    </div>
+  </div>
+</div>
+<div class="row mx-auto px-5">
+  <script>
+    document.getElementById('empreendedor_servicos').classList.add('s-nav-active');
+    
+    function icnpj(inputValue) {
+                    let value = inputValue.replace(/\D/g, ""); // Remove caracteres não numéricos
+                    value = value.replace(/(\d{2})(\d)/, "$1.$2"); // Coloca um ponto entre o segundo e o terceiro dígitos
+                    value = value.replace(/(\d{3})(\d)/, "$1.$2"); // Coloca um ponto entre o quarto e o quinto dígitos
+                    value = value.replace(/(\d{3})(\d)/, "$1/$2"); // Coloca uma barra entre o sétimo e o oitavo dígitos
+                    value = value.replace(/(\d{4})(\d{1,2})$/, "$1-$2"); // Coloca um hífen entre o décimo segundo e o décimo terceiro dígitos
+                    return value;
+                }
+    function itel(v){
+                    v=v.replace(/\D/g,"")                 //Remove tudo o que nao e digito
+                    v=v.replace(/^(\d\d)(\d)/g,"($1) $2") //Coloca parenteses em volta dos dois primeiros digitos
+                    console.log(v.length)
+                    if (v.length<14){
+                      v=v.replace(/(\d{4})(\d)/,"$1-$2")    //Coloca hifen entre o quarto e o quinto digitos
+                    }else{
+                      v=v.replace(/(\d{4,5})(\d)/,"$1-$2")    //Coloca hifen entre o quarto e o quinto digitos
+                    }
+                    
+                    return v
+                }
+    function icep(input) {
+            input.value = input.value.replace(/\D/g, '');
+
+            // Verifica se o valor tem pelo menos 5 dígitos
+            if (input.value.length > 5) {
+            // Insere o traço após o quinto dígito
+            input.value = input.value.substring(0, 5) + '-' + input.value.substring(5);
+            }
+            }
+    function mascara(o,f){
+                v_obj=o
+                v_fun=f
+                setTimeout("execmascara()",1)
+            }
+        
+    function execmascara(){
+                v_obj.value=v_fun(v_obj.value)
+            }
+    function findParentDiv(element) {
+        var parent = element.parentNode;
+        
+        // Continue subindo na árvore DOM até encontrar um elemento <div>
+        while (parent && parent.nodeName !== 'DIV') {
+          parent = parent.parentNode;
+        }
+
+        return parent;
+      }
+    div = findParentDiv(document.getElementById('id_outra_motivacao'))
+    div.style.display = 'none'
+
+    function toggleMotivacao(e) {
+        if (e.value === 'ou') {
+            div.style.display = 'block'
+        } else {
+            div.style.display = 'none'
+        }
+    }
+    // GAMBIARRA ABAIXO
+    function removerElementos() {
+          // Seleciona todos os elementos label
+          const labels = document.querySelectorAll('label');
+
+          // Itera pelos elementos label
+          labels.forEach(function(label) {
+              // Verifica se o label contém um input e o texto "---------"
+              const input = label.querySelector('input');
+              if (input && label.textContent.trim() === '---------') {
+                  // Remove o elemento label do DOM
+                  findParentDiv(label).remove();
+                  // label.remove();
+              }
+          });
+    }
+    removerElementos();
+  </script>
+</div>
+
+<style>
+  .border{
+    border-color: rgba(146, 146, 146, 0.2) !important;
+  }
+  label{
+    font-weight: bold;
+  }
+  .checkbox label, .radio label{
+    font-weight: normal;
+  }
+</style>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

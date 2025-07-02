@@ -1,0 +1,51 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/quero-ser-mei.css'%}">
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row mx-auto ps-4 pb-3">
+        <h3 class="text-center">Dicas de Segurança da Vigilância Sanitária</h3>
+    </div>
+    <div class="row mx-auto mb-5">
+        <div class="col">
+            <p style="text-align: justify;">Caso sua ocupação envolva a (s) seguinte (s) atividade (s): manipulação, preparação, fracionamento, armazenamento, distribuição, transporte, exposição à 
+                venda e entrega de alimentos preparados ao consumo, tais como cantinas, bufês, confeitarias, lanchonetes, padarias, pastelarias, restaurantes, rotisserias 
+                e congêneres, é importante que você conheça e aplique as Boas Práticas para Serviços de Alimentação. “Boas Práticas” são práticas de higiene que devem ser 
+                obedecidas pelos manipuladores desde a escolha e compra dos produtos a serem utilizados no preparo do alimento até a venda para o consumidor. O objetivo 
+                das Boas Práticas é evitar a ocorrência de doenças provocadas pelo consumo de alimentos contaminados. Aqui você encontra informações sobre como produzir 
+                com segurança sanitária e atendendo as boas práticas de manipulação de alimentos:</p>
+            
+            <ul class="mt-3">
+                <li><a style="color: #0d6efd;" href="https://www.gov.br/anvisa/pt-br/centraisdeconteudo/publicacoes/alimentos/manuais-guias-e-orientacoes/cartilha-boas-praticas-para-servicos-de-alimentacao.pdf/view">
+                    Cartilha sobre as Boas Práticas para Serviços de Alimentação
+                </a></li>
+                <p class="mt-4 mb-4">Você também pode obter maiores informações visitando o <a style="color: #0d6efd;" href="https://www.gov.br/anvisa/pt-br">Portal da Anvisa</a> ou pelos links:</p>
+                <li>atividades econômicas de <a style="color: #0d6efd;" href="https://www.gov.br/anvisa/pt-br/assuntos/cosmeticos">cosméticos;</a></li>
+                <li>atividades econômicas de <a style="color: #0d6efd;" href="https://www.gov.br/anvisa/pt-br/assuntos/alimentos">alimentos;</a></li>
+                <li>atividades econômicas de <a style="color: #0d6efd;" href="https://www.gov.br/anvisa/pt-br/assuntos/saneantes">saneantes.</a></li>
+            </ul>
+
+        </div>
+    </div>
+    {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
+    <style>
+        span {
+            text-align: center;
+        }
+    </style>
+    <div class="row mx-auto px-5">
+        <script>
+    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
+        </script>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}x

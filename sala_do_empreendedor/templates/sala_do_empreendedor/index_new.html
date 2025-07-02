@@ -1,0 +1,844 @@
+{% extends 'template_new.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+  /* Sala do Empreendedor Specific Styles */
+  .hero-empreendedor {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hero-empreendedor::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill-opacity='0.03'%3E%3Cpolygon fill='%23fff' points='50 0 60 40 100 50 60 60 50 100 40 60 0 50 40 40'/%3E%3C/g%3E%3C/svg%3E") center/60px;
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    text-align: center;
+  }
+  
+  .hero-title {
+    font-family: var(--font-secondary);
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  }
+  
+  .hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    font-weight: 300;
+  }
+  
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+  
+  .btn-hero {
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all var(--transition-normal);
+    border: none;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn-hero-primary {
+    background: white;
+    color: var(--primary-color);
+  }
+  
+  .btn-hero-primary:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(255,255,255,0.3);
+  }
+  
+  .btn-hero-outline {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+  
+  .btn-hero-outline:hover {
+    background: white;
+    color: var(--primary-color);
+    transform: translateY(-3px);
+  }
+  
+  /* Stats Section */
+  .stats-section {
+    background: var(--gray-100);
+    padding: 60px 0;
+    margin: -40px 0 60px;
+    position: relative;
+    z-index: 3;
+  }
+  
+  .stat-card {
+    background: white;
+    padding: 2.5rem 1.5rem;
+    border-radius: var(--border-radius-xl);
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    transition: all var(--transition-normal);
+    border: none;
+    height: 100%;
+  }
+  
+  .stat-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-xl);
+  }
+  
+  .stat-number {
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-secondary);
+  }
+  
+  .stat-label {
+    font-size: 1.1rem;
+    color: var(--gray-600);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Services Section */
+  .services-section {
+    padding: 80px 0;
+  }
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  
+  .section-title {
+    font-family: var(--font-secondary);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 2px;
+  }
+  
+  .section-subtitle {
+    font-size: 1.3rem;
+    color: var(--gray-600);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  
+  .service-card {
+    background: white;
+    border-radius: var(--border-radius-xl);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+    border: none;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+    transition: left var(--transition-slow);
+  }
+  
+  .service-card:hover::before {
+    left: 100%;
+  }
+  
+  .service-card:hover {
+    transform: translateY(-15px);
+    box-shadow: var(--shadow-xl);
+  }
+  
+  .service-icon {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    color: white;
+    transition: all var(--transition-normal);
+    position: relative;
+    z-index: 2;
+  }
+  
+  .service-card:hover .service-icon {
+    transform: scale(1.1) rotate(5deg);
+  }
+  
+  .service-title {
+    font-family: var(--font-secondary);
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+  }
+  
+  .service-description {
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-size: 1.05rem;
+  }
+  
+  .btn-service {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border: none;
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all var(--transition-normal);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn-service::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #764ba2, #667eea);
+    transition: left var(--transition-normal);
+    z-index: -1;
+  }
+  
+  .btn-service:hover::before {
+    left: 0;
+  }
+  
+  .btn-service:hover {
+    color: white;
+    text-decoration: none;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+  }
+  
+  /* Testimonials Section */
+  .testimonials-section {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    padding: 80px 0;
+  }
+  
+  .testimonial-card {
+    background: white;
+    border-radius: var(--border-radius-xl);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    border: none;
+    position: relative;
+    margin: 1rem;
+    transition: all var(--transition-normal);
+  }
+  
+  .testimonial-card::before {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    left: 30px;
+    font-size: 5rem;
+    color: var(--primary-color);
+    opacity: 0.2;
+    font-family: serif;
+    line-height: 1;
+  }
+  
+  .testimonial-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+  }
+  
+  .testimonial-text {
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    color: var(--gray-700);
+    line-height: 1.7;
+    font-size: 1.1rem;
+  }
+  
+  .testimonial-author {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+  }
+  
+  /* Contact Section */
+  .contact-section {
+    background: linear-gradient(135deg, var(--dark-color), #34495e);
+    color: white;
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .contact-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill-opacity='0.03'%3E%3Cpolygon fill='%23fff' points='50 0 60 40 100 50 60 60 50 100 40 60 0 50 40 40'/%3E%3C/g%3E%3C/svg%3E") center/60px;
+  }
+  
+  .contact-card {
+    background: rgba(255,255,255,0.1);
+    border-radius: var(--border-radius-xl);
+    padding: 3rem 2rem;
+    text-align: center;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,0.2);
+    position: relative;
+    z-index: 2;
+  }
+  
+  .contact-item {
+    margin: 1.5rem 0;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .contact-item i {
+    font-size: 1.8rem;
+    color: #3498db;
+    width: 40px;
+  }
+  
+  .contact-item a {
+    color: white;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+  
+  .contact-item a:hover {
+    color: #3498db;
+    transform: translateX(5px);
+  }
+  
+  /* Navigation Enhancement */
+  .nav-empreendedor {
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-xl);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .nav-item-modern {
+    text-align: center;
+    transition: all var(--transition-normal);
+  }
+  
+  .nav-icon-modern {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    margin: 0 auto 0.5rem;
+    transition: all var(--transition-normal);
+  }
+  
+  .nav-item-modern:hover .nav-icon-modern {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+  }
+  
+  .nav-item-modern.active .nav-icon-modern {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  }
+  
+  .nav-label-modern {
+    color: var(--dark-color);
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.2rem;
+    }
+    
+    .section-title {
+      font-size: 2.2rem;
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+    }
+    
+    .service-card {
+      margin-bottom: 2rem;
+    }
+    
+    .hero-cta {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .btn-hero {
+      width: 80%;
+      max-width: 300px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .hero-empreendedor {
+      padding: 60px 0;
+    }
+    
+    .stats-section {
+      padding: 40px 0;
+    }
+    
+    .services-section {
+      padding: 60px 0;
+    }
+    
+    .contact-section {
+      padding: 60px 0;
+    }
+    
+    .testimonials-section {
+      padding: 60px 0;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block nav %}
+<!-- Navigation específica da Sala do Empreendedor -->
+<section class="nav-empreendedor" data-aos="fade-up">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="row text-center">
+          <div class="col-md-2 col-4 mb-3">
+            <a href="{% url 'empreendedor:index' %}" class="nav-item-modern active">
+              <div class="nav-icon-modern">
+                <i class="fas fa-home"></i>
+              </div>
+              <div class="nav-label-modern">Início</div>
+            </a>
+          </div>
+          <div class="col-md-2 col-4 mb-3">
+            <a href="#servicos" class="nav-item-modern">
+              <div class="nav-icon-modern">
+                <i class="fas fa-concierge-bell"></i>
+              </div>
+              <div class="nav-label-modern">Serviços</div>
+            </a>
+          </div>
+          <div class="col-md-2 col-4 mb-3">
+            <a href="{% url 'empreendedor:consultar_processos' %}" class="nav-item-modern">
+              <div class="nav-icon-modern">
+                <i class="fas fa-search"></i>
+              </div>
+              <div class="nav-label-modern">Consultar Processo</div>
+            </a>
+          </div>
+          <div class="col-md-2 col-4 mb-3">
+            <a href="{% url 'empreendedor:cursos' %}" class="nav-item-modern">
+              <div class="nav-icon-modern">
+                <i class="fas fa-graduation-cap"></i>
+              </div>
+              <div class="nav-label-modern">Capacitação</div>
+            </a>
+          </div>
+          <div class="col-md-2 col-4 mb-3">
+            <a href="{% url 'empreendedor:minha_empresa' %}" class="nav-item-modern">
+              <div class="nav-icon-modern">
+                <i class="fas fa-building"></i>
+              </div>
+              <div class="nav-label-modern">Minha Empresa</div>
+            </a>
+          </div>
+          <div class="col-md-2 col-4 mb-3">
+            <a href="{% url 'empreendedor:meus_agendamentos' %}" class="nav-item-modern">
+              <div class="nav-icon-modern">
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+              <div class="nav-label-modern">Agendamentos</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block main %}
+<!-- Hero Section -->
+<section class="hero-empreendedor">
+  <div class="container">
+    <div class="hero-content" data-aos="fade-up">
+      <h1 class="hero-title">Sala do Empreendedor</h1>
+      <p class="hero-subtitle">Seu parceiro no mundo dos negócios em Nova Friburgo</p>
+      <p class="lead">Oferecemos suporte completo para empreendedores, desde a abertura de empresas até o crescimento sustentável do seu negócio.</p>
+      
+      <div class="hero-cta">
+        <a href="#servicos" class="btn btn-hero btn-hero-primary">
+          <i class="fas fa-rocket me-2"></i>Nossos Serviços
+        </a>
+        <a href="{% url 'empreendedor:conheca_nossa_sala' %}" class="btn btn-hero btn-hero-outline">
+          <i class="fas fa-info-circle me-2"></i>Saiba Mais
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+  <div class="container">
+    <div class="row g-4" data-aos="fade-up" data-aos-delay="200">
+      <div class="col-lg-3 col-md-6">
+        <div class="stat-card">
+          <div class="stat-number" data-count="750">0</div>
+          <div class="stat-label">Empresas Abertas</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="stat-card">
+          <div class="stat-number" data-count="1500">0</div>
+          <div class="stat-label">MEIs Formalizados</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="stat-card">
+          <div class="stat-number" data-count="450">0</div>
+          <div class="stat-label">Consultorias Realizadas</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="stat-card">
+          <div class="stat-number" data-count="98">0</div>
+          <div class="stat-label">% Satisfação</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services Section -->
+<section class="services-section" id="servicos">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <h2 class="section-title">Nossos Serviços</h2>
+      <p class="section-subtitle">Soluções completas para empreendedores em todas as fases do negócio</p>
+    </div>
+    
+    <div class="row g-4">
+      <!-- MEI -->
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-user-tie"></i>
+          </div>
+          <h3 class="service-title">Microempreendedor Individual</h3>
+          <p class="service-description">Formalize seu negócio como MEI de forma rápida e gratuita. Orientação completa sobre direitos, deveres e benefícios.</p>
+          <a href="{% url 'empreendedor:quero_ser_mei' %}" class="btn-service">Quero ser MEI</a>
+        </div>
+      </div>
+      
+      <!-- Abertura de Empresa -->
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-building"></i>
+          </div>
+          <h3 class="service-title">Abertura de Empresa</h3>
+          <p class="service-description">Processo completo para abertura de empresas com toda orientação necessária e acompanhamento profissional.</p>
+          <a href="{% url 'empreendedor:abertura_de_empresa' %}" class="btn-service">Abrir Empresa</a>
+        </div>
+      </div>
+      
+      <!-- Capacitação -->
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h3 class="service-title">Capacitação Profissional</h3>
+          <p class="service-description">Cursos e treinamentos para desenvolver suas habilidades empreendedoras e técnicas específicas.</p>
+          <a href="{% url 'cursos_profissionais:index' %}" class="btn-service">Ver Cursos</a>
+        </div>
+      </div>
+      
+      <!-- Linha de Crédito -->
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-hand-holding-usd"></i>
+          </div>
+          <h3 class="service-title">Linha de Crédito</h3>
+          <p class="service-description">Acesso a linhas de crédito especiais para empreendedores com condições facilitadas e juros atrativos.</p>
+          <a href="{% url 'empreendedor:solicitacao_linha_de_credito' %}" class="btn-service">Solicitar Crédito</a>
+        </div>
+      </div>
+      
+      <!-- Oportunidades -->
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <h3 class="service-title">Oportunidades de Negócio</h3>
+          <p class="service-description">Descubra novas oportunidades de mercado e conecte-se com outros empreendedores da região.</p>
+          <a href="{% url 'empreendedor:oportunidade' %}" class="btn-service">Ver Oportunidades</a>
+        </div>
+      </div>
+      
+      <!-- Certidões -->
+      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-certificate"></i>
+          </div>
+          <h3 class="service-title">Certidões e Documentos</h3>
+          <p class="service-description">Emissão de certidões e documentos necessários para o funcionamento legal da sua empresa.</p>
+          <a href="https://servicoonline.novafriburgo.rj.gov.br/services/certidao_retirada.php" target="_blank" class="btn-service">Emitir Certidão</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <h2 class="section-title">O que nossos empreendedores dizem</h2>
+      <p class="section-subtitle">Histórias reais de sucesso com nossa parceria</p>
+    </div>
+    
+    <div class="row g-4">
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="testimonial-card">
+          <p class="testimonial-text">"A Sala do Empreendedor foi fundamental para a abertura da minha confeitaria. O atendimento é excelente e o processo foi muito rápido e eficiente."</p>
+          <div class="testimonial-author">Maria Silva - Confeitaria Doce Vida</div>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="testimonial-card">
+          <p class="testimonial-text">"Consegui formalizar meu negócio como MEI em poucos dias. A equipe me orientou em todo o processo e tirou todas as minhas dúvidas com muita paciência."</p>
+          <div class="testimonial-author">João Santos - JS Reformas</div>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="testimonial-card">
+          <p class="testimonial-text">"Os cursos de capacitação me ajudaram muito a entender melhor o mercado e melhorar minha gestão empresarial. Recomendo a todos!"</p>
+          <div class="testimonial-author">Ana Costa - Boutique Ana</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="contact-card" data-aos="fade-up">
+          <h2 class="mb-4 text-center">Entre em Contato</h2>
+          <p class="text-center mb-4 opacity-75">Estamos aqui para ajudar você a transformar suas ideias em realidade</p>
+          
+          <div class="row">
+            <div class="col-md-6">
+              <div class="contact-item">
+                <i class="fab fa-whatsapp"></i>
+                <div>
+                  <strong>WhatsApp</strong><br>
+                  <a href="https://api.whatsapp.com/send?phone=552225259151" target="_blank">
+                    (22) 2525-9151
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <div>
+                  <strong>Telefone</strong><br>
+                  (22) 2525-9151
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="contact-item mt-4">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <strong>Endereço</strong><br>
+              Av. Alberto Braune, 225 - Centro, Nova Friburgo - RJ
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <i class="fas fa-clock"></i>
+            <div>
+              <strong>Horário de Funcionamento</strong><br>
+              09:00 às 17:00 de Segunda à Sexta-feira
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block js %}
+<script>
+  // Counter Animation
+  function animateCounters() {
+    const counters = document.querySelectorAll('[data-count]');
+    
+    counters.forEach(counter => {
+      const target = parseInt(counter.getAttribute('data-count'));
+      const duration = 2000;
+      const step = target / (duration / 16);
+      let current = 0;
+      
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        
+        if (target === 98) {
+          counter.textContent = Math.floor(current) + '%';
+        } else {
+          counter.textContent = Math.floor(current) + '+';
+        }
+      }, 16);
+    });
+  }
+  
+  // Trigger counter animation when stats section is visible
+  const statsSection = document.querySelector('.stats-section');
+  let hasAnimated = false;
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !hasAnimated) {
+        animateCounters();
+        hasAnimated = true;
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  if (statsSection) {
+    observer.observe(statsSection);
+  }
+  
+  // Smooth scroll enhancement
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        const headerHeight = document.querySelector('.modern-header').offsetHeight;
+        const targetPosition = target.offsetTop - headerHeight - 20;
+        
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+  
+  // Navigation active state
+  const navItems = document.querySelectorAll('.nav-item-modern');
+  navItems.forEach(item => {
+    item.addEventListener('click', function() {
+      navItems.forEach(nav => nav.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+</script>
+{% endblock %}

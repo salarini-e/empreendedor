@@ -1,0 +1,248 @@
+{% extends 'template.html' %}
+{% load bootstrap5 %}
+{% load static%}
+{% block nav %}
+{% include 'nav_cursos.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="/static/css/cursos.css">
+<script src="{% static 'js/cursos.js' %}"></script>
+{% endblock %}
+{% block main %}
+<div class="row container mx-auto">
+  <div class="col d-flex py-5">
+    <div class="row w-100">
+      <div class="col pb-4 m-auto">
+        <!-- <div class="row py-3 px-4">
+                    <div class="col bg p-5">
+                        <h1 class="display-4 text-center">CURSOS LIVRES</h1>
+                    </div>
+                </div> -->
+        <div class="row filtragem visually-hidden">
+          <div class="col d-flex">
+            <div class="ms-auto text-dark pb-3">
+              <!-- <p class="mx-2">Filtrar por:</p> -->
+              {% for categoria in categorias %}
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="{{categoria.categoria}}"
+                  value="{{categoria.categoria}}" onclick="filtro(this)">
+                <label class="form-check-label" for="inlineCheckbox1">{{categoria.categoria}}</label>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <!-- <h2 class="px-4 py-2" style="background-color: rgba(228, 228, 228, 0.644);  border-radius: 30px;">Categorias</h2>
+                <div class="row">
+                    <div class="col d-flex py-5">
+                        {% for cursos in categorias %}
+                        <div class="cat border mx-auto text-center d-flex flex-column px-3" style="height: 200px; width: 300px;">
+                            <img class="mt-auto mx-auto" src="{{cursos.categoria.icone.url}}" alt="">
+                            <h3 class="mb-auto mx-auto">{{cursos.categoria}}</h3>    
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>              -->
+        <div class="row">
+          <div class="col d-flex">
+            <h1 class="" style="display: inline;">Cursos</h1>
+            <div class="dropdown ms-auto">
+        <span onclick="mostrarFiltros(this)" class="ps-2" type="button" style="text-decoration: none; color: black; font-size: 18pt;">            
+          <i class="fa-solid fa-filter me-2"></i>Filtrar
+        </span>    
+      </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col pb-5">
+            <p class="text-secondary"><i>Conheça nossos cursos livres ofertados!</i></p>
+          </div>
+        </div>
+        <div class="row">
+          <div id="filtros" class="col d-flex pb-5 visually-hidden">
+            {% for categoria in categorias %}
+            <a href="{% url 'cursos:filtrar' tipo categoria.nome %}" class="card-universidade btn btn-primary me-3">
+              {% if not categoria.nome == 'CEVEST' %}
+              <img class="{% if not categoria.nome == 'CEVEST' %}mx-auto{% else %}mx-auto{% endif %} my-auto" style="height: 30px;" src="{{categoria.icone.url}}" alt="">
+              <span class="me-auto ms-1 pe-1 my-auto">{{categoria.nome}}</span>
+              {% else %}
+              <img src="{% static 'images/cevest_logo.png' %}" class="img-fluid mx-auto" alt="">
+              {% endif %}
+            </a>
+            {% endfor %}
+            <a href="{% url 'cursos:cursos'%}" class="card-universidade btn btn-primary me-3">
+              <span class="mx-auto my-auto">Todos</span>
+              <!-- <img class="me-auto my-auto" style="height: 30px;" src="" alt=""> -->
+            </a>
+            <style>
+              .card-universidade{                    
+                display: flex;
+                background-color: white;
+                width: 200px;
+                height:70px;
+                border-radius: 30px;          
+                color: rgb(59, 59, 59);
+                border-color: rgb(255, 255, 255);
+                box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);          
+                padding-top: 20px;
+                padding-bottom: 20px;
+              }
+              .card-universidade:hover{
+                color: gray;
+                background-color: white !important;
+                border-color: whitesmoke !important;
+              }
+              .card-universidade img{
+                max-height: 100px;
+      
+              }
+            </style>
+          </div>
+        </div>
+      <div class="row pb-3">
+        <div class="d-flex flex-wrap justify-content-around" id="div_cursos_listados">
+          {% for curso in cursos %}
+          <div class="item me-3 d-flex flex-column curso_listado">
+            <div class="c-img" style="position: relative;">
+              <img src="{% if curso.banner.url %}{{curso.banner.url}}{% else %}{% static 'images/sem-imagem.png' %}{% endif %}" class="banner-img">
+              <a href="{% url 'cursos:filtrar' tipo curso.categoria.nome %}" class="badge_item nome_lugar" style="background-color: {{curso.categoria.cor}};">
+                {{curso.categoria.nome}}<br>
+              </a>
+            </div>
+            <div class="cursos-text mx-2 d-flex flex-column h-100">
+              <h5 class="mb-1">{{curso.nome}}</h5>
+              <p class="time mt-auto">{{curso.get_tipo_display}} - {{curso.carga_horaria}}
+                {{curso.get_tipo_carga_horaria_display}}{% if curso.carga_horaria > 1 %}s{% endif %}</p>
+              <a href="{% url 'cursos:curso_detalhe' tipo curso.id %}"
+                  class="btn btn-outline-primary rounded-1 btn-details py-1" id="esp-2">Ver detalhes</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <!-- <div class="row">
+                    <div class="col px-4 text-dark">
+                        {% for cursos in categorias %}
+                        <h3 class="mt-4">{{cursos.categoria}}</h3>
+                        <div class="accordion py-3" id="accordionExample">
+                            {% for i in cursos.curso %}
+                            <div class="accordion-item">
+                                <h1 class="accordion-header" id="heading{{cursos.categoria}}{{ forloop.counter}}">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{cursos.categoria}}{{ forloop.counter}}" aria-expanded="true" aria-controls="collapse{{cursos.categoria}}{{ forloop.counter}}">
+                                        <b>{{i.nome}}</b>
+                                    </button>
+                                </h1>
+                                <div id="collapse{{cursos.categoria}}{{ forloop.counter}}" class="accordion-collapse collapse" aria-labelledby="heading{{cursos.categoria}}{{ forloop.counter}}" data-bs-parent="#accordionExample">
+                                        
+                                    <div class="accordion-body">
+                                        {% if request.user.is_staff %}   
+                                        <div class="row">
+                                                <div class="col d-flex pb-3">
+                                                    <a href="{% url 'adm_curso_editar' i.id %}" class="me-auto btn btn-secondary">
+                                                        <i class="fa-solid fa-pen-to-square me-2"></i>
+                                                        Editar atividade
+                                                    </a>        
+
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                        <h4 class="mt-2">Descrição:</h4>
+                                        <textarea class="form-control" rows="7" readonly>{{i.descricao}}</textarea>
+                                        <ul class="p-0 my-2">
+                                            <li>Duração: {{i.carga_horaria}} horas</li>                                                                                    
+                                        </ul>
+                                        <div class="row">
+                                            <div class="col d-flex flex-column">
+                                                <h4 class="mt-2">Turmas disponíveis:</h4>
+                                                <p class="mb-2">
+                                                    {% load extras %}
+                                                    {{i|turmas}}
+                                                </p>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% endfor %}                            
+                        </div>                         
+                    </div>
+                </div> -->
+    </div>
+  </div>
+</div>
+</div>
+<!-- MODAL -->
+<div class="modal fade" id="formCandidato" aria-hidden="true" aria-labelledby="formCandidatoLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-dark text-center" id="exampleModalToggleLabel">CANDIDATAR-SE A ESCOLINHA DE SKATE
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-dark">
+        <form id="form" action="#">
+          {% bootstrap_form form %}
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-bs-target="#confirmarCadastro" data-bs-toggle="modal"
+          onclick="enviarFormulario()">Enviar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="confirmarCadastro" aria-hidden="true" aria-labelledby="confirmarCadastroLabel2"
+  tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-dark" id="exampleModalToggleLabel2">
+          <span id="tituloResponse"></span>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex">
+        <img id="loading" class="m-auto img-fluid" src="/static/images/loading_blue.gif" alt="">
+        <div id="response" class="text-dark"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-target="#formCandidato" data-bs-toggle="modal">Voltar ao
+          formulário</button>
+        <button class="btn btn-success" data-bs-dismiss="modal" aria-label="Close">Confirmar informações</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>    
+  function mostrarFiltros(e){      
+    let filtros = document.getElementById('filtros');
+    filtros.classList.toggle('visually-hidden');
+    if (e.innerHTML!='<i class="fa-solid fa-filter-circle-xmark me-2"></i>Ocultar'){
+      e.innerHTML='<i class="fa-solid fa-filter-circle-xmark me-2"></i>Ocultar'
+    }else{
+      e.innerHTML='<i class="fa-solid fa-filter me-2"></i>Filtrar  '
+    }
+    
+    
+  }
+</script>
+<script>
+  {% if tipo == 'cevest' %}
+  document.getElementById('s-cevest').classList.add('s-nav-active');
+  {% else %}
+  document.getElementById('s-cursos').classList.add('s-nav-active');
+  {% endif %}
+</script>
+<style>
+  .badge_item{
+    
+  }
+</style>
+{% endblock %}
+{% block footer %}
+{% include 'instagram_desenvolve.html' %}
+{% endblock %}

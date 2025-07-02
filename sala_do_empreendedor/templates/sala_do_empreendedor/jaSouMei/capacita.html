@@ -1,0 +1,40 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row mx-auto ps-4 pb-3">
+        <h3 class="text-center">Bem-vindo ao Capacita</h3>
+    </div>
+    <div class="row mx-auto mb-5">
+        <div class="col-12">
+            <p><b>Plataforma de Acesso a Soluções de Capacitação Técnica, Gerencial e Tecnológica</b></p>
+            <p>
+                Sistema de aproximação e conexão entre empreendedores e fornecedores de soluções orientadas. O Buscador de Capacitações tem o propósito de conectar o empreendedor de pequeno porte à rede de oferta de soluções de assistência técnica e gerencial, composta por agentes do sistema S, SEBRAE, instituições de educação profissional e tecnológica, universidades e demais ofertantes de soluções de apoio à gestão e ao desenvolvimento técnico empresarial. 
+            </p>
+            <ul>
+                <li>Informações detalhadas sobre cada cursos oferecidos pelas instituições credenciadas no Programa, seja presencial ou a distância;</li>
+                <li>Direcionamento para cursos on-line e presencial específicos para atender às principais necessidades do empreendedor.</li>
+            </ul>
+        </div>
+        <div class="col-12 my-4">
+            <p><b>Antes de começar o processo de Capacitação, veja a seguir o que você precisa:</b></p>
+            <p>Senha de acesso ao Portal de Serviços do Governo Federal - <a href="https://www.gov.br/governodigital/pt-br/conta-gov-br/conta-gov-br/">Plataforma  gov.br</a></p>
+            <ul>
+                <li>Se você já possui o cadastro, basta informar o CPF e a senha cadastrados;</li>
+                <li>Se ainda não possui, clique na opção Fazer Cadastro. Depois que finalizar, com a senha em mãos, acesse novamente o Portal do Empreendedor e clique no card Capacita;</li>
+                <li>    Escolha um dos cursos navegando pelos principais temas disponíveis: Empreendedorismo, Mercado e Vendas, Finanças, Inovação, Planejamento.</li>
+            </ul>
+        </div>
+    </div>
+     {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

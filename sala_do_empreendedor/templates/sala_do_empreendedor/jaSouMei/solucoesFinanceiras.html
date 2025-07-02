@@ -1,0 +1,59 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row mx-auto ps-4 pb-3">
+        <h3 class="text-center">Conheça o Programa de Simplificação do Acesso a Produtos e Serviços Financeiros para os Pequenos Negócios(CRED+)</h3>
+    </div>
+    <div class="row mx-auto mb-5">
+        <div class="col">
+            <p class="text-justify">
+                <b>Programa de Simplificação do Acesso a Produtos e Serviços Financeiros para os Pequenos Negócios (CRED+)</b>
+                <br>
+                Serviço que busca facilitar o acesso do Microempreendedor Individual e da Micro e Pequena Empresa a diversas soluções financeiras que ajudam sua empresa a crescer.
+            </p>
+            <p class="my-5">
+                <b>Algumas das soluções disponíveis são:</b>
+            </p>
+            <ul>
+                <li>Conta corrente de pessoa jurídica, onde você pode movimentar o dinheiro do seu negócio</li>
+                <li>Máquinas de débito e crédito, para facilitar a venda de produtos ou prestação de serviços</li>
+                <li>Antecipação de recebíveis, onde você recebe à vista os valores vendidos no crédito</li>
+                <li>Cartão de crédito ou débito empresarial</li>
+                <li>Crédito para comprar mercadorias, insumos ou matérias-primas</li>
+                <li>Crédito para comprar máquinas, equipamentos, móveis ou utensílios de produção</li>
+                <li>Crédito para ampliar o negócio</li>
+                <li>Crédito para comprar veículo (carro, moto, etc)</li>
+                <li>Seguros para proteger seu negócio ou sua família</li>
+                <li>Investimentos</li>
+            </ul>
+            <p>
+                Use este canal para criar solicitações de produtos e serviços financeiros. Estas solicitações são encaminhadas para as instituições escolhidas por você, 
+                juntamente com sua documentação, pessoal e empresarial. Este processo facilita o trâmite da sua solicitação e garante que você possa ter acesso a diversas 
+                soluções de maneira totalmente eletrônica.
+            </p>
+            <p class="my-4"><b>Passo a passo da solicitação</b></p>
+            <ul>
+                <li>Para acessar o Programa, clique no botão FAÇA SUA SOLICITAÇÃO, disponível nesta página. </li>
+                <li>O acesso ao serviço é realizado com uma conta de acesso único do governo (conta gov.br) - antigo Brasil Cidadão. Se você ainda não tem sua conta, 
+                    clique no botãobr
+                    <br>
+                    <a href="https://sso.acesso.gov.br/login?client_id=contas.acesso.gov.br&authorization_id=18a04849270">Criar Conta Gov.Br.</a>
+                </li>
+                <li>Revise seus dados cadastrais e preencha o formulário de solicitação. Tenha em mãos um documento de identidade, um comprovante de residência e a Declaração Anual do Simples 
+                    Nacional (DASN-SIMEI). Você precisará adicionar a cópia destes documentos na sua solicitação. </li>
+            </ul>
+        </div>
+    </div>
+     {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

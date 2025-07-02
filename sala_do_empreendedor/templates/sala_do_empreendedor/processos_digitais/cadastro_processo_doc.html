@@ -1,0 +1,156 @@
+{% extends 'template.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row  bg-white" style="border-radius: 30px;">
+      <div class="col">
+        <div class="pt-4 d-flex px-3">
+            <h2 style="display: inline;">Processo Digital</h2>                        
+              <a href="{% url 'empreendedor:listar_processos' %}" class="btn btn-dark ms-auto my-auto">
+                <i class="fa-solid fa-rotate-left"></i>
+              </a>                        
+            </div>
+            <div class="row">
+                <div class="col px-5 py-4 d-flex flex-column">
+                   <form method="POST" enctype="multipart/form-data">
+                    <h2 class="mb-4">REQUERIMENTO DE ISS</h2>
+                    <p class="mb-4 mt-2">
+                      Para darmos continuidade ao seu pedido, solicitamos que envie os documentos pertinentes à sua atividade. Caso haja alguma dúvida em relação aos documentos exigidos, não hesite em entrar em contato conosco.
+                    </p>
+                    <p class="alert-warning py-1 px-3 mb-3">
+                      <strong>O nome dos arquivos anexados não devem conter acentos, cedilha ou caracteres especiais. Exemplo: ç, á, é, ã, õ, ô, ì, ò, ë, ù, ï, ü, etc.</strong>
+                    </p>
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <p class="mb-3 ">Por favor, certifique-se de incluir todos os documentos necessários</p>
+                    <button class="btn btn-primary">
+                      Enviar requerimento
+                    </button>
+                   </form>
+                </div>
+            </div>
+      </div>
+    </div>
+</div>
+</div>
+<div class="row mx-auto px-5">
+  <script>
+  
+    function findParentDiv(element) {
+          var parent = element.parentNode;
+          
+          // Continue subindo na árvore DOM até encontrar um elemento <div>
+          while (parent && parent.nodeName !== 'DIV') {
+            parent = parent.parentNode;
+          }
+
+          return parent;
+    }
+    {% if not_diploma %}
+    const input_diploma = document.getElementById('id_diploma_ou_certificado')
+    const diplomaDiv = findParentDiv(input_diploma);
+    diplomaDiv.style.display = 'none';
+    {% endif %}
+    {% if requerimento.autonomo_localizado == 's'%}
+      {% if requerimento.profissao.licenca_sanitaria_com_alvara %}
+      {% else %}
+        {% if requerimento.profissao.licenca_sanitaria %}
+        {% else %}
+        const inputLimpezaCaixaDagua = document.getElementById('id_comprovante_limpeza_caixa_dagua')
+        const divLimpezaCaixaDagua = findParentDiv(inputLimpezaCaixaDagua);
+        divLimpezaCaixaDagua.style.display = 'none';
+
+        const inputArCondicionado = document.getElementById('id_comprovante_ar_condicionado')
+        const divArCondicionado = findParentDiv(inputArCondicionado);
+        divArCondicionado.style.display = 'none';
+
+        const inputPlanoResiduos = document.getElementById('id_plano_gerenciamento_de_residuos')
+        const divPlanoResiduos = findParentDiv(inputPlanoResiduos);
+        divPlanoResiduos.style.display = 'none';
+
+        const inputLicencaAnterior= document.getElementById('id_licenca_santinaria_anterior')
+        const divLicencaAnterior = findParentDiv(inputLicencaAnterior);
+        divLicencaAnterior.style.display = 'none';
+        {% endif %}
+      {% endif %}
+    {% else %}
+      const inputEspelhoIPTU = document.getElementById('id_espelho_iptu')
+      const espelhoIPTUDiv = findParentDiv(inputEspelhoIPTU);
+      espelhoIPTUDiv.style.display = 'none';
+      {% if requerimento.profissao.licenca_sanitaria %}
+      {% else %}
+        const inputLimpezaCaixaDagua = document.getElementById('id_comprovante_limpeza_caixa_dagua')
+        const divLimpezaCaixaDagua = findParentDiv(inputLimpezaCaixaDagua);
+        divLimpezaCaixaDagua.style.display = 'none';
+
+        const inputArCondicionado = document.getElementById('id_comprovante_ar_condicionado')
+        const divArCondicionado = findParentDiv(inputArCondicionado);
+        divArCondicionado.style.display = 'none';
+
+        const inputPlanoResiduos = document.getElementById('id_plano_gerenciamento_de_residuos')
+        const divPlanoResiduos = findParentDiv(inputPlanoResiduos);
+        divPlanoResiduos.style.display = 'none';
+
+        const inputLicencaAnterior= document.getElementById('id_licenca_santinaria_anterior')
+        const divLicencaAnterior = findParentDiv(inputLicencaAnterior);
+        divLicencaAnterior.style.display = 'none';
+      {% endif %}
+    {% endif %}
+    {% if requerimento.profissao.licenca_ambiental%}    
+    {% else %}
+    const inputLicencaAmbiental = document.getElementById('id_licenca_ambiental')
+    const licencaAmbientalDiv = findParentDiv(inputLicencaAmbiental);
+    licencaAmbientalDiv.style.display = 'none';
+
+    const inputContratoLocacao = document.getElementById('id_contrato_locacao')
+    const contratoLocacaolDiv = findParentDiv(inputContratoLocacao);
+    contratoLocacaolDiv.style.display = 'none';
+
+    const inputContaDagua = document.getElementById('id_conta_dagua')
+    const contaDaguaDiv = findParentDiv(inputContaDagua);
+    contaDaguaDiv.style.display = 'none';
+
+    const inputContaLuz = document.getElementById('id_conta_luz')
+    const contaLuzDiv = findParentDiv(inputContaLuz);
+    contaLuzDiv.style.display = 'none';
+
+    const inputFoto = document.getElementById('id_foto')
+    const fotoDiv = findParentDiv(inputFoto);
+    fotoDiv.style.display = 'none';
+
+    const inputCroquiAcesso = document.getElementById('id_croqui_acesso')
+    const croquiAcessoDiv = findParentDiv(inputCroquiAcesso);
+    croquiAcessoDiv.style.display = 'none';
+    {% endif %}
+  
+  </script>
+</div>
+
+<style>
+    .border{
+        border-color: rgba(146, 146, 146, 0.2) !important;
+    }
+    #filtros{
+        display: none;
+    }
+    label{
+      font-weight: bold;
+    }
+    #id_profissao label{
+      font-weight: normal;
+    }
+</style>
+
+</script>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

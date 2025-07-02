@@ -1,0 +1,239 @@
+{% extends 'template.html' %}
+{% load static %}
+{% load bootstrap5 %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row  bg-white" style="border-radius: 30px;">
+      <div class="col">
+        <div class="pt-4 d-flex px-3">
+            <h2 style="display: inline;">Administrativo - Processos Digitais</h2>                        
+              <a href="{% url 'empreendedor:admin' %}" class="btn btn-dark ms-auto my-auto">
+                <i class="fa-solid fa-rotate-left"></i>
+              </a>                        
+            </div>
+            <div class="row">
+                <div class="col">
+                  {% if messages %}
+                    {% for message in messages %}
+                      <div class="alert {{ message.tags }}">
+                        {{ message }}
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+            <div class="row">
+                <div class="col px-5 py-5 d-flex flex-column">
+                   <form method="POST" enctype="multipart/form-data">
+                    <h2 class="mb-4">REQUERIMENTO DE ISS</h2>
+                    {% csrf_token %}
+                    <div class="mb-3 ">
+                      <label class="form-label" for="id_rg">CPF do solicitante</label>
+                      <input class="form-control" type="search" onblur="buscarUser(this.value)" onkeydown="mascara(this, icpf)" name="cpf" id="id_cpf">
+                      <input type="hidden" name="id_user" value="">
+                    </div>
+                    <div class="mb-3 hidden" id="cpfNaoEncontrado">
+                      <span class="alert-danger py-2 px-4 ">
+                        Ninguém encontrado com esse CPF em nosso sistema.
+                      </span>
+                    </div>
+                    <div class="mb-3 hidden" id="cpfEncontrado">
+                      <label class="form-label" for="user">Nome do solicitante:</label>
+                      <input class="form-control" type="text" id="id_user" name="user" value="Eduardo Salarini" readonly>
+                    </div>
+                    {% bootstrap_form form %}
+                    <button class="btn btn-primary">
+                      Enviar requerimento
+                    </button>
+                   </form>
+                </div>
+            </div>
+      </div>
+    </div>
+</div>
+</div>
+<div class="row mx-auto px-5">
+  <script>
+    document.getElementById('empreendedor_admin').classList.add('s-nav-active');
+
+    let openfiltros = false
+    function showFiltros(){
+        if (openfiltros){      
+            document.getElementById('filtros').style.display='none'
+            openfiltros=false
+        }else{
+            document.getElementById('filtros').style.display='flex'
+            openfiltros=true
+        }
+    }
+
+    function icpf(v){
+                v=v.replace(/\D/g,"")                    //Remove tudo o que nao e digito
+                v=v.replace(/(\d{3})(\d)/,"$1.$2")       //Coloca um ponto entre o terceiro e o quarto digitos
+                v=v.replace(/(\d{3})(\d)/,"$1.$2")       //Coloca um ponto entre o terceiro e o quarto digitos
+                                                        //de novo (para o segundo bloco de numeros)
+                v=v.replace(/(\d{3})(\d{1,2})$/,"$1-$2") //Coloca um hifen entre o terceiro e o quarto digitos
+                return v
+            }
+  
+    function mascara(o,f){
+                v_obj=o
+                v_fun=f
+                setTimeout("execmascara()",1)
+            }
+        
+    function execmascara(){
+                v_obj.value=v_fun(v_obj.value)
+            }
+    
+    function buscarUser(cpf){
+            const csrfTokenInput = document.querySelector("input[name='csrfmiddlewaretoken']");
+            const csrfToken = csrfTokenInput.value;
+            let url = "{% url 'empreendedor:checkCPF' %}";
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ cpf: cpf })
+            })
+            .then((response)=>{
+                response.json()
+                .then((data)=>{
+                    const div_cpf = document.getElementById('cpfEncontrado')
+                    const div_alert = document.getElementById('cpfNaoEncontrado')
+                    const input_user = document.getElementById('id_user')
+                    if (data.exists) {                      
+                      div_cpf.classList.remove('hidden');
+                      div_alert.classList.add('hidden');
+                      input_user.value = data.nome;
+                    } else {                      
+                      div_alert.classList.remove('hidden');
+                      div_cpf.classList.add('hidden');
+                    }
+                })
+            })
+    }
+
+    function findParentDiv(element) {
+        var parent = element.parentNode;
+        
+        // Continue subindo na árvore DOM até encontrar um elemento <div>
+        while (parent && parent.nodeName !== 'DIV') {
+          parent = parent.parentNode;
+        }
+
+        return parent;      
+    }
+
+    const input_diploma = document.getElementById('id_diploma_ou_certificado')
+    const diplomaDiv = findParentDiv(input_diploma);
+    diplomaDiv.style.display = 'none';
+    const input_espelho_iptu = document.getElementById('id_espelho_iptu')
+    const espelhoDiv = findParentDiv(input_espelho_iptu);
+    espelhoDiv.style.display = 'none';
+    const input_licenca_sanitaria = document.getElementById('id_licenca_sanitaria')
+    const licenca_sanitariaDiv = findParentDiv(input_licenca_sanitaria);
+    licenca_sanitariaDiv.style.display = 'none';
+    const input_licenca_ambiental = document.getElementById('id_licenca_ambiental')
+    const licenca_ambientalDiv = findParentDiv(input_licenca_ambiental);
+    licenca_ambientalDiv.style.display = 'none';
+
+    function verificarSelecaoAutonomo() {
+      const selectAutonomo = document.getElementById('id_autonomo_localizado');
+      var selectedOption = selectAutonomo.value;
+      // Verifica se a opção selecionada é 's' (Sim) ou 'n' (Não)
+      if (selectedOption === 's') {        
+        espelhoDiv.style.display = 'block';
+      }else{
+        espelhoDiv.style.display = 'none';
+      }
+    }
+
+    // Adiciona um ouvinte de evento ao elemento select
+    const selectAutonomo = document.getElementById('id_autonomo_localizado');
+    selectAutonomo.addEventListener('change', verificarSelecaoAutonomo);
+
+    
+    function checkProfissao(id){
+            const csrfTokenInput = document.querySelector("input[name='csrfmiddlewaretoken']");
+            const csrfToken = csrfTokenInput.value;
+            let url = "{% url 'empreendedor:checkProfissao' %}";
+            fetch(url,{
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: id })
+            })
+            .then((response)=>{
+                response.json()
+                .then((data)=>{                    
+                    if (data.exists) {  
+                      if (data.diploma) {
+                        diplomaDiv.style.display = 'block';
+                      } else {
+                        diplomaDiv.style.display = 'none';
+                      }     
+                      if (data.licenca_sanitaria) {
+                        licenca_sanitariaDiv.style.display = 'block';
+                      } else {
+                        licenca_sanitariaDiv.style.display = 'none';
+                      }          
+                      if (data.licenca_ambiental) {
+                        licenca_ambientalDiv.style.display = 'block';
+                      } else {
+                        licenca_ambientalDiv.style.display = 'none';
+                      }                    
+                    } else {                      
+                      diplomaDiv.style.display = 'none';
+                    }
+                })
+            })
+    }
+    // Obtém todos os elementos de rádio com o nome "profissao"
+    const radioProfissao = document.getElementsByName('profissao');
+
+    // Adiciona um ouvinte de evento para cada elemento de rádio
+    radioProfissao.forEach(function(radio) {
+      radio.addEventListener('change', function() {
+        if (this.checked) {
+          checkProfissao(this.value);
+        }
+      });
+    });
+  </script>
+</div>
+
+<style>
+    .border{
+        border-color: rgba(146, 146, 146, 0.2) !important;
+    }
+    #filtros{
+        display: none;
+    }
+    .hidden {
+      display: none;
+    }
+    label{
+      font-weight: bold;
+    }
+    #id_profissao label{
+      font-weight: normal;
+    }
+</style>
+
+</script>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

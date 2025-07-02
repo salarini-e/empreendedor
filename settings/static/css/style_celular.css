@@ -1,0 +1,139 @@
+html {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+body {
+    background: #0D578E;
+    color: #fff;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+.senhas-chamadas{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.logos{
+    margin-bottom: 30px;
+}
+.metade_1 {
+    width: 50vw;
+    margin-top: 30px;
+}
+
+.metade_2{
+    width: 45vw;
+}
+
+.ordem {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    color: black;
+    border-radius: 30px;
+    margin: auto 20px;
+    /* padding-top: 20px;    */
+    height: 64vh;
+}
+
+
+h2 {
+    width: 100%;
+    text-align: center;
+    font-size: 80px;
+    line-height: 0px;
+}
+
+.pessoas{
+    text-align: center;
+}
+
+.numero {
+    width: 100%;
+    text-align: center;
+    font-size: 300px;
+    margin-top: auto;
+    margin-bottom:  30px;
+}
+label{
+    font-size: 2vh;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    width: 90%;
+}
+.form-control{
+    width: 90%;
+    height: 50px;
+    border-radius: 8px;
+    margin: 10px 0;
+    /* padding-left: 20px; */
+}
+.btn{
+    width: 90%;
+    height: 50px;
+    border-radius: 8px;
+    margin: 10px 0;
+    background-color: #0d568e00;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.btn-primary{
+    background-color: #0D578E;
+    color: white;
+    font-size: 20px;
+    box-shadow: none;
+    border-color: #0D578E;
+
+}
+.btn-primary:hover{
+    background-color: #3a75a1;
+    color: white;
+    box-shadow: none;
+    border-color: #3a75a1;
+}
+.btn-primary:focus{
+    background-color: #0D578E;
+    color: white;
+    box-shadow: none;
+    border-color: #0D578E;;
+}
+.d-flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.flex-column{
+    flex-direction: column;
+}
+h1{
+    text-align: center;
+    font-size: 3vh;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+}
+.text-left{
+    text-align: left;
+}
+
+.my-auto{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.alert-danger{
+    width: 90%;
+    padding: 2px;
+    color: #f30f22;
+    font-family: 'Roboto', sans-serif;
+}
+
+.img-fluid{
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}

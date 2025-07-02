@@ -1,0 +1,26 @@
+Assunto: {{ subject }}
+
+Olá {{ user.first_name }},
+
+Seu novo processo na Sala do Empreendedor foi criado com sucesso!
+
+Detalhes do processo:
+---------------------
+Número do protocolo: {{ processo.n_protocolo }}
+Tipo de processo: {{ processo.tipo_processo }}
+Status do processo: {{ processo.get_status_display }}
+Data de solicitação: {{ processo.dt_solicitacao }}
+
+
+Histórico do processo:
+----------------------
+Data da solicitação: {{ historico.dt_andamento }}
+Status atual: {{ historico.get_status_display }}
+{% if msg %}Observação: {{ msg }}{% endif %}
+
+
+Para ver seus processos acesse: {{protocol}}://{{domain}}/sala-do-empreendedor/consultar-processos/desenvolve/
+Para acompanhar seu processo com detalhes, acesse o seguinte link: {{ protocol }}://{{ domain }}/sala-do-empreendedor/processos-digitais/{{ processo.n_protocolo }}
+
+Atenciosamente,
+Equipe Desenvolve NF

@@ -1,0 +1,521 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<style>
+  /* Minha Empresa - Nova Identidade Visual */
+  :root {
+    --empresa-primary: #667eea;
+    --empresa-secondary: #764ba2;
+    --empresa-accent: #f093fb;
+    --empresa-success: #4ecdc4;
+    --empresa-warning: #ffa726;
+    --empresa-danger: #ff6b6b;
+  }
+  
+  .empresa-hero {
+    background: linear-gradient(135deg, var(--empresa-primary), var(--empresa-secondary));
+    color: white;
+    padding: 60px 0;
+    margin-bottom: 60px;
+    border-radius: 0 0 50px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .empresa-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill-opacity='0.1'%3E%3Cpolygon fill='%23fff' points='50 0 60 40 100 50 60 60 50 100 40 60 0 50 40 40'/%3E%3C/g%3E%3C/svg%3E") center/60px;
+  }
+  
+  .hero-content-empresa {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  
+  .section-title-empresa {
+    font-family: var(--font-secondary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .section-title-empresa::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--empresa-accent);
+    border-radius: 2px;
+  }
+  
+  .empresa-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: none;
+    margin-bottom: 2rem;
+  }
+  
+  .empresa-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 60px rgba(102, 126, 234, 0.2);
+  }
+  
+  .empresa-table {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border: none;
+  }
+  
+  .table-modern {
+    margin: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+  
+  .table-modern thead th {
+    background: linear-gradient(135deg, var(--empresa-primary), var(--empresa-secondary));
+    color: white;
+    font-weight: 600;
+    padding: 1.5rem 1rem;
+    border: none;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .table-modern thead th:first-child {
+    border-top-left-radius: 20px;
+  }
+  
+  .table-modern thead th:last-child {
+    border-top-right-radius: 20px;
+  }
+  
+  .table-modern tbody td {
+    padding: 1.5rem 1rem;
+    border: none;
+    border-bottom: 1px solid var(--gray-200);
+    vertical-align: middle;
+  }
+  
+  .table-modern tbody tr:hover {
+    background-color: var(--gray-100);
+  }
+  
+  .empresa-status {
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .status-ativa {
+    background: linear-gradient(135deg, var(--empresa-success), #26a69a);
+    color: white;
+  }
+  
+  .status-inativa {
+    background: linear-gradient(135deg, var(--empresa-danger), #c0392b);
+    color: white;
+  }
+  
+  .status-pendente {
+    background: linear-gradient(135deg, var(--empresa-warning), #f39c12);
+    color: white;
+  }
+  
+  .empresa-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .btn-action {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: white;
+    text-decoration: none;
+  }
+  
+  .btn-edit {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+  }
+  
+  .btn-edit:hover {
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    transform: translateY(-2px);
+    color: white;
+  }
+  
+  .btn-view {
+    background: linear-gradient(135deg, var(--empresa-success), #26a69a);
+  }
+  
+  .btn-view:hover {
+    background: linear-gradient(135deg, #26a69a, var(--empresa-success));
+    transform: translateY(-2px);
+    color: white;
+  }
+  
+  .btn-delete {
+    background: linear-gradient(135deg, var(--empresa-danger), #c0392b);
+  }
+  
+  .btn-delete:hover {
+    background: linear-gradient(135deg, #c0392b, var(--empresa-danger));
+    transform: translateY(-2px);
+    color: white;
+  }
+  
+  .add-empresa-btn {
+    background: linear-gradient(135deg, var(--empresa-primary), var(--empresa-secondary));
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .add-empresa-btn:hover {
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+  }
+  
+  .empresa-info-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+  }
+  
+  .empresa-metric {
+    text-align: center;
+    padding: 1.5rem;
+  }
+  
+  .metric-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--empresa-primary), var(--empresa-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+  
+  .metric-label {
+    color: var(--gray-600);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--gray-600);
+  }
+  
+  .empty-state i {
+    font-size: 4rem;
+    color: var(--gray-400);
+    margin-bottom: 1rem;
+  }
+  
+  .vitrine-toggle {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+  }
+  
+  .vitrine-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .vitrine-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--gray-400);
+    transition: 0.4s;
+    border-radius: 25px;
+  }
+  
+  .vitrine-slider:before {
+    position: absolute;
+    content: "";
+    height: 19px;
+    width: 19px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .vitrine-slider {
+    background: linear-gradient(135deg, var(--empresa-success), #26a69a);
+  }
+  
+  input:checked + .vitrine-slider:before {
+    transform: translateX(25px);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .section-title-empresa {
+      font-size: 2rem;
+    }
+    
+    .empresa-hero {
+      padding: 40px 0;
+    }
+    
+    .table-responsive {
+      border-radius: 20px;
+    }
+    
+    .table-modern thead th,
+    .table-modern tbody td {
+      padding: 1rem 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .empresa-actions {
+      flex-direction: column;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block main %}
+<!-- Hero Section -->
+<section class="empresa-hero">
+  <div class="container">
+    <div class="hero-content-empresa" data-aos="fade-up">
+      <h1 class="section-title-empresa">Minha Empresa</h1>
+      <p class="lead">Gerencie suas empresas e acesse serviços exclusivos da Prefeitura</p>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <!-- Alert Messages -->
+  {% if messages %}
+  <div class="row" data-aos="fade-up">
+    <div class="col">
+      {% for message in messages %}
+        <div class="alert alert-modern alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Quick Stats -->
+  <div class="row g-4 mb-4" data-aos="fade-up">
+    <div class="col-md-3 col-6">
+      <div class="empresa-info-card">
+        <div class="empresa-metric">
+          <div class="metric-number">{{ empresas|length }}</div>
+          <div class="metric-label">Empresas Cadastradas</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-6">
+      <div class="empresa-info-card">
+        <div class="empresa-metric">
+          <div class="metric-number">3</div>
+          <div class="metric-label">Serviços Ativos</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-6">
+      <div class="empresa-info-card">
+        <div class="empresa-metric">
+          <div class="metric-number">95%</div>
+          <div class="metric-label">Conformidade</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-6">
+      <div class="empresa-info-card">
+        <div class="empresa-metric">
+          <div class="metric-number">24h</div>
+          <div class="metric-label">Suporte</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add New Company Button -->
+  <div class="row" data-aos="fade-up">
+    <div class="col">
+      <a href="{% url 'empreendedor:cadastro_empresa' %}" class="add-empresa-btn">
+        <i class="fas fa-plus"></i>
+        Cadastrar Nova Empresa
+      </a>
+    </div>
+  </div>
+
+  <!-- Companies Table -->
+  {% if empresas %}
+  <div class="empresa-table" data-aos="fade-up">
+    <div class="table-responsive">
+      <table class="table table-modern">
+        <thead>
+          <tr>
+            <th><i class="fas fa-building me-2"></i>CNPJ</th>
+            <th><i class="fas fa-tag me-2"></i>Nome da Empresa</th>
+            <th><i class="fas fa-chart-bar me-2"></i>Porte</th>
+            <th><i class="fas fa-store me-2"></i>Vitrine Virtual</th>
+            <th><i class="fas fa-traffic-light me-2"></i>Status</th>
+            <th class="text-center"><i class="fas fa-cogs me-2"></i>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for empresa in empresas %}
+          <tr>
+            <td>
+              <strong>{{ empresa.cnpj }}</strong>
+            </td>
+            <td>
+              <div>
+                <strong>{{ empresa.nome }}</strong>
+                {% if empresa.nome_fantasia %}
+                <br><small class="text-muted">{{ empresa.nome_fantasia }}</small>
+                {% endif %}
+              </div>
+            </td>
+            <td>
+              <span class="empresa-status status-ativa">{{ empresa.get_porte_display|default:"Não informado" }}</span>
+            </td>
+            <td>
+              <label class="vitrine-toggle">
+                <input type="checkbox" {% if empresa.vitrine_ativa %}checked{% endif %}>
+                <span class="vitrine-slider"></span>
+              </label>
+            </td>
+            <td>
+              <span class="empresa-status status-ativa">Ativa</span>
+            </td>
+            <td>
+              <div class="empresa-actions justify-content-center">
+                <a href="{% url 'empreendedor:editar_empresa' empresa.id %}" class="btn-action btn-edit" title="Editar">
+                  <i class="fas fa-edit"></i>
+                </a>
+                <a href="#" class="btn-action btn-view" title="Visualizar">
+                  <i class="fas fa-eye"></i>
+                </a>
+                <a href="#" class="btn-action btn-delete" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir esta empresa?')">
+                  <i class="fas fa-trash"></i>
+                </a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% else %}
+  <!-- Empty State -->
+  <div class="empresa-info-card" data-aos="fade-up">
+    <div class="empty-state">
+      <i class="fas fa-building"></i>
+      <h3>Nenhuma empresa cadastrada</h3>
+      <p>Cadastre sua primeira empresa para acessar todos os serviços disponíveis.</p>
+      <a href="{% url 'empreendedor:cadastro_empresa' %}" class="add-empresa-btn">
+        <i class="fas fa-plus"></i>
+        Cadastrar Primeira Empresa
+      </a>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Services Section -->
+  <div class="row mt-5" data-aos="fade-up">
+    <div class="col">
+      <div class="empresa-info-card">
+        <h3 class="mb-4">Serviços Disponíveis para suas Empresas</h3>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="d-flex align-items-center p-3 bg-light rounded">
+              <i class="fas fa-certificate text-primary me-3" style="font-size: 2rem;"></i>
+              <div>
+                <h6 class="mb-1">Certidões Online</h6>
+                <small class="text-muted">Emita certidões de forma rápida</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="d-flex align-items-center p-3 bg-light rounded">
+              <i class="fas fa-file-invoice text-success me-3" style="font-size: 2rem;"></i>
+              <div>
+                <h6 class="mb-1">Nota Fiscal Eletrônica</h6>
+                <small class="text-muted">Gestão completa de NFE</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="d-flex align-items-center p-3 bg-light rounded">
+              <i class="fas fa-store text-warning me-3" style="font-size: 2rem;"></i>
+              <div>
+                <h6 class="mb-1">Vitrine Virtual</h6>
+                <small class="text-muted">Promova sua empresa online</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% include 'instagram_desenvolve.html' %}
+{% endblock %}

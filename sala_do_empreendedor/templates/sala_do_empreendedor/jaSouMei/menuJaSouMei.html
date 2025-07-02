@@ -1,0 +1,148 @@
+<div class="container">
+  <style>
+    .item {
+      margin: auto !important;
+    }
+  </style>
+  <div class="d-flex flex-wrap justify-content-center">
+    <div class="row mx-auto">
+      <div class="d-flex flex-wrap justify-content-center">
+        <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
+          <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:emissaoDeComprovante' %}">
+            <div class="d-flex flex-column w-100 h-100">
+              <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
+              <span class="mx-auto mb-auto mt-2 px-5">EMISSÃO DE COMPROVANTE (CCMEI)</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-auto">
+      <div class="d-flex flex-wrap justify-content-center">
+        <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
+          <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:atualizacaoCadastral' %}">
+            <div class="d-flex flex-column w-100 h-100">
+              <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
+              <span class="mx-auto mb-auto mt-2 px-5">Atualização Cadastral</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
+      <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:jornada_empreendedora' %}">
+        <div class="d-flex flex-column w-100 h-100" >
+          <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
+          <span class="mx-auto mb-auto mt-2 px-5">Jornada Empreendedora</span>
+        </div>
+      </a> 
+    </div>
+    <div class="row mx-auto">
+      <div class="d-flex flex-wrap justify-content-center">
+        <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
+          <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:capacita' %}">
+            <div class="d-flex flex-column w-100 h-100">
+              <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
+              <span class="mx-auto mb-auto mt-2 px-5">Capacita</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-auto">
+      <div class="d-flex flex-wrap justify-content-center">
+        <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
+          <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:notaFiscal' %}">
+            <div class="d-flex flex-column w-100 h-100">
+              <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
+              <span class="mx-auto mb-auto mt-2 px-5">Nota Fiscal</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-auto">
+      <div class="d-flex flex-wrap justify-content-center">
+        <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
+          <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:relatorioMensal' %}">
+            <div class="d-flex flex-column w-100 h-100">
+              <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
+              <span class="mx-auto mb-auto mt-2 px-5">Relatório Mensal</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-auto">
+      <div class="d-flex flex-wrap justify-content-center">
+        <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
+          <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:pagamentoDeContribuicaoMensal' %}">
+            <div class="d-flex flex-column w-100 h-100">
+              <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
+              <span class="mx-auto mb-auto mt-2 px-5">Pagamento de Contribuição Mensal e Parcelamentos</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-auto">
+      <div class="d-flex flex-wrap justify-content-center">
+        <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
+          <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:solucoesFinanceiras' %}">
+            <div class="d-flex flex-column w-100 h-100">
+              <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
+              <span class="mx-auto mb-auto mt-2 px-5">Soluções Financeiras para o seu Negócio(CRED+)</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-auto">
+      <div class="d-flex flex-wrap justify-content-center">
+        <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
+          <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:certidoesEComprovantes' %}">
+            <div class="d-flex flex-column w-100 h-100">
+              <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
+              <span class="mx-auto mb-auto mt-2 px-5">Certidões e Comprovantes</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-auto">
+      <div class="d-flex flex-wrap justify-content-center">
+        <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
+          <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:declaracaoAnualDeFaturamento' %}">
+            <div class="d-flex flex-column w-100 h-100">
+              <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
+              <span class="mx-auto mb-auto mt-2 px-5">Declaração Anual de Faturamento - DASN</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-auto">
+      <div class="d-flex flex-wrap justify-content-center">
+        <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
+          <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:dispensaDeAlvara' %}">
+            <div class="d-flex flex-column w-100 h-100">
+              <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
+              <span class="mx-auto mb-auto mt-2 px-5">Dispensa de alvará e licença</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  span {
+    text-align: center;
+  }
+</style>
+<div class="row mx-auto px-5">
+  <script>
+      // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
+  </script>
+</div>
+</div>

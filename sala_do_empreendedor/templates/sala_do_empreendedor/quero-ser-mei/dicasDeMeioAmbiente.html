@@ -1,0 +1,58 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/quero-ser-mei.css'%}">
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row mx-auto ps-4 pb-3">
+        <h3 class="text-center">Dicas de Meio Ambiente</h3>
+    </div>
+    <div class="row mx-auto mb-5">
+        <div class="col">
+            <p style="text-align: justify;">Antes de iniciar sua atividade, verifique se é necessária obtenção de algum tipo de licença ambiental, junto ao Órgão de Meio Ambiente 
+                do seu Estado, Município ou do Distrito Federal.<br>
+
+                Caso seja necessária, verifique se há obrigação de inscrição no Cadastro Técnico Federal de Atividades Potencialmente Poluidoras ou Utilizadoras de Recursos 
+                Ambientais (CTF/APP) do Ibama. Para isso, consulte o passo a passo do enquadramento de pessoa jurídica no CTF/APP, no site do Ibama.<br>
+
+                Verifique se existem outras obrigações ambientais relacionadas a sua atividade, como a entrega do Relatório Anual de Atividades Potencialmente Poluidoras 
+                ou Utilizadoras de Recursos Ambientais (RAPP) e pagamento da Taxa de Controle e Fiscalização Ambiental (TCFA).<br>
+
+                Verifique se existem outras obrigações ambientais relacionadas a sua atividade, como a entrega do Relatório Anual de Atividades Potencialmente Poluidoras 
+                ou Utilizadoras de Recursos Ambientais (RAPP) e pagamento da Taxa de Controle e Fiscalização Ambiental (TCFA).<br>
+            </p>
+            <ul>
+                <li><a style="color: #0d6efd;" href="https://www.ibama.gov.br/cadastro-tecnico-federal-ctf">
+                    Cadastro Técnico Federal de Atividades Potencialmente Poluidoras ou Utilizadoras de Recursos Ambientais (CTF/APP)
+                </a></li>
+                <li><a style="color: #0d6efd;" href="https://www.gov.br/ibama/pt-br/servicos/relatorios/atividades-poluidoras">
+                    Relatório Anual de Atividades Potencialmente Poluidoras ou Utilizadoras de Recursos Ambientais (RAPP)
+                </a></li>
+                <li><a style="color: #0d6efd;" href="https://www.gov.br/ibama/pt-br/servicos/taxas/tcfa/sobre-a-tcfa">
+                    Taxa de Controle e Fiscalização Ambiental (TCFA)
+                </a></li>
+            </ul>
+            <hr>
+        </div>
+    </div>
+    {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
+    <style>
+        span {
+            text-align: center;
+        }
+    </style>
+    <div class="row mx-auto px-5">
+        <script>
+    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
+        </script>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}x

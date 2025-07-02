@@ -1,0 +1,119 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+{% endblock %}
+{% block main %}
+<div class="row mx-auto pb-3">
+  <style>
+      body {
+          background-color: #f4f4f4;
+          font-family: Arial, sans-serif;
+          text-align: center;
+      }
+
+      .construction-icon {
+          font-size: 48px;
+          color: #e74c3c;
+      }
+
+      .message {
+          font-size: 24px;
+          margin-top: 20px;
+          color: #333;
+      }
+
+      .contact {
+          font-size: 18px;
+          margin-top: 20px;
+          color: #666;
+      }
+      #corpo p{
+        text-align: justify;
+        text-indent: 40px;
+        margin-bottom: 10px;
+      }
+      #corpo ul, li{
+        text-align: justify;
+      }
+      #corpo td{
+        text-align: justify;
+      }
+      #corpo ul{
+        margin-top: 15px;
+        margin-bottom: 25px;
+      }
+  </style>
+
+  <div id="corpo" class="col-10 mx-auto py-5 d-flex flex-column">
+    <h2 class="mb-3">
+      OPORTUNIDADE DE NEGÓCIOS
+    </h2>
+    <p>Quando se busca um investimento, é muito importante que seja feito um detalhado estudo de mercado para que se possa avaliar a real necessidade daquele produto ou serviço que se pretende oferecer. A partir deste estudo, o investidor consegue enxergar as reais oportunidades que a região oferece e assim, aumentar as chances de sucesso em seu empreendimento.</p>
+
+    <p>Para auxiliar os que querem ampliar seus negócios ou abrir uma nova empresa em Nova Friburgo, estamos apresentando alguns dados que podem embasar o estudo preliminar para o melhor direcionamento do investimento.</p>
+
+    <div class="row my-4">
+      <div class="col">
+        <img src="{% static 'images/empresa-por-porte.jpg' %}" class="img-fluid" alt="empresas por porte">
+      </div>
+      <div class="col">
+        <img src="{% static 'images/empregos-por-porte.jpg' %}" class="img-fluid" alt="empregos por porte">
+      </div>
+    </div>
+
+    <p>Para este estudo, que também vem direcionando a capacitação técnica de profissionais para a cidade, contamos com a colaboração valiosa do Conselho de Ciência, Tecnologia e Inovação de Nova Friburgo.</p>
+
+    <p>Num primeiro momento foi realizada uma análise de mercado por Seção CNAE e Classe CNAE para entender com mais detalhes a economia friburguense, contando com ferramentas para visualização de dados para número de empregos, tamanho de mercado e espaço de crescimento de produtividade.</p>
+
+    <p>Uma ferramenta de visualização de dados que se destaca é o Índice de Educação Produtiva que apresenta de forma sintetizada e balanceada as principais informações obtidas sobre as Classes CNAE.</p>
+
+    <p>Entre um total de 21 Seções CNAE, 5 Seções CNAE de Nova Friburgo representam 80% do pessoal ocupado e do tamanho estimado de mercado para o município, sendo elas:</p>
+
+    <ul>
+        <li>Administração pública, defesa e seguridade social</li>
+        <li>Comércio; reparação de veículos automotores e motocicletas</li>
+        <li>Indústrias de transformação</li>
+        <li>Transporte, armazenagem e correio</li>
+        <li>Atividades administrativas e serviços complementares</li>
+    </ul>
+
+    <p>Entre um total de 673 Classes CNAE, 20 Classes CNAE de Nova Friburgo representam 50% dos CNPJs, do pessoal ocupado e do tamanho estimado de mercado para o município. Essas 20 Classes CNAE podem ser vistas detalhadamente em Dados por Classes CNAE, classificadas em ordem decrescente a partir do Índice de Educação Produtiva.</p>
+
+    <table class="table text-justify">
+        <tr>
+            <th>CNAE</th>
+            <th>CNPJs</th>
+            <th>Í.E. Produtiva</th>
+            <th>Tamanho Estimado Mercado</th>
+        </tr>
+        <tr>
+            <td>Cabelereiro / tratamento beleza</td>
+            <td>1600</td>
+            <td>51%</td>
+            <td>4,2 milhões</td>
+        </tr>
+        <tr>
+            <td>Comércio varejista de artigos do vestuário e acessórios. Comércio; reparação de <br>veículos automotores e motocicletas. Índice de Educação Produtiva</td>
+            <td>3000</td>
+            <td>46%</td>
+            <td>141,5 milhões</td>
+        </tr>
+        <!-- Adicione mais linhas conforme necessário -->
+    </table>
+  </div>
+  <div class="row mx-auto px-5">
+    <script>
+      document.getElementById('empreendedor_servicos').classList.add('s-nav-active');
+    </script>
+  </div>
+</div>
+
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}x

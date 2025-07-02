@@ -1,0 +1,119 @@
+{% extends 'template.html' %}
+{% load bootstrap5 %}
+{% load static%}
+{% block title %}BEM VINDO - CURSOS LIVRES{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/cursos.css' %}">
+
+{% endblock %}
+{% block index %}active{% endblock %}
+{% block main %}
+<div class="row">
+    <div class="col d-flex py-5"> 
+        <div class="row w-100">
+            <div class="col-10 pb-4 m-auto bg-white">
+                <div class="row py-3 px-4">
+                    <div class="col bg p-5">
+                        <h1 class="display-4 text-center">LISTA DE CANDIDATOS</h1>
+                    </div>
+                </div>              
+                <div class="row">
+                  <div class="col px-4 d-flex">
+                    <a href="{% url 'cursos' %}" class="ms-auto btn btn-dark">
+                      Voltar
+                    </a>
+                  </div>
+                </div> 
+                <div class="row">
+                    <div class="col text-dark px-4 pt-4">
+                        <h1 class="text-uppercase text-center">
+                          {{curso}} - Candidatos
+                        </h1>
+                        <div class="row px-4 pt-5 d-flex">
+                          <div class="2-100 d-flex">                            
+                            <select oninput="acao(this)" name="" id="" class="ms-auto me-2 form-select" style="width: 300px">
+                              <option value="0"></option>
+                              <option value="1">Selecionar candidatos</option>
+                              <option value="2">Limpar dados sensiveis</option>
+                              <option value="3">Apagar candidatos</option>
+                            </select>
+                            <button class="btn btn-outline-dark px-3">Ir</button>
+                          </div>
+                            <table class="mt-3 table ">
+                              <thead>
+                                <th><input type="checkbox" onclick="checkAll()"></th>
+                                <th>Nome</th>
+                                <th>Dt. Nascimento</th>
+                                <th>Email</th>
+                                <th>Celular</th>
+                              </thead>
+                              <tbody>
+                                {% for i in candidatos %}
+                                <tr>
+                                  <td><input type="checkbox" oninput="selectCandidato(this)" name="{{i.id}}" id="{{i.id}}"></td>
+                                  <td>{{i.nome}}</td>
+                                  <td>{{i.dt_nascimento}}</td>                                
+                                  <td>{{i.email}}</td>
+                                  <td>{{i.celular}}</td>
+                                </tr>
+                              {% endfor %}
+                              </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</div>
+
+  <script>
+    candidatosSelect=[]
+    opcao=''
+
+    function acao(event){
+      opcao=event.value
+      console.log(opcao)
+    }
+    function selectCandidato(event){
+      if(event.checked){
+        nTemOValor=true
+        for(i in candidatosSelect){
+          if(candidatosSelect[i]==event.name){
+            nTemOValor=false
+          }
+        }        
+        if(nTemOValor){
+          candidatosSelect.push(event.name)
+        }        
+      }else{
+        candidatosSelect = candidatosSelect.filter(data => data != event.name);
+      }      
+      console.log(candidatosSelect)
+    }
+
+    function checkAll(){
+      inputs=document.getElementsByTagName('input')
+      for(i in inputs){        
+        if(inputs[0].checked){        
+          if(i!=0 && i!='length' && i!='item' && i!='namedItem'){
+            
+            inputs[i].checked=true
+
+            var event = new Event('change');
+            inputs[i].dispatchEvent(event);
+            
+          }
+        }else{
+          if(i!=0 && i!='length' && i!='item' && i!='namedItem'){
+            
+            inputs[i].checked=false
+
+            candidatosSelect=[]
+
+          }
+        }        
+      }
+    }
+  </script>
+{% endblock %}
