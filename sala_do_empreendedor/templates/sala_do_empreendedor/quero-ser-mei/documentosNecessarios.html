@@ -1,53 +1,376 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
-{% block nav %}
-{% include 'nav_empreendedor.html' %}
-{% endblock %}
+
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/quero-ser-mei.css'%}">
-<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+<style>
+  /* Documentos Necessários - Design System Moderno */
+  :root {
+    --mei-primary: #0051A4;
+    --mei-primary-dark: #003a7a;
+    --mei-secondary: #218A39;
+    --mei-accent: #D2B336;
+    --mei-info: #17a2b8;
+  }
+  
+  .mei-hero {
+    background: linear-gradient(135deg, var(--mei-secondary) 0%, var(--mei-primary) 100%);
+    background-image: 
+      linear-gradient(rgba(33, 138, 57, 0.9), rgba(0, 81, 164, 0.8)),
+      url('/static/images/bg-mei-docs.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 80px 0 60px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(33, 138, 57, 0.2);
+  }
+  
+  .hero-content-mei {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  
+  .section-title-mei {
+    font-family: var(--font-secondary);
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    line-height: 1.2;
+  }
+  
+  .section-title-mei::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: var(--mei-accent);
+    border-radius: 2px;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    font-weight: 300;
+  }
+  
+  .intro-box {
+    background: linear-gradient(135deg, var(--mei-accent), #f4d03f);
+    color: var(--dark-color);
+    border-radius: 20px;
+    padding: 2.5rem;
+    margin: 3rem 0;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(210, 179, 54, 0.3);
+  }
+  
+  .intro-box h3 {
+    font-family: var(--font-secondary);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .intro-box p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+  
+  .docs-section {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    margin: 3rem 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  
+  .docs-title {
+    font-family: var(--font-secondary);
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--mei-primary);
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+  
+  .doc-card {
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    border-radius: 15px;
+    padding: 2rem;
+    border-left: 5px solid var(--mei-secondary);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .doc-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(33, 138, 57, 0.15);
+  }
+  
+  .doc-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .doc-icon {
+    font-size: 2rem;
+    color: var(--mei-secondary);
+  }
+  
+  .doc-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--mei-primary);
+    margin: 0;
+    font-family: var(--font-secondary);
+  }
+  
+  .doc-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--gray-700);
+  }
+  
+  .obs-section {
+    background: linear-gradient(135deg, #e7f3ff, #f0f8ff);
+    border-left: 5px solid var(--mei-info);
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 3rem 0;
+    box-shadow: 0 5px 15px rgba(23, 162, 184, 0.1);
+  }
+  
+  .obs-title {
+    font-family: var(--font-secondary);
+    font-weight: 600;
+    color: var(--mei-info);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+  }
+  
+  .obs-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .obs-list li {
+    padding: 0.5rem 0;
+    position: relative;
+    padding-left: 2rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--gray-700);
+  }
+  
+  .obs-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--mei-info);
+  }
+  
+  .nested-list {
+    margin-top: 1rem;
+    padding-left: 2rem;
+  }
+  
+  .nested-list li {
+    padding-left: 1.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .link-highlight {
+    color: var(--mei-secondary);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  .link-highlight:hover {
+    color: var(--mei-primary);
+    text-decoration: underline;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .section-title-mei {
+      font-size: 2.2rem;
+    }
+    
+    .mei-hero {
+      padding: 60px 0 40px 0;
+    }
+    
+    .docs-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .docs-section {
+      padding: 2rem 1.5rem;
+    }
+    
+    .doc-card {
+      padding: 1.5rem;
+    }
+  }
+</style>
 {% endblock %}
+
 {% block main %}
-<div class="container">
-    <div class="row mx-auto ps-4 pb-3">
-        <h3 class="text-center">Documentos Necessários para se Formalizar</h3>
+<!-- Hero Section -->
+<section class="mei-hero">
+  <div class="container">
+    <div class="hero-content-mei" data-aos="fade-up">
+      <h1 class="section-title-mei">Documentos Necessários</h1>
+      <p class="hero-subtitle">Tudo o que você precisa ter em mãos para se formalizar como MEI</p>
     </div>
-    <div class="row mx-auto mb-5">
-        <div class="col">
-            <div class="bg-secundary">
-                <p class="my-3"><b>
-                    Antes de começar o processo de formalização, veja a seguir os documentos que você precisa ter em
-                    mãos e o passo a passo deste processo.</b>
-                </p>
-            </div>
+  </div>
+</section>
 
-            <ul>
-                <li><b>Dados pessoais:</b> RG, dados de contato e endereço residencial.</li>
-                <li><b>Dados do seu negócio:</b> tipo de ocupação, forma de atuação e local onde o negócio é realizado.
-                </li>
-                <li>Senha de acesso ao Portal de Serviços do Governo Federal - <a
-                        href="https://www.gov.br/governodigital/pt-br/conta-gov-br/conta-gov-br/">Plataforma gov.br</a>
-                </li>
-                <li>Se você <b>já possui</b> o cadastro a conta gov.br deve ter o nível <b>Prata ou Ouro;</b></li>
-                <li>Se ainda <b>não possui</b>, clique na opção Fazer Cadastro. Depois que finalizar, com a senha em
-                    mãos, acesse novamente o Portal do Empreendedor e clique em Formalize-se.</li>
-            </ul>
+<div class="container pb-5">
+  <!-- Introduction -->
+  <div class="intro-box" data-aos="fade-up">
+    <h3><i class="fas fa-info-circle"></i> Preparação Importante</h3>
+    <p>
+      Antes de começar o processo de formalização, veja a seguir os documentos que você precisa ter em 
+      mãos e o passo a passo deste processo.
+    </p>
+  </div>
 
-            <p><b>Observação:</b></p>
+  <!-- Documents Section -->
+  <div class="docs-section" data-aos="fade-up">
+    <h2 class="docs-title">Documentos e Informações Necessárias</h2>
+    
+    <div class="docs-grid">
+      <div class="doc-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="doc-header">
+          <i class="fas fa-id-card doc-icon"></i>
+          <h3 class="doc-title">Dados Pessoais</h3>
+        </div>
+        <p class="doc-description">
+          RG, dados de contato e endereço residencial completo.
+        </p>
+      </div>
 
-            <ul>
-                <li>Ter a conta gov.br :</li>
+      <div class="doc-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="doc-header">
+          <i class="fas fa-briefcase doc-icon"></i>
+          <h3 class="doc-title">Dados do Negócio</h3>
+        </div>
+        <p class="doc-description">
+          Tipo de ocupação, forma de atuação e local onde o negócio é realizado.
+        </p>
+      </div>
+
+      <div class="doc-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="doc-header">
+          <i class="fas fa-key doc-icon"></i>
+          <h3 class="doc-title">Conta gov.br</h3>
+        </div>
+        <p class="doc-description">
+          Senha de acesso ao Portal de Serviços do Governo Federal - 
+          <a href="https://www.gov.br/governodigital/pt-br/conta-gov-br/conta-gov-br/" 
+             target="_blank" class="link-highlight">Plataforma gov.br</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Important Notes Grid -->
+    <div class="docs-grid mt-4">
+      <div class="doc-card" data-aos="fade-up" data-aos-delay="400">
+        <div class="doc-header">
+          <i class="fas fa-check-circle doc-icon"></i>
+          <h3 class="doc-title">Se você já possui conta</h3>
+        </div>
+        <p class="doc-description">
+          A conta gov.br deve ter o nível <strong>Prata ou Ouro</strong> para brasileiros.
+        </p>
+      </div>
+
+      <div class="doc-card" data-aos="fade-up" data-aos-delay="500">
+        <div class="doc-header">
+          <i class="fas fa-user-plus doc-icon"></i>
+          <h3 class="doc-title">Se ainda não possui</h3>
+        </div>
+        <p class="doc-description">
+          Clique na opção "Fazer Cadastro". Depois que finalizar, com a senha em mãos, 
+          acesse novamente o Portal do Empreendedor e clique em "Formalize-se".
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Observations Section -->
+  <div class="obs-section" data-aos="fade-up">
+    <h3 class="obs-title">
+      <i class="fas fa-exclamation-circle"></i>
+      Observações Importantes
+    </h3>
+    
+    <div class="mt-3">
+      <h4 style="color: var(--mei-info); margin-bottom: 1rem;">Para ter a conta gov.br:</h4>
+      
+      <ul class="obs-list">
+        <li>
+          <strong>Brasileiros:</strong> A conta gov.br deve ter o nível Prata ou Ouro.
+        </li>
+        <li>
+          <strong>Estrangeiros:</strong> Se a conta tiver o nível Bronze, será solicitado os dados de 
+          identificação civil do estrangeiro. Para os níveis Prata ou Ouro não será necessário informar esses dados.
+          
+          <div class="nested-list">
+            <h5 style="color: var(--mei-primary); margin: 1rem 0 0.5rem 0;">
+              Dados de identificação civil do estrangeiro:
+            </h5>
+            <ul class="obs-list">
+              <li>
+                O país de nacionalidade, conforme cadastro CPF (importante verificar se os dados do CPF estão 
+                atualizados junto à Receita Federal)
+              </li>
+              <li>
+                Dados de identificação civil do estrangeiro, conforme cadastro Polícia Federal. 
+                São aceitos os seguintes documentos emitidos pela PF: Carteira Nacional de Registro Migratório, 
+                Documento Provisório de Registro Nacional Migratório e Protocolo de Solicitação de Refúgio.
+              </li>
             </ul>
-            <ul class="mb-4" style="list-style-type: decimal;">
-                <li>No caso de brasileiros, a conta gov.br deve ter o nível Prata ou Ouro. </li>
-                <li>No caso de estrangeiros, se a conta tiver o nível Bronze, será solicitado os dados de identificação
-                    civil do estrangeiro. Para os níveis Prata ou Ouro não será necessário informar esse dados.</li>
-                <ul>
-                    <li style="list-style-type:disc;">Dados de identificação civil do estrangeiro:</li>
-                    <li style="list-style-type:none;">-O país de nacionalidade, conforme cadastro CPF; (importante verificar se os dados do CPF estão atualizados junto à Receita Federal)
-                        -Dados de identificação civil do estrangeiro, conforme cadastro Polícia Federal. São aceitos os seguintes documentos emitidos pela PF: Carteira Nacional de Registro Migratório, Documento Provisório de Registro Nacional Migratório e Protocolo de Solicitação de Refúgio.</li>
-                </ul>
-            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}
             <p><b>Observação:</b> Por questões de segurança, o sistema bloqueará o cadastro por 24 horas a partir da 3ª
                 tentativa de validação.</p>
         </div>

@@ -1,49 +1,313 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
-{% block nav %}
-{% include 'nav_empreendedor.html' %}
-{% endblock %}
+
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/quero-ser-mei.css'%}">
-  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
-{% endblock %}
-{% block main %}
-<div class="container">
-<div class="row mx-auto ps-4 pb-3">
-<h3 class="text-center">Por que ser MEI?</h3>
-</div>
-<div class="row mx-auto mb-5">
-  <div class="col">
-    <p class="mb-3">A formalização como MEI traz uma série de vantagens. Veja algumas delas:</p>
-    <ul>
-        <li>Ter um CNPJ</li>
-        <li>Isenção de taxas para registro do MEI.</li>
-        <li>Pagamento tributos com valores fixos mensais (INSS, ICMS e/ou ISS).</li>
-        <li>Inicio imediato das atividades, sem prévio alvará ou licença.</li>
-        <li>Emissão de notas fiscais.</li>
-        <li>Maior poder de negociação com fornecedores, podendo obter descontos para pessoa jurídica.</li>
-        <li>Acesso mais fácil a serviços financeiros, como conta bancária jurídica, máquina de cartão, acesso ao crédito, entre outros.</li>
-        <li>Vender e prestar serviços para outras empresas e para o governo.</li>
-    </ul>
-    <p class="mt-3">Viu só? Se tornar um MEI traz várias vantagens e simplificações para ajudar no dia a dia do seu negócio, mas exige cumprir algumas condições.</p>
-    </div>
-</div>
-
-{% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
-  <style>
-    span{
-        text-align: center;
+<style>
+  /* Por que ser MEI - Design System Moderno */
+  :root {
+    --mei-primary: #0051A4;
+    --mei-primary-dark: #003a7a;
+    --mei-secondary: #218A39;
+    --mei-accent: #D2B336;
+    --mei-success: #4ecdc4;
+    --mei-warning: #ffa726;
+  }
+  
+  .mei-hero {
+    background: linear-gradient(135deg, var(--mei-secondary) 0%, var(--mei-primary) 100%);
+    background-image: 
+      linear-gradient(rgba(33, 138, 57, 0.9), rgba(0, 81, 164, 0.8)),
+      url('/static/images/bg-mei-vantagens.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 80px 0 60px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(33, 138, 57, 0.2);
+  }
+  
+  .hero-content-mei {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  
+  .section-title-mei {
+    font-family: var(--font-secondary);
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  }
+  
+  .section-title-mei::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--mei-accent);
+    border-radius: 2px;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    font-weight: 300;
+  }
+  
+  .content-section {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    margin: 3rem 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  
+  .intro-text {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--gray-700);
+    text-align: center;
+    margin-bottom: 3rem;
+    font-weight: 500;
+  }
+  
+  .advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+  }
+  
+  .advantage-card {
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    border-radius: 15px;
+    padding: 2rem;
+    border-left: 5px solid var(--mei-secondary);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .advantage-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(33, 138, 57, 0.15);
+  }
+  
+  .advantage-icon {
+    font-size: 2.5rem;
+    color: var(--mei-secondary);
+    margin-bottom: 1rem;
+  }
+  
+  .advantage-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--mei-primary);
+    margin-bottom: 1rem;
+    font-family: var(--font-secondary);
+  }
+  
+  .advantage-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--gray-700);
+  }
+  
+  .conclusion-box {
+    background: linear-gradient(135deg, var(--mei-accent), #f4d03f);
+    color: var(--dark-color);
+    border-radius: 20px;
+    padding: 2.5rem;
+    margin: 3rem 0;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(210, 179, 54, 0.3);
+  }
+  
+  .conclusion-box h3 {
+    font-family: var(--font-secondary);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  .conclusion-box p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+  
+  .cta-section {
+    background: linear-gradient(135deg, var(--mei-primary), var(--mei-primary-dark));
+    color: white;
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    text-align: center;
+    margin: 3rem 0;
+    box-shadow: 0 10px 30px rgba(0, 81, 164, 0.2);
+  }
+  
+  .cta-title {
+    font-family: var(--font-secondary);
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  .cta-text {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+  
+  .cta-button {
+    background: linear-gradient(135deg, var(--mei-accent), #f4d03f);
+    color: var(--dark-color);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .cta-button:hover {
+    color: var(--dark-color);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(244, 208, 63, 0.4);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .section-title-mei {
+      font-size: 2.2rem;
     }
-  </style>
-<div class="row mx-auto px-5">
-  <script>
-    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
-  </script>
-</div>
-</div>
-
-
+    
+    .mei-hero {
+      padding: 60px 0 40px 0;
+    }
+    
+    .advantages-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .content-section {
+      padding: 2rem 1.5rem;
+    }
+    
+    .intro-text {
+      font-size: 1.1rem;
+    }
+  }
+</style>
 {% endblock %}
+
+{% block main %}
+<!-- Hero Section -->
+<section class="mei-hero">
+  <div class="container">
+    <div class="hero-content-mei" data-aos="fade-up">
+      <h1 class="section-title-mei">Por que ser MEI?</h1>
+      <p class="hero-subtitle">Descubra todas as vantagens de se tornar um Microempreendedor Individual</p>
+    </div>
+  </div>
+</section>
+
+<div class="container pb-5">
+  <!-- Introduction -->
+  <div class="content-section" data-aos="fade-up">
+    <p class="intro-text">
+      A formalização como MEI traz uma série de vantagens que podem transformar 
+      sua atividade informal em um negócio próspero e legalizado.
+    </p>
+
+    <!-- Advantages Grid -->
+    <div class="advantages-grid">
+      <div class="advantage-card" data-aos="fade-up" data-aos-delay="100">
+        <i class="fas fa-id-card advantage-icon"></i>
+        <h3 class="advantage-title">CNPJ Próprio</h3>
+        <p class="advantage-text">Tenha um CNPJ para formalizar seu negócio e aumentar sua credibilidade no mercado.</p>
+      </div>
+
+      <div class="advantage-card" data-aos="fade-up" data-aos-delay="200">
+        <i class="fas fa-gift advantage-icon"></i>
+        <h3 class="advantage-title">Isenção de Taxas</h3>
+        <p class="advantage-text">Registro gratuito sem custos de abertura, cartório ou taxas governamentais.</p>
+      </div>
+
+      <div class="advantage-card" data-aos="fade-up" data-aos-delay="300">
+        <i class="fas fa-coins advantage-icon"></i>
+        <h3 class="advantage-title">Tributos Fixos</h3>
+        <p class="advantage-text">Pagamento de tributos com valores fixos mensais (INSS, ICMS e/ou ISS).</p>
+      </div>
+
+      <div class="advantage-card" data-aos="fade-up" data-aos-delay="400">
+        <i class="fas fa-rocket advantage-icon"></i>
+        <h3 class="advantage-title">Início Imediato</h3>
+        <p class="advantage-text">Comece suas atividades imediatamente, sem necessidade de alvará prévio.</p>
+      </div>
+
+      <div class="advantage-card" data-aos="fade-up" data-aos-delay="500">
+        <i class="fas fa-file-invoice advantage-icon"></i>
+        <h3 class="advantage-title">Emissão de Notas</h3>
+        <p class="advantage-text">Emita notas fiscais e comprove a procedência dos seus produtos e serviços.</p>
+      </div>
+
+      <div class="advantage-card" data-aos="fade-up" data-aos-delay="600">
+        <i class="fas fa-handshake advantage-icon"></i>
+        <h3 class="advantage-title">Poder de Negociação</h3>
+        <p class="advantage-text">Obtenha descontos especiais para pessoa jurídica junto aos fornecedores.</p>
+      </div>
+
+      <div class="advantage-card" data-aos="fade-up" data-aos-delay="700">
+        <i class="fas fa-university advantage-icon"></i>
+        <h3 class="advantage-title">Serviços Financeiros</h3>
+        <p class="advantage-text">Acesso facilitado a conta bancária jurídica, máquina de cartão e crédito.</p>
+      </div>
+
+      <div class="advantage-card" data-aos="fade-up" data-aos-delay="800">
+        <i class="fas fa-building advantage-icon"></i>
+        <h3 class="advantage-title">Vendas para Empresas</h3>
+        <p class="advantage-text">Venda e preste serviços para outras empresas e para o governo.</p>
+      </div>
+    </div>
+
+    <!-- Conclusion -->
+    <div class="conclusion-box" data-aos="fade-up">
+      <h3>Vantagens Comprovadas</h3>
+      <p>
+        Se tornar um MEI traz várias vantagens e simplificações para ajudar no dia a dia 
+        do seu negócio, mas exige cumprir algumas condições que são simples e acessíveis.
+      </p>
+    </div>
+  </div>
+
+  <!-- Call to Action -->
+  <div class="cta-section" data-aos="fade-up">
+    <h2 class="cta-title">Pronto para Começar?</h2>
+    <p class="cta-text">
+      Agora que você conhece as vantagens, descubra como dar o próximo passo 
+      para se tornar um Microempreendedor Individual.
+    </p>
+    <a href="{% url 'empreendedor:o_que_precisa_saber_para_ser_mei' %}" class="cta-button">
+      <i class="fas fa-arrow-right"></i>
+      Próximo Passo
+    </a>
+  </div>
+</div>
+{% endblock %}
+
 {% block footer %}
 {% include 'desenvolve_nf/instagram.html' %}
 {% endblock %}

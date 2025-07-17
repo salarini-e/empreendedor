@@ -1,37 +1,329 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
-{% block nav %}
-{% include 'nav_empreendedor.html' %}
-{% endblock %}
-{% block css %}
-<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
-{% endblock %}
-{% block main %}
-<div class="container">
-  <div class="row mx-auto ps-4 pb-3">
-    <h3>JÁ SOU MEI</h3>
-  </div>
-  <style>
-    .item {
-      margin: auto !important;
-    }
-  </style>
-     {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
 
-  <style>
-    span {
-      text-align: center;
+{% block css %}
+<style>
+  /* Já Sou MEI - Design System Moderno */
+  :root {
+    --mei-primary: #0051A4;
+    --mei-primary-dark: #003a7a;
+    --mei-secondary: #218A39;
+    --mei-accent: #D2B336;
+    --mei-success: #4ecdc4;
+    --mei-warning: #ffa726;
+    --mei-danger: #ff6b6b;
+  }
+  
+  .mei-hero {
+    background: linear-gradient(135deg, var(--mei-primary) 0%, var(--mei-primary-dark) 100%);
+    background-image: 
+      linear-gradient(rgba(0, 81, 164, 0.9), rgba(0, 58, 122, 0.8)),
+      url('/static/images/bg-mei.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 80px 0 60px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 81, 164, 0.2);
+  }
+  
+  .hero-content-mei {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  
+  .section-title-mei {
+    font-family: var(--font-secondary);
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  }
+  
+  .section-title-mei::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--mei-accent);
+    border-radius: 2px;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    font-weight: 300;
+  }
+  
+  .mei-services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    padding: 3rem 0;
+  }
+  
+  .mei-service-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: none;
+    position: relative;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mei-service-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 25px 60px rgba(0, 81, 164, 0.15);
+  }
+  
+  .mei-service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(135deg, var(--mei-primary), var(--mei-secondary));
+    border-radius: 20px 20px 0 0;
+  }
+  
+  .mei-service-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 2.5rem 2rem;
+    text-decoration: none;
+    color: inherit;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .mei-service-link:hover {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  .mei-service-icon {
+    font-size: 3.5rem;
+    color: var(--mei-primary);
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .mei-service-card:hover .mei-service-icon {
+    color: var(--mei-secondary);
+    transform: scale(1.1);
+  }
+  
+  .mei-service-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin: 0;
+    line-height: 1.4;
+    font-family: var(--font-secondary);
+  }
+  
+  .mei-service-description {
+    font-size: 0.95rem;
+    color: var(--gray-600);
+    margin-top: 0.8rem;
+    line-height: 1.5;
+  }
+  
+  .mei-info-section {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    margin-top: 4rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  
+  .mei-info-title {
+    font-family: var(--font-secondary);
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--mei-primary);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .mei-info-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--gray-700);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .mei-highlight-box {
+    background: linear-gradient(135deg, var(--mei-accent), #f4d03f);
+    color: var(--dark-color);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-top: 2rem;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(210, 179, 54, 0.3);
+  }
+  
+  .mei-highlight-box i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .mei-highlight-box h4 {
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .section-title-mei {
+      font-size: 2.2rem;
     }
-  </style>
-  <div class="row mx-auto px-5">
-    <script>
-    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
-    </script>
+    
+    .mei-hero {
+      padding: 60px 0 40px 0;
+    }
+    
+    .mei-services-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .mei-service-card {
+      height: 250px;
+    }
+    
+    .mei-service-link {
+      padding: 2rem 1.5rem;
+    }
+    
+    .mei-service-icon {
+      font-size: 3rem;
+    }
+    
+    .mei-service-title {
+      font-size: 1.1rem;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block main %}
+<!-- Hero Section -->
+<section class="mei-hero">
+  <div class="container">
+    <div class="hero-content-mei" data-aos="fade-up">
+      <h1 class="section-title-mei">Já Sou MEI</h1>
+      <p class="hero-subtitle">Acesse todos os serviços e ferramentas para gerenciar seu MEI</p>
+    </div>
+  </div>
+</section>
+
+<div class="container pb-5">
+  <!-- MEI Services Grid -->
+  <div class="mei-services-grid" data-aos="fade-up">
+    <div class="mei-service-card">
+      <a target="_blank" class="mei-service-link" href="{% url 'empreendedor:emissaoDeComprovante' %}">
+        <i class="fas fa-certificate mei-service-icon"></i>
+        <h3 class="mei-service-title">Emissão de Comprovante</h3>
+        <p class="mei-service-description">Obtenha seu Certificado da Condição de Microempreendedor Individual (CCMEI)</p>
+      </a>
+    </div>
+    
+    <div class="mei-service-card">
+      <a target="_blank" class="mei-service-link" href="{% url 'empreendedor:atualizacaoCadastral' %}">
+        <i class="fas fa-edit mei-service-icon"></i>
+        <h3 class="mei-service-title">Atualização Cadastral</h3>
+        <p class="mei-service-description">Mantenha seus dados sempre atualizados no sistema</p>
+      </a>
+    </div>
+    
+    <div class="mei-service-card">
+      <a target="_blank" class="mei-service-link" href="{% url 'empreendedor:jornada_empreendedora' %}">
+        <i class="fas fa-route mei-service-icon"></i>
+        <h3 class="mei-service-title">Jornada Empreendedora</h3>
+        <p class="mei-service-description">Desenvolva suas habilidades empreendedoras com nossos recursos</p>
+      </a>
+    </div>
+    
+    <div class="mei-service-card">
+      <a target="_blank" class="mei-service-link" href="{% url 'empreendedor:capacita' %}">
+        <i class="fas fa-graduation-cap mei-service-icon"></i>
+        <h3 class="mei-service-title">Capacita</h3>
+        <p class="mei-service-description">Cursos e treinamentos para aprimorar seu negócio</p>
+      </a>
+    </div>
+    
+    <div class="mei-service-card">
+      <a target="_blank" class="mei-service-link" href="{% url 'empreendedor:notaFiscal' %}">
+        <i class="fas fa-file-invoice mei-service-icon"></i>
+        <h3 class="mei-service-title">Nota Fiscal</h3>
+        <p class="mei-service-description">Emita e gerencie suas notas fiscais eletrônicas</p>
+      </a>
+    </div>
+    
+    <div class="mei-service-card">
+      <a target="_blank" class="mei-service-link" href="{% url 'empreendedor:relatorioMensal' %}">
+        <i class="fas fa-chart-bar mei-service-icon"></i>
+        <h3 class="mei-service-title">Relatório Mensal</h3>
+        <p class="mei-service-description">Acompanhe o desempenho mensal do seu negócio</p>
+      </a>
+    </div>
+    
+    <div class="mei-service-card">
+      <a target="_blank" class="mei-service-link" href="{% url 'empreendedor:pagamentoDeContribuicaoMensal' %}">
+        <i class="fas fa-credit-card mei-service-icon"></i>
+        <h3 class="mei-service-title">Pagamento de Contribuição</h3>
+        <p class="mei-service-description">Realize pagamentos mensais e parcelamentos em dia</p>
+      </a>
+    </div>
+    
+    <div class="mei-service-card">
+      <a target="_blank" class="mei-service-link" href="{% url 'empreendedor:solucoesFinanceiras' %}">
+        <i class="fas fa-coins mei-service-icon"></i>
+        <h3 class="mei-service-title">Soluções Financeiras</h3>
+        <p class="mei-service-description">Acesse o CRED+ e outras soluções para seu negócio</p>
+      </a>
+    </div>
+  </div>
+
+  <!-- Information Section -->
+  <div class="mei-info-section" data-aos="fade-up">
+    <h2 class="mei-info-title">Apoio Completo ao MEI</h2>
+    <p class="mei-info-text">
+      Como Microempreendedor Individual, você tem acesso a diversos benefícios e ferramentas que facilitam 
+      a gestão do seu negócio. Utilize nossos serviços digitais para manter sua empresa sempre em dia 
+      e aproveitar todas as oportunidades disponíveis.
+    </p>
+    
+    <div class="mei-highlight-box">
+      <i class="fas fa-lightbulb"></i>
+      <h4>Dica Importante</h4>
+      <p class="mb-0">
+        Mantenha sempre seus dados atualizados e cumpra suas obrigações mensais para 
+        garantir todos os benefícios do MEI. A Sala do Empreendedor está aqui para te ajudar!
+      </p>
+    </div>
   </div>
 </div>
-
-
 {% endblock %}
+
 {% block footer %}
 {% include 'desenvolve_nf/instagram.html' %}
-{% endblock %}x
+{% endblock %}

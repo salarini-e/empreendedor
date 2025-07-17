@@ -1,0 +1,336 @@
+{% extends 'template_new.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+  /* Quero Ser MEI - Design System Moderno */
+  :root {
+    --mei-primary: #0051A4;
+    --mei-primary-dark: #003a7a;
+    --mei-secondary: #218A39;
+    --mei-accent: #D2B336;
+    --mei-success: #4ecdc4;
+    --mei-warning: #ffa726;
+    --mei-danger: #ff6b6b;
+  }
+  
+  .mei-hero {
+    background: linear-gradient(135deg, var(--mei-secondary) 0%, var(--mei-primary) 100%);
+    background-image: 
+      linear-gradient(rgba(33, 138, 57, 0.9), rgba(0, 81, 164, 0.8)),
+      url('/static/images/bg-mei-quero.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 80px 0 60px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(33, 138, 57, 0.2);
+  }
+  
+  .hero-content-mei {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  
+  .section-title-mei {
+    font-family: var(--font-secondary);
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  }
+  
+  .section-title-mei::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--mei-accent);
+    border-radius: 2px;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    font-weight: 300;
+  }
+  
+  .mei-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 3rem 0;
+  }
+  
+  .mei-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: none;
+    position: relative;
+    height: 260px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mei-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 25px 60px rgba(33, 138, 57, 0.15);
+  }
+  
+  .mei-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(135deg, var(--mei-secondary), var(--mei-primary));
+    border-radius: 20px 20px 0 0;
+  }
+  
+  .mei-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 2rem 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .mei-link:hover {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  .mei-icon {
+    font-size: 3rem;
+    color: var(--mei-secondary);
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .mei-card:hover .mei-icon {
+    color: var(--mei-primary);
+    transform: scale(1.1);
+  }
+  
+  .mei-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin: 0;
+    line-height: 1.4;
+    font-family: var(--font-secondary);
+  }
+  
+  .mei-description {
+    font-size: 0.9rem;
+    color: var(--gray-600);
+    margin-top: 0.8rem;
+    line-height: 1.5;
+  }
+  
+  .mei-highlight {
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border-left: 6px solid var(--mei-secondary);
+  }
+  
+  .mei-highlight h2 {
+    color: var(--mei-primary);
+    font-family: var(--font-secondary);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+  
+  .mei-highlight p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--gray-700);
+    margin: 0;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .section-title-mei {
+      font-size: 2.2rem;
+    }
+    
+    .mei-hero {
+      padding: 60px 0 40px 0;
+    }
+    
+    .mei-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .mei-card {
+      height: 240px;
+    }
+    
+    .mei-link {
+      padding: 1.5rem;
+    }
+    
+    .mei-icon {
+      font-size: 2.5rem;
+    }
+    
+    .mei-title {
+      font-size: 1rem;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block main %}
+<!-- Hero Section -->
+<section class="mei-hero">
+  <div class="container">
+    <div class="hero-content-mei" data-aos="fade-up">
+      <h1 class="section-title-mei">Quero Ser MEI</h1>
+      <p class="hero-subtitle">Descubra como se tornar um Microempreendedor Individual e transformar sua vida</p>
+    </div>
+  </div>
+</section>
+
+<div class="container pb-5">
+  <!-- Highlight Section -->
+  <div class="mei-highlight" data-aos="fade-up">
+    <h2>Comece Sua Jornada Empreendedora</h2>
+    <p>
+      Ser MEI é o primeiro passo para formalizar seu negócio e ter acesso a benefícios exclusivos. 
+      Explore nossos recursos e descubra tudo o que você precisa saber para se tornar um Microempreendedor Individual.
+    </p>
+  </div>
+
+  <!-- MEI Options Grid -->
+  <div class="mei-grid" data-aos="fade-up">
+    <div class="mei-card">
+      <a class="mei-link" href="{% url 'empreendedor:por_que_ser_mei' %}">
+        <i class="fas fa-lightbulb mei-icon"></i>
+        <h3 class="mei-title">Por que ser MEI?</h3>
+        <p class="mei-description">Conheça todas as vantagens de se tornar um MEI</p>
+      </a>
+    </div>
+    
+    <div class="mei-card">
+      <a class="mei-link" href="{% url 'empreendedor:o_que_precisa_saber_para_ser_mei' %}">
+        <i class="fas fa-info-circle mei-icon"></i>
+        <h3 class="mei-title">O que você precisa saber</h3>
+        <p class="mei-description">Informações essenciais antes de se tornar MEI</p>
+      </a>
+    </div>
+    
+    <div class="mei-card">
+      <a target="_blank" class="mei-link" href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/quero-ser-mei/obtencao-de-cnpj-acesso-restrito">
+        <i class="fas fa-laptop mei-icon"></i>
+        <h3 class="mei-title">Formalize-se Online</h3>
+        <p class="mei-description">Cadastre-se diretamente no portal oficial</p>
+      </a>
+    </div>
+    
+    <div class="mei-card">
+      <a class="mei-link" href="{% url 'empreendedor:jornada_empreendedora' %}">
+        <i class="fas fa-route mei-icon"></i>
+        <h3 class="mei-title">Jornada Empreendedora</h3>
+        <p class="mei-description">Desenvolva suas habilidades empresariais</p>
+      </a>
+    </div>
+    
+    <div class="mei-card">
+      <a class="mei-link" href="{% url 'empreendedor:documentosNecessarios' %}">
+        <i class="fas fa-file-alt mei-icon"></i>
+        <h3 class="mei-title">Documentos Necessários</h3>
+        <p class="mei-description">Saiba quais documentos você precisa</p>
+      </a>
+    </div>
+    
+    <div class="mei-card">
+      <a class="mei-link" href="{% url 'empreendedor:quaisAsOcupacoesQuePodemSerMei' %}">
+        <i class="fas fa-briefcase mei-icon"></i>
+        <h3 class="mei-title">Ocupações Permitidas</h3>
+        <p class="mei-description">Veja se sua atividade pode ser MEI</p>
+      </a>
+    </div>
+    
+    <div class="mei-card">
+      <a class="mei-link" href="{% url 'empreendedor:dicasDeSegurancaDaVigilanciaSanitaria' %}">
+        <i class="fas fa-shield-alt mei-icon"></i>
+        <h3 class="mei-title">Vigilância Sanitária</h3>
+        <p class="mei-description">Dicas de segurança sanitária</p>
+      </a>
+    </div>
+    
+    <div class="mei-card">
+      <a class="mei-link" href="{% url 'empreendedor:dicasDeSegurançaDoCorpoDeBombeiros' %}">
+        <i class="fas fa-fire-extinguisher mei-icon"></i>
+        <h3 class="mei-title">Corpo de Bombeiros</h3>
+        <p class="mei-description">Orientações de segurança contra incêndio</p>
+      </a>
+    </div>
+    
+    <div class="mei-card">
+      <a class="mei-link" href="{% url 'empreendedor:dicasDeMeioAmbiente' %}">
+        <i class="fas fa-leaf mei-icon"></i>
+        <h3 class="mei-title">Meio Ambiente</h3>
+        <p class="mei-description">Dicas para um negócio sustentável</p>
+      </a>
+    </div>
+    
+    <div class="mei-card">
+      <a class="mei-link" href="{% url 'empreendedor:prepareSe' %}">
+        <i class="fas fa-rocket mei-icon"></i>
+        <h3 class="mei-title">Prepare-se</h3>
+        <p class="mei-description">Esteja pronto para empreender</p>
+      </a>
+    </div>
+    
+    <div class="mei-card">
+      <a class="mei-link" href="{% url 'empreendedor:transportadorAutonomoDeCargas' %}">
+        <i class="fas fa-truck mei-icon"></i>
+        <h3 class="mei-title">MEI Caminhoneiro</h3>
+        <p class="mei-description">Informações para transportadores</p>
+      </a>
+    </div>
+    
+    <div class="mei-card">
+      <a class="mei-link" href="{% url 'empreendedor:direitosEObrigacoes' %}">
+        <i class="fas fa-balance-scale mei-icon"></i>
+        <h3 class="mei-title">Direitos e Obrigações</h3>
+        <p class="mei-description">Conheça seus direitos e deveres</p>
+      </a>
+    </div>
+    
+    <div class="mei-card">
+      <a class="mei-link" href="{% url 'empreendedor:registrocadastur' %}">
+        <i class="fas fa-map-marked-alt mei-icon"></i>
+        <h3 class="mei-title">Registro CADASTUR</h3>
+        <p class="mei-description">Para atividades de turismo</p>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

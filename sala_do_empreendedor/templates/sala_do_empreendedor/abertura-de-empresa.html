@@ -1,65 +1,325 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
-{% block nav %}
-{% include 'nav_empreendedor.html' %}
-{% endblock %}
+
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+<style>
+  /* Abertura de Empresas - Design System Moderno */
+  :root {
+    --empresa-primary: #0727b4;
+    --empresa-secondary: #3652f0;
+    --empresa-accent: #e0b731;
+    --empresa-success: #4ecdc4;
+    --empresa-warning: #ffa726;
+    --empresa-danger: #ff6b6b;
+    
+    --mei-primary: #0051A4;
+    --mei-secondary: #218A39;
+    --mei-accent: #D2B336;
+  }
+  
+  .empresa-hero {
+    background: linear-gradient(135deg, rgba(7, 39, 180, 0.9), rgba(54, 82, 240, 0.8)), url("{% static 'images/bg-empresa.jpg' %}") no-repeat center center;
+    background-size: cover;
+    color: white;
+    padding: 80px 0 60px 0;
+    margin-bottom: 60px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(7, 39, 180, 0.2);
+  }
+  
+  .hero-content-empresa {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  
+  .section-title-empresa {
+    font-family: var(--font-secondary);
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  }
+  
+  .section-title-empresa::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--empresa-accent);
+    border-radius: 2px;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    font-weight: 300;
+  }
+  
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+  }
+  
+  .service-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: none;
+    position: relative;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .service-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 25px 60px rgba(7, 39, 180, 0.15);
+  }
+  
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(135deg, var(--empresa-primary), var(--empresa-secondary));
+    border-radius: 20px 20px 0 0;
+  }
+  
+  .service-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 2.5rem 2rem;
+    text-decoration: none;
+    color: inherit;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .service-link:hover {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  .service-icon {
+    font-size: 3.5rem;
+    color: var(--empresa-primary);
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .service-card:hover .service-icon {
+    color: var(--empresa-secondary);
+    transform: scale(1.1);
+  }
+  
+  .service-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin: 0;
+    line-height: 1.4;
+    font-family: var(--font-secondary);
+  }
+  
+  .service-description {
+    font-size: 0.95rem;
+    color: var(--gray-600);
+    margin-top: 0.8rem;
+    line-height: 1.5;
+  }
+  
+  .info-section {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    margin-top: 4rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  
+  .info-title {
+    font-family: var(--font-secondary);
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--empresa-primary);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .info-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--gray-700);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .help-box {
+    background: linear-gradient(135deg, var(--empresa-accent), #f4d03f);
+    color: var(--dark-color);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(224, 183, 49, 0.3);
+  }
+  
+  .help-box i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .help-box h5 {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* MEI Section */
+  .mei-hero {
+    background: linear-gradient(135deg, var(--mei-primary) 0%, var(--mei-secondary) 100%);
+    color: white;
+    padding: 80px 0 60px;
+    text-align: center;
+  }
+  
+  .section-title-mei {
+    font-family: var(--font-secondary);
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .content-section {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    margin: 3rem 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .section-title-empresa {
+      font-size: 2.2rem;
+    }
+    
+    .empresa-hero {
+      padding: 60px 0 40px 0;
+    }
+    
+    .service-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .service-card {
+      height: 250px;
+    }
+    
+    .service-link {
+      padding: 2rem 1.5rem;
+    }
+    
+    .service-icon {
+      font-size: 3rem;
+    }
+    
+    .service-title {
+      font-size: 1.2rem;
+    }
+  }
+</style>
 {% endblock %}
+
 {% block main %}
-<div class="container">
-    <div class="row mx-auto ps-4 pb-3">
-        <h3>ABERTURA DE EMPRESAS</h3>
+<!-- Hero Section -->
+<section class="empresa-hero">
+  <div class="container">
+    <div class="hero-content-empresa" data-aos="fade-up">
+      <h1 class="section-title-empresa">Abertura de Empresas</h1>
+      <p class="hero-subtitle">Acesse os serviços essenciais para formalizar e gerenciar sua empresa</p>
     </div>
-    <style>
-        .item {
-            margin: auto !important;
-        }
-    </style>
-    <div class="row mx-auto">
-        <div class="d-flex flex-wrap justify-content-center">
-            <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
-                <a target="_blank" class="w-100 h-100"
-                    href="https://servicoonline.novafriburgo.rj.gov.br/services/lancamentos_diversos.php?cod=MF">
-                    <div class="d-flex flex-column w-100 h-100">
-                        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-                        <span class="mx-auto mb-auto mt-2 px-5">Taxa de Alvará Anual</span>
-                    </div>
-                </a>
-            </div>
-            <div class="item d-flex flex-column border" style="width: 300x; height: 200px;">
-                <a target="_blank" class="w-100 h-100"
-                    href="https://servicoonline.novafriburgo.rj.gov.br/services/extrato_pagamento.php">
-                    <div class="d-flex flex-column w-100 h-100">
-                        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-                        <span class="mx-auto mb-auto mt-2 px-5">Relatória da dívida</span>
-                    </div>
-                </a>
-            </div>
-            <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
-                <a target="_blank" class="w-100 h-100"
-                    href="https://www.jucerja.rj.gov.br/regin.externo/CON_ViabilidadeSelecaoExterno.aspx">
-                    <div class="d-flex flex-column w-100 h-100">
-                        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-                        <span class="mx-auto mt-2 mb-auto px-5">Acompanhamento de processos no regin</span>
-                        <!-- <span class="mx-auto mb-AUTO mt-2 px-5" style="color: black !important">Caso tenha dificuldade procure a sala do empreendedor</span> -->
-                    </div>
-                </a>
-            </div>
-        </div>
+  </div>
+</section>
+
+<div class="container pb-5">
+  <!-- Services Grid -->
+  <div class="service-grid" data-aos="fade-up">
+    <div class="service-card">
+      <a target="_blank" class="service-link"
+         href="https://servicoonline.novafriburgo.rj.gov.br/services/lancamentos_diversos.php?cod=MF">
+        <i class="fas fa-file-invoice-dollar service-icon"></i>
+        <h3 class="service-title">Taxa de Alvará Anual</h3>
+        <p class="service-description">Realize o pagamento da taxa anual do seu alvará de funcionamento</p>
+      </a>
     </div>
-    <style>
-        span {
-            text-align: center;
-        }
-    </style>
-    <div class="row mx-auto px-5">
-        <script>
-    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
-        </script>
+    
+    <div class="service-card">
+      <a target="_blank" class="service-link"
+         href="https://servicoonline.novafriburgo.rj.gov.br/services/extrato_pagamento.php">
+        <i class="fas fa-file-alt service-icon"></i>
+        <h3 class="service-title">Relatório da Dívida</h3>
+        <p class="service-description">Consulte e acompanhe pendências financeiras da sua empresa</p>
+      </a>
     </div>
+    
+    <div class="service-card">
+      <a target="_blank" class="service-link"
+         href="https://www.jucerja.rj.gov.br/regin.externo/CON_ViabilidadeSelecaoExterno.aspx">
+        <i class="fas fa-search service-icon"></i>
+        <h3 class="service-title">Acompanhamento de Processos</h3>
+        <p class="service-description">Monitore o andamento dos seus processos no REGIN</p>
+      </a>
+    </div>
+  </div>
+
+  <!-- Information Section -->
+  <div class="info-section" data-aos="fade-up">
+    <h2 class="info-title">Facilitando o Empreendedorismo</h2>
+    <p class="info-text">
+      A Prefeitura de Nova Friburgo oferece serviços digitais para simplificar a abertura e gestão de empresas. 
+      Através de nossa plataforma, você pode acessar diversos serviços essenciais de forma rápida e segura.
+    </p>
+    
+    <div class="help-box">
+      <i class="fas fa-hands-helping"></i>
+      <h5>Precisa de Ajuda?</h5>
+      <p class="mb-0">Caso tenha dificuldades, procure a Sala do Empreendedor para atendimento personalizado.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MEI Section -->
+<section class="mei-hero">
+  <div class="container">
+    <h1 class="section-title-mei" data-aos="fade-up">Título da Página</h1>
+    <p class="hero-subtitle" data-aos="fade-up">Subtítulo explicativo</p>
+  </div>
+</section>
+
+<div class="container pb-5">
+  <div class="content-section" data-aos="fade-up">
+    <!-- Conteúdo da página -->
+  </div>
 </div>
 {% endblock %}
+
 {% block footer %}
 {% include 'desenvolve_nf/instagram.html' %}
-{% endblock %}x
+{% endblock %}
