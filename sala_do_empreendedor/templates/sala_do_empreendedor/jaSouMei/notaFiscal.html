@@ -5,9 +5,88 @@
 {% endblock %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+<style>
+/* Breadcrumb Styles */
+.breadcrumb-container {
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  border-bottom: 1px solid #e9ecef;
+  padding: 1rem 0;
+  margin-bottom: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.breadcrumb-custom {
+  background: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.breadcrumb-item-custom {
+  display: flex;
+  align-items: center;
+  color: #6c757d;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  padding: 0.25rem 0;
+}
+
+.breadcrumb-item-custom:hover {
+  color: #0051A4;
+  text-decoration: none;
+}
+
+.breadcrumb-current {
+  color: #0051A4;
+  font-weight: 500;
+  pointer-events: none;
+}
+
+.breadcrumb-separator {
+  color: #dee2e6;
+  font-size: 0.7rem;
+  margin: 0 0.25rem;
+}
+
+@media (max-width: 768px) {
+  .breadcrumb-custom {
+    font-size: 0.8rem;
+  }
+  
+  .breadcrumb-container {
+    padding: 0.75rem 0;
+  }
+}
+</style>
 {% endblock %}
 {% block main %}
-<div class="container">
+<!-- Breadcrumb Moderno -->
+<div class="breadcrumb-container">
+  <div class="container">
+    <nav class="breadcrumb-custom" aria-label="breadcrumb">
+      <a href="{% url 'empreendedor:index' %}" class="breadcrumb-item-custom">
+        <i class="fas fa-home me-1"></i>
+        Início
+      </a>
+      <i class="fas fa-chevron-right breadcrumb-separator"></i>
+      <a href="{% url 'empreendedor:ja_sou_mei' %}" class="breadcrumb-item-custom">
+        <i class="fas fa-user-check me-1"></i>
+        Já sou MEI
+      </a>
+      <i class="fas fa-chevron-right breadcrumb-separator"></i>
+      <span class="breadcrumb-item-custom breadcrumb-current">
+        <i class="fas fa-file-invoice me-1"></i>
+        Nota Fiscal
+      </span>
+    </nav>
+  </div>
+</div>
+
+<div class="container" style="margin-top: 90px;">
     <div class="row mx-auto ps-4 pb-3">
         <h3 class="text-center">Nota Fiscal Eletrônica (NF-e) e Nota Fiscal de Serviço Eletrônica (NFS-e)</h3>
     </div>

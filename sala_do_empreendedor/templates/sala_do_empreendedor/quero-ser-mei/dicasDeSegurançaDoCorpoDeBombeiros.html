@@ -1,69 +1,177 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
+
+{% block title %}Dicas de Segurança do Corpo de Bombeiros{% endblock %}
+
 {% block nav %}
-{% include 'nav_empreendedor.html' %}
+  
 {% endblock %}
+
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/quero-ser-mei.css'%}">
-<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+  <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
 {% endblock %}
+
 {% block main %}
-<div class="container">
-    <div class="row mx-auto ps-4 pb-3">
-        <h3 class="text-center">Dicas de Segurança do Corpo de Bombeiros</h3>
-    </div>
-    <div class="row mx-auto mb-5">
-        <div class="col">
-            <p class="mt-4"><b>Se você já é ou quer se tornar um Microempreendedor Individual que exerce atividade em casa, você não está sujeito à fiscalização do Corpo de Bombeiros Militar. Mesmo assim, para sua segurança e de sua família, recomenda-se que:</b></p>
-            <ul class="mt-3">
-                <li>instale um extintor de incêndio de pó ABC em local de fácil acesso; </li>
-                <li>utilize cilindros de GLP que possuam válvula de segurança, tais como P-13 Kg;</li>
-                <li>não utilize simultaneamente mais de um cilindro de GLP (Central);</li>
-                <li>o cilindro de GLP deve estar em local ventilado, com mangueira e registro certificado pelo INMETRO, dentro do prazo de validade.</li>
-            </ul>
-            <p class="my-3"><b>Se você trabalha ou quer trabalhar como ambulante, com carrinho de lanche, barraca ou similar, ou que vai até o cliente prestar serviço ou vender produto, você não está sujeito à fiscalização do Corpo de Bombeiros Militar. Mesmo assim, preste atenção nestas recomendações:</b></p>
-            <ul>
-                <li>use botijão de gás (GLP) que possua válvula de segurança, tal como P-13 Kg;</li>
-                <li>o cilindro de GLP deve estar em local ventilado, com mangueira de revestimento metálico e registro certificado pelo INMETRO, dentro do prazo de validade;</li>
-                <li>se utilizar cilindro de GLP, mantenha, se possível, um extintor de incêndio de pó ABC em local de fácil acesso.</li>
-            </ul>
-            <p class="my-3"><b>Se o seu negócio está ou estará em uma construção no térreo de até 200 metros quadrados de área construída e com saída direta para a via pública, você deve instalar as seguintes medidas de segurança:</b></p>
-            <ul>
-                <li>um extintor do tipo ABC ou uma unidade extintora para incêndio de classe A e outra para classes B:C;</li>
-                <li>utilizar sinalização de emergência, com a finalidade de indicar as rotas de saída da edificação e facilitar a localização dos equipamentos de combate ao incêndio.</li>
-                <li>saída de emergência de, no mínimo, 80 centímetros de largura.</li>
-            </ul>
-            <p>Se o seu negócio está ou estará em uma construção com até 750m² de área construída e até três andares, sendo, que demande a comercialização ou armazenamento de líquido inflamável ou combustível até 250 litros, que demandem a utilização ou armazenamento de gás liquefeito de petróleo (GLP) acima de 90 kg, exercidas em estabelecimentos que possuam lotação superior a 100 (cem) pessoas, quando se tratar de local de reunião de público, e exercidas em imóvel que possua subsolo com uso exclusivo como estacionamento, deve instalar as seguintes medidas de segurança contra incêndio:</p>
-            <ul>
-                <li>é necessário, no mínimo, um extintor de incêndio classe A e outro classes B:C ou dois extintores classes ABC por andar;</li>
-                <li>em locais com riscos específicos devem ser instalados extintores de incêndio, independente da proteção geral da edificação ou área de risco, tais como: casa de caldeira, casa de bombas, casa de força elétrica, casa de máquinas; galeria de transmissão, incinerador, elevador (casa de máquinas), escada rolante (casa de máquinas), quadro de redução para baixa tensão, transformadores, contêineres de telefonia, gases ou líquidos combustíveis ou inflamáveis.</li>
-                <li>utilizar sinalização e iluminação de emergência, com a finalidade de indicar as rotas de saída da edificação e facilitar a localização dos equipamentos de combate ao incêndio.</li>
-                <li>os pontos de iluminação de emergência (blocos autônomos) devem ser instalados nos corredores de circulação (aclaramento), nas portas de saída dos ambientes (balizamento) e nas mudanças de direção (balizamento). A distância máxima entre dois pontos de iluminação de emergência não deve ultrapassar 15 metros e entre o ponto de iluminação e a parede 7,5 metros.</li>
-                <li>saída de emergência de, no mínimo, 80 centímetros de largura;</li>
-                <li>as escadas, acessos e rampas devem:</li>
-            </ul>
-            <ol type="I">
-                <li>ser construídas em materiais não inflamáveis;</li>
-                <li>possuir piso antiderrapante;</li>
-                <li>ser protegidas por guarda-corpo em seus lados abertos (a altura das guardas, medida internamente, deve ser, no mínimo, de 1,10 m ao longo dos patamares, escadas, corredores, mezaninos e outros, medida verticalmente do topo da guarda a uma linha que una as pontas dos bocéis ou quinas dos degraus);</li>
-                <li>ser dotadas de corrimãos em ambos os lados, com extremidades voltadas à parede ou, quando conjugados com o guarda-corpo, finalizar neste ou diretamente no piso (os corrimãos devem estar situados entre 0,80 m e 0,92 m acima do nível do piso);</li>
-                <li>permanecer desobstruídas e ter largura mínima de 1,20 m.</li>
-            </ol>
+<div class="content-wrapper" style="margin-top:  90px;">
+  <div class="container">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-wrapper">
+            <h1 class="page-title">Dicas de Segurança do Corpo de Bombeiros</h1>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a href="{% url 'empreendedor:index' %}">Início</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a href="{% url 'empreendedor:quero_ser_mei' %}">Quero ser MEI</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Segurança - Bombeiros</li>
+              </ol>
+            </nav>
+          </div>
         </div>
+      </div>
     </div>
+
+    <!-- Content -->
+    <div class="page-content">
+      <div class="row">
+        <div class="col-12">
+          <div class="content-card">
+            <!-- Atividade em casa -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-home me-2"></i>
+                MEI que exerce atividade em casa
+              </h4>
+              <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>Informação:</strong> Se você já é ou quer se tornar um MEI que exerce atividade em casa, você não está sujeito à fiscalização do Corpo de Bombeiros Militar.
+              </div>
+              
+              <p class="mb-3"><strong>Mesmo assim, para sua segurança e de sua família, recomenda-se que:</strong></p>
+              <ul class="info-list">
+                <li>Instale um extintor de incêndio de pó ABC em local de fácil acesso</li>
+                <li>Utilize cilindros de GLP que possuam válvula de segurança, tais como P-13 Kg</li>
+                <li>Não utilize simultaneamente mais de um cilindro de GLP (Central)</li>
+                <li>O cilindro de GLP deve estar em local ventilado, com mangueira e registro certificado pelo INMETRO, dentro do prazo de validade</li>
+              </ul>
+            </div>
+
+            <!-- Trabalho ambulante -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-shopping-cart me-2"></i>
+                MEI ambulante ou prestador de serviços
+              </h4>
+              <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>Informação:</strong> Se você trabalha como ambulante, com carrinho de lanche, barraca ou similar, ou vai até o cliente prestar serviço ou vender produto, você não está sujeito à fiscalização do Corpo de Bombeiros Militar.
+              </div>
+              
+              <p class="mb-3"><strong>Mesmo assim, preste atenção nestas recomendações:</strong></p>
+              <ul class="info-list">
+                <li>Use botijão de gás (GLP) que possua válvula de segurança, tal como P-13 Kg</li>
+                <li>O cilindro de GLP deve estar em local ventilado, com mangueira de revestimento metálico e registro certificado pelo INMETRO, dentro do prazo de validade</li>
+                <li>Se utilizar cilindro de GLP, mantenha, se possível, um extintor de incêndio de pó ABC em local de fácil acesso</li>
+              </ul>
+            </div>
+
+            <!-- Estabelecimento físico -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-store me-2"></i>
+                MEI com estabelecimento físico
+              </h4>
+              <p class="mb-3"><strong>Se o seu negócio está ou estará em uma construção no térreo de até 200 metros quadrados de área construída e com saída direta para a via pública, você deve instalar as seguintes medidas de segurança:</strong></p>
+              
+              <div class="security-measures">
+                <div class="measure-item">
+                  <i class="fas fa-fire-extinguisher text-danger"></i>
+                  <div class="measure-content">
+                    <h6>Extintor de Incêndio</h6>
+                    <p>Instale extintor de pó ABC com capacidade mínima de 4 kg</p>
+                  </div>
+                </div>
+                
+                <div class="measure-item">
+                  <i class="fas fa-lightbulb text-warning"></i>
+                  <div class="measure-content">
+                    <h6>Iluminação de Emergência</h6>
+                    <p>Sistema de iluminação que funcione em caso de falta de energia</p>
+                  </div>
+                </div>
+                
+                <div class="measure-item">
+                  <i class="fas fa-door-open text-success"></i>
+                  <div class="measure-content">
+                    <h6>Saídas de Emergência</h6>
+                    <p>Mantenha saídas desobstruídas e bem sinalizadas</p>
+                  </div>
+                </div>
+                
+                <div class="measure-item">
+                  <i class="fas fa-exclamation-triangle text-primary"></i>
+                  <div class="measure-content">
+                    <h6>Sinalização</h6>
+                    <p>Placas indicativas de saídas de emergência e equipamentos</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dicas gerais -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-shield-alt me-2"></i>
+                Dicas Gerais de Segurança
+              </h4>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div class="tip-card">
+                    <i class="fas fa-check-circle text-success"></i>
+                    <h6>Prevenção</h6>
+                    <p class="small">Mantenha o local sempre limpo e organizado</p>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="tip-card">
+                    <i class="fas fa-tools text-primary"></i>
+                    <h6>Manutenção</h6>
+                    <p class="small">Faça manutenção regular dos equipamentos</p>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="tip-card">
+                    <i class="fas fa-users text-info"></i>
+                    <h6>Treinamento</h6>
+                    <p class="small">Oriente funcionários sobre procedimentos de emergência</p>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="tip-card">
+                    <i class="fas fa-phone text-danger"></i>
+                    <h6>Emergência</h6>
+                    <p class="small">Mantenha números de emergência sempre à mão (193)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-warning mt-4">
+              <i class="fas fa-exclamation-triangle me-2"></i>
+              <strong>Importante:</strong> Consulte sempre o Corpo de Bombeiros da sua região para orientações específicas sobre as normas de segurança aplicáveis ao seu tipo de negócio.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu de navegação MEI -->
     {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
-    <style>
-        span {
-            text-align: center;
-        }
-    </style>
-    <div class="row mx-auto px-5">
-        <script>
-    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
-        </script>
-    </div>
+  </div>
 </div>
-{% endblock %}
-{% block footer %}
-{% include 'desenvolve_nf/instagram.html' %}
 {% endblock %}

@@ -1,0 +1,791 @@
+{% extends 'template_new.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+  /* Páginas pesquisa-empresa - Identidade Visual */
+  :root {
+    --pesquisa-empresa-primary: #0727b4;
+    --pesquisa-empresa-secondary: #3652f0;
+    --pesquisa-empresa-accent: #e0b731;
+    --pesquisa-empresa-success: #4ecdc4;
+    --pesquisa-empresa-light: #f8fafc;
+    --pesquisa-empresa-border: #e2e8f0;
+    --pesquisa-empresa-card-hover: #f1f5f9;
+  }
+
+  .pesquisa-empresa-hero {
+    /* background: linear-gradient(135deg, var(--pesquisa-empresa-primary), var(--pesquisa-empresa-secondary)); */
+    /* background-image: url('/static/images/pattern-bg.svg'); */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.479), rgba(255, 255, 255, 0.842)), url("/static/images/bg-empresa.jpg") no-repeat center center;
+    background-size: cover;
+    color: rgb(0, 0, 0);
+    padding: 3rem 0;
+    position: relative;
+    margin-bottom: 2rem;
+    font-family: var(--font-secondary);
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+ .section-title{
+    font-family: var(--font-secondary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--vitrine-accent);
+    border-radius: 2px;
+  }
+  .pesquisa-empresa-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* background: url("{% static 'images/pattern-bg.svg' %}") repeat; */
+    
+    opacity: 0.1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+
+  .back-button {
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+  }
+
+  .back-button:hover {
+    background: #5a6268;
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+  }
+
+  .search-section {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    margin-top: 2rem;
+    position: relative;
+    z-index: 3;
+  }
+
+  .filters-container {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    border: 1px solid var(--pesquisa-empresa-border);
+    margin-bottom: 2rem;
+  }
+
+  .filter-group {
+    margin-bottom: 1rem;
+  }
+
+  .filter-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .filter-label {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .form-control, .form-select {
+    border: 2px solid var(--pesquisa-empresa-border);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .form-control:focus, .form-select:focus {
+    border-color: var(--pesquisa-empresa-primary);
+    box-shadow: 0 0 0 0.2rem rgba(7, 39, 180, 0.25);
+  }
+
+  .btn-filter {
+    background: var(--pesquisa-empresa-primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    width: 100%;
+  }
+
+  .btn-filter:hover {
+    background: var(--pesquisa-empresa-secondary);
+    transform: translateY(-2px);
+  }
+
+  .btn-clear {
+    background: transparent;
+    color: #6b7280;
+    border: 2px solid var(--pesquisa-empresa-border);
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    width: 100%;
+  }
+
+  .btn-clear:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+  }
+
+  .view-toggles {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .view-btn {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--pesquisa-empresa-border);
+    background: white;
+    color: #6b7280;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .view-btn:hover, .view-btn.active {
+    background: var(--pesquisa-empresa-primary);
+    color: white;
+    border-color: var(--pesquisa-empresa-primary);
+    text-decoration: none;
+  }
+
+  .empresa-card {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid var(--pesquisa-empresa-border);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .empresa-card:hover {
+    box-shadow: 0 12px 48px rgba(0,0,0,0.12);
+    transform: translateY(-4px);
+    border-color: var(--pesquisa-empresa-primary);
+  }
+
+  .empresa-card-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--pesquisa-empresa-border);
+  }
+
+  .empresa-logo {
+    width: 60px;
+    /* height: 60px; */
+    /* border-radius: 50%; */
+    background: var(--pesquisa-empresa-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    flex-shrink: 0;
+  }
+
+  .empresa-logo img {
+    width: 100%;
+    max-height: 100%;
+    /* border-radius: 50%; */
+    object-fit: cover;
+  }
+
+  .empresa-logo i {
+    font-size: 1.5rem;
+    color: var(--pesquisa-empresa-primary);
+  }
+
+  .empresa-info h5 {
+    margin: 0 0 0.5rem 0;
+    color: var(--pesquisa-empresa-primary);
+    font-weight: 700;
+  }
+
+  .empresa-info .text-muted {
+    margin: 0;
+    font-size: 0.875rem;
+  }
+
+  .empresa-card-body {
+    padding: 1.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .empresa-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .empresa-tag {
+    background: var(--pesquisa-empresa-light);
+    color: var(--pesquisa-empresa-primary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid var(--pesquisa-empresa-border);
+  }
+
+  .empresa-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    margin-top: auto;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #6b7280;
+    font-size: 0.875rem;
+  }
+
+  .contact-item a {
+    color: var(--pesquisa-empresa-primary);
+    text-decoration: none;
+  }
+
+  .contact-item a:hover {
+    text-decoration: underline;
+  }
+
+  .empresa-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    padding: 1rem 1.5rem;
+    background: #f8fafc;
+    border-top: 1px solid var(--pesquisa-empresa-border);
+    margin-top: auto;
+  }
+
+  .action-btn {
+    padding: 0.5rem;
+    border: 1px solid var(--pesquisa-empresa-border);
+    background: white;
+    color: #6b7280;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .action-btn:hover {
+    background: var(--pesquisa-empresa-primary);
+    color: white;
+    border-color: var(--pesquisa-empresa-primary);
+    text-decoration: none;
+    transform: translateY(-2px);
+  }
+
+  .pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+
+  .pagination {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+
+  .page-link {
+    border: none;
+    color: var(--pesquisa-empresa-primary);
+    padding: 0.75rem 1rem;
+  }
+
+  .page-link:hover {
+    background: var(--pesquisa-empresa-light);
+    color: var(--pesquisa-empresa-primary);
+  }
+
+  .page-item.active .page-link {
+    background: var(--pesquisa-empresa-primary);
+    border-color: var(--pesquisa-empresa-primary);
+  }
+
+  .results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .results-count {
+    color: #6b7280;
+    font-size: 0.875rem;
+  }
+
+  .list-view .empresa-card {
+    margin-bottom: 1rem;
+  }
+
+  .list-view .empresa-card-header {
+    padding: 1rem 1.5rem;
+  }
+
+  .list-view .empresa-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .list-view .empresa-logo i {
+    font-size: 1rem;
+  }
+
+  .grid-view {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .grid-view .empresa-card {
+    margin-bottom: 0;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #6b7280;
+  }
+
+  .empty-state i {
+    font-size: 4rem;
+    color: #d1d5db;
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .pesquisa-empresa-hero {
+      padding: 2rem 0;
+    }
+    
+    .search-section {
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+    
+    .filters-container {
+      padding: 1rem;
+    }
+    
+    .grid-view {
+      grid-template-columns: 1fr;
+    }
+    
+    .empresa-card-header {
+      padding: 1rem;
+    }
+    
+    .empresa-card-body {
+      padding: 1rem;
+    }
+    
+    .empresa-actions {
+      padding: 1rem;
+    }
+    
+    .results-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .view-toggles {
+      order: 1;
+      width: 100%;
+    }
+    
+    .view-btn {
+      flex: 1;
+      text-align: center;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block main %}
+<div class="pesquisa-empresa-hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="row" data-aos="fade-up">
+        <div class="col">
+          <a href="{% url 'empreendedor:index' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Voltar
+          </a>
+        </div>
+      </div>
+      <h1 class="section-title fw-bold mb-3">Pesquisar Empresas</h1>
+      <p class="lead mb-0">Encontre empresas locais e conecte-se com a comunidade empresarial</p>
+      
+      <div class="search-section">
+        <form method="GET" id="search-form">
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="position-relative">
+                <input type="text" name="q" class="form-control pe-5" 
+                       placeholder="Buscar empresas, produtos ou serviços..." 
+                       value="{{ request.GET.q }}"
+                       style="padding: 12px 15px; border-radius: 25px;">
+                <button type="submit" class="btn position-absolute top-50 end-0 translate-middle-y me-2 p-2" 
+                        style="border: none; background: none; color: var(--pesquisa-empresa-primary);">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <button type="submit" class="btn btn-filter" style="padding: 12px 20px; font-size: 1rem;">
+                <i class="fas fa-search me-2"></i>Buscar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container pb-5">
+  <!-- Filtros Avançados -->
+  <div class="filters-container">
+    <h5 class="mb-3">
+      <i class="fas fa-filter me-2"></i>Filtros Avançados
+    </h5>
+    
+    <form method="GET" id="filter-form">
+      <div class="row">
+        <div class="col-md-6 col-lg-3">
+          <div class="filter-group">
+            <label class="filter-label">Atividade</label>
+            <select name="atividade" class="form-select">
+              <option value="">Todas as atividades</option>
+              {% for atividade in atividades %}
+                <option value="{{ atividade.id }}" {% if request.GET.atividade == atividade.id|stringformat:"s" %}selected{% endif %}>
+                  {{ atividade.atividade }}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="filter-group">
+            <label class="filter-label">Porte da Empresa</label>
+            <select name="porte" class="form-select">
+              <option value="">Todos os portes</option>
+              {% for porte in portes %}
+                <option value="{{ porte.id }}" {% if request.GET.porte == porte.id|stringformat:"s" %}selected{% endif %}>
+                  {{ porte.porte }}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="filter-group">
+            <label class="filter-label">Ramo de Atuação</label>
+            <select name="ramo" class="form-select">
+              <option value="">Todos os ramos</option>
+              {% for ramo in ramos %}
+                <option value="{{ ramo.id }}" {% if request.GET.ramo == ramo.id|stringformat:"s" %}selected{% endif %}>
+                  {{ ramo.ramo }}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="filter-group">
+            <label class="filter-label">Tem Website</label>
+            <select name="tem_site" class="form-select">
+              <option value="">Todos</option>
+              <option value="sim" {% if request.GET.tem_site == "sim" %}selected{% endif %}>Com website</option>
+              <option value="nao" {% if request.GET.tem_site == "nao" %}selected{% endif %}>Sem website</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row mt-3">
+        <div class="col-md-6">
+          <button type="submit" class="btn btn-filter">
+            <i class="fas fa-filter me-2"></i>Aplicar Filtros
+          </button>
+        </div>
+        <div class="col-md-6">
+          <a href="{% url 'empreendedor:paginas_pesquisa-empresa' %}" class="btn btn-clear">
+            <i class="fas fa-times me-2"></i>Limpar Filtros
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Resultados -->
+  <div class="results-header">
+    <div class="results-count">
+      {% if empresas %}
+        Encontradas {{ empresas|length }} empresa{{ empresas|length|pluralize }} de {{ total_empresas }} total
+      {% else %}
+        Nenhuma empresa encontrada
+      {% endif %}
+    </div>
+    
+    <div class="view-toggles">
+      <a href="?{{ request.GET.urlencode }}&view=grid" class="view-btn {% if view_type == 'grid' or not view_type %}active{% endif %}">
+        <i class="fas fa-th"></i>
+      </a>
+      <a href="?{{ request.GET.urlencode }}&view=list" class="view-btn {% if view_type == 'list' %}active{% endif %}">
+        <i class="fas fa-list"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- Lista de Empresas -->
+  {% if empresas %}
+    <div class="empresas-container {% if view_type == 'list' %}list-view{% else %}grid-view{% endif %}">
+      {% for empresa in empresas %}
+        <div class="empresa-card">
+          <div class="empresa-card-header">
+            <div class="d-flex align-items-start">
+              <div class="empresa-logo">
+                {% if empresa.registro_no_vitrine_virtual_set.first.logo %}
+                  <img src="{{ empresa.registro_no_vitrine_virtual_set.first.logo.url }}" alt="Logo {{ empresa.nome }}">
+                {% else %}
+                  <i class="fas fa-building"></i>
+                {% endif %}
+              </div>
+              <div class="empresa-info flex-grow-1">
+                <h5>{{ empresa.nome }}</h5>
+                <p class="text-muted">{{ empresa.porte }} • CNPJ: {{ empresa.cnpj }}</p>
+                {% if empresa.descricao %}
+                  <p class="text-muted mb-0">{{ empresa.descricao|truncatewords:15 }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          
+          <div class="empresa-card-body">
+            <!-- Tags de Atividade -->
+            {% if empresa.atividade.all %}
+              <div class="empresa-tags">
+                {% for atividade in empresa.atividade.all %}
+                  <span class="empresa-tag">{{ atividade.atividade }}</span>
+                {% endfor %}
+                {% if empresa.outra_atividade %}
+                  <span class="empresa-tag">{{ empresa.outra_atividade }}</span>
+                {% endif %}
+              </div>
+            {% endif %}
+            
+            <!-- Informações de Contato -->
+            <div class="empresa-contact">
+              {% if empresa.telefone %}
+                <div class="contact-item">
+                  <i class="fas fa-phone"></i>
+                  <a href="tel:{{ empresa.telefone }}">{{ empresa.telefone }}</a>
+                </div>
+              {% endif %}
+              
+              {% if empresa.whatsapp %}
+                <div class="contact-item">
+                  <i class="fab fa-whatsapp"></i>
+                  <a href="https://wa.me/{{ empresa.whatsapp }}" target="_blank">WhatsApp</a>
+                </div>
+              {% endif %}
+              
+              {% if empresa.email %}
+                <div class="contact-item">
+                  <i class="fas fa-envelope"></i>
+                  <a href="mailto:{{ empresa.email }}">E-mail</a>
+                </div>
+              {% endif %}
+              
+              {% if empresa.site %}
+                <div class="contact-item">
+                  <i class="fas fa-globe"></i>
+                  <a href="{{ empresa.site }}" target="_blank">Website</a>
+                </div>
+              {% endif %}
+            </div>
+            
+            <!-- Status -->
+            <div class="d-flex align-items-center">
+              {% if empresa.validacao %}
+                <span class="badge bg-success me-2">Validada</span>
+              {% endif %}
+              {% if empresa.cadastrada_na_vitrine %}
+                <span class="badge bg-info me-2">Vitrine Virtual</span>
+              {% endif %}
+              {% if empresa.cadastrada_como_fornecedor %}
+                <span class="badge bg-primary">Fornecedor</span>
+              {% endif %}
+            </div>
+          </div>
+          
+          <div class="empresa-actions">
+            <a href="{% url 'empreendedor:perfil_empresa' empresa.id %}" class="action-btn" title="Ver perfil">
+              <i class="fas fa-eye"></i>
+            </a>
+            
+            {% if empresa.whatsapp %}
+              <a href="https://wa.me/{{ empresa.whatsapp }}" target="_blank" class="action-btn" title="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+              </a>
+            {% endif %}
+            
+            {% if empresa.email %}
+              <a href="mailto:{{ empresa.email }}" class="action-btn" title="E-mail">
+                <i class="fas fa-envelope"></i>
+              </a>
+            {% endif %}
+            
+            {% if empresa.site %}
+              <a href="{{ empresa.site }}" target="_blank" class="action-btn" title="Website">
+                <i class="fas fa-globe"></i>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    
+    <!-- Paginação -->
+    {% if is_paginated %}
+      <div class="pagination-container">
+        <nav aria-label="Navegação das páginas">
+          <ul class="pagination">
+            {% if page_obj.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?{{ request.GET.urlencode }}&page=1">Primeira</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="?{{ request.GET.urlencode }}&page={{ page_obj.previous_page_number }}">Anterior</a>
+              </li>
+            {% endif %}
+            
+            {% for num in page_obj.paginator.page_range %}
+              {% if page_obj.number == num %}
+                <li class="page-item active">
+                  <span class="page-link">{{ num }}</span>
+                </li>
+              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="page-item">
+                  <a class="page-link" href="?{{ request.GET.urlencode }}&page={{ num }}">{{ num }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+            
+            {% if page_obj.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?{{ request.GET.urlencode }}&page={{ page_obj.next_page_number }}">Próxima</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="?{{ request.GET.urlencode }}&page={{ page_obj.paginator.num_pages }}">Última</a>
+              </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+    {% endif %}
+    
+  {% else %}
+    <!-- Estado Vazio -->
+    <div class="empty-state">
+      <i class="fas fa-search"></i>
+      <h3>Nenhuma empresa encontrada</h3>
+      <p>Tente ajustar os filtros ou fazer uma nova busca.</p>
+      <a href="{% url 'empreendedor:paginas_pesquisa-empresa' %}" class="btn btn-filter mt-3">
+        <i class="fas fa-refresh me-2"></i>Ver Todas as Empresas
+      </a>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-submit do formulário de filtros
+    const filterSelects = document.querySelectorAll('#filter-form select');
+    filterSelects.forEach(select => {
+        select.addEventListener('change', function() {
+            document.getElementById('filter-form').submit();
+        });
+    });
+    
+    // Preservar filtros na busca
+    const searchForm = document.getElementById('search-form');
+    searchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const searchInput = searchForm.querySelector('input[name="q"]');
+        const url = new URL(window.location.href);
+        
+        if (searchInput.value.trim()) {
+            url.searchParams.set('q', searchInput.value.trim());
+        } else {
+            url.searchParams.delete('q');
+        }
+        
+        window.location.href = url.toString();
+    });
+});
+</script>
+{% endblock %}

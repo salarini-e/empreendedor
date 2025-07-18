@@ -13,13 +13,10 @@
   }
   
   .mei-hero {
-    background: linear-gradient(135deg, var(--mei-secondary) 0%, var(--mei-primary) 100%);
-    background-image: 
-      linear-gradient(rgba(33, 138, 57, 0.9), rgba(0, 81, 164, 0.8)),
-      url('/static/images/bg-mei-docs.jpg');
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.479), rgba(255, 255, 255, 0.842)), url("{% static 'images/bg-empresa.jpg' %}") no-repeat center center;
     background-size: cover;
     background-position: center;
-    color: white;
+    color: rgb(0, 0, 0);
     padding: 80px 0 60px;
     position: relative;
     overflow: hidden;
@@ -63,13 +60,13 @@
   }
   
   .intro-box {
-    background: linear-gradient(135deg, var(--mei-accent), #f4d03f);
+    background-color: white;
     color: var(--dark-color);
     border-radius: 20px;
     padding: 2.5rem;
     margin: 3rem 0;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(210, 179, 54, 0.3);
+    box-shadow: 0 10px 25px rgba(129, 129, 129, 0.3);
   }
   
   .intro-box h3 {
@@ -117,15 +114,11 @@
     background: linear-gradient(135deg, #f8f9fa, #ffffff);
     border-radius: 15px;
     padding: 2rem;
-    border-left: 5px solid var(--mei-secondary);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    /* border-left: 5px solid var(--mei-secondary); */
+    box-shadow: 0 15px 30px rgba(33, 138, 57, 0.15);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
-  .doc-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(33, 138, 57, 0.15);
-  }
   
   .doc-header {
     display: flex;
@@ -155,7 +148,7 @@
   
   .obs-section {
     background: linear-gradient(135deg, #e7f3ff, #f0f8ff);
-    border-left: 5px solid var(--mei-info);
+    /* border-left: 5px solid var(--mei-info); */
     border-radius: 15px;
     padding: 2rem;
     margin: 3rem 0;
@@ -240,6 +233,88 @@
       padding: 1.5rem;
     }
   }
+.back-button {
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+  }
+
+  .back-button:hover {
+    background: #5a6268;
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+  }
+
+  /* Breadcrumb Styles */
+  .breadcrumb-container {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border-bottom: 1px solid #e9ecef;
+    padding: 1rem 0;
+    margin-bottom: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .breadcrumb-custom {
+    background: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .breadcrumb-item-custom {
+    display: flex;
+    align-items: center;
+    color: #6c757d;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 0.25rem 0;
+  }
+
+  .breadcrumb-item-custom:hover {
+    color: var(--mei-primary);
+    text-decoration: none;
+  }
+
+  .breadcrumb-item-custom.active {
+    color: var(--mei-primary);
+    font-weight: 600;
+  }
+
+  .breadcrumb-separator {
+    color: #adb5bd;
+    margin: 0 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .breadcrumb-icon {
+    margin-right: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 576px) {
+    .breadcrumb-custom {
+      font-size: 0.8rem;
+    }
+    
+    .breadcrumb-container {
+      padding: 0.75rem 0;
+    }
+  }
 </style>
 {% endblock %}
 
@@ -248,11 +323,45 @@
 <section class="mei-hero">
   <div class="container">
     <div class="hero-content-mei" data-aos="fade-up">
+      <div class="row" data-aos="fade-up">
+        <div class="col">
+          <a href="{% url 'empreendedor:quero_ser_mei' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Voltar
+          </a>
+        </div>
+      </div>
       <h1 class="section-title-mei">Documentos Necessários</h1>
       <p class="hero-subtitle">Tudo o que você precisa ter em mãos para se formalizar como MEI</p>
     </div>
   </div>
 </section>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb-container">
+  <div class="container">
+    <nav class="breadcrumb-custom" aria-label="Breadcrumb">
+      <a href="{% url 'empreendedor:index' %}" class="breadcrumb-item-custom">
+        <i class="fas fa-home breadcrumb-icon"></i>
+        Início
+      </a>
+      <span class="breadcrumb-separator">
+        <i class="fas fa-chevron-right"></i>
+      </span>
+      <a href="{% url 'empreendedor:quero_ser_mei' %}" class="breadcrumb-item-custom">
+        <i class="fas fa-user-plus breadcrumb-icon"></i>
+        Quero ser MEI
+      </a>
+      <span class="breadcrumb-separator">
+        <i class="fas fa-chevron-right"></i>
+      </span>
+      <span class="breadcrumb-item-custom active">
+        <i class="fas fa-file-alt breadcrumb-icon"></i>
+        Documentos Necessários
+      </span>
+    </nav>
+  </div>
+</div>
 
 <div class="container pb-5">
   <!-- Introduction -->
@@ -269,7 +378,7 @@
     <h2 class="docs-title">Documentos e Informações Necessárias</h2>
     
     <div class="docs-grid">
-      <div class="doc-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="doc-card" >
         <div class="doc-header">
           <i class="fas fa-id-card doc-icon"></i>
           <h3 class="doc-title">Dados Pessoais</h3>
@@ -279,7 +388,7 @@
         </p>
       </div>
 
-      <div class="doc-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="doc-card" >
         <div class="doc-header">
           <i class="fas fa-briefcase doc-icon"></i>
           <h3 class="doc-title">Dados do Negócio</h3>
@@ -289,7 +398,7 @@
         </p>
       </div>
 
-      <div class="doc-card" data-aos="fade-up" data-aos-delay="300">
+      <div class="doc-card" >
         <div class="doc-header">
           <i class="fas fa-key doc-icon"></i>
           <h3 class="doc-title">Conta gov.br</h3>
@@ -304,7 +413,7 @@
 
     <!-- Important Notes Grid -->
     <div class="docs-grid mt-4">
-      <div class="doc-card" data-aos="fade-up" data-aos-delay="400">
+      <div class="doc-card">
         <div class="doc-header">
           <i class="fas fa-check-circle doc-icon"></i>
           <h3 class="doc-title">Se você já possui conta</h3>
@@ -314,7 +423,7 @@
         </p>
       </div>
 
-      <div class="doc-card" data-aos="fade-up" data-aos-delay="500">
+      <div class="doc-card" >
         <div class="doc-header">
           <i class="fas fa-user-plus doc-icon"></i>
           <h3 class="doc-title">Se ainda não possui</h3>
@@ -366,31 +475,18 @@
     </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Ativar navegação
+    const menuItem = document.getElementById('empreendedor_quero_ser_mei');
+    if (menuItem) {
+      menuItem.classList.add('s-nav-active');
+    }
+  });
+</script>
 {% endblock %}
 
-{% block footer %}
-{% include 'desenvolve_nf/instagram.html' %}
-{% endblock %}
-            <p><b>Observação:</b> Por questões de segurança, o sistema bloqueará o cadastro por 24 horas a partir da 3ª
-                tentativa de validação.</p>
-        </div>
-    </div>
-
-    {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
-    <style>
-        span {
-            text-align: center;
-        }
-    </style>
-    <div class="row mx-auto px-5">
-        <script>
-    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
-        </script>
-    </div>
-</div>
-
-
-{% endblock %}
 {% block footer %}
 {% include 'desenvolve_nf/instagram.html' %}
 {% endblock %}

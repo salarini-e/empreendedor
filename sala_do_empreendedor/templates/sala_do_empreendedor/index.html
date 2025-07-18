@@ -12,6 +12,9 @@
     --accent-gold: #D2B336;
     --dark-gray: #363335;
     --light-gray: #f8f9fa;
+   
+    --empresa-accent: #e0b731;
+   
   }
   
   /* Hero Section Moderno */
@@ -684,8 +687,11 @@
   .contact-item i {
     font-size: 1.8rem;
     color: var(--accent-gold);
+    margin: 0;
   }
-  
+  .contact-item div{
+    margin: auto;
+  }
   .contact-item a {
     color: white;
     text-decoration: none;
@@ -813,9 +819,9 @@
 <section class="nav-empreendedor" data-aos="fade-up">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-lg-10">
-        <div class="row text-center">
-          <div class="col-md-2 col-4 mb-3">
+      <div class="col-12">
+        <div class="row text-center justify-content-center">
+          <div class="col-xl-1 col-lg-2 col-md-3 col-4 mb-3">
             <a href="{% url 'empreendedor:index' %}" class="nav-item-modern active">
               <div class="nav-icon-modern">
                 <i class="fas fa-home"></i>
@@ -823,7 +829,7 @@
               <div class="nav-label-modern">Início</div>
             </a>
           </div>
-          <div class="col-md-2 col-4 mb-3">
+          <div class="col-xl-1 col-lg-2 col-md-3 col-4 mb-3">
             <a href="#servicos" class="nav-item-modern">
               <div class="nav-icon-modern">
                 <i class="fas fa-concierge-bell"></i>
@@ -831,7 +837,7 @@
               <div class="nav-label-modern">Serviços</div>
             </a>
           </div>
-          <div class="col-md-2 col-4 mb-3">
+          <div class="col-xl-1 col-lg-2 col-md-3 col-4 mb-3">
             <a href="{% url 'empreendedor:consultar_processos' %}" class="nav-item-modern">
               <div class="nav-icon-modern">
                 <i class="fas fa-search"></i>
@@ -839,7 +845,15 @@
               <div class="nav-label-modern">Consultar Processo</div>
             </a>
           </div>
-          <div class="col-md-2 col-4 mb-3">
+          <div class="col-xl-1 col-lg-2 col-md-3 col-4 mb-3">
+            <a href="{% url 'empreendedor:vitrine_virtual' %}" class="nav-item-modern">
+              <div class="nav-icon-modern">
+                <i class="fas fa-store"></i>
+              </div>
+              <div class="nav-label-modern">Vitrine Virtual</div>
+            </a>
+          </div>
+          <div class="col-xl-1 col-lg-2 col-md-3 col-4 mb-3">
             <a href="{% url 'empreendedor:cursos' %}" class="nav-item-modern">
               <div class="nav-icon-modern">
                 <i class="fas fa-graduation-cap"></i>
@@ -847,7 +861,7 @@
               <div class="nav-label-modern">Capacitação</div>
             </a>
           </div>
-          <div class="col-md-2 col-4 mb-3">
+          <div class="col-xl-1 col-lg-2 col-md-3 col-4 mb-3">
             <a href="{% url 'empreendedor:minha_empresa' %}" class="nav-item-modern">
               <div class="nav-icon-modern">
                 <i class="fas fa-building"></i>
@@ -855,7 +869,7 @@
               <div class="nav-label-modern">Minha Empresa</div>
             </a>
           </div>
-          <div class="col-md-2 col-4 mb-3">
+          <div class="col-xl-1 col-lg-2 col-md-3 col-4 mb-3">
             <a href="#contato" class="nav-item-modern">
               <div class="nav-icon-modern">
                 <i class="fas fa-calendar-alt"></i>
@@ -888,8 +902,9 @@
         <div class="quick-services">
           <a href="{% url 'empreendedor:quero_ser_mei' %}" class="quick-service-tag">Quero ser MEI</a>
           <a href="{% url 'empreendedor:abertura_de_empresa' %}" class="quick-service-tag">Abrir Empresa</a>
-          <a href="https://servicoonline.novafriburgo.rj.gov.br/services/site_login.php" target="_blank" class="quick-service-tag">Débitos e Taxas</a>
+          <a href="https://servicoonline.novafriburgo.rj.gov.br/services/site_login.php" target="_blank" class="quick-service-tag external-link">Débitos e Taxas</a>
           <a href="{% url 'empreendedor:consultar_processos' %}" class="quick-service-tag">Consultar Processo</a>
+          <a href="{% url 'empreendedor:vitrine_virtual' %}" class="quick-service-tag">Vitrine Virtual</a>
         </div>
       </div> -->
     </div>
@@ -997,13 +1012,13 @@
       
       <!-- 2. Débitos e Taxas -->
       <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="150">
-        <div class="service-card">
+        <div class="service-card has-external-link">
           <div class="service-icon">
             <i class="fas fa-receipt"></i>
           </div>
           <h3 class="service-title">Débitos e Taxas</h3>
           <p class="service-description">Consulte e quite seus débitos municipais de forma rápida e segura online.</p>
-          <a href="https://servicoonline.novafriburgo.rj.gov.br/services/site_login.php" target="_blank" class="btn-service">Acessar Portal</a>
+          <a href="https://servicoonline.novafriburgo.rj.gov.br/services/site_login.php" target="_blank" class="btn-service external-link">Acessar Portal</a>
         </div>
       </div>
       
@@ -1021,13 +1036,13 @@
       
       <!-- 4. Fale Conosco (WhatsApp) -->
       <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="250">
-        <div class="service-card">
+        <div class="service-card has-external-link">
           <div class="service-icon">
             <i class="fab fa-whatsapp"></i>
           </div>
           <h3 class="service-title">Fale Conosco</h3>
           <p class="service-description">Entre em contato direto conosco via WhatsApp para esclarecimentos e suporte.</p>
-          <a href="https://api.whatsapp.com/send?phone=552225259151" target="_blank" class="btn-service">WhatsApp</a>
+          <a href="https://api.whatsapp.com/send?phone=552225259151" target="_blank" class="btn-service external-link">WhatsApp</a>
         </div>
       </div>
       
@@ -1078,21 +1093,33 @@
           <a href="{% url 'cursos_profissionais:index' %}" class="btn-service">Ver Cursos</a>
         </div>
       </div>
-      
-      <!-- 9. Certidões -->
+
+      <!-- 8.5. Vitrine Virtual -->
       <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="500">
         <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-store"></i>
+          </div>
+          <h3 class="service-title">Vitrine Virtual</h3>
+          <p class="service-description">Promova sua empresa online na vitrine virtual da cidade. Mostre seus produtos e serviços.</p>
+          <a href="{% url 'empreendedor:vitrine_virtual' %}" class="btn-service">Ver Vitrine</a>
+        </div>
+      </div>
+      
+      <!-- 9. Certidões -->
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="550">
+        <div class="service-card has-external-link">
           <div class="service-icon">
             <i class="fas fa-certificate"></i>
           </div>
           <h3 class="service-title">Certidões</h3>
           <p class="service-description">Emissão de certidões necessárias para o funcionamento legal da sua empresa.</p>
-          <a href="https://servicoonline.novafriburgo.rj.gov.br/services/certidao_retirada.php" target="_blank" class="btn-service">Emitir Certidão</a>
+          <a href="https://servicoonline.novafriburgo.rj.gov.br/services/certidao_retirada.php" target="_blank" class="btn-service external-link">Emitir Certidão</a>
         </div>
       </div>
       
       <!-- 10. ISS Autônomos -->
-      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="550">
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="600">
         <div class="service-card">
           <div class="service-icon">
             <i class="fas fa-file-invoice-dollar"></i>
@@ -1104,31 +1131,31 @@
       </div>
       
       <!-- 11. Nota Fiscal -->
-      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="600">
-        <div class="service-card">
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="650">
+        <div class="service-card has-external-link">
           <div class="service-icon">
             <i class="fas fa-file-invoice"></i>
           </div>
           <h3 class="service-title">Nota Fiscal</h3>
           <p class="service-description">Acesse o sistema de Nota Fiscal Eletrônica do município.</p>
-          <a href="https://rj-novafriburgo-pm-nfs.cloud.el.com.br//paginas/sistema/login.jsf" target="_blank" class="btn-service">Sistema NFE</a>
+          <a href="https://rj-novafriburgo-pm-nfs.cloud.el.com.br//paginas/sistema/login.jsf" target="_blank" class="btn-service external-link">Sistema NFE</a>
         </div>
       </div>
       
       <!-- 12. Junta Comercial -->
-      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="650">
-        <div class="service-card">
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="700">
+        <div class="service-card has-external-link">
           <div class="service-icon">
             <i class="fas fa-stamp"></i>
           </div>
           <h3 class="service-title">Junta Comercial</h3>
           <p class="service-description">Acesse os serviços da Junta Comercial do Estado do Rio de Janeiro.</p>
-          <a href="https://www.jucerja.rj.gov.br/" target="_blank" class="btn-service">JUCERJA</a>
+          <a href="https://www.jucerja.rj.gov.br/" target="_blank" class="btn-service external-link">JUCERJA</a>
         </div>
       </div>
       
       <!-- 13. Linha de Crédito -->
-      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="700">
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="750">
         <div class="service-card">
           <div class="service-icon">
             <i class="fas fa-hand-holding-usd"></i>
@@ -1140,7 +1167,7 @@
       </div>
       
       <!-- 14. Oportunidades -->
-      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="750">
+      <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="800">
         <div class="service-card">
           <div class="service-icon">
             <i class="fas fa-lightbulb"></i>
@@ -1153,25 +1180,25 @@
       
       <!-- 15. Consulta de Processo -->
       <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="800">
-        <div class="service-card">
+        <div class="service-card has-external-link">
           <div class="service-icon">
             <i class="fas fa-search"></i>
           </div>
           <h3 class="service-title">Consulta de Processo</h3>
           <p class="service-description">Consulte o andamento dos seus processos junto à Prefeitura.</p>
-          <a href="https://gpi18.cloud.el.com.br/ServerExec/acessoBase/?idPortal=008D9DCE8EF2707B45F47C2AD10B38E2" target="_blank" class="btn-service">Consultar</a>
+          <a href="https://gpi18.cloud.el.com.br/ServerExec/acessoBase/?idPortal=008D9DCE8EF2707B45F47C2AD10B38E2" target="_blank" class="btn-service external-link">Consultar</a>
         </div>
       </div>
       
       <!-- 16. Consulta de Dívidas -->
       <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="850">
-        <div class="service-card">
+        <div class="service-card has-external-link">
           <div class="service-icon">
             <i class="fas fa-calculator"></i>
           </div>
           <h3 class="service-title">Consulta de Dívidas</h3>
           <p class="service-description">Consulte suas dívidas municipais e regularize sua situação fiscal.</p>
-          <a href="https://servicoonline.novafriburgo.rj.gov.br/services/site_login.php" target="_blank" class="btn-service">Consultar Dívidas</a>
+          <a href="https://servicoonline.novafriburgo.rj.gov.br/services/site_login.php" target="_blank" class="btn-service external-link">Consultar Dívidas</a>
         </div>
       </div>
     </div>
@@ -1224,7 +1251,7 @@
                 <i class="fab fa-whatsapp"></i>
                 <div>
                   <strong>WhatsApp</strong><br>
-                  <a href="https://api.whatsapp.com/send?phone=552225259151" target="_blank">
+                  <a href="https://api.whatsapp.com/send?phone=552225259151" target="_blank" class="external-link">
                     (22) 2525-9151
                   </a>
                 </div>

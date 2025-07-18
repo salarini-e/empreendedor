@@ -56,6 +56,7 @@ class Empresa(models.Model):
     validacao=models.BooleanField(default=False, verbose_name='Validação da empresa')
     cadastrada_na_vitrine=models.BooleanField(default=False, verbose_name='Cadastrado na Vitrine Virtual?')
     cadastrada_como_fornecedor=models.BooleanField(default=False, verbose_name='Cadastrado como fornecedor da prefeitura?')
+    perfil_publico=models.BooleanField(default=False, verbose_name='Permitir que o perfil seja público?')
     
     __str__ = lambda self: f'{self.nome} - {self.cnpj}'
     

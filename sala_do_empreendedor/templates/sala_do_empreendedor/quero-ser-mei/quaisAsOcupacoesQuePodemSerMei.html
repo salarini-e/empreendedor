@@ -1,54 +1,177 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
-{% block nav %}
-{% include 'nav_empreendedor.html' %}
-{% endblock %}
-{% block css %}
-<link rel="stylesheet" href="{% static 'css/quero-ser-mei.css'%}">
-<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
-{% endblock %}
-{% block main %}
-<div class="container">
-    <div class="row mx-auto ps-4 pb-3">
-        <h3 class="text-center">Quais as ocupações que podem ser MEI</h3>
-    </div>
-    <div class="row mx-auto mb-5">
-        <div class="col">
-            <p class="mt-4" style="text-align: justify;">
-                Veja se a sua ocupação é permitida (não se preocupe com o código CNAE, que é muito mais abrangente).
-                Por isso, é muito importante que você avalie atentamente a descrição de cada ocupação e verifique se o que está descrito é exatamente o que você já faz ou irá fazer. Se uma única ocupação não representa tudo que você fará, é possível escolher 1 ocupação como principal e outras 15 secundárias. 
-                Atente que essas ocupações definirão os impostos que serão pagos e as exigências municipais que você deverá cumprir. 
-                Depois que consultar suas ocupações, veja as exigências do Corpo de Bombeiro  e Vigilância Sanitária , clique nos cards abaixo.
-            </p>
-        </div>
-    </div>
 
-    {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
-    <style>
-        span {
-            text-align: center;
-        }
-    </style>
-    <div class="row mx-auto px-5">
-        <script>
-    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
-        </script>
-    </div>
+{% block title %}Quais as ocupações que podem ser MEI{% endblock %}
+
+{% block nav %}
+  
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
+  <style>
+    /* Breadcrumb Styles */
+    .breadcrumb-container {
+      background: linear-gradient(135deg, #ffffff, #f8f9fa);
+      border-bottom: 1px solid #e9ecef;
+      padding: 1rem 0;
+      margin-bottom: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-top: 90px;
+    }
+
+    .breadcrumb-custom {
+      background: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .breadcrumb-item-custom {
+      display: flex;
+      align-items: center;
+      color: #6c757d;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      padding: 0.25rem 0;
+    }
+
+    .breadcrumb-item-custom:hover {
+      color: #0051A4;
+      text-decoration: none;
+    }
+
+    .breadcrumb-item-custom.active {
+      color: #0051A4;
+      font-weight: 600;
+    }
+
+    .breadcrumb-separator {
+      color: #adb5bd;
+      margin: 0 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .breadcrumb-icon {
+      margin-right: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .content-wrapper {
+      margin-top: 0 !important;
+    }
+
+    @media (max-width: 576px) {
+      .breadcrumb-custom {
+        font-size: 0.8rem;
+      }
+      
+      .breadcrumb-container {
+        padding: 0.75rem 0;
+      }
+    }
+  </style>>
+{% endblock %}
+
+{% block main %}
+<!-- Breadcrumb -->
+<div class="breadcrumb-container">
+  <div class="container">
+    <nav class="breadcrumb-custom" aria-label="Breadcrumb">
+      <a href="{% url 'empreendedor:index' %}" class="breadcrumb-item-custom">
+        <i class="fas fa-home breadcrumb-icon"></i>
+        Início
+      </a>
+      <span class="breadcrumb-separator">
+        <i class="fas fa-chevron-right"></i>
+      </span>
+      <a href="{% url 'empreendedor:quero_ser_mei' %}" class="breadcrumb-item-custom">
+        <i class="fas fa-user-plus breadcrumb-icon"></i>
+        Quero ser MEI
+      </a>
+      <span class="breadcrumb-separator">
+        <i class="fas fa-chevron-right"></i>
+      </span>
+      <span class="breadcrumb-item-custom active">
+        <i class="fas fa-list-ul breadcrumb-icon"></i>
+        Ocupações que podem ser MEI
+      </span>
+    </nav>
+  </div>
 </div>
 
-<style>
-    .divLinks{
-        display: flex;
-        flex-direction: column;
-    }
-    .divLinks a{
-        background-color: lightgrey;
-        padding: 20px;
-        margin: 5px;
-        border-radius: 5px;
-    }
-</style>
-{% endblock %}
-{% block footer %}
-{% include 'desenvolve_nf/instagram.html' %}
+<div class="content-wrapper">
+  <div class="container">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-wrapper">
+            <h1 class="page-title">Quais as ocupações que podem ser MEI</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="page-content">
+      <div class="row">
+        <div class="col-12">
+          <div class="content-card">
+            <div class="alert alert-info mb-4">
+              <i class="fas fa-info-circle me-2"></i>
+              <strong>Importante:</strong> Veja se a sua ocupação é permitida (não se preocupe com o código CNAE, que é muito mais abrangente).
+            </div>
+
+            <p class="lead mb-4">
+              É muito importante que você avalie atentamente a descrição de cada ocupação e verifique se o que está descrito é exatamente o que você já faz ou irá fazer.
+            </p>
+
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-clipboard-list me-2"></i>
+                Como escolher suas ocupações
+              </h4>
+              <ul class="info-list">
+                <li>Se uma única ocupação não representa tudo que você fará, é possível escolher <strong>1 ocupação como principal</strong> e outras <strong>15 secundárias</strong></li>
+                <li>Essas ocupações definirão os <strong>impostos que serão pagos</strong> e as <strong>exigências municipais</strong> que você deverá cumprir</li>
+                <li>Depois que consultar suas ocupações, veja as exigências do <strong>Corpo de Bombeiros</strong> e <strong>Vigilância Sanitária</strong></li>
+              </ul>
+            </div>
+
+            <div class="alert alert-warning">
+              <i class="fas fa-exclamation-triangle me-2"></i>
+              <strong>Atenção:</strong> Consulte sempre as exigências específicas do seu município e os órgãos competentes antes de iniciar suas atividades.
+            </div>
+
+            <!-- Links externos ou botões para consulta -->
+            <div class="action-buttons mt-4">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <a href="#" class="btn btn-primary btn-lg w-100" target="_blank">
+                    <i class="fas fa-search me-2"></i>
+                    Consultar Ocupações MEI
+                  </a>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <a href="#" class="btn btn-outline-primary btn-lg w-100" target="_blank">
+                    <i class="fas fa-file-alt me-2"></i>
+                    Lista Completa CNAE
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu de navegação MEI -->
+    {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
+  </div>
+</div>
 {% endblock %}

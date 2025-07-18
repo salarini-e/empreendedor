@@ -3,6 +3,66 @@
 
 {% block css %}
 <style>
+  /* Breadcrumb Styles */
+  .breadcrumb-container {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border-bottom: 1px solid #e9ecef;
+    padding: 1rem 0;
+    margin-bottom: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .breadcrumb-custom {
+    background: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .breadcrumb-item-custom {
+    display: flex;
+    align-items: center;
+    color: #6c757d;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 0.25rem 0;
+  }
+
+  .breadcrumb-item-custom:hover {
+    color: var(--mei-primary);
+    text-decoration: none;
+  }
+
+  .breadcrumb-item-custom.active {
+    color: var(--mei-primary);
+    font-weight: 600;
+  }
+
+  .breadcrumb-separator {
+    color: #adb5bd;
+    margin: 0 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .breadcrumb-icon {
+    margin-right: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 576px) {
+    .breadcrumb-custom {
+      font-size: 0.8rem;
+    }
+    
+    .breadcrumb-container {
+      padding: 0.75rem 0;
+    }
+  }
+
   /* Por que ser MEI - Design System Moderno */
   :root {
     --mei-primary: #0051A4;
@@ -14,14 +74,11 @@
   }
   
   .mei-hero {
-    background: linear-gradient(135deg, var(--mei-secondary) 0%, var(--mei-primary) 100%);
-    background-image: 
-      linear-gradient(rgba(33, 138, 57, 0.9), rgba(0, 81, 164, 0.8)),
-      url('/static/images/bg-mei-vantagens.jpg');
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.479), rgba(255, 255, 255, 0.842)), url("{% static 'images/bg-empresa.jpg' %}") no-repeat center center;
     background-size: cover;
     background-position: center;
-    color: white;
-    padding: 80px 0 60px;
+    color: rgb(0, 0, 0);
+    padding: 80px 60px 40px 50px;
     position: relative;
     overflow: hidden;
     box-shadow: 0 8px 24px rgba(33, 138, 57, 0.2);
@@ -40,7 +97,6 @@
     margin-bottom: 1rem;
     position: relative;
     display: inline-block;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
   }
   
   .section-title-mei::after {
@@ -90,20 +146,24 @@
     background: linear-gradient(135deg, #f8f9fa, #ffffff);
     border-radius: 15px;
     padding: 2rem;
-    border-left: 5px solid var(--mei-secondary);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* border-left: 5px solid var(--mei-secondary); */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.205);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
-  .advantage-card:hover {
+  /* .advantage-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 30px rgba(33, 138, 57, 0.15);
-  }
+  } */
   
   .advantage-icon {
     font-size: 2.5rem;
-    color: var(--mei-secondary);
+    color: var(--mei-primary);
+    margin: auto;
     margin-bottom: 1rem;
+    
   }
   
   .advantage-title {
@@ -112,6 +172,7 @@
     color: var(--mei-primary);
     margin-bottom: 1rem;
     font-family: var(--font-secondary);
+    text-align: center;
   }
   
   .advantage-text {
@@ -224,6 +285,32 @@
   </div>
 </section>
 
+<!-- Breadcrumb -->
+<div class="breadcrumb-container">
+  <div class="container">
+    <nav class="breadcrumb-custom" aria-label="Breadcrumb">
+      <a href="{% url 'empreendedor:index' %}" class="breadcrumb-item-custom">
+        <i class="fas fa-home breadcrumb-icon"></i>
+        Início
+      </a>
+      <span class="breadcrumb-separator">
+        <i class="fas fa-chevron-right"></i>
+      </span>
+      <a href="{% url 'empreendedor:quero_ser_mei' %}" class="breadcrumb-item-custom">
+        <i class="fas fa-user-plus breadcrumb-icon"></i>
+        Quero ser MEI
+      </a>
+      <span class="breadcrumb-separator">
+        <i class="fas fa-chevron-right"></i>
+      </span>
+      <span class="breadcrumb-item-custom active">
+        <i class="fas fa-question-circle breadcrumb-icon"></i>
+        Por que ser MEI
+      </span>
+    </nav>
+  </div>
+</div>
+
 <div class="container pb-5">
   <!-- Introduction -->
   <div class="content-section" data-aos="fade-up">
@@ -234,49 +321,49 @@
 
     <!-- Advantages Grid -->
     <div class="advantages-grid">
-      <div class="advantage-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="advantage-card" >
         <i class="fas fa-id-card advantage-icon"></i>
         <h3 class="advantage-title">CNPJ Próprio</h3>
         <p class="advantage-text">Tenha um CNPJ para formalizar seu negócio e aumentar sua credibilidade no mercado.</p>
       </div>
 
-      <div class="advantage-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="advantage-card" >
         <i class="fas fa-gift advantage-icon"></i>
         <h3 class="advantage-title">Isenção de Taxas</h3>
         <p class="advantage-text">Registro gratuito sem custos de abertura, cartório ou taxas governamentais.</p>
       </div>
 
-      <div class="advantage-card" data-aos="fade-up" data-aos-delay="300">
+      <div class="advantage-card" >
         <i class="fas fa-coins advantage-icon"></i>
         <h3 class="advantage-title">Tributos Fixos</h3>
         <p class="advantage-text">Pagamento de tributos com valores fixos mensais (INSS, ICMS e/ou ISS).</p>
       </div>
 
-      <div class="advantage-card" data-aos="fade-up" data-aos-delay="400">
+      <div class="advantage-card" >
         <i class="fas fa-rocket advantage-icon"></i>
         <h3 class="advantage-title">Início Imediato</h3>
         <p class="advantage-text">Comece suas atividades imediatamente, sem necessidade de alvará prévio.</p>
       </div>
 
-      <div class="advantage-card" data-aos="fade-up" data-aos-delay="500">
+      <div class="advantage-card" >
         <i class="fas fa-file-invoice advantage-icon"></i>
         <h3 class="advantage-title">Emissão de Notas</h3>
         <p class="advantage-text">Emita notas fiscais e comprove a procedência dos seus produtos e serviços.</p>
       </div>
 
-      <div class="advantage-card" data-aos="fade-up" data-aos-delay="600">
+      <div class="advantage-card" >
         <i class="fas fa-handshake advantage-icon"></i>
         <h3 class="advantage-title">Poder de Negociação</h3>
         <p class="advantage-text">Obtenha descontos especiais para pessoa jurídica junto aos fornecedores.</p>
       </div>
 
-      <div class="advantage-card" data-aos="fade-up" data-aos-delay="700">
+      <div class="advantage-card">
         <i class="fas fa-university advantage-icon"></i>
         <h3 class="advantage-title">Serviços Financeiros</h3>
         <p class="advantage-text">Acesso facilitado a conta bancária jurídica, máquina de cartão e crédito.</p>
       </div>
 
-      <div class="advantage-card" data-aos="fade-up" data-aos-delay="800">
+      <div class="advantage-card">
         <i class="fas fa-building advantage-icon"></i>
         <h3 class="advantage-title">Vendas para Empresas</h3>
         <p class="advantage-text">Venda e preste serviços para outras empresas e para o governo.</p>
@@ -284,7 +371,7 @@
     </div>
 
     <!-- Conclusion -->
-    <div class="conclusion-box" data-aos="fade-up">
+    <div class="conclusion-box">
       <h3>Vantagens Comprovadas</h3>
       <p>
         Se tornar um MEI traz várias vantagens e simplificações para ajudar no dia a dia 

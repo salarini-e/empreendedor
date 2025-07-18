@@ -5,122 +5,174 @@
 {% include 'nav_empreendedor.html' %}
 {% endblock %}
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+<link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
 {% endblock %}
 {% block main %}
-<div class="row mx-auto pb-3">
-  <style>
-      body {
-          background-color: #f4f4f4;
-          font-family: Arial, sans-serif;
-          text-align: center;
-      }
+<!-- Hero Section -->
+<section class="service-hero">
+  <div class="container pt-4">
+    <div class="hero-content-service" data-aos="fade-up">
+      <div class="row" data-aos="fade-up">
+        <div class="col">
+          <a href="{% url 'empreendedor:index' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Voltar
+          </a>
+        </div>
+      </div>
+      <h1 class="section-title-service">Facção Legal</h1>
+      <p class="lead">Cadastre-se no programa de regularização de facções têxteis</p>
+    </div>
+  </div>
+</section>
 
-      .construction-icon {
-          font-size: 48px;
-          color: #e74c3c;
-      }
-
-      .message {
-          font-size: 24px;
-          margin-top: 20px;
-          color: #333;
-      }
-
-      .contact {
-          font-size: 18px;
-          margin-top: 20px;
-          color: #666;
-      }
-  </style>
+<div class="container pb-5">
   {% if request.user.is_superuser %}
-  <div class="row mb-3">
-    <div class="col-8 mx-auto d-flex" style="text-align: left; background-color: white; padding: 20px; border-radius: 20px;">
-      <h3 style="line-height: auto; margin: auto 0px;"><strong>ADMIN</strong></h3>
-      <a href="{% url 'empreendedor:exportar_faccao' %}" class="btn btn-success ms-auto my-auto">
-        <i class="fa-solid fa-file-excel me-1"></i> Exportar dados
-      </a>
+  <div class="row mb-3" data-aos="fade-up">
+    <div class="col-lg-8 mx-auto">
+      <div class="service-card">
+        <div class="card-body d-flex align-items-center">
+          <h5 class="mb-0"><strong>ADMIN</strong></h5>
+          <a href="{% url 'empreendedor:exportar_faccao' %}" class="btn btn-success ms-auto">
+            <i class="fa-solid fa-file-excel me-1"></i> Exportar dados
+          </a>
+        </div>
+      </div>
     </div>
   </div>
   {% endif %}
+  
   {% if faccao %}
-  <div class="row mb-3">
-    <div class="col-8 mx-auto d-flex" style="text-align: left;">
-      <h3>Seus dados</h3>
-      <a href="{% url 'empreendedor:apagar_faccao' %}" class="btn btn-danger ms-auto my-auto">
-        Apagar meus dados
-      </a>
-    </div>
-  </div>
-  <div class="row mb-3">
-    <div class="col-4 ms-auto" style="text-align: left;">
-      {% if faccao.possui_mei %}
-      <p class="mb-2"><strong>CNPJ:</strong> <br>{{faccao.cnpj}}</p>            
-      {% endif %}
-      <p class="mb-2"><strong>Trabalha com facção há quanto tempo?</strong> <br>{{faccao.get_tempo_que_trabalha_display}}</p>
-      <p><strong>Trabalha com:</strong></p>
-      {% for item in faccao.trabalha_com.all %}
-      <p>{{item}}</p>
-      {% endfor %}
-      <p class="mt-2"><strong>Equipamento(s) que possui</strong></p>
-      {% for item in faccao.equipamentos.all %}
-      <p>{{item}}</p>
-      {% endfor %}  
-      <p class="mb-2"><strong>Possui área de trabalho separada da residência?</strong><br>{{faccao.get_area_display}}</p>
-      <p class="mb-2"><strong>Tamanho área de trabalho:</strong> <br>{{faccao.get_tamanho_area_display}}</p>
-      
-      {% if faccao.possui_colaboradores %}
-      <p class="mb-2"><strong>Quantidade de colaboradores:</strong> <br>{{faccao.qtd_colaboradores}}</p>
-      {% endif %}   
-    </div>
-    <div class="col col-4 me-auto" style="text-align: left;">      
-      <p><strong>Tipo(s) de produto(s):</strong></p>
-      {% for item in faccao.tipo_produto.all %}
-      <p>{{item}}</p>
-      {% endfor %}
-      {% if faccao.outro_produto %}
-      <p class="my-2">{{faccao.outro_produto}}</p>
-      {% endif %}
-      <p class="mb-2"><strong>Geralmente, como está de trabalho?</strong> <br>{{faccao.get_situacao_trabalho_display}}</p>
-      <p class="mb-2"><strong>Como considera a renda que obtêm com seu trabalho?'</strong> <br>{{faccao.get_situacao_remuneracao_display}}</p>
-      <p class="mb-2"><strong>Você prefere:</strong> <br>{{faccao.get_voce_prefere_display}}</p>
-      <p class="mb-2"><strong>Qual seu sonho no setor?</strong><br>
-      {{faccao.qual_seu_sonho_no_setor}}</p>
+  <div class="row mb-3" data-aos="fade-up">
+    <div class="col-lg-8 mx-auto">
+      <div class="service-card">
+        <div class="card-body d-flex align-items-center">
+          <h5 class="mb-0">Seus dados</h5>
+          <a href="{% url 'empreendedor:apagar_faccao' %}" class="btn btn-danger ms-auto">
+        </div>
+      </div>
     </div>
   </div>
   {% endif %}
-  <div class="row">
-     <div class="col-8 mx-auto" style="text-align: left;">
-      <h3 class="mb-4">{{titulo_pag}}</h3>
-      <p class="mb-3">O Facção Legal é um projeto da Prefeitura de Nova Friburgo, em parceria com o SINDVEST, SINDITEXTIL e com Governo do Estado do RJ, através das Secretarias da Mulher e Secretaria de Desenvolvimento Econômico.</p>
-      <p class="mb-3">O Facção Legal visa melhorar as condições de trabalho e renda de milhares de pessoas que atuam no ramo de costura, corte, bordado ou estamparia, prestando serviços para confecções de maior porte ou indústria de nosso polo de moda.</p>
-      <p class="mb-4">O Programa Facção Legal se divide em diversas etapas:</p>
-    <ol  class="mb-3">
-      <li class="mb-3">Realização do cadastro (Diagnóstico de condições de trabalho e expectativas)</li>
-      <li class="mb-3">Auxílio para Formalização como MEI (Aumentando a sua segurança e abrindo portas para produzir para novas empresas.)</li>
-      <li class="mb-3">CAPACITAÇÃO TÉCNICA E OUTRAS MÁQUINAS OU SERVIÇOS E EM GESTÃO. (Você vai aprender a calcular o valor de seu trabalho, a controlar o caixa, administrar seu negócio, planejar o crescimento de sua empresa...)</li>
-      <li class="mb-3">CONECTA – Você será incluída num aplicativo onde divulgará o seu trabalho e receberá informações de empresas que estão oferecendo peças para produção.</li>
-      <li class="mb-3">LINHAS DE CRÉDITOS – Você terá acesso a empréstimos com taxas especiais para compra de equipamentos ou melhorias de sua célula de trabalho.</li>
-      <li class="mb-3">INCENTIVO PÚBLICO – Você poderá receber recursos públicos para a melhoria dos seus equipamentos ou célula de trabalho.</li>
-      <!-- <li class="mb-3">CAPACITAÇÃO 2 – Caso desejar, receberá capacitação para a produção de suas próprias peças e em venda, para aprender a comercializar seus produtos.</li>
-      <li class="mb-3">Terá acesso a um portal de vendas online para comercializar seus produtos.</li> -->
-    </ol>
-     </div>
-    {% if request.user.is_authenticated %}
-    <div class="mx-auto my-3">
-      <a href="{% url 'empreendedor:cadastrar_faccao_legal' %}" id="cadastroBtn" class="btn btn-primary mt-0 mb-3">
-        Realizar cadastro
-      </a>
+  
+  <!-- Informações do Facção Legal -->
+  <div class="row" data-aos="fade-up">
+    <div class="col-lg-10 mx-auto">
+      <div class="content-section">
+        <h3 class="mb-4 text-primary">{{titulo_pag}}</h3>
+        
+        <div class="alert-service mb-4">
+          <h5 class="fw-bold mb-3">
+            <i class="fas fa-handshake text-primary me-2"></i>
+            Sobre o Programa
+          </h5>
+          <p class="mb-3">O Facção Legal é um projeto da Prefeitura de Nova Friburgo, em parceria com o SINDVEST, SINDITEXTIL e com Governo do Estado do RJ, através das Secretarias da Mulher e Secretaria de Desenvolvimento Econômico.</p>
+          <p class="mb-0">O Facção Legal visa melhorar as condições de trabalho e renda de milhares de pessoas que atuam no ramo de costura, corte, bordado ou estamparia, prestando serviços para confecções de maior porte ou indústria de nosso polo de moda.</p>
+        </div>
+        
+        <h4 class="mb-4 text-primary">Etapas do Programa Facção Legal:</h4>
+        
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="service-card h-100">
+              <div class="card-icon">
+                <i class="fas fa-clipboard-list"></i>
+              </div>
+              <div class="card-body">
+                <h6 class="card-title">1. Cadastro e Diagnóstico</h6>
+                <p class="card-text">Realização do cadastro com diagnóstico de condições de trabalho e expectativas.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="service-card h-100">
+              <div class="card-icon">
+                <i class="fas fa-id-card"></i>
+              </div>
+              <div class="card-body">
+                <h6 class="card-title">2. Formalização MEI</h6>
+                <p class="card-text">Auxílio para formalização como MEI, aumentando sua segurança e abrindo portas para novas empresas.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="service-card h-100">
+              <div class="card-icon">
+                <i class="fas fa-graduation-cap"></i>
+              </div>
+              <div class="card-body">
+                <h6 class="card-title">3. Capacitação Técnica</h6>
+                <p class="card-text">Capacitação em gestão, cálculo de custos, controle financeiro e administração do negócio.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="service-card h-100">
+              <div class="card-icon">
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+              <div class="card-body">
+                <h6 class="card-title">4. CONECTA</h6>
+                <p class="card-text">Inclusão em aplicativo para divulgar seu trabalho e receber ofertas de produção.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="service-card h-100">
+              <div class="card-icon">
+                <i class="fas fa-credit-card"></i>
+              </div>
+              <div class="card-body">
+                <h6 class="card-title">5. Linhas de Crédito</h6>
+                <p class="card-text">Acesso a empréstimos com taxas especiais para compra de equipamentos ou melhorias.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="service-card h-100">
+              <div class="card-icon">
+                <i class="fas fa-coins"></i>
+              </div>
+              <div class="card-body">
+                <h6 class="card-title">6. Incentivo Público</h6>
+                <p class="card-text">Recursos públicos para melhoria de equipamentos ou célula de trabalho.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Formulário de cadastro -->
+        <div class="text-center mt-5">
+          {% if request.user.is_authenticated %}
+          <a href="{% url 'empreendedor:cadastrar_faccao_legal' %}" id="cadastroBtn" class="btn-service">
+            <i class="fas fa-user-plus me-2"></i>
+            Realizar Cadastro
+          </a>
+          {% else %}
+          <div class="form-container" style="max-width: 400px; margin: 0 auto;">
+            <h5 class="text-center mb-4">Cadastrar-se</h5>
+            <form method="POST">
+              {% csrf_token %}
+              <div class="mb-3">
+                <input type="text" name="cpf" id="cpf" onkeydown="mascara(this, icpf)" class="form-control" placeholder="Primeiro, informe seu CPF">
+              </div>
+              <button type="submit" id="cadastroBtn" class="btn-service disabled w-100">
+                <i class="fas fa-user-plus me-2"></i>
+                Realizar Cadastro
+              </button>
+            </form>
+          </div>
+          {% endif %}
+        </div>
+      </div>
     </div>
-    {% else %}
-    <form method="POST" class="mx-auto pt-4">
-      <strong class="mt-4">CADASTRAR-SE</strong>
-      {% csrf_token %}
-      <input type="text" name="cpf" id="cpf" onkeydown="mascara(this, icpf)" class="form-control mx-auto mt-3 mb-0" style="max-width: 300px;" placeholder="Primeiro, informe seu cpf"><br>
-      <button type="submit" id="cadastroBtn" class="btn btn-primary mt-0 mb-3 disabled">
-        Realizar cadastro
-      </button>
-    </form>
+  </div>
+</div>
     <script>
       function icpf(v){
                 v=v.replace(/\D/g,"")                    //Remove tudo o que nao e digito

@@ -1,97 +1,173 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
-{% block nav %}
-{% include 'nav_empreendedor.html' %}
-{% endblock %}
-{% block css %}
-<link rel="stylesheet" href="{% static 'css/quero-ser-mei.css'%}">
-<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
-{% endblock %}
-{% block main %}
-<div class="container">
-    <div class="row mx-auto ps-4 pb-3">
-        <h3 class="text-center">Direitos e obrigações</h3>
-    </div>
-    <div class="row mx-auto mb-5">
-        <div class="col">
-            <div class="d-flex my-3">
-                <div class="w-50">
-                    <p style="text-align: justify;"><b>Direitos</b></p>
-                    <p>Para aproveitar os benefícios, é obrigatório pagar as
-                        <a href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/servicos-para-mei/pagamento-de-contribuicao-mensal">guias mensais (DAS)</a>
-                        até a data do vencimento e cumprir o número mínimo de
-                        contribuições(carência INSS).
-                    </p>
-                    <ul class="mt-3">
-                        <li style="list-style-type: none;"><b>Para você</b></li>
-                        <li>Aposentadoria por idade.</li>
-                        <li>Aposentadoria por invalidez.</li>
-                        <li>Auxílio-doença.</li>
-                        <li>Salário-maternidade.</li>
 
-                        <li style="list-style-type: none;" class="mt-2"><b>Para a sua família:</b></li>
-                        <li>Auxílio-reclusão.</li>
-                        <li>Pensão por morte.</li>
-                    </ul>
-                </div>
-                <div class="w-50 mx-5">
-                    <p><b>Obrigações</b></p>
-                    <ul>
-                        <li>Pagar uma contribuição mensal
-                            <a style="color: #0d6efd;" href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/servicos-para-mei/pagamento-de-contribuicao-mensal">(DAS)</a>
-                            até a data do vencimento.
-                        </li>
-                        <li>
-                            Emitir <a style="color: #0d6efd;" href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/servicos-para-mei/nota-fiscal">Nota Fiscal</a> 
-                            quando realizar negócios com pessoas jurídicas.
-                        </li>
-                        <li>Preencher o <a style="color: #0d6efd;" href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/servicos-para-mei/relatorio-mensal/relatorio-mensal-de-receitas-brutas">Relatório Mensal.</a></li>
-                        <li>Guardar <a style="color: #0d6efd;" href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/servicos-para-mei/nota-fiscal">Notas Fiscais</a> emitidas de compra e venda por 5 anos.</li>
-                        <li>Enviar a Declaração de Faturamento Anual.</li>
-                        <li>Observar o limite de compra e pagamento de diferença de alíquota que não devem ser superiores a 80% (oitenta por cento) dos ingressos de recursos durante o ano-calendário, 
-                            excluído o ano de início de atividade.</li>
-                    </ul>
-                </div>
-            </div>
-            <p><b>Fique atento!</b></p>
-            <p>A cobrança feita por Associações (empresariais ou comerciais, como sindicatos) somente poderá ser feita a partir da filiação/adesão do próprio MEI.</p>
-            <p>Isso serve também para a oferta de serviços privados, como:</p>
-            <ul class="my-4">
-                <li>inscrição de MEI.</li>
-                <li>alteração de cadastro.</li>
-                <li>baixa de MEI. </li>
-                <li>emissão de <a style="color: #0d6efd;" href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/servicos-para-mei/emissao-de-comprovante-ccmei">CCMEI.</a></li>
-                <li>emissão do <a style="color: #0d6efd;" href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/servicos-para-mei/pagamento-de-contribuicao-mensal">DAS (contribuição mensal).</a></li>
-                <li>entrega da <a style="color: #0d6efd;" href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/servicos-para-mei/declaracao-anual-de-faturamento">DASN (declaração anual de faturamento do MEI).</a></li>
-            </ul>
-            <p>Outras informações acesse: <a href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/orietacoes-sobre-fraude">https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/orietacoes-sobre-fraude</a></p>
+{% block title %}Direitos e Obrigações do MEI{% endblock %}
+
+{% block nav %}
+  
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
+{% endblock %}
+
+{% block main %}
+<div class="content-wrapper" style="margin-top: 90px;">
+  <div class="container">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-wrapper">
+            <h1 class="page-title">Direitos e Obrigações do MEI</h1>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a href="{% url 'empreendedor:index' %}">Início</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a href="{% url 'empreendedor:quero_ser_mei' %}">Quero ser MEI</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Direitos e Obrigações</li>
+              </ol>
+            </nav>
+          </div>
         </div>
+      </div>
     </div>
-    <style>
-        .divLinks{
-            display: flex;
-            flex-direction: column;
-        }
-        .divLinks a{
-            background-color: lightgrey;
-            padding: 20px;
-            margin: 5px;
-            border-radius: 5px;
-        }
-    </style>
+
+    <!-- Content -->
+    <div class="page-content">
+      <div class="row">
+        <div class="col-12">
+          <div class="content-card">
+            <div class="alert alert-info mb-4">
+              <i class="fas fa-info-circle me-2"></i>
+              <strong>Importante:</strong> Para aproveitar os benefícios, é obrigatório pagar as 
+              <a href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/servicos-para-mei/pagamento-de-contribuicao-mensal" target="_blank">guias mensais (DAS)</a>
+              até a data do vencimento e cumprir o número mínimo de contribuições (carência INSS).
+            </div>
+
+            <div class="row">
+              <!-- Direitos -->
+              <div class="col-lg-6 mb-4">
+                <div class="rights-section">
+                  <h4 class="section-title success">
+                    <i class="fas fa-check-circle me-2"></i>
+                    Direitos
+                  </h4>
+                  
+                  <!-- Para você -->
+                  <div class="subsection">
+                    <h5 class="subsection-title">
+                      <i class="fas fa-user me-2"></i>
+                      Para você
+                    </h5>
+                    <ul class="info-list">
+                      <li>Aposentadoria por idade</li>
+                      <li>Aposentadoria por invalidez</li>
+                      <li>Auxílio-doença</li>
+                      <li>Salário-maternidade</li>
+                      <li>Auxílio-reclusão</li>
+                      <li>Pensão por morte</li>
+                    </ul>
+                  </div>
+
+                  <!-- Para sua família -->
+                  <div class="subsection">
+                    <h5 class="subsection-title">
+                      <i class="fas fa-users me-2"></i>
+                      Para sua família
+                    </h5>
+                    <ul class="info-list">
+                      <li>Auxílio-reclusão</li>
+                      <li>Pensão por morte</li>
+                    </ul>
+                  </div>
+
+                  <!-- Outros benefícios -->
+                  <div class="subsection">
+                    <h5 class="subsection-title">
+                      <i class="fas fa-gift me-2"></i>
+                      Outros benefícios
+                    </h5>
+                    <ul class="info-list">
+                      <li>Registro no CNPJ</li>
+                      <li>Isenção de taxas para registro da empresa</li>
+                      <li>Acesso a serviços bancários</li>
+                      <li>Emissão de notas fiscais</li>
+                      <li>Venda para o governo</li>
+                      <li>Possibilidade de ter um empregado</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Obrigações -->
+              <div class="col-lg-6 mb-4">
+                <div class="obligations-section">
+                  <h4 class="section-title warning">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    Obrigações
+                  </h4>
+                  
+                  <!-- Pagamentos -->
+                  <div class="subsection">
+                    <h5 class="subsection-title">
+                      <i class="fas fa-money-bill me-2"></i>
+                      Pagamentos mensais
+                    </h5>
+                    <ul class="info-list">
+                      <li>Pagar o DAS (Documento de Arrecadação do Simples Nacional) até o dia 20 de cada mês</li>
+                      <li>Valor fixo mensal baseado na atividade exercida</li>
+                      <li>INSS: 5% do salário mínimo</li>
+                      <li>ICMS: R$ 1,00 (para comércio e indústria)</li>
+                      <li>ISS: R$ 5,00 (para prestação de serviços)</li>
+                    </ul>
+                  </div>
+
+                  <!-- Declarações -->
+                  <div class="subsection">
+                    <h5 class="subsection-title">
+                      <i class="fas fa-file-alt me-2"></i>
+                      Declarações obrigatórias
+                    </h5>
+                    <ul class="info-list">
+                      <li>Declaração Anual do Simples Nacional (DASN-SIMEI) até 31 de maio</li>
+                      <li>Relatório Mensal de Receitas Brutas</li>
+                      <li>Manter organizados os documentos fiscais</li>
+                    </ul>
+                  </div>
+
+                  <!-- Limites -->
+                  <div class="subsection">
+                    <h5 class="subsection-title">
+                      <i class="fas fa-chart-line me-2"></i>
+                      Limites a respeitar
+                    </h5>
+                    <ul class="info-list">
+                      <li>Faturamento anual máximo de R$ 81.000,00</li>
+                      <li>Máximo de 1 empregado</li>
+                      <li>Não participar como sócio de outra empresa</li>
+                      <li>Exercer apenas atividades permitidas para MEI</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dicas importantes -->
+            <div class="alert alert-success mt-4">
+              <i class="fas fa-lightbulb me-2"></i>
+              <strong>Dica:</strong> Mantenha sempre seus pagamentos em dia e suas obrigações acessórias cumpridas para garantir todos os benefícios e evitar problemas com a Receita Federal.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu de navegação MEI -->
     {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
-    <style>
-        span {
-            text-align: center;
-        }
-    </style>
-    <div class="row mx-auto px-5">
-        <script>
-    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
-        </script>
-    </div>
+  </div>
 </div>
 {% endblock %}
-{% block footer %}
-{% include 'desenvolve_nf/instagram.html' %}
-{% endblock %}x

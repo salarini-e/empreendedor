@@ -1,58 +1,166 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
+
+{% block title %}Dicas de Meio Ambiente para MEI{% endblock %}
+
 {% block nav %}
-{% include 'nav_empreendedor.html' %}
+  
 {% endblock %}
+
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/quero-ser-mei.css'%}">
-<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+  <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
 {% endblock %}
+
 {% block main %}
-<div class="container">
-    <div class="row mx-auto ps-4 pb-3">
-        <h3 class="text-center">Dicas de Meio Ambiente</h3>
-    </div>
-    <div class="row mx-auto mb-5">
-        <div class="col">
-            <p style="text-align: justify;">Antes de iniciar sua atividade, verifique se é necessária obtenção de algum tipo de licença ambiental, junto ao Órgão de Meio Ambiente 
-                do seu Estado, Município ou do Distrito Federal.<br>
-
-                Caso seja necessária, verifique se há obrigação de inscrição no Cadastro Técnico Federal de Atividades Potencialmente Poluidoras ou Utilizadoras de Recursos 
-                Ambientais (CTF/APP) do Ibama. Para isso, consulte o passo a passo do enquadramento de pessoa jurídica no CTF/APP, no site do Ibama.<br>
-
-                Verifique se existem outras obrigações ambientais relacionadas a sua atividade, como a entrega do Relatório Anual de Atividades Potencialmente Poluidoras 
-                ou Utilizadoras de Recursos Ambientais (RAPP) e pagamento da Taxa de Controle e Fiscalização Ambiental (TCFA).<br>
-
-                Verifique se existem outras obrigações ambientais relacionadas a sua atividade, como a entrega do Relatório Anual de Atividades Potencialmente Poluidoras 
-                ou Utilizadoras de Recursos Ambientais (RAPP) e pagamento da Taxa de Controle e Fiscalização Ambiental (TCFA).<br>
-            </p>
-            <ul>
-                <li><a style="color: #0d6efd;" href="https://www.ibama.gov.br/cadastro-tecnico-federal-ctf">
-                    Cadastro Técnico Federal de Atividades Potencialmente Poluidoras ou Utilizadoras de Recursos Ambientais (CTF/APP)
-                </a></li>
-                <li><a style="color: #0d6efd;" href="https://www.gov.br/ibama/pt-br/servicos/relatorios/atividades-poluidoras">
-                    Relatório Anual de Atividades Potencialmente Poluidoras ou Utilizadoras de Recursos Ambientais (RAPP)
-                </a></li>
-                <li><a style="color: #0d6efd;" href="https://www.gov.br/ibama/pt-br/servicos/taxas/tcfa/sobre-a-tcfa">
-                    Taxa de Controle e Fiscalização Ambiental (TCFA)
-                </a></li>
-            </ul>
-            <hr>
+<div class="content-wrapper" style="margin-top: 90px;">
+  <div class="container">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-wrapper">
+            <h1 class="page-title">Dicas de Meio Ambiente para MEI</h1>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a href="{% url 'empreendedor:index' %}">Início</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a href="{% url 'empreendedor:quero_ser_mei' %}">Quero ser MEI</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Meio Ambiente</li>
+              </ol>
+            </nav>
+          </div>
         </div>
+      </div>
     </div>
+
+    <!-- Content -->
+    <div class="page-content">
+      <div class="row">
+        <div class="col-12">
+          <div class="content-card">
+            <div class="alert alert-success mb-4">
+              <i class="fas fa-leaf me-2"></i>
+              <strong>Sustentabilidade:</strong> Empreender com responsabilidade ambiental é fundamental para um negócio sustentável.
+            </div>
+
+            <!-- Licenças ambientais -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-clipboard-check me-2"></i>
+                Licenciamento Ambiental
+              </h4>
+              <p class="mb-3">
+                Antes de iniciar sua atividade, verifique se é necessária obtenção de algum tipo de licença ambiental, junto ao Órgão de Meio Ambiente do seu Estado, Município ou do Distrito Federal.
+              </p>
+              <div class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong>Importante:</strong> Nem todas as atividades MEI precisam de licença ambiental, mas é essencial verificar antes de iniciar as operações.
+              </div>
+            </div>
+
+            <!-- CTF/APP -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-registered me-2"></i>
+                Cadastro Técnico Federal (CTF/APP)
+              </h4>
+              <p class="mb-3">
+                Caso seja necessária licença ambiental, verifique se há obrigação de inscrição no Cadastro Técnico Federal de Atividades Potencialmente Poluidoras ou Utilizadoras de Recursos Ambientais (CTF/APP) do Ibama.
+              </p>
+              <a href="https://www.ibama.gov.br/cadastro-tecnico-federal-ctf" target="_blank" class="btn btn-outline-primary">
+                <i class="fas fa-external-link-alt me-2"></i>
+                Consultar CTF/APP no IBAMA
+              </a>
+            </div>
+
+            <!-- Obrigações -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-tasks me-2"></i>
+                Outras Obrigações Ambientais
+              </h4>
+              <p class="mb-3">Verifique se existem outras obrigações ambientais relacionadas a sua atividade:</p>
+              <ul class="info-list">
+                <li>Entrega do Relatório Anual de Atividades Potencialmente Poluidoras ou Utilizadoras de Recursos Ambientais (RAPP)</li>
+                <li>Pagamento da Taxa de Controle e Fiscalização Ambiental (TCFA)</li>
+                <li>Outros relatórios específicos da sua atividade</li>
+              </ul>
+            </div>
+
+            <!-- Dicas sustentáveis -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-recycle me-2"></i>
+                Práticas Sustentáveis para MEI
+              </h4>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div class="practice-card">
+                    <i class="fas fa-save text-success"></i>
+                    <h6>Economia de Recursos</h6>
+                    <p class="small">Reduza o consumo de água, energia e materiais</p>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="practice-card">
+                    <i class="fas fa-trash-alt text-primary"></i>
+                    <h6>Gestão de Resíduos</h6>
+                    <p class="small">Separe, recicle e descarte corretamente os resíduos</p>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="practice-card">
+                    <i class="fas fa-file-alt text-warning"></i>
+                    <h6>Documentação Digital</h6>
+                    <p class="small">Prefira documentos digitais para reduzir papel</p>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="practice-card">
+                    <i class="fas fa-truck text-info"></i>
+                    <h6>Logística Verde</h6>
+                    <p class="small">Otimize entregas e use embalagens sustentáveis</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Links úteis -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-link me-2"></i>
+                Links Úteis
+              </h4>
+              <div class="links-grid">
+                <a href="https://www.ibama.gov.br" target="_blank" class="link-card">
+                  <i class="fas fa-leaf"></i>
+                  <span>IBAMA</span>
+                </a>
+                <a href="https://www.mma.gov.br" target="_blank" class="link-card">
+                  <i class="fas fa-globe-americas"></i>
+                  <span>Ministério do Meio Ambiente</span>
+                </a>
+                <a href="https://servicos.ibama.gov.br" target="_blank" class="link-card">
+                  <i class="fas fa-cog"></i>
+                  <span>Serviços IBAMA</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="alert alert-info mt-4">
+              <i class="fas fa-info-circle me-2"></i>
+              <strong>Lembre-se:</strong> Consulte sempre os órgãos ambientais locais e mantenha-se atualizado sobre as exigências específicas da sua atividade e região.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu de navegação MEI -->
     {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
-    <style>
-        span {
-            text-align: center;
-        }
-    </style>
-    <div class="row mx-auto px-5">
-        <script>
-    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
-        </script>
-    </div>
+  </div>
 </div>
 {% endblock %}
-{% block footer %}
-{% include 'desenvolve_nf/instagram.html' %}
-{% endblock %}x

@@ -16,7 +16,10 @@ from django.db import transaction
 from datetime import datetime
 from django.utils import timezone
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+import json
 from openpyxl import Workbook
 from .models import Empresa
 # import pandas as pd
@@ -326,32 +329,143 @@ def redirecionamento_novas_oportunidades(request):
     }
     return render( request, 'novas_oportunidades_red.html', context)
 def vitrine_virtual(request):
-    registros=Registro_no_vitrine_virtual.objects.all().order_by('?')
-    empresa_e_produtos=[]
-    for registro in registros:
-        produtos=Produto.objects.filter(rg_vitrine=registro)
-        # print(produtos)
-        if registro.logo:
-            try:
-                empresa_e_produtos.append({"empresa": registro.empresa, "logo": str(registro.logo.url), "produtos": produtos})
-            except:
-                pass
-        else:
-            try:
-                empresa_e_produtos.append({"empresa": registro.empresa, "logo": None, "produtos": produtos})
-            except:
-                pass
-            
-    paginator = Paginator(empresa_e_produtos, 100) 
+    """
+    Vitrine Virtual - Lista empresas na vitrine com filtros
+    """
+    from .models import Atividade, Porte_da_Empresa, Ramo_de_Atuacao
+    
+    # Buscar registros da vitrine virtual com filtros - todas as empresas registradas na vitrine
+    registros = Registro_no_vitrine_virtual.objects.select_related(
+        'empresa', 'empresa__porte'
+    ).prefetch_related(
+        'empresa__atividade', 'empresa__ramo'
+    )
+    
+    # Aplicar filtros
+    nome = request.GET.get('nome', '')
+    atividade_id = request.GET.get('atividade', '')
+    porte_id = request.GET.get('porte', '')
+    ramo_id = request.GET.get('ramo', '')
+    tem_website = request.GET.get('tem_website', '')
+    
+    if nome:
+        registros = registros.filter(empresa__nome__icontains=nome)
+    
+    if atividade_id:
+        registros = registros.filter(empresa__atividade__id=atividade_id)
+    
+    if porte_id:
+        registros = registros.filter(empresa__porte_id=porte_id)
+    
+    if ramo_id:
+        registros = registros.filter(empresa__ramo__id=ramo_id)
+    
+    if tem_website == 'sim':
+        from django.db.models import Q
+        registros = registros.exclude(Q(empresa__site__isnull=True) | Q(empresa__site=''))
+    elif tem_website == 'nao':
+        from django.db.models import Q
+        registros = registros.filter(Q(empresa__site__isnull=True) | Q(empresa__site=''))
+    
+    # Ordenar aleatoriamente
+    registros = registros.order_by('?')
+    
+    # Paginação
+    paginator = Paginator(registros, 12)  # 12 empresas por página
     page = request.GET.get('page')
     registros_paginated = paginator.get_page(page)
+    
+    # Dados para os filtros
+    atividades = Atividade.objects.all().order_by('atividade')
+    portes = Porte_da_Empresa.objects.all().order_by('porte')
+    ramos = Ramo_de_Atuacao.objects.all().order_by('ramo')
 
     context = {
         'titulo': 'Sala do Empreendedor - Vitrine Virtual',
         'titulo_pag': 'Vitrine Virtual',
         'registros': registros_paginated,
+        'atividades': atividades,
+        'portes': portes,
+        'ramos': ramos,
+        'filtros': {
+            'nome': nome,
+            'atividade': atividade_id,
+            'porte': porte_id,
+            'ramo': ramo_id,
+            'tem_website': tem_website,
+        },
+        'total_registros': paginator.count,
     }
     return render(request, 'sala_do_empreendedor/vitrine-virtual/vitrine.html', context)
+
+def pesquisar_empresas(request):
+    """
+    Pesquisar Empresas - Lista todas as empresas públicas com filtros
+    """
+    from .models import Atividade, Porte_da_Empresa, Ramo_de_Atuacao
+    from django.core.paginator import Paginator
+    
+    # Buscar apenas empresas com perfil público
+    empresas = Empresa.objects.select_related('porte').prefetch_related(
+        'atividade', 'ramo'
+    ).filter(perfil_publico=True)
+    
+    # Aplicar filtros
+    nome = request.GET.get('nome', '')
+    atividade_id = request.GET.get('atividade', '')
+    porte_id = request.GET.get('porte', '')
+    ramo_id = request.GET.get('ramo', '')
+    tem_website = request.GET.get('tem_website', '')
+    
+    if nome:
+        empresas = empresas.filter(nome__icontains=nome)
+    
+    if atividade_id:
+        empresas = empresas.filter(atividade__id=atividade_id)
+    
+    if porte_id:
+        empresas = empresas.filter(porte_id=porte_id)
+    
+    if ramo_id:
+        empresas = empresas.filter(ramo__id=ramo_id)
+    
+    if tem_website == 'sim':
+        from django.db.models import Q
+        empresas = empresas.exclude(Q(site__isnull=True) | Q(site=''))
+    elif tem_website == 'nao':
+        from django.db.models import Q
+        empresas = empresas.filter(Q(site__isnull=True) | Q(site=''))
+    
+    # Ordenar por nome
+    empresas = empresas.order_by('nome')
+    
+    # Paginação
+    paginator = Paginator(empresas, 15)  # 15 empresas por página
+    page = request.GET.get('page')
+    empresas_paginated = paginator.get_page(page)
+    
+    # Dados para os filtros
+    atividades = Atividade.objects.all().order_by('atividade')
+    portes = Porte_da_Empresa.objects.all().order_by('porte')
+    ramos = Ramo_de_Atuacao.objects.all().order_by('ramo')
+
+    context = {
+        'titulo': 'Sala do Empreendedor - Pesquisar Empresas',
+        'titulo_pag': 'Pesquisar Empresas',
+        'empresas': empresas_paginated,
+        'atividades': atividades,
+        'portes': portes,
+        'ramos': ramos,
+        'filtros': {
+            'nome': nome,
+            'atividade': atividade_id,
+            'porte': porte_id,
+            'ramo': ramo_id,
+            'tem_website': tem_website,
+        },
+        'total_empresas': paginator.count,
+    }
+    return render(request, 'sala_do_empreendedor/pesquisar_empresas.html', context)
 
 def quero_ser_mei(request):
     context = {
@@ -1482,3 +1596,101 @@ def imprimir_documentos(request, protocolo):
         'now': timezone.now(),
     }
     return render(request, 'sala_do_empreendedor/processos_digitais/uniprofissional/imprimir_documentos.html', context)
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def api_toggle_vitrine_virtual(request, empresa_id):
+    """
+    API endpoint para adicionar/remover empresa da vitrine virtual
+    """
+    try:
+        # Verificar se o usuário está autenticado
+        if not request.user.is_authenticated:
+            return JsonResponse({
+                'success': False,
+                'message': 'Usuário não autenticado'
+            }, status=401)
+        
+        # Buscar a empresa
+        try:
+            empresa = Empresa.objects.get(id=empresa_id)
+        except Empresa.DoesNotExist:
+            return JsonResponse({
+                'success': False,
+                'message': 'Empresa não encontrada'
+            }, status=404)
+        
+        # Verificar se o usuário tem permissão para editar a empresa
+        if not request.user.is_staff and hasattr(empresa, 'user_register') and empresa.user_register != request.user:
+            return JsonResponse({
+                'success': False,
+                'message': 'Sem permissão para editar esta empresa'
+            }, status=403)
+        
+        # Parse do JSON da requisição
+        try:
+            data = json.loads(request.body)
+            acao = data.get('acao')  # 'adicionar' ou 'remover'
+        except (json.JSONDecodeError, KeyError):
+            return JsonResponse({
+                'success': False,
+                'message': 'Dados inválidos na requisição'
+            }, status=400)
+        
+        if acao not in ['adicionar', 'remover']:
+            return JsonResponse({
+                'success': False,
+                'message': 'Ação inválida. Use "adicionar" ou "remover"'
+            }, status=400)
+        
+        # Executar a ação
+        if acao == 'adicionar':
+            # Verificar se a empresa tem os dados mínimos necessários
+            if not empresa.nome or not empresa.cnpj:
+                return JsonResponse({
+                    'success': False,
+                    'message': 'Empresa deve ter nome e CNPJ para ser adicionada à vitrine'
+                }, status=400)
+            
+            # Verificar se já existe um registro na vitrine para esta empresa
+            registro_existente = Registro_no_vitrine_virtual.objects.filter(empresa=empresa).first()
+            
+            if not registro_existente:
+                # Criar registro na vitrine virtual usando apenas os campos do modelo
+                registro = Registro_no_vitrine_virtual.objects.create(
+                    empresa=empresa,
+                    user_register=request.user
+                )
+            
+            # Atualizar o campo da empresa
+            empresa.cadastrada_na_vitrine = True
+            empresa.save()
+            
+            return JsonResponse({
+                'success': True,
+                'message': 'Empresa adicionada à vitrine virtual com sucesso!',
+                'cadastrada_na_vitrine': True
+            })
+            
+        else:  # acao == 'remover'
+            # Remover da vitrine virtual
+            registros_removidos = Registro_no_vitrine_virtual.objects.filter(empresa=empresa).delete()
+            
+            # Atualizar o campo da empresa
+            empresa.cadastrada_na_vitrine = False
+            empresa.save()
+            
+            return JsonResponse({
+                'success': True,
+                'message': 'Empresa removida da vitrine virtual com sucesso!',
+                'cadastrada_na_vitrine': False
+            })
+            
+    except Exception as e:
+        # Log do erro (implemente logging conforme necessário)
+        print(f"Erro na API de vitrine virtual: {str(e)}")
+        
+        return JsonResponse({
+            'success': False,
+            'message': 'Erro interno do servidor. Tente novamente.'
+        }, status=500)

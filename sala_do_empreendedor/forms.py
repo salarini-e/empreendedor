@@ -38,12 +38,13 @@ class FormRamos(ModelForm):
 class FormAlterarEmpresa(ModelForm):
     class Meta:
         model = Empresa
-        fields = ['nome', 'porte', 'atividade','ramo', 'outro_ramo', 'telefone', 'whatsapp', 'email', 'site', 'descricao', 'receber_noticias']
+        fields = ['nome', 'porte', 'atividade','ramo', 'outro_ramo', 'telefone', 'whatsapp', 'email', 'site', 'descricao', 'receber_noticias', 'perfil_publico']
         widgets = {
             'nome': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nome da Empresa'}),
             'telefone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Telefone', 'onkeydown':'mascara(this, itel)'}),
             'whatsapp': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Whatsapp', 'onkeydown':'mascara(this, itel)'}),
             'descricao': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Descrição'}),
+            'perfil_publico': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
         
 class FormLogoEmpresa(ModelForm):

@@ -1,41 +1,218 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
+
+{% block title %}Atualização Cadastral - MEI{% endblock %}
+
 {% block nav %}
-{% include 'nav_empreendedor.html' %}
+  
 {% endblock %}
+
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+  <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
+  <style>
+    /* Breadcrumb Styles */
+    .breadcrumb-container {
+      background: linear-gradient(135deg, #ffffff, #f8f9fa);
+      border-bottom: 1px solid #e9ecef;
+      padding: 1rem 0;
+      margin-bottom: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-top: 0px;  
+    }
+
+    .breadcrumb-custom {
+      background: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .breadcrumb-item-custom {
+      display: flex;
+      align-items: center;
+      color: #6c757d;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      padding: 0.25rem 0;
+    }
+
+    .breadcrumb-item-custom:hover {
+      color: #0051A4;
+      text-decoration: none;
+    }
+
+    .breadcrumb-item-custom.active {
+      color: #0051A4;
+      font-weight: 600;
+    }
+
+    .breadcrumb-separator {
+      color: #adb5bd;
+      margin: 0 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .breadcrumb-icon {
+      margin-right: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .content-wrapper {
+      margin-top: 0 !important;
+    }
+
+    @media (max-width: 576px) {
+      .breadcrumb-custom {
+        font-size: 0.8rem;
+      }
+      
+      .breadcrumb-container {
+        padding: 0.75rem 0;
+      }
+    }
+  </style>>
 {% endblock %}
+
 {% block main %}
-<div class="container">
-    <div class="row mx-auto ps-4 pb-3">
-        <h3 class="text-center">ATENÇÃO</h3>
-    </div>
-    <div class="row mx-auto mb-5">
-        <div class="col">
-            <p>
-                Sabemos que você não tem tempo a perder, mas erros podem acontecer no sistema do MEI! 
-                <br><br>
-                Tenha certeza de que existem pessoas trabalhando para evitar que erros ocorram e corrigi-los o mais rápido possível.
-                <br><br>
-                Pedimos a sua ajuda ao verificar alguma falha ou inconsistência de informações no Portal do Empreendedor, utilize o “Fale Conosco”  e nos diga o que está acontecendo. Melhor ainda se puder enviar uma imagem do problema.
-                <br><br>
-                Certamente isso nos ajudará e também fará um bem enorme a todas as pessoas que precisam dos serviços deste Portal
-            </p>
-        </div>
-        <p class="my-3"><b>Alteração de dados cadastrais:</b></p>
-        <p><b>Por que manter os dados atualizados? </b></p>
-        <p>O CCMEI deve representar a situação atual da empresa. Além disso, você tem a oportunidade de participar de ações do governo, acessar crédito nos bancos e se relacionar com outros parceiros que incentivam o desenvolvimento do seu negócio. É simples e rápido! </p>
-        <p><b>O que se pode alterar? </b></p>
-        <p>
-            Sempre que mudar seus dados empresariais (atividade, forma de atuação, endereço, nome fantasia etc.), você deve atualizar seus dados, gratuitamente, aqui no Portal do Empreendedor. 
-            Mas antes disso, não se esqueça de procurar a prefeitura para saber quais são as exigências do município, para os casos de inclusão ou alteração de uma nova atividade, forma de atuação ou endereço. <br><br>
-            Para realizar esse procedimento, basta ter em mãos o CNPJ da empresa e seus documentos pessoais (CPF, DIRPF dos últimos dois anos ou título de eleitor). Estes documentos são necessários para gerar o Código de Acesso ao Simples Nacional que permitirá́ realizar a alteração dos dados de sua empresa.
-        </p>
-    </div>
-     {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
+<!-- Breadcrumb -->
+<div class="breadcrumb-container">
+  <div class="container">
+    <nav class="breadcrumb-custom" aria-label="Breadcrumb">
+      <a href="{% url 'empreendedor:index' %}" class="breadcrumb-item-custom">
+        <i class="fas fa-home breadcrumb-icon"></i>
+        Início
+      </a>
+      <span class="breadcrumb-separator">
+        <i class="fas fa-chevron-right"></i>
+      </span>
+      <a href="{% url 'empreendedor:ja_sou_mei' %}" class="breadcrumb-item-custom">
+        <i class="fas fa-check-circle breadcrumb-icon"></i>
+        Já sou MEI
+      </a>
+      <span class="breadcrumb-separator">
+        <i class="fas fa-chevron-right"></i>
+      </span>
+      <span class="breadcrumb-item-custom active">
+        <i class="fas fa-edit breadcrumb-icon"></i>
+        Atualização Cadastral
+      </span>
+    </nav>
+  </div>
 </div>
-{% endblock %}
-{% block footer %}
-{% include 'desenvolve_nf/instagram.html' %}
+
+<div class="content-wrapper">
+  <div class="container pt-4">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-wrapper">
+            <h1 class="page-title">Atualização Cadastral MEI</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="page-content">
+      <div class="row">
+        <div class="col-12">
+          <div class="content-card">
+            <div class="alert alert-warning mb-4">
+              <i class="fas fa-exclamation-triangle me-2"></i>
+              <strong>Atenção:</strong> Sabemos que você não tem tempo a perder, mas erros podem acontecer no sistema do MEI!
+            </div>
+
+            <p class="lead mb-4">
+              Tenha certeza de que existem pessoas trabalhando para evitar que erros ocorram e corrigi-los o mais rápido possível.
+            </p>
+
+            <div class="alert alert-info">
+              <i class="fas fa-hands-helping me-2"></i>
+              <strong>Sua ajuda é importante:</strong> Ao verificar alguma falha ou inconsistência de informações no Portal do Empreendedor, utilize o "Fale Conosco" e nos diga o que está acontecendo. Melhor ainda se puder enviar uma imagem do problema.
+            </div>
+
+            <p class="mb-4">Certamente isso nos ajudará e também fará um bem enorme a todas as pessoas que precisam dos serviços deste Portal.</p>
+
+            <!-- Por que atualizar -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-sync-alt me-2"></i>
+                Por que manter os dados atualizados?
+              </h4>
+              <p>
+                O CCMEI deve representar a situação atual da empresa. Além disso, você tem a oportunidade de participar de ações do governo, acessar crédito nos bancos e se relacionar com outros parceiros que incentivam o desenvolvimento do seu negócio. É simples e rápido!
+              </p>
+            </div>
+
+            <!-- O que pode ser alterado -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-edit me-2"></i>
+                O que se pode alterar?
+              </h4>
+              <p class="mb-3">
+                Sempre que mudar seus dados empresariais, você deve atualizar seus dados, gratuitamente, aqui no Portal do Empreendedor.
+              </p>
+              <ul class="info-list">
+                <li>Atividade</li>
+                <li>Forma de atuação</li>
+                <li>Endereço</li>
+                <li>Nome fantasia</li>
+                <li>Outros dados cadastrais</li>
+              </ul>
+              
+              <div class="alert alert-info mt-3">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>Importante:</strong> Antes de fazer alterações, não se esqueça de procurar a prefeitura para saber quais são as exigências do município, especialmente para casos de inclusão ou alteração de uma nova atividade, forma de atuação ou endereço.
+              </div>
+            </div>
+
+            <!-- Documentos necessários -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-file-alt me-2"></i>
+                Documentos necessários
+              </h4>
+              <p class="mb-3">Para realizar esse procedimento, tenha em mãos:</p>
+              <ul class="info-list">
+                <li>CNPJ da empresa</li>
+                <li>Seus documentos pessoais (CPF)</li>
+                <li>DIRPF dos últimos dois anos ou título de eleitor</li>
+              </ul>
+              <p class="text-muted small">
+                Estes documentos são necessários para gerar o Código de Acesso ao Simples Nacional que permitirá realizar a alteração dos dados de sua empresa.
+              </p>
+            </div>
+
+            <!-- Botão de ação -->
+            <div class="action-buttons mt-4">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <a href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/servicos-para-mei/alterar-dados-do-mei" target="_blank" class="btn btn-primary btn-lg w-100">
+                    <i class="fas fa-edit me-2"></i>
+                    Atualizar Dados MEI
+                  </a>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <a href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/fale-conosco" target="_blank" class="btn btn-outline-primary btn-lg w-100">
+                    <i class="fas fa-comments me-2"></i>
+                    Fale Conosco
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu de navegação MEI -->
+    {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
+  </div>
+</div>
 {% endblock %}

@@ -1,111 +1,985 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
-{% block nav %}
-{% include 'nav_empreendedor.html' %}
-{% endblock %}
-{% block css %}
-  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
-{% endblock %}
-{% block main %}
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <!-- Menu -->
-        </div>
-    </div>
-    <div class="row">
-      <h2>{{empresa.nome}} - {{empresa.cnpj}}</h2>
-        
-    </div>
-    <div class="row">
-        <div class="col-2">
-            {% if rg_vitrine.logo %}
-            <a href="{% url 'empreendedor:enviar_ou_trocar_logo' empresa.id %}" class="btn m-auto p-3 btn-outline-dark d-flex flex-column text-center" style="border-color:rgba(146, 146, 146, 0.2) ;border-radius: 30px !important; background-color: white;">
-                <img class="mx-auto mb-2" style="width: 80px; border-radius: 10px;" src="{{ rg_vitrine.logo.url}}" alt="logo da empresa">
-                Trocar logo
-            </a>
-            {% else %}
-            <a href="{% url 'empreendedor:enviar_ou_trocar_logo' empresa.id %}" class="btn m-auto p-3 mt-1 btn-outline-dark d-flex flex-column text-center" style="border-color:rgba(146, 146, 146, 0.2) ;border-radius: 30px !important; background-color: white;">
-                <img class="mx-auto mb-2" style="width: 80px;" src="{% static 'images/adicionar_img.png' %}" alt="">
-                Adicionar logo
-            </a>
-            {% endif %}
-        </div>
-        <div class="col">
-            <div class="table-responsive pt-4 border" style="background-color: white; border-radius: 30px; padding: 20px;">
-                <table class="table table-borderless">
-                  <thead>
-                    <tr>
-                      <th>
-                        Imagem do produto/serviço
-                      </th>
-                      <th>
-                        Nome
-                      </th>
-                      <th>
-                        Descrição
-                      </th>         
-                      <th class="text-center">
-                        Excluir
-                      </th>            
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for produto in produtos %}
-                    <tr>
-                      <td>
-                        <img src="{{produto.imagem.url}}" style="height: 100px;" alt="">
-                      </td>
-                      <td>
-                        {{produto.nome}}
-                      </td>
-                      <td>
-                        {{produto.descricao}}
-                      </td>
-                      <td class="text-center">
-                        <a href="{% url 'empreendedor:excluir_produto' rg_vitrine.id produto.id %}" class="text-danger">
-                          <i class="fa-solid fa-trash-can"></i>
-                        </a>
-                      </td>
-                    </tr>
-                    {% endfor %}
-                    <tr>
-                      <td colspan="4" class="text-left"> 
-                        {% if pode_cadastrar %}
-                        <a href="{% url 'empreendedor:cadastrar_produto' empresa.id %}" style="max-width: 180px;" class="ps-1 py-0 btn btn-primary me-auto d-flex">
-                            <i class="me-2 fa-solid my-auto fa-circle-plus"></i>
-                            <span class="m-auto">Cadastrar produto</span>
-                        </a>                       
-                        {% endif %}
-                    </td>
-                    </tr>
-                    
-                    <!-- <tr>
-                      <td>
-                        {{estudante.}}
-                      </td>
-                    </tr> -->
-                  </tbody>
-                </table>
-        </div>
-    </div>
-    </div>
-</div>
-<div class="row mx-auto px-5">
-  <script>
-    document.getElementById('empreendedor_empresa').classList.add('s-nav-active');
-  </script>
-</div>
+{% load empreendedor_filters %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
 <style>
-  .border{
-    border-color: rgba(146, 146, 146, 0.2) !important;
+  /* Vitrine Individual - Identidade Visual */
+  :root {
+    --vitrine-primary: #0727b4;
+    --vitrine-secondary: #3652f0;
+    --vitrine-accent: #e0b731;
+    --vitrine-success: #4ecdc4;
+    --vitrine-light: #f8fafc;
+    --vitrine-border: #e2e8f0;
+  }
+
+  .vitrine-hero {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.479), rgba(255, 255, 255, 0.842)), url("{% static 'images/bg-empresa.jpg' %}") no-repeat center center;
+    background-size: cover;
+    color: rgb(0, 0, 0);
+    padding: 4rem 0;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .vitrine-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("{% static 'images/pattern-bg.svg' %}") repeat;
+    opacity: 0.1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .empresa-vitrine-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+    margin-bottom: 3rem;
+    border: 1px solid var(--vitrine-border);
+  }
+
+  .empresa-header-vitrine {
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
+    border-bottom: 1px solid var(--vitrine-border);
+    position: relative;
+  }
+
+  .vitrine-crown {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: linear-gradient(135deg, var(--vitrine-accent), #f39c12);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 16px rgba(224, 183, 49, 0.3);
+  }
+
+  .empresa-logo-vitrine {
+    width: 220px;
+    /* height: 120px; */
+    /* border-radius: 50%; */
+    object-fit: cover;
+    /* border: 4px solid var(--vitrine-primary); */
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  }
+
+  .empresa-nome-vitrine {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--vitrine-primary);
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+
+  .empresa-cnpj-vitrine {
+    color: #6b7280;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .empresa-descricao-vitrine {
+    color: #4b5563;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    text-align: justify;
+  }
+
+  .empresa-contact-vitrine {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .contact-item-vitrine {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #374151;
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    background: var(--vitrine-light);
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+
+  .contact-item-vitrine:hover {
+    background: var(--vitrine-primary);
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(7, 39, 180, 0.3);
+    border-color: var(--vitrine-primary);
+  }
+
+  .contact-item-vitrine i {
+    color: var(--vitrine-primary);
+    font-size: 1.2rem;
+  }
+
+  .contact-item-vitrine:hover i {
+    color: white;
+  }
+
+  /* Seção de ações */
+  .vitrine-actions {
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
+    padding: 2rem;
+    border-radius: 16px;
+    margin-bottom: 3rem;
+    border: 1px solid var(--vitrine-border);
+  }
+
+  .action-buttons-vitrine {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .btn-action-vitrine {
+    background: linear-gradient(135deg, var(--vitrine-primary), var(--vitrine-secondary));
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-action-vitrine:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(7, 39, 180, 0.3);
+    text-decoration: none;
+  }
+
+  .btn-secondary-vitrine {
+    background: linear-gradient(135deg, #6b7280, #4b5563);
+  }
+
+  .btn-secondary-vitrine:hover {
+    box-shadow: 0 8px 24px rgba(107, 114, 128, 0.3);
+  }
+
+  /* Produtos */
+  .produtos-section {
+    margin-bottom: 3rem;
+  }
+
+  .section-title-vitrine {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--vitrine-primary);
+    margin-bottom: 2rem;
+    text-align: center;
+    position: relative;
+  }
+
+  .section-title-vitrine::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--vitrine-accent);
+    border-radius: 2px;
+  }
+
+  .produtos-grid-vitrine {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .produto-card-vitrine {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border: 1px solid var(--vitrine-border);
+    max-width: 395px;
+  }
+
+  .produto-card-vitrine:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  }
+
+  .produto-image-vitrine {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+  }
+
+  .produto-info-vitrine {
+    padding: 1.5rem;
+  }
+
+  .produto-nome-vitrine {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--vitrine-primary);
+    margin-bottom: 1rem;
+  }
+
+  .produto-descricao-vitrine {
+    color: #4b5563;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .produto-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .btn-excluir {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .btn-excluir:hover {
+    background: #dc2626;
+    transform: scale(1.05);
+  }
+
+  /* Estado vazio */
+  .empty-state-produtos {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: 16px;
+    border: 2px dashed var(--vitrine-border);
+    margin-top: 2rem;
+  }
+
+  .empty-state-produtos i {
+    font-size: 4rem;
+    color: var(--vitrine-border);
+    margin-bottom: 1rem;
+  }
+
+  /* Modal de Produto */
+  .produto-modal .modal-dialog {
+    max-width: 800px;
+  }
+
+  .produto-modal-img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .produto-modal-body {
+    padding: 2rem;
+  }
+
+  .produto-modal-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--vitrine-primary);
+    margin-bottom: 1rem;
+  }
+
+  .produto-modal-desc {
+    color: #374151;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .produto-clickable {
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .produto-clickable:hover {
+    transform: scale(1.02);
+  }
+
+  /* Links de navegação */
+  .navigation-links {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    border: 1px solid var(--vitrine-border);
+    text-align: center;
+  }
+
+  .nav-link-vitrine {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--vitrine-primary);
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    margin: 0 0.5rem;
+  }
+
+  .nav-link-vitrine:hover {
+    background: var(--vitrine-light);
+    color: var(--vitrine-primary);
+    text-decoration: none;
+  }
+
+  /* Switch de Perfil Público */
+  .perfil-publico-section {
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
+    padding: 2rem;
+    border-radius: 16px;
+    margin-bottom: 3rem;
+    border: 1px solid var(--vitrine-border);
+  }
+
+  .perfil-publico-toggle {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+  }
+  
+  .perfil-publico-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .perfil-publico-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 30px;
+  }
+  
+  .perfil-publico-slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .perfil-publico-slider {
+    background-color: var(--vitrine-primary);
+  }
+  
+  input:checked + .perfil-publico-slider:before {
+    transform: translateX(30px);
+  }
+
+  .perfil-publico-info {
+    background: #f0f9ff;
+    border: 1px solid #0ea5e9;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+
+  .perfil-publico-info.privado {
+    background: #fef2f2;
+    border-color: #f87171;
+  }
+
+  .perfil-publico-description {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  /* Toast de feedback */
+  .toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+  }
+
+  .custom-toast {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    border: 1px solid var(--vitrine-border);
+    padding: 1rem 1.5rem;
+    margin-bottom: 0.5rem;
+    transform: translateX(100%);
+    transition: all 0.3s ease;
+  }
+
+  .custom-toast.show {
+    transform: translateX(0);
+  }
+
+  .custom-toast.success {
+    border-left: 4px solid #10b981;
+  }
+
+  .custom-toast.error {
+    border-left: 4px solid #ef4444;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .vitrine-hero {
+      padding: 2rem 0;
+    }
+
+    .empresa-header-vitrine {
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+
+    .empresa-nome-vitrine {
+      font-size: 2rem;
+    }
+
+    .produtos-grid-vitrine {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .empresa-contact-vitrine {
+      justify-content: center;
+    }
+
+    .action-buttons-vitrine {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 </style>
-
-</script>
-
 {% endblock %}
-{% block footer %}
-{% include 'desenvolve_nf/instagram.html' %}
+
+{% block main %}
+<!-- Hero Section -->
+<div class="vitrine-hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="row" data-aos="fade-up">
+        <div class="col text-center">
+          <a href="{% url 'empreendedor:minha_empresa' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Voltar
+          </a>
+        </div>
+      </div>
+      <div class="text-center">
+        <h1 class="display-4 fw-bold mb-3">Minha Vitrine Virtual</h1>
+        <p class="lead mb-0">Gerencie a apresentação da sua empresa na vitrine virtual</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container pb-5">
+  <!-- Messages -->
+  {% if messages %}
+  <div class="row mb-4">
+    <div class="col">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+
+  <!-- Controle de Perfil Público -->
+  <div class="perfil-publico-section" data-aos="fade-up">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <h5 class="mb-2">
+          <i class="fas fa-eye me-2" style="color: var(--vitrine-primary);"></i>
+          Perfil Público
+        </h5>
+        <p class="text-muted mb-0">
+          Controle se sua empresa aparece na pesquisa pública e se o perfil pode ser acessado diretamente
+        </p>
+      </div>
+      <div class="col-md-4 text-md-end">
+        <label class="perfil-publico-toggle">
+          <input type="checkbox" 
+                 id="perfil-publico-switch"
+                 data-empresa-id="{{ empresa.id }}"
+                 {% if empresa.perfil_publico %}checked{% endif %}>
+          <span class="perfil-publico-slider"></span>
+        </label>
+        <div class="mt-2">
+          <small class="fw-bold" id="perfil-status-text">
+            {% if empresa.perfil_publico %}Público{% else %}Privado{% endif %}
+          </small>
+        </div>
+      </div>
+    </div>
+    
+    <div class="perfil-publico-info {% if not empresa.perfil_publico %}privado{% endif %}" id="perfil-info">
+      <div class="d-flex align-items-start">
+        <i class="fas {% if empresa.perfil_publico %}fa-info-circle text-blue-500{% else %}fa-exclamation-triangle text-red-500{% endif %} me-2 mt-1"></i>
+        <div>
+          <p class="perfil-publico-description" id="perfil-description">
+            {% if empresa.perfil_publico %}
+              <strong>Perfil Público Ativo:</strong> Sua empresa aparece na pesquisa pública e o perfil pode ser acessado por qualquer pessoa através de link direto.
+            {% else %}
+              <strong>Perfil Privado:</strong> Sua empresa não aparece na pesquisa pública e o perfil só pode ser acessado por você e administradores.
+            {% endif %}
+          </p>
+          <small class="text-muted">
+            <i class="fas fa-lightbulb me-1"></i>
+            <strong>Lembrete:</strong> A vitrine virtual mostra empresas cadastradas independente desta configuração. Esta opção controla apenas o acesso direto ao perfil da empresa.
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Ações da Vitrine -->
+  <div class="vitrine-actions" data-aos="fade-up">
+    <h4 class="text-center mb-3">Gerenciar Vitrine</h4>
+    <div class="action-buttons-vitrine">
+      {% if rg_vitrine.logo %}
+        <a href="{% url 'empreendedor:enviar_ou_trocar_logo' empresa.id %}" class="btn-action-vitrine btn-secondary-vitrine">
+          <i class="fas fa-image"></i>
+          Trocar Logo
+        </a>
+      {% else %}
+        <a href="{% url 'empreendedor:enviar_ou_trocar_logo' empresa.id %}" class="btn-action-vitrine">
+          <i class="fas fa-plus"></i>
+          Adicionar Logo
+        </a>
+      {% endif %}
+      
+      {% if pode_cadastrar %}
+        <a href="{% url 'empreendedor:cadastrar_produto' empresa.id %}" class="btn-action-vitrine">
+          <i class="fas fa-plus-circle"></i>
+          Cadastrar Produto
+        </a>
+      {% endif %}
+      
+      <a href="{% url 'empreendedor:editar_empresa' empresa.id %}" class="btn-action-vitrine btn-secondary-vitrine">
+        <i class="fas fa-edit"></i>
+        Editar Dados
+      </a>
+    </div>
+  </div>
+
+  <!-- Card Principal da Empresa -->
+  <div class="empresa-vitrine-card" data-aos="fade-up">
+    <!-- Crown Badge -->
+    <div class="vitrine-crown">
+      <i class="fas fa-crown"></i>
+      Vitrine Virtual
+    </div>
+
+    <!-- Header da Empresa -->
+    <div class="empresa-header-vitrine">
+      <div class="row align-items-center">        
+        <div class="col">
+          <h1 class="empresa-nome-vitrine">{{ empresa.nome }}</h1>
+          <p class="empresa-cnpj-vitrine">CNPJ: {{ empresa.cnpj }}</p>
+          
+          {% if empresa.descricao %}
+            <p class="empresa-descricao-vitrine">{{ empresa.descricao }}</p>
+          {% endif %}
+
+          <!-- Informações de Contato -->
+          <div class="empresa-contact-vitrine">
+            {% if empresa.telefone %}
+              <a href="tel:{{ empresa.telefone }}" class="contact-item-vitrine">
+                <i class="fas fa-phone"></i>
+                {{ empresa.telefone }}
+              </a>
+            {% endif %}
+            
+            {% if empresa.whatsapp %}
+              <a href="https://wa.me/55{{ empresa.whatsapp|default:empresa.telefone }}" 
+                 target="_blank" class="contact-item-vitrine">
+                <i class="fab fa-whatsapp"></i>
+                WhatsApp
+              </a>
+            {% endif %}
+            
+            {% if empresa.email %}
+              <a href="mailto:{{ empresa.email }}" class="contact-item-vitrine">
+                <i class="fas fa-envelope"></i>
+                E-mail
+              </a>
+            {% endif %}
+            
+            {% if empresa.site %}
+              <a href="{{ empresa.site }}" target="_blank" class="contact-item-vitrine">
+                <i class="fas fa-globe"></i>
+                Website
+              </a>
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-auto mb-auto">
+          {% if rg_vitrine.logo %}
+            <img src="{{ rg_vitrine.logo.url }}" alt="Logo {{ empresa.nome }}" class="empresa-logo-vitrine">
+          {% else %}
+            <div class="empresa-logo-vitrine" style="background: var(--vitrine-light);">
+              <i class="fas fa-building fa-3x" style="color: var(--vitrine-primary);"></i>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- Seção de Produtos -->
+  <div class="produtos-section" data-aos="fade-up">
+    <h2 class="section-title-vitrine">Produtos ou Serviços</h2>
+    
+    {% if produtos %}
+      <div class="produtos-grid-vitrine">
+        {% for produto in produtos %}
+        <div class="produto-card-vitrine produto-clickable"
+             data-bs-toggle="modal" 
+             data-bs-target="#produtoModal"
+             data-produto-nome="{{ produto.nome }}"
+             data-produto-descricao="{{ produto.descricao|default:'Sem descrição disponível' }}"
+             data-produto-imagem="{% if produto.imagem %}{{ produto.imagem.url }}{% endif %}"
+             data-empresa-nome="{{ empresa.nome }}">
+          {% if produto.imagem %}
+            <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" class="produto-image-vitrine">
+          {% else %}
+            <div class="produto-image-vitrine d-flex align-items-center justify-content-center" 
+                 style="background: var(--vitrine-light);">
+              <i class="fas fa-image fa-3x" style="color: var(--vitrine-border);"></i>
+            </div>
+          {% endif %}
+          
+          <div class="produto-info-vitrine">
+            <h3 class="produto-nome-vitrine">{{ produto.nome }}</h3>
+            {% if produto.descricao %}
+              <p class="produto-descricao-vitrine">
+                {% if produto.descricao|length > 100 %}
+                  {{ produto.descricao|slice:":100" }}...
+                {% else %}
+                  {{ produto.descricao }}
+                {% endif %}
+              </p>
+            {% endif %}
+            
+            <small class="text-muted d-block mb-2">
+              <i class="fas fa-eye me-1"></i>Clique para ver detalhes
+            </small>
+            
+            <div class="produto-actions">
+              <small class="text-muted">
+                <i class="fas fa-calendar me-1"></i>
+                Adicionado em: {{ produto.dt_register|date:"d/m/Y" }}
+              </small>
+              <a href="{% url 'empreendedor:excluir_produto' rg_vitrine.id produto.id %}" 
+                 class="btn-excluir"
+                 onclick="event.stopPropagation(); return confirm('Tem certeza que deseja excluir este produto?')">
+                <i class="fas fa-trash-alt"></i>
+                Excluir
+              </a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <!-- Estado Vazio -->
+      <div class="empty-state-produtos">
+        <i class="fas fa-boxes"></i>
+        <h3>Nenhum produto cadastrado ainda</h3>
+        <p class="mb-4">Adicione produtos ou serviços para exibir na sua vitrine virtual</p>        
+      </div>
+    {% endif %}
+
+    {% if not pode_cadastrar and produtos.count < 6 %}
+    <div class="text-center mt-4">
+      <div class="alert alert-info">
+        <i class="fas fa-info-circle me-2"></i>
+        <strong>Limite atingido:</strong> Você pode cadastrar no máximo 3 produtos na vitrine virtual.
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- Modal de Produto -->
+<div class="modal fade produto-modal" id="produtoModal" tabindex="-1" aria-labelledby="produtoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title produto-modal-title" id="produtoModalLabel">Nome do Produto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body produto-modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div id="modalProdutoImagem">
+              <!-- Imagem será inserida aqui via JavaScript -->
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <h6 class="text-muted mb-2">
+                <i class="fas fa-building me-1"></i>
+                Empresa: <span id="modalEmpresaNome"></span>
+              </h6>
+            </div>
+            <div class="mb-3">
+              <h6 class="fw-bold mb-2">
+                <i class="fas fa-info-circle me-1" style="color: var(--vitrine-primary);"></i>
+                Descrição
+              </h6>
+              <p id="modalProdutoDescricao" class="produto-modal-desc">
+                Descrição do produto será exibida aqui...
+              </p>
+            </div>
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                <i class="fas fa-times me-1"></i>
+                Fechar
+              </button>
+              <a href="{% url 'empreendedor:vitrine_virtual' %}" class="btn btn-primary">
+                <i class="fas fa-store me-1"></i>
+                Ver Vitrine Virtual
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Ativar item de navegação
+  document.addEventListener('DOMContentLoaded', function() {
+    const empresaNav = document.getElementById('empreendedor_empresa');
+    if (empresaNav) {
+      empresaNav.classList.add('s-nav-active');
+    }
+
+    // Configurar modal de produto
+    const produtoModal = document.getElementById('produtoModal');
+    
+    if (produtoModal) {
+      produtoModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        
+        // Extrair dados do produto
+        const produtoNome = button.getAttribute('data-produto-nome');
+        const produtoDescricao = button.getAttribute('data-produto-descricao');
+        const produtoImagem = button.getAttribute('data-produto-imagem');
+        const empresaNome = button.getAttribute('data-empresa-nome');
+        
+        // Atualizar conteúdo do modal
+        const modalTitle = produtoModal.querySelector('#produtoModalLabel');
+        const modalEmpresaNome = produtoModal.querySelector('#modalEmpresaNome');
+        const modalDescricao = produtoModal.querySelector('#modalProdutoDescricao');
+        const modalImagem = produtoModal.querySelector('#modalProdutoImagem');
+        
+        if (modalTitle) modalTitle.textContent = produtoNome || 'Produto';
+        if (modalEmpresaNome) modalEmpresaNome.textContent = empresaNome || 'Empresa';
+        if (modalDescricao) modalDescricao.textContent = produtoDescricao || 'Sem descrição disponível';
+        
+        // Configurar imagem
+        if (modalImagem) {
+          if (produtoImagem && produtoImagem.trim() !== '') {
+            modalImagem.innerHTML = `
+              <img src="${produtoImagem}" alt="${produtoNome}" class="produto-modal-img">
+            `;
+          } else {
+            modalImagem.innerHTML = `
+              <div class="produto-modal-img d-flex align-items-center justify-content-center" 
+                   style="background: var(--vitrine-border); height: 300px;">
+                <i class="fas fa-image fa-4x" style="color: #9ca3af;"></i>
+              </div>
+            `;
+          }
+        }
+      });
+    }
+
+    // Configurar switch de perfil público
+    const perfilSwitch = document.getElementById('perfil-publico-switch');
+    if (perfilSwitch) {
+      perfilSwitch.addEventListener('change', async function() {
+        const empresaId = this.getAttribute('data-empresa-id');
+        const isChecked = this.checked;
+        const originalState = !isChecked;
+        
+        // Feedback visual imediato
+        updatePerfilUI(isChecked);
+        
+        try {
+          const response = await fetch(`/sala-do-empreendedor/toggle-perfil-publico/${empresaId}/`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': getCSRFToken()
+            },
+            body: JSON.stringify({
+              perfil_publico: isChecked
+            })
+          });
+          
+          const data = await response.json();
+          
+          if (data.success) {
+            showToast('success', `Perfil alterado para ${isChecked ? 'público' : 'privado'} com sucesso!`);
+          } else {
+            // Reverter estado em caso de erro
+            this.checked = originalState;
+            updatePerfilUI(originalState);
+            showToast('error', data.message || 'Erro ao alterar perfil. Tente novamente.');
+          }
+        } catch (error) {
+          console.error('Erro na requisição:', error);
+          // Reverter estado em caso de erro
+          this.checked = originalState;
+          updatePerfilUI(originalState);
+          showToast('error', 'Erro de conexão. Tente novamente.');
+        }
+      });
+    }
+  });
+
+  // Função para atualizar a interface do perfil público
+  function updatePerfilUI(isPublic) {
+    const statusText = document.getElementById('perfil-status-text');
+    const perfilInfo = document.getElementById('perfil-info');
+    const perfilDescription = document.getElementById('perfil-description');
+    const infoIcon = perfilInfo.querySelector('i');
+    
+    if (statusText) {
+      statusText.textContent = isPublic ? 'Público' : 'Privado';
+    }
+    
+    if (perfilInfo) {
+      if (isPublic) {
+        perfilInfo.classList.remove('privado');
+        perfilInfo.style.background = '#f0f9ff';
+        perfilInfo.style.borderColor = '#0ea5e9';
+      } else {
+        perfilInfo.classList.add('privado');
+        perfilInfo.style.background = '#fef2f2';
+        perfilInfo.style.borderColor = '#f87171';
+      }
+    }
+    
+    if (infoIcon) {
+      if (isPublic) {
+        infoIcon.className = 'fas fa-info-circle text-blue-500 me-2 mt-1';
+      } else {
+        infoIcon.className = 'fas fa-exclamation-triangle text-red-500 me-2 mt-1';
+      }
+    }
+    
+    if (perfilDescription) {
+      if (isPublic) {
+        perfilDescription.innerHTML = '<strong>Perfil Público Ativo:</strong> Sua empresa aparece na pesquisa pública e o perfil pode ser acessado por qualquer pessoa através de link direto.';
+      } else {
+        perfilDescription.innerHTML = '<strong>Perfil Privado:</strong> Sua empresa não aparece na pesquisa pública e o perfil só pode ser acessado por você e administradores.';
+      }
+    }
+  }
+
+  // Função para mostrar toast
+  function showToast(type, message) {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+    
+    const toast = document.createElement('div');
+    toast.className = `custom-toast ${type}`;
+    toast.innerHTML = `
+      <div class="d-flex align-items-center">
+        <i class="fas ${type === 'success' ? 'fa-check-circle text-success' : 'fa-exclamation-circle text-danger'} me-2"></i>
+        <span>${message}</span>
+      </div>
+    `;
+    
+    container.appendChild(toast);
+    
+    // Mostrar toast
+    setTimeout(() => {
+      toast.classList.add('show');
+    }, 100);
+    
+    // Remover toast após 4 segundos
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => {
+        if (container.contains(toast)) {
+          container.removeChild(toast);
+        }
+      }, 300);
+    }, 4000);
+  }
+
+  // Função para obter CSRF token
+  function getCSRFToken() {
+    return document.querySelector('[name=csrfmiddlewaretoken]')?.value || 
+           document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || 
+           '{{ csrf_token }}';
+  }
+</script>
 {% endblock %}

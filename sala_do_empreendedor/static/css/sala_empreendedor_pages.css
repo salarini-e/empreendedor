@@ -1,0 +1,1285 @@
+/* Sala do Empreendedor - Páginas Internas */
+:root {
+  --empresa-primary: #0727b4;
+  --empresa-secondary: #3652f0;
+  --empresa-accent: #e0b731;
+  --empresa-success: #4ecdc4;
+  --empresa-warning: #ffa726;
+  --empresa-danger: #ff6b6b;
+  --primary-green: #218a39;
+  --primary-blue: #0051a4;
+  --accent-gold: #e0b731;
+  --dark-gray: #333;
+}
+/* .main-content{
+    margin-top: 120px   ;
+} */
+/* Hero Section */
+.service-hero {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.479), rgba(255, 255, 255, 0.842)), url("/static/images/bg-empresa.jpg") no-repeat center center;
+  background-size: cover;
+  color: rgb(0, 0, 0);
+  padding: 40px 0 20px 0;
+  margin-bottom: 60px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(7, 39, 180, 0.137);
+}
+
+.hero-content-service {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.section-title-service {
+  font-family: var(--font-secondary);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title-service::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: var(--empresa-accent);
+  border-radius: 2px;
+}
+
+/* Back Button */
+.back-button {
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.back-button:hover {
+  background: #5a6268;
+  color: white;
+  text-decoration: none;
+  transform: translateX(-5px);
+}
+
+/* Cards */
+.service-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  border: none;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  text-decoration: none;
+  color: inherit;
+}
+
+.card-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--empresa-primary), var(--empresa-secondary));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1.5rem auto;
+  font-size: 2rem;
+  color: white;
+}
+
+.card-body {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.card-title {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.card-text {
+  color: #7f8c8d;
+  line-height: 1.6;
+}
+
+/* Buttons */
+.btn-service {
+  background: linear-gradient(135deg, var(--empresa-primary), var(--empresa-secondary));
+  border: none;
+  border-radius: 50px;
+  padding: 12px 30px;
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-service:hover {
+  transform: scale(1.05);
+  color: white;
+  text-decoration: none;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Content Sections */
+.content-section {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.content-section h2 {
+  color: var(--empresa-primary);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+/* Alerts */
+.alert-service {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: none;
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Forms */
+.form-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.form-container {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  margin-top: 2rem;
+}
+
+.form-control {
+  border-radius: 15px;
+  border: 2px solid #e9ecef;
+  padding: 1rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: var(--empresa-primary);
+  box-shadow: 0 0 0 0.2rem rgba(7, 39, 180, 0.25);
+}
+
+.form-label {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--empresa-primary), var(--empresa-secondary));
+  border: none;
+  border-radius: 50px;
+  padding: 15px 40px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(7, 39, 180, 0.3);
+}
+
+/* Contact Cards */
+.contact-card {
+  background: linear-gradient(135deg, var(--empresa-primary), var(--empresa-secondary));
+  color: white;
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 1rem;
+  background: rgba(255,255,255,0.1);
+  border-radius: 15px;
+  margin: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-3px);
+}
+
+/* Legislation Specific */
+.legislation-list {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.legislation-list h5 {
+  color: var(--empresa-primary);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 0.5rem;
+}
+
+.legislation-list ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.legislation-list li {
+  background: white;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 10px;
+  border-left: 4px solid var(--empresa-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.signature-section {
+  background: linear-gradient(135deg, var(--empresa-primary), var(--empresa-secondary));
+  color: white;
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Step Lists */
+.step-list {
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.step-list li {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+}
+
+/* External Link Indicator */
+.service-card:has(.external-link)::after {
+  content: '\f35d';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 1rem;
+  opacity: 0.7;
+  color: #0051A4;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Fallback para navegadores que não suportam :has() */
+.service-card.has-external-link::after {
+  content: '\f35d';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 1rem;
+  opacity: 0.7;
+  color: #0051A4;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Images */
+.modern-image {
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.modern-image:hover {
+  transform: scale(1.02);
+}
+
+/* Result Cards */
+.result-card {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: none;
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.result-card.success {
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+  border-left: 4px solid #28a745;
+}
+
+.result-card.error {
+  background: linear-gradient(135deg, #f8d7da 0%, #f1b0b7 100%);
+  border-left: 4px solid #dc3545;
+}
+
+/* Form Icons */
+.form-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--empresa-primary), var(--empresa-secondary));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem auto;
+  font-size: 2rem;
+  color: white;
+}
+
+/* Admin Card */
+.admin-card {
+  background: linear-gradient(135deg, rgba(33, 138, 57, 0.1), rgba(0, 81, 164, 0.1));
+  border: 2px solid var(--primary-green);
+  border-radius: 15px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.admin-title {
+  color: var(--primary-green);
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Form Disclaimer */
+.form-disclaimer {
+  background: rgba(0, 81, 164, 0.05);
+  border-left: 4px solid var(--primary-blue);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+}
+
+.form-disclaimer p {
+  font-size: 0.9rem;
+  text-align: justify;
+  color: var(--dark-gray);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Construction Icon */
+.construction-icon {
+  color: var(--accent-gold) !important;
+  font-size: 3rem !important;
+  margin-bottom: 1rem;
+}
+
+.construction-icon i {
+  color: var(--accent-gold);
+}
+
+/* Service List Icon */
+.service-list-icon {
+  font-size: 2rem !important;
+}
+
+/* Hidden Class */
+.hidden {
+  display: none;
+}
+
+/* Utility Classes */
+.limited-height {
+  max-height: 400px;
+}
+
+.text-indented {
+  text-indent: 30px;
+}
+
+/* Info Sidebar */
+.info-sidebar {
+  background: linear-gradient(135deg, rgba(0, 81, 164, 0.05), rgba(33, 138, 57, 0.05));
+  border-radius: 20px;
+  padding: 2rem;
+  border: 1px solid rgba(0, 81, 164, 0.1);
+  position: sticky;
+  top: 2rem;
+  height: fit-content;
+}
+
+.info-sidebar h4 {
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+/* Benefit Items */
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 81, 164, 0.1);
+}
+
+.benefit-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 81, 164, 0.15);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.benefit-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 81, 164, 0.3);
+}
+
+.benefit-content {
+  flex: 1;
+}
+
+.benefit-title {
+  font-weight: 600;
+  color: var(--primary-blue);
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.benefit-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--dark-gray);
+  margin: 0;
+}
+
+/* =================== PERFIL DA EMPRESA =================== */
+
+/* Empresa Profile Card */
+.empresa-profile-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 81, 164, 0.1);
+}
+
+.empresa-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.empresa-logo {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.logo-img {
+  width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  /* border-radius: 15px; */
+}
+
+.empresa-info {
+  flex: 1;
+}
+
+.empresa-nome {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  margin-bottom: 0.5rem;
+}
+
+.empresa-cnpj {
+  color: var(--dark-gray);
+  margin-bottom: 0.5rem;
+}
+
+.empresa-badge {
+  background: linear-gradient(135deg, var(--primary-green), var(--primary-green-dark));
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.empresa-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-action {
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.btn-edit {
+  background: var(--primary-blue);
+  color: white;
+}
+
+.btn-edit:hover {
+  background: var(--primary-blue-dark);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-map {
+  background: var(--primary-green);
+  color: white;
+}
+
+.btn-map:hover {
+  background: var(--primary-green-dark);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Info Cards */
+.info-card {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 81, 164, 0.08);
+  height: 100%;
+}
+
+.info-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-blue);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.info-item label {
+  font-weight: 600;
+  color: var(--dark-gray);
+  font-size: 0.9rem;
+}
+
+.info-item span {
+  color: var(--dark-gray);
+  line-height: 1.5;
+}
+
+.link-empresa {
+  color: var(--primary-blue);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.link-empresa:hover {
+  color: var(--primary-blue-dark);
+}
+
+.empresa-descricao {
+  line-height: 1.7;
+  color: var(--dark-gray);
+}
+
+/* Sidebar */
+.empresa-sidebar {
+  position: sticky;
+  top: 2rem;
+}
+
+.status-card, .actions-card, .services-card {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 81, 164, 0.08);
+}
+
+.status-title, .actions-title, .services-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-blue);
+  margin-bottom: 1rem;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  font-size: 0.9rem;
+  color: var(--dark-gray);
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  background: rgba(0, 81, 164, 0.05);
+  border: 1px solid rgba(0, 81, 164, 0.1);
+  border-radius: 10px;
+  color: var(--primary-blue);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.action-btn:hover {
+  background: rgba(0, 81, 164, 0.1);
+  color: var(--primary-blue-dark);
+  transform: translateX(5px);
+}
+
+.service-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.service-link {
+  display: flex;
+  align-items: center;
+  padding: 0.6rem 0.8rem;
+  color: var(--dark-gray);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.service-link:hover {
+  background: rgba(33, 138, 57, 0.05);
+  color: var(--primary-green);
+  transform: translateX(3px);
+}
+
+/* =================== PÁGINAS AMARELAS =================== */
+
+/* Filters Section */
+.filters-section {
+  margin-bottom: 2rem;
+}
+
+.filters-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 81, 164, 0.1);
+}
+
+.filters-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--primary-blue);
+  margin-bottom: 1.5rem;
+}
+
+.search-input-group {
+  position: relative;
+}
+
+.search-input-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary-blue);
+  z-index: 2;
+}
+
+.search-input {
+  padding-left: 2.5rem;
+}
+
+.btn-filter {
+  background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.btn-filter:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 81, 164, 0.3);
+}
+
+.btn-clear {
+  background: rgba(146, 146, 146, 0.1);
+  color: var(--dark-gray);
+  padding: 0.6rem 1.2rem;
+  border: 1px solid rgba(146, 146, 146, 0.3);
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.btn-clear:hover {
+  background: rgba(146, 146, 146, 0.2);
+}
+
+/* Results Section */
+.results-header {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 81, 164, 0.08);
+}
+
+.results-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--primary-blue);
+  margin: 0;
+}
+
+.results-count {
+  font-size: 1rem;
+  color: var(--dark-gray);
+  font-weight: 400;
+}
+
+.view-options {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.view-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(0, 81, 164, 0.2);
+  background: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-blue);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.view-btn:hover, .view-btn.active {
+  background: var(--primary-blue);
+  color: white;
+}
+
+/* Empresa Cards */
+.empresa-card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 81, 164, 0.1);
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.empresa-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 81, 164, 0.15);
+}
+
+.empresa-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 1.5rem 0;
+}
+
+.empresa-logo-mini {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.logo-mini {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.status-badge {
+  background: linear-gradient(135deg, var(--primary-green), var(--primary-green-dark));
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.empresa-card-body {
+  padding: 1rem 1.5rem;
+  flex: 1;
+}
+
+.empresa-nome-card {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-blue);
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.empresa-atividade {
+  color: var(--dark-gray);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.empresa-contato {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contato-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--dark-gray);
+}
+
+.empresa-card-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid rgba(0, 81, 164, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.empresa-links {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.empresa-link {
+  width: 35px;
+  height: 35px;
+  background: rgba(0, 81, 164, 0.1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-blue);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.empresa-link:hover {
+  background: var(--primary-blue);
+  color: white;
+  transform: scale(1.1);
+}
+
+.btn-ver-perfil {
+  background: linear-gradient(135deg, var(--primary-green), var(--primary-green-dark));
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-ver-perfil:hover {
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(33, 138, 57, 0.3);
+}
+
+/* Atividades e Ramos - Perfil da Empresa */
+.activities-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  border: 1px solid #e2e8f0;
+}
+
+.activities-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.activities-title i {
+  color: var(--empresa-primary);
+}
+
+.activity-section {
+  margin-bottom: 1.5rem;
+}
+
+.activity-section:last-child {
+  margin-bottom: 0;
+}
+
+.activity-section h6 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+}
+
+.activity-section i {
+  color: var(--empresa-secondary);
+  margin-right: 0.5rem;
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.activity-tag, .ramo-tag {
+  background: linear-gradient(135deg, #e0f2ff, #f0f8ff);
+  color: var(--empresa-primary);
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid #bee3f8;
+  transition: all 0.2s ease;
+}
+
+.activity-tag:hover, .ramo-tag:hover {
+  background: linear-gradient(135deg, #bee3f8, #e0f2ff);
+  transform: translateY(-1px);
+}
+
+.ramo-tag {
+  background: linear-gradient(135deg, #f0fff4, #f7fafc);
+  color: var(--empresa-success);
+  border-color: #9ae6b4;
+}
+
+.ramo-tag:hover {
+  background: linear-gradient(135deg, #9ae6b4, #f0fff4);
+}
+
+/* =================== CADASTRO FORNECEDORES E COMPRAS =================== */
+
+/* Services Grid */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Service Card Enhancements for Fornecedores page */
+.service-card .card-icon {
+  background: linear-gradient(135deg, var(--empresa-primary), var(--empresa-secondary));
+  box-shadow: 0 8px 20px rgba(7, 39, 180, 0.2);
+}
+
+.service-card .card-icon i {
+  font-size: 2.2rem;
+}
+
+/* Specific icons colors */
+.service-card:nth-child(1) .card-icon {
+  background: linear-gradient(135deg, var(--empresa-primary), var(--empresa-secondary));
+}
+
+.service-card:nth-child(2) .card-icon {
+  background: linear-gradient(135deg, var(--empresa-accent), #d4a929);
+}
+
+.service-card:nth-child(3) .card-icon {
+  background: linear-gradient(135deg, var(--empresa-success), #42c5b8);
+}
+
+/* Info alert enhancement */
+.alert-info {
+  background: linear-gradient(135deg, rgba(0, 81, 164, 0.05), rgba(33, 138, 57, 0.05));
+  border: 1px solid rgba(0, 81, 164, 0.1);
+  border-radius: 15px;
+  padding: 1.5rem;
+}
+
+.alert-info i {
+  color: var(--empresa-primary);
+}
+
+/* Service cards hover effects */
+.service-card:hover .card-icon {
+  transform: scale(1.1);
+  box-shadow: 0 12px 30px rgba(7, 39, 180, 0.3);
+}
+
+.service-card:hover .card-title {
+  color: var(--empresa-primary);
+}
+
+/* MEI Navigation Menu Styles */
+.mei-navigation {
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+.section-title-navigation {
+  font-family: var(--font-secondary);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle-navigation {
+  color: #6b7280;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.mei-nav-card {
+  display: block;
+  background: white;
+  border-radius: 15px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid #e2e8f0;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.mei-nav-card:hover {
+  text-decoration: none;
+  color: inherit;
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 81, 164, 0.15);
+  border-color: rgba(0, 81, 164, 0.2);
+}
+
+.mei-nav-card:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 4px;
+}
+
+.mei-nav-card-body {
+  padding: 1.5rem;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mei-nav-card-icon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem auto;
+  font-size: 1.2rem;
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 81, 164, 0.3);
+}
+
+.mei-nav-card:hover .mei-nav-card-icon {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 81, 164, 0.4);
+}
+
+.mei-nav-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-blue);
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.mei-nav-card-text {
+  font-size: 0.85rem;
+  color: #6b7280;
+  line-height: 1.4;
+  margin-bottom: 0;
+}
+
+/* External link indicator for navigation cards */
+.mei-nav-card.external-link::after {
+  content: '\f35d';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 0.7rem;
+  opacity: 0.6;
+  color: var(--primary-blue);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .section-title-navigation {
+    font-size: 1.5rem;
+  }
+  
+  .mei-nav-card-body {
+    padding: 1.25rem;
+  }
+  
+  .mei-nav-card-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+  
+  .mei-nav-card-title {
+    font-size: 0.95rem;
+  }
+  
+  .mei-nav-card-text {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .mei-navigation {
+    padding: 3rem 0;
+  }
+  
+  .mei-nav-card_body {
+    padding: 1rem;
+  }
+}

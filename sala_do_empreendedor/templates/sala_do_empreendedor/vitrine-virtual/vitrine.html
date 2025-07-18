@@ -1,338 +1,1220 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
 {% load empreendedor_filters %}
-{% block nav %}
-{% include 'nav_empreendedor.html' %}
-{% endblock %}
+
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+<style>
+  /* Vitrine Virtual - Identidade Visual */
+  :root {
+    --vitrine-primary: #0727b4;
+    --vitrine-secondary: #3652f0;
+    --vitrine-accent: #e0b731;
+    --vitrine-success: #4ecdc4;
+    --vitrine-light: #f8fafc;
+    --vitrine-border: #e2e8f0;
+  }
 
-{% endblock %}
-{% block main %}
-<div class="container">
-    <div class="row">
-      <div class="col">
-        {% if messages %}
-          {% for message in messages %}
-            <div class="alert {{ message.tags }}">
-              {{ message }}
-            </div>
-          {% endfor %}
-        {% endif %}
-      </div>
-    </div>
-    <div class="row">
-        <div class="col pb-3">
-            Gostaria de cadastrar sua empresa na vitrine virtual? <a href="{% url 'empreendedor:cadastrar_empresa' %}">Clique aqui</a>
-        </div>
-    </div>
-    <style>
-      body {
-          body {
-          display: flex;
-          justify-content: space-between;
-          margin: 0;
-          padding: 20px;
-          box-sizing: border-box;
-          font-family: Arial, sans-serif;
-      }
-      .left {
-          width: 50%;
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-      }
-      .images {
-          display: flex;
-      }
-      .images .big-image {
-          width: 300px;
-          height: 250px;
-          margin-top: 60px;
-          margin-left: 30px;
-      }
-      .images .small-images {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          width: 160px;
-          margin-top: 60px;
-          margin-left: 20px;
-      }
-      .images .small-images img {
-          margin-bottom: 10px;
-      }
-      .right {
-          width: 50%;
-          /* display: flex; */
-          flex-direction: column;
-          justify-content: space-between;
-      }
-      .right .text {
-          margin-bottom: 10px;
-      }
-      .right .text:last-child {
-          display: flex;
-          justify-content: space-between;
-      }
-      .right .text:last-child div {
-          width: 40%;
-      }
-      h3.marcar{
-          color: #FBAB00;
-      }
-      .nome{
-          color: #004170;
-          margin-top: 50px;
-      }
-      .dia {
-          color: #004170;
-      }
-      .contato
-      {
-          color: #004170;
-      }
-  </style>
-{% for registro in registros %}
-  <div class="row mb-4" style="background-color: white; border-radius: 30px; padding-bottom: 40px;">
-      <div class="col">
-          <div class="images">
-            {% for produto in registro.produtos %}
-            {% if forloop.first %}
-                <img src="{{ produto.imagem.url }}" alt="Imagem 1" class="big-image">            
-            {% endif %}
-            {% endfor %}
-            <div class="small-images">
-            {% for produto in registro.produtos %}
-            {% if not forloop.first %}
-                    <img src="{{ produto.imagem.url }}" class="img-fluid" alt="Imagem {{ forloop.counter }}">
-            {% endif %}
-            {% endfor %} 
-            </div>
-          </div>
-      </div>
-      <div class="col">
-          <div class="row">
-            <img src="{{registro.logo}}" alt="" style="width: 80px;">
-              <h3 class="nome">{{registro.empresa.nome}}</h3>
-                  <p class="contato">{{registro.empresa.telefone}}</p>
-                  <p class="mt-3" style="font-size: 12pt;">{{registro.empresa.descricao|limitarCaracteres:300}}</p>
-          </div>
-          <div class="row">
-              <div class="col">
-                  <h3 class="marcar">Horário</h3>
-                      <h3 class="dia">Segunda a Sexta</h3>
-                          <p class="dia">Hora Marcada</p>
-                      <h3 class="dia">Sábados</h3>
-                          <p class="dia">Hora Marcada</p>
-              </div>
-              <div class="col">
-                
-                  <h3 class="marcar">(!)Contato</h3>
-                      <h3 class="contato">Tel: </h3>
-                          <p class="contato">{{registro.empresa.telefone}}</p>
-                      <h3 class="contato">Email</h3>
-                          <p class="contato">{{registro.empresa.email}}</p>
-                      <h3 class="contato">Localização</h3>
-                          <p class="contato">Prefeitura de Nova Friburgo</p>
-              </div>
-          </div>
-      </div>
-  </div>
-  {% endfor %}
-    <div class="row">
-      <div class="col d-flex justify-content-evenly flex-wrap mt-4">
-        {% for registro in registros %}
-      <div class="empresa mb-4">
-        <div class="description-container">
-          {% if registro.logo %}
-          <img src="{{registro.logo}}" alt="Logo da Empresa" class="company-logo">
-          {% endif %}
-          <div class="company-name">{{registro.empresa.nome}}</div>
-          <div class="company-description"><strong>Descrição:</strong> {{registro.empresa.descricao|limitarCaracteres:300}}</div>
-          <div class="contact-info">
-            {% if registro.empresa.telefone %}
-            <p>
-            <strong>Telefone:</strong><span class="ms-2">
-              <a href="tel:{{registro.empresa.telefone}}">{{registro.empresa.telefone}}</a>
-            </span>
-          </p>
-            {% endif %}
-            {% if registro.empresa.email %}
-            <p>
-              <strong>Email:</strong><span class="ms-2">{{registro.empresa.email}}</span><br>
-            </p>
-            {% endif %}
-            {% if registro.empresa.site %}
-            <p>
-              <strong>Site:</strong><a class="ms-2" href="{{registro.empresa.site}}">{{registro.empresa.site}}</a>
-            </p>
-            {% endif %}
-          </div>
-        </div>
-      
-        <div class="product-container">          
-          {% for produto in registro.produtos %}
-          <div class="product">
-            <img src="{{produto.imagem.url}}" alt="produto">
-            <div class="product-description">{{produto.descricao|limitarCaracteres:180}}</div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-      {% endfor %}
-      </div>
-    </div>
+  .vitrine-hero {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.479), rgba(255, 255, 255, 0.842)), url("{% static 'images/bg-empresa.jpg' %}") no-repeat center center;
+    background-size: cover;
+    color: rgb(0, 0, 0);
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .vitrine-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("{% static 'images/pattern-bg.svg' %}") repeat;
+    opacity: 0.1;
+  }
+   .section-title-vitrine {
+    font-family: var(--font-secondary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .section-title-vitrine::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--vitrine-accent);
+    border-radius: 2px;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+
+  .back-button {
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+  }
+
+  .back-button:hover {
+    background: #5a6268;
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+  }
+
+  /* Filtros */
+  .filters-container {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    border: 1px solid var(--vitrine-border);
+    margin-bottom: 2rem;
+  }
+
+  .filter-group {
+    margin-bottom: 1rem;
+  }
+
+  .filter-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .filter-label {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .btn-filter {
+    background: linear-gradient(135deg, var(--vitrine-primary), var(--vitrine-secondary));
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .btn-filter:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(7, 39, 180, 0.3);
+    color: white;
+  }
+
+  .btn-clear {
+    background: #f8f9fa;
+    color: #6c757d;
+    border: 1px solid #dee2e6;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-clear:hover {
+    background: #e9ecef;
+    color: #495057;
+    text-decoration: none;
+  }
+
+  /* Seção de busca rápida */
+  .search-section {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    margin-top: 2rem;
+    position: relative;
+    z-index: 3;
+  }
+
+  /* Cards das empresas */
+  .empresa-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+    border: 1px solid var(--vitrine-border);
+  }
+
+  .empresa-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+  }
+
+  .empresa-header {
+    padding: 2rem;
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
+    border-bottom: 1px solid var(--vitrine-border);
+    position: relative;
+  }
+
+  .vitrine-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: linear-gradient(135deg, var(--vitrine-accent), #f39c12);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .empresa-logo {
+    width: 180px;    
+    /* border-radius: 50%; */
+    object-fit: cover;
+    /* border: 3px solid var(--vitrine-primary); */
+    margin-bottom: 1rem;
+  }
+
+  .empresa-nome {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--vitrine-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .empresa-descricao {
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .empresa-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #374151;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    background: var(--vitrine-light);
+    border-radius: 25px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+  }
+
+  .contact-item:hover {
+    background: var(--vitrine-accent);
+    color: white;
+    text-decoration: none;
+  }
+
+  .contact-item i {
+    color: var(--vitrine-primary);
+  }
+
+  .contact-item:hover i {
+    color: white;
+  }
+
+  /* Link para perfil */
+  .btn-perfil {
+    background: linear-gradient(135deg, var(--vitrine-primary), var(--vitrine-secondary));
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+  }
+
+  .btn-perfil:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(7, 39, 180, 0.3);
+    text-decoration: none;
+  }
+
+  .produtos-container {
+    padding: 0 2rem 2rem;
+  }
+
+  .produtos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .produto-card {
+    background: var(--vitrine-light);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    max-width: 395px;
+  }
+
+  .produto-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  }
+
+  .produto-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .produto-info {
+    padding: 1rem;
+  }
+
+  .produto-descricao {
+    color: #374151;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #6b7280;
+  }
+
+  .empty-state i {
+    font-size: 4rem;
+    color: var(--vitrine-border);
+    margin-bottom: 1rem;
+  }
+
+  .btn-cadastrar {
+    background: linear-gradient(135deg, var(--vitrine-accent), #f39c12);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .btn-cadastrar:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(243, 156, 18, 0.3);
+    text-decoration: none;
+  }
+
+  /* Resultados */
+  .results-header {
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .results-count {
+    font-weight: 600;
+    color: #374151;
+  }
+
+  /* Carrossel de Empresas */
+  .carousel-section {
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
+    padding: 3rem 0;
+    margin: 2rem 0;
+    border-radius: 20px;
+  }
+
+  .empresa-carousel-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    border: 1px solid var(--vitrine-border);
+    transition: all 0.3s ease;
+    margin: 0 0.5rem;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .empresa-carousel-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+  }
+
+  .carousel-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 1rem;
+    border: 2px solid var(--vitrine-border);
+  }
+
+  .carousel-logo-placeholder {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--vitrine-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    border: 2px solid var(--vitrine-border);
+  }
+
+  .carousel-empresa-nome {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--vitrine-primary);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .carousel-empresa-desc {
+    color: #6b7280;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+  }
+
+  .carousel-btn {
+    background: linear-gradient(135deg, var(--vitrine-primary), var(--vitrine-secondary));
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .carousel-btn:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(7, 39, 180, 0.3);
+    text-decoration: none;
+  }
+
+  /* Modal de Produto */
+  .produto-modal .modal-dialog {
+    max-width: 800px;
+  }
+
+  .produto-modal-img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .produto-modal-body {
+    padding: 2rem;
+  }
+
+  .produto-modal-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--vitrine-primary);
+    margin-bottom: 1rem;
+  }
+
+  .produto-modal-desc {
+    color: #374151;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .produto-clickable {
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .produto-clickable:hover {
+    transform: scale(1.02);
+  }
+
+  /* Carrossel customizado */
+  .empresa-carousel {
+    position: relative;
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
+  }
+
+  .empresa-carousel:active {
+    cursor: grabbing;
+  }
+
+  .empresa-carousel .carousel-inner {
+    transition: transform 0.8s ease-in-out;
+  }
+
+  .empresa-carousel .carousel-item {
+    transition: opacity 0.8s ease-in-out;
+  }
+
+  /* Remover controles de navegação */
+  .empresa-carousel .carousel-control-prev,
+  .empresa-carousel .carousel-control-next {
+    display: none;
+  }
+
+  .carousel-indicators {
+    margin-bottom: -50px;
+    gap: 8px;
+  }
+
+  .carousel-indicators [data-bs-target] {
+    background-color: var(--vitrine-primary);
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .carousel-indicators [data-bs-target].active {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+
+  /* Indicador visual de arrasto */
+  .carousel-drag-hint {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: var(--vitrine-primary);
+    font-weight: 600;
+    animation: fadeInOut 3s ease-in-out infinite;
+    z-index: 10;
+  }
+
+  @keyframes fadeInOut {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+
+  /* Efeito de transição suave para arrastar */
+  .empresa-carousel.dragging .carousel-inner {
+    transition: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .vitrine-hero {
+      padding: 2rem 0;
+    }
     
-    <!-- {% for registro in registros %}
-    <div class="row border mb-3" style="background-color: white; border-radius: 30px;">
-        <div class="col px-4 py-4 text-justify">
-          <div class="row">
-            <div class="col d-flex">
-              <h1>{{registro.empresa.nome}}</h1> 
-            </div>
-          </div> 
-          <p><strong>Descrição:</strong> {{registro.empresa.descricao|limitarCaracteres:300}}</p>
-          <p class="mt-3">
-            {% if registro.empresa.telefone %}
-            <strong>Telefone:</strong><span class="ms-2">
-              <a href="tel:{{registro.empresa.telefone}}">{{registro.empresa.telefone}}</a>
-            </span><br>
-            {% endif %}
-            {% if registro.empresa.email %}
-            <strong>Email:</strong><span class="ms-2">{{registro.empresa.email}}</span><br>
-            {% endif %}
-            {% if registro.empresa.site %}
-            <strong>Site:</strong><a class="ms-2" href="{{registro.empresa.site}}">{{registro.empresa.site}}</a>
-            {% endif %}
-          </p>
-          {% if registro.logo %}
-          <img src="{{registro.logo}}" alt="Logo da Empresa" class="company-logo my-4">
-          {% endif %}
-        </a>
-        </div>
-        <div class="col d-flex p-3">
-          {% for produto in registro.produtos %}
-          <div class="product">
-            <img src="{{produto.imagem.url}}" alt="produto">
-            <div class="product-description">{{produto.descricao|limitarCaracteres:180}}</div>
-          </div>
-          {% endfor %}
-        </div>
-    </div>
-    {% endfor %} -->
-    </div>
-</div>
-<style>
-  .empresa {
-  width: 45%;
-  margin: 20px, auto, 20px, auto;
-  background-color: #fff;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-.description-container{
-  width: 100%;
+    .empresa-header {
+      padding: 1.5rem;
+    }
+    
+    .produtos-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .empresa-contact {
+      justify-content: center;
+    }
 
-}
-.company-logo {
-  display: block;
-  margin: 0 auto;
-  max-width: 100px;
-  height: auto;
-}
+    .filters-container {
+      padding: 1rem;
+    }
 
-.company-name {
-  text-align: center;
-  font-size: 24px;
-  margin-top: 10px;
-}
+    .search-section {
+      padding: 1.5rem;
+    }
 
-.company-description {
-  text-align: justify;
-  margin-top: 10px;
-}
+    .carousel-section {
+      padding: 2rem 0;
+    }
 
-.contact-info {
-  text-align: left;
-  margin-top: 10px;
-}
+    .empresa-carousel-card {
+      height: 250px;
+    }
 
-.product-container {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin-top: 20px;
-}
-
-.product {
-  width: 250px;
-  margin: 10px;
-  padding: 15px;
-  background-color: #f9f9f9;
-  border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.product img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 5px;
-}
-
-.product-description {
-  text-align: justify;
-  margin-top: 10px;
-}
-</style>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-
-<div class="row mx-auto px-5">
-  <script>
-    document.getElementById('empreendedor_vitrine').classList.add('s-nav-active');
-  </script>
-  <script>
-    $(document).ready(function(){
-      $('.product-container').slick({
-        infinite: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 2000,
-        responsive: [
-          {
-            breakpoint: 768,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 1
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1
-            }
-          }
-        ]
-      });
-    });
-  </script>
-</div>
-
-<style>
-  .border{
-    border-color: rgba(146, 146, 146, 0.2) !important;
+    .empresa-carousel .carousel-control-prev,
+    .empresa-carousel .carousel-control-next {
+      display: none;
+    }
   }
 </style>
-
-</script>
-
 {% endblock %}
-{% block footer %}
-{% include 'desenvolve_nf/instagram.html' %}
+
+{% block main %}
+<!-- Hero Section -->
+<div class="vitrine-hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="row" data-aos="fade-up">
+        <div class="col">
+          <a href="{% url 'empreendedor:index' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Voltar
+          </a>
+        </div>
+      </div>
+      <h1 class="section-title-vitrine fw-bold mb-3">Vitrine Virtual</h1>
+      <p class="lead mb-4">Descubra empresas locais e seus produtos/serviços</p>
+      
+      <div class="search-section">
+
+        <form method="GET" class="row g-3">
+          <div class="col-md-8">
+            <input type="text" 
+                  name="nome" 
+                  value="{{ filtros.nome }}" 
+                  class="form-control" 
+                  placeholder="Buscar por nome da empresa..."
+                  style="border-radius: 25px; padding: 12px 20px;">
+          </div>
+          <div class="col-md-4">
+            <button type="submit" class="btn btn-filter btn-lg w-100">
+              <i class="fas fa-search me-2"></i>Buscar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Carrossel de Empresas -->
+{% if not registros %}
+<div class="carousel-section">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h3 class="fw-bold mb-2">
+        <i class="fas fa-store me-2" style="color: var(--vitrine-accent);"></i>
+        Empresas em Destaque
+      </h3>
+      <p class="text-muted">Conheça as empresas que fazem parte da nossa vitrine virtual</p>
+      <small class="text-muted d-block mt-2">
+        <i class="fas fa-hand-paper me-1"></i>
+        Slideshow automático - Arraste para navegar ou passe o mouse para pausar
+      </small>
+    </div>
+    
+    <div id="empresaCarousel" class="carousel slide empresa-carousel" data-bs-ride="carousel" data-bs-touch="true">
+      <!-- Indicador de arrasto -->
+      <div class="carousel-drag-hint">
+        <i class="fas fa-hand-paper me-1"></i>
+        Arraste para navegar
+      </div>
+      
+      <div class="carousel-inner">
+        {% for registro in registros %}
+          {% if forloop.counter0|divisibleby:3 %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+              <div class="row">
+          {% endif %}
+          
+          <div class="col-md-4">
+            <div class="empresa-carousel-card">
+              {% if registro.logo %}
+                <img src="{{ registro.logo.url }}" alt="Logo {{ registro.empresa.nome }}" class="carousel-logo">
+              {% else %}
+                <div class="carousel-logo-placeholder">
+                  <i class="fas fa-building fa-lg" style="color: var(--vitrine-primary);"></i>
+                </div>
+              {% endif %}
+              
+              <div>
+                <h5 class="carousel-empresa-nome">{{ registro.empresa.nome }}</h5>
+                {% if registro.empresa.descricao %}
+                  <p class="carousel-empresa-desc">
+                    {% if registro.empresa.descricao|length > 80 %}
+                      {{ registro.empresa.descricao|slice:":80" }}...
+                    {% else %}
+                      {{ registro.empresa.descricao }}
+                    {% endif %}
+                  </p>
+                {% else %}
+                  <p class="carousel-empresa-desc">Empresa parceira da vitrine virtual de Nova Friburgo</p>
+                {% endif %}
+              </div>
+              
+              <a href="{% url 'empreendedor:perfil_empresa' registro.empresa.id %}" class="carousel-btn">
+                <i class="fas fa-eye"></i>
+                Ver Perfil
+              </a>
+            </div>
+          </div>
+          
+          {% if forloop.counter|divisibleby:3 or forloop.last %}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      
+      <!-- Indicadores -->
+      {% if registros|length > 3 %}
+      <div class="carousel-indicators">
+        {% for registro in registros %}
+          {% if forloop.counter0|divisibleby:3 %}
+            <button type="button" data-bs-target="#empresaCarousel" data-bs-slide-to="{{ forloop.counter0 }}" 
+                    {% if forloop.first %}class="active"{% endif %}></button>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="container pb-5">
+  <!-- Messages -->
+  {% if messages %}
+  <div class="row mb-4">
+    <div class="col">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Busca Rápida -->
+  
+
+  <!-- Filtros Avançados -->
+  <div class="filters-container">
+    <h5 class="mb-3">
+      <i class="fas fa-filter me-2"></i>Filtros Avançados
+    </h5>
+    
+    <form method="GET" id="filter-form">
+      <input type="hidden" name="nome" value="{{ filtros.nome }}">
+      
+      <div class="row">
+        <div class="col-md-6 col-lg-3">
+          <div class="filter-group">
+            <label class="filter-label">Atividade</label>
+            <select name="atividade" class="form-select">
+              <option value="">Todas as atividades</option>
+              {% for atividade in atividades %}
+                <option value="{{ atividade.id }}" {% if filtros.atividade == atividade.id|stringformat:"s" %}selected{% endif %}>
+                  {{ atividade.atividade }}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="filter-group">
+            <label class="filter-label">Porte da Empresa</label>
+            <select name="porte" class="form-select">
+              <option value="">Todos os portes</option>
+              {% for porte in portes %}
+                <option value="{{ porte.id }}" {% if filtros.porte == porte.id|stringformat:"s" %}selected{% endif %}>
+                  {{ porte.porte }}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="filter-group">
+            <label class="filter-label">Ramo de Atuação</label>
+            <select name="ramo" class="form-select">
+              <option value="">Todos os ramos</option>
+              {% for ramo in ramos %}
+                <option value="{{ ramo.id }}" {% if filtros.ramo == ramo.id|stringformat:"s" %}selected{% endif %}>
+                  {{ ramo.ramo }}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="filter-group">
+            <label class="filter-label">Tem Website</label>
+            <select name="tem_website" class="form-select">
+              <option value="">Todos</option>
+              <option value="sim" {% if filtros.tem_website == "sim" %}selected{% endif %}>Com website</option>
+              <option value="nao" {% if filtros.tem_website == "nao" %}selected{% endif %}>Sem website</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row mt-3">
+        <div class="col-auto">
+          <button type="submit" class="btn btn-filter">
+            <i class="fas fa-filter me-2"></i>Aplicar Filtros
+          </button>
+        </div>
+        <div class="col-auto">
+          <a href="{% url 'empreendedor:vitrine_virtual' %}" class="btn btn-clear">
+            <i class="fas fa-times me-2"></i>Limpar Filtros
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Resultados -->
+  <div class="results-header">
+    <div class="results-count">
+      {% if registros %}
+        Você possui {{ total_registros }} empresa{{ total_registros|pluralize }} na vitrine virtual
+      {% else %}
+        Você não possui empresa cadastrada na vitrine virtual
+      {% endif %}
+    </div>
+    
+    {% if user.is_authenticated and user.pessoa.possui_cnpj %}
+    <a href="{% url 'empreendedor:minha_empresa' %}" class="btn btn-outline-primary btn-sm">
+      <i class="fas fa-cog me-1"></i>Gerenciar minhas empresas
+    </a>
+    {% endif %}
+  </div>
+
+  <!-- Empresas da Vitrine -->
+  {% if registros %}
+    {% for registro in registros %}
+    <div class="empresa-card">
+      <!-- Badge Vitrine Virtual -->
+      <div class="vitrine-badge">
+        <i class="fas fa-gem"></i>
+        Vitrine Virtual
+      </div>
+
+      <!-- Header da Empresa -->
+      <div class="empresa-header">
+        <div class="row align-items-center">          
+          <div class="col">
+            <h2 class="empresa-nome">{{ registro.empresa.nome }}</h2>
+            {% if registro.empresa.nome_fantasia and registro.empresa.nome_fantasia != registro.empresa.nome %}
+              <h6 class="text-muted mb-2">{{ registro.empresa.nome_fantasia }}</h6>
+            {% endif %}
+            {% if registro.empresa.descricao %}
+              <p class="empresa-descricao">
+                {% if registro.empresa.descricao|length > 200 %}
+                  {{ registro.empresa.descricao|slice:":200" }}...
+                {% else %}
+                  {{ registro.empresa.descricao }}
+                {% endif %}
+              </p>
+            {% endif %}
+
+            <!-- Link para perfil -->
+            <a href="{% url 'empreendedor:perfil_empresa' registro.empresa.id %}" class="btn-perfil">
+              <i class="fas fa-eye"></i>
+              Perfil da Empresa
+            </a>
+          </div>
+          <div class="col-auto">
+            {% if registro.logo %}
+              <img src="{{ registro.logo.url }}" alt="Logo {{ registro.empresa.nome }}" class="empresa-logo">
+            {% else %}
+              <div class="empresa-logo d-flex align-items-center justify-content-center" style="background: var(--vitrine-light);">
+                <i class="fas fa-building fa-2x" style="color: var(--vitrine-primary);"></i>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Produtos/Serviços -->
+      {% if registro.produto_set.all %}
+      <div class="produtos-container">
+        <h4 class="my-3">
+          Produtos e Serviços
+        </h4>
+        <div class="produtos-grid">
+          {% for produto in registro.produto_set.all|slice:":6" %}
+          <div class="produto-card produto-clickable" 
+               data-bs-toggle="modal" 
+               data-bs-target="#produtoModal"
+               data-produto-nome="{{ produto.nome }}"
+               data-produto-descricao="{{ produto.descricao|default:'Sem descrição disponível' }}"
+               data-produto-imagem="{% if produto.imagem %}{{ produto.imagem.url }}{% endif %}"
+               data-empresa-nome="{{ registro.empresa.nome }}">
+            {% if produto.imagem %}
+              <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" class="produto-image">
+            {% else %}
+              <div class="produto-image d-flex align-items-center justify-content-center" 
+                   style="background: var(--vitrine-border);">
+                <i class="fas fa-image fa-2x" style="color: #9ca3af;"></i>
+              </div>
+            {% endif %}
+            <div class="produto-info">
+              <h6 class="fw-bold mb-2">{{ produto.nome }}</h6>
+              {% if produto.descricao %}
+                <p class="produto-descricao mb-0">
+                  {% if produto.descricao|length > 100 %}
+                    {{ produto.descricao|slice:":100" }}...
+                  {% else %}
+                    {{ produto.descricao }}
+                  {% endif %}
+                </p>
+              {% endif %}
+              <small class="text-muted mt-2 d-block">
+                <i class="fas fa-eye me-1"></i>Clique para ver detalhes
+              </small>
+            </div>
+          </div>
+          {% endfor %}
+          {% if registro.produto_set.all|length > 6 %}
+          <div class="produto-card d-flex align-items-center justify-content-center" 
+               style="background: var(--vitrine-light); min-height: 200px;">
+            <div class="text-center">
+              <i class="fas fa-plus-circle fa-2x mb-2" style="color: var(--vitrine-primary);"></i>
+              <p class="mb-0"><strong>+{{ registro.produto_set.all|length|add:"-6" }} produtos</strong></p>
+              <small class="text-muted">Ver perfil completo</small>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+
+    <!-- Paginação -->
+    {% if registros.has_other_pages %}
+    <div class="row mt-4">
+      <div class="col">
+        <nav aria-label="Navegação da vitrine virtual">
+          <ul class="pagination justify-content-center">
+            {% if registros.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page=1{% if request.GET.nome %}&nome={{ request.GET.nome }}{% endif %}{% if request.GET.atividade %}&atividade={{ request.GET.atividade }}{% endif %}{% if request.GET.porte %}&porte={{ request.GET.porte }}{% endif %}{% if request.GET.ramo %}&ramo={{ request.GET.ramo }}{% endif %}{% if request.GET.tem_website %}&tem_website={{ request.GET.tem_website }}{% endif %}">&laquo; Primeira</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="?page={{ registros.previous_page_number }}{% if request.GET.nome %}&nome={{ request.GET.nome }}{% endif %}{% if request.GET.atividade %}&atividade={{ request.GET.atividade }}{% endif %}{% if request.GET.porte %}&porte={{ request.GET.porte }}{% endif %}{% if request.GET.ramo %}&ramo={{ request.GET.ramo }}{% endif %}{% if request.GET.tem_website %}&tem_website={{ request.GET.tem_website }}{% endif %}">Anterior</a>
+              </li>
+            {% endif %}
+
+            {% for num in registros.paginator.page_range %}
+              {% if num >= registros.number|add:"-2" and num <= registros.number|add:"2" %}
+                <li class="page-item {% if num == registros.number %}active{% endif %}">
+                  <a class="page-link" href="?page={{ num }}{% if request.GET.nome %}&nome={{ request.GET.nome }}{% endif %}{% if request.GET.atividade %}&atividade={{ request.GET.atividade }}{% endif %}{% if request.GET.porte %}&porte={{ request.GET.porte }}{% endif %}{% if request.GET.ramo %}&ramo={{ request.GET.ramo }}{% endif %}{% if request.GET.tem_website %}&tem_website={{ request.GET.tem_website }}{% endif %}">{{ num }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+
+            {% if registros.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ registros.next_page_number }}{% if request.GET.nome %}&nome={{ request.GET.nome }}{% endif %}{% if request.GET.atividade %}&atividade={{ request.GET.atividade }}{% endif %}{% if request.GET.porte %}&porte={{ request.GET.porte }}{% endif %}{% if request.GET.ramo %}&ramo={{ request.GET.ramo }}{% endif %}{% if request.GET.tem_website %}&tem_website={{ request.GET.tem_website }}{% endif %}">Próxima</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="?page={{ registros.paginator.num_pages }}{% if request.GET.nome %}&nome={{ request.GET.nome }}{% endif %}{% if request.GET.atividade %}&atividade={{ request.GET.atividade }}{% endif %}{% if request.GET.porte %}&porte={{ request.GET.porte }}{% endif %}{% if request.GET.ramo %}&ramo={{ request.GET.ramo }}{% endif %}{% if request.GET.tem_website %}&tem_website={{ request.GET.tem_website }}{% endif %}">Última &raquo;</a>
+              </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+    </div>
+    {% endif %}
+  {% else %}
+    <!-- Estado Vazio -->
+    <div class="empty-state">
+      <i class="fas fa-store"></i>
+      <h3>Nenhuma empresa na vitrine virtual ainda</h3>
+      <p class="mb-4">Seja a primeira empresa a aparecer na vitrine virtual de Nova Friburgo!</p>
+      {% if user.is_authenticated and user.pessoa.possui_cnpj %}
+        <a href="{% url 'empreendedor:minha_empresa' %}" class="btn-cadastrar">
+          <i class="fas fa-cog"></i>
+          Gerenciar Minhas Empresas
+        </a>
+      {% else %}
+        <a href="{% url 'empreendedor:cadastrar_empresa' %}" class="btn-cadastrar">
+          <i class="fas fa-plus"></i>
+          Cadastrar Minha Empresa
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+
+<!-- Modal de Produto -->
+<div class="modal fade produto-modal" id="produtoModal" tabindex="-1" aria-labelledby="produtoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title produto-modal-title" id="produtoModalLabel">Nome do Produto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body produto-modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div id="modalProdutoImagem">
+              <!-- Imagem será inserida aqui via JavaScript -->
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <h6 class="text-muted mb-2">
+                <i class="fas fa-building me-1"></i>
+                Empresa: <span id="modalEmpresaNome"></span>
+              </h6>
+            </div>
+            <div class="mb-3">
+              <h6 class="fw-bold mb-2">
+                <i class="fas fa-info-circle me-1" style="color: var(--vitrine-primary);"></i>
+                Descrição
+              </h6>
+              <p id="modalProdutoDescricao" class="produto-modal-desc">
+                Descrição do produto será exibida aqui...
+              </p>
+            </div>
+            <div class="d-flex gap-2">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                <i class="fas fa-times me-1"></i>
+                Fechar
+              </button>
+              <button type="button" class="btn btn-primary" id="modalVerPerfil">
+                <i class="fas fa-external-link-alt me-1"></i>
+                Ver Perfil da Empresa
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Ativar item de navegação
+  document.addEventListener('DOMContentLoaded', function() {
+    const vitrineNav = document.getElementById('empreendedor_vitrine');
+    if (vitrineNav) {
+      vitrineNav.classList.add('s-nav-active');
+    }
+
+    // Configurar modal de produto
+    const produtoModal = document.getElementById('produtoModal');
+    let currentEmpresaId = null;
+    
+    if (produtoModal) {
+      produtoModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        
+        // Extrair dados do produto
+        const produtoNome = button.getAttribute('data-produto-nome');
+        const produtoDescricao = button.getAttribute('data-produto-descricao');
+        const produtoImagem = button.getAttribute('data-produto-imagem');
+        const empresaNome = button.getAttribute('data-empresa-nome');
+        
+        // Encontrar o ID da empresa pelo nome (buscar no card pai)
+        const empresaCard = button.closest('.empresa-card');
+        const perfilLink = empresaCard ? empresaCard.querySelector('.btn-perfil') : null;
+        if (perfilLink) {
+          const href = perfilLink.getAttribute('href');
+          const match = href.match(/\/perfil_empresa\/(\d+)/);
+          if (match) {
+            currentEmpresaId = match[1];
+          }
+        }
+        
+        // Atualizar conteúdo do modal
+        const modalTitle = produtoModal.querySelector('#produtoModalLabel');
+        const modalEmpresaNome = produtoModal.querySelector('#modalEmpresaNome');
+        const modalDescricao = produtoModal.querySelector('#modalProdutoDescricao');
+        const modalImagem = produtoModal.querySelector('#modalProdutoImagem');
+        const modalVerPerfil = produtoModal.querySelector('#modalVerPerfil');
+        
+        if (modalTitle) modalTitle.textContent = produtoNome || 'Produto';
+        if (modalEmpresaNome) modalEmpresaNome.textContent = empresaNome || 'Empresa';
+        if (modalDescricao) modalDescricao.textContent = produtoDescricao || 'Sem descrição disponível';
+        
+        // Configurar imagem
+        if (modalImagem) {
+          if (produtoImagem && produtoImagem.trim() !== '') {
+            modalImagem.innerHTML = `
+              <img src="${produtoImagem}" alt="${produtoNome}" class="produto-modal-img">
+            `;
+          } else {
+            modalImagem.innerHTML = `
+              <div class="produto-modal-img d-flex align-items-center justify-content-center" 
+                   style="background: var(--vitrine-border); height: 300px;">
+                <i class="fas fa-image fa-4x" style="color: #9ca3af;"></i>
+              </div>
+            `;
+          }
+        }
+        
+        // Configurar botão ver perfil
+        if (modalVerPerfil && currentEmpresaId) {
+          modalVerPerfil.onclick = function() {
+            window.location.href = `/sala-do-empreendedor/perfil_empresa/${currentEmpresaId}/`;
+          };
+        }
+      });
+    }
+
+    // Slideshow automático do carrossel com suporte a arrasto
+    const carousel = document.querySelector('#empresaCarousel');
+    if (carousel) {
+      const bsCarousel = new bootstrap.Carousel(carousel, {
+        interval: 4000, // 4 segundos entre slides
+        wrap: true,     // Loop infinito
+        pause: 'hover', // Pausa ao passar o mouse
+        ride: 'carousel', // Inicia automaticamente
+        touch: true     // Habilita gestos de toque
+      });
+      
+      // Reiniciar slideshow após interação manual
+      carousel.addEventListener('slid.bs.carousel', function () {
+        bsCarousel.cycle();
+      });
+      
+      // Pausar ao passar mouse, retomar ao sair
+      carousel.addEventListener('mouseenter', function () {
+        bsCarousel.pause();
+      });
+      
+      carousel.addEventListener('mouseleave', function () {
+        bsCarousel.cycle();
+      });
+
+      // Funcionalidade de arrasto para desktop
+      let isDragging = false;
+      let startX = 0;
+      let currentX = 0;
+      let threshold = 50; // Distância mínima para trigger do slide
+
+      carousel.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        startX = e.clientX;
+        carousel.classList.add('dragging');
+        bsCarousel.pause();
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        currentX = e.clientX;
+        e.preventDefault();
+      });
+
+      document.addEventListener('mouseup', function(e) {
+        if (!isDragging) return;
+        
+        const deltaX = currentX - startX;
+        
+        if (Math.abs(deltaX) > threshold) {
+          if (deltaX > 0) {
+            bsCarousel.prev();
+          } else {
+            bsCarousel.next();
+          }
+        }
+        
+        isDragging = false;
+        carousel.classList.remove('dragging');
+        
+        // Retomar slideshow após um delay
+        setTimeout(() => {
+          bsCarousel.cycle();
+        }, 100);
+      });
+
+      // Suporte aprimorado para touch (mobile)
+      let touchStartX = 0;
+      let touchEndX = 0;
+      
+      carousel.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+        bsCarousel.pause();
+      });
+
+      carousel.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+        
+        // Retomar slideshow
+        setTimeout(() => {
+          bsCarousel.cycle();
+        }, 100);
+      });
+
+      function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+          if (diff > 0) {
+            bsCarousel.next();
+          } else {
+            bsCarousel.prev();
+          }
+        }
+      }
+
+      // Esconder hint de arrasto após alguns segundos
+      setTimeout(() => {
+        const dragHint = carousel.querySelector('.carousel-drag-hint');
+        if (dragHint) {
+          dragHint.style.opacity = '0';
+          setTimeout(() => {
+            dragHint.style.display = 'none';
+          }, 1000);
+        }
+      }, 6000);
+    }
+  });
+</script>
 {% endblock %}

@@ -5,39 +5,134 @@
 {% include 'nav_empreendedor.html' %}
 {% endblock %}
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+<link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
 {% endblock %}
 {% block main %}
-<div class="container">
-    <div class="row d-flex">
-      <div class="col-6 mx-auto">
-        <form method="POST">
-          <h3>EDITAR DA DADOS DA EMPRESA</h3>
-          <div class="row d-flex my-3">
-            <div class="col">
-              <p><b>CNPJ:</b> {{empresa.cnpj}}</p>
-            </div>
+<!-- Hero Section -->
+<section class="service-hero">
+  <div class="container pt-4">
+    <div class="hero-content-service" data-aos="fade-up">
+      <div class="row" data-aos="fade-up">
+        <div class="col">
+          <a href="{% url 'empreendedor:minha_empresa' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Voltar
+          </a>
         </div>
+      </div>
+      <h1 class="section-title-service">Editar Empresa</h1>
+      <p class="lead">Atualize os dados da sua empresa</p>
+    </div>
+  </div>
+</section>
+
+<div class="container pb-5">
+  <div class="row g-5" data-aos="fade-up">
+    <!-- Coluna do Formulário -->
+    <div class="col-lg-8">
+      <div class="form-container">
+        <form method="POST">
+          <h3 class="text-center mb-4 text-primary">EDITAR DADOS DA EMPRESA</h3>
+          
+          <div class="alert-service mb-4">
+            <h6 class="fw-bold mb-2">
+              <i class="fas fa-building text-primary me-2"></i>
+              Informações da Empresa
+            </h6>
+            <p class="mb-0"><strong>CNPJ:</strong> {{empresa.cnpj}}</p>
+          </div>
+          
           {% csrf_token %}
           {% bootstrap_form form %}
-          <button type="submit" class="btn btn-primary w-100">Alterar</button>
+          
+          <div class="text-center mt-4">
+            <button type="submit" class="btn-service">
+              <i class="fas fa-save me-2"></i>
+              Salvar Alterações
+            </button>
+          </div>
         </form>
       </div>
     </div>
-    <div class="row d-flex">
-      <div class="col-6 pt-5 mx-auto ps-4">
-        <h4>Por que realizar o cadastro da sua empresa?</h4>
-        <ul class="my-3">
-          <li>Item 1</li>
-          <li>Item 2</li>
-          <li>Item 3</li>
-        </ul>
-        <h3>Vitrine Virtual</h3>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam, ipsum omnis! Labore ad quas facilis explicabo culpa, quae iste nam qui harum hic incidunt quo ab, reiciendis, impedit earum autem?</p>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iste enim unde, temporibus consequatur, consectetur optio minus numquam ab voluptate expedita voluptatum possimus praesentium sequi ipsa ullam delectus reiciendis voluptates autem?</p>
+    
+    <!-- Coluna das Informações -->
+    <div class="col-lg-4">
+      <div class="info-sidebar">
+        <h4 class="text-primary mb-4">Mantenha seus dados atualizados</h4>
+        
+        <div class="benefit-item mb-4">
+          <div class="benefit-icon">
+            <i class="fas fa-bell"></i>
+          </div>
+          <div class="benefit-content">
+            <h6 class="benefit-title">Notificações Precisas</h6>
+            <p class="benefit-text">Com dados atualizados, você recebe notificações de oportunidades mais direcionadas ao seu perfil empresarial.</p>
+          </div>
+        </div>
+        
+        <div class="benefit-item mb-4">
+          <div class="benefit-icon">
+            <i class="fas fa-store"></i>
+          </div>
+          <div class="benefit-content">
+            <h6 class="benefit-title">Vitrine Virtual</h6>
+            <p class="benefit-text">Informações precisas garantem melhor posicionamento na Vitrine Virtual e maior confiabilidade para clientes.</p>
+          </div>
+        </div>
+        
+        <div class="benefit-item mb-4">
+          <div class="benefit-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="benefit-content">
+            <h6 class="benefit-title">Análises Precisas</h6>
+            <p class="benefit-text">Dados atualizados permitem análises mais precisas do mercado e melhores oportunidades de negócio.</p>
+          </div>
+        </div>
+        
+        <div class="benefit-item mb-4">
+          <div class="benefit-icon">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <div class="benefit-content">
+            <h6 class="benefit-title">Credibilidade</h6>
+            <p class="benefit-text">Empresas com dados atualizados transmitem mais confiança para parceiros e clientes potenciais.</p>
+          </div>
+        </div>
+        
+        <div class="benefit-item mb-4">
+          <div class="benefit-icon">
+            <i class="fas fa-eye"></i>
+          </div>
+          <div class="benefit-content">
+            <h6 class="benefit-title">Perfil Público</h6>
+            <p class="benefit-text">Permita que seu perfil seja visualizado publicamente para aumentar a visibilidade da sua empresa e atrair novos clientes.</p>
+          </div>
+        </div>
+        
+        <div class="alert alert-info">
+          <h6 class="fw-bold mb-2">
+            <i class="fas fa-shield-alt text-info me-2"></i>
+            Visibilidade Pública
+          </h6>
+          <p class="mb-2 small">
+            <strong>Perfil Público:</strong> Quando ativado, sua empresa aparecerá na pesquisa pública de empresas e seu perfil poderá ser visualizado por qualquer visitante do site.
+          </p>
+          <p class="mb-0 small">
+            <strong>Perfil Privado:</strong> Apenas você e administradores podem visualizar o perfil da empresa.
+          </p>
+        </div>
+        
+        <div class="alert-service mt-4">
+          <h6 class="fw-bold mb-2">
+            <i class="fas fa-sync-alt text-success me-2"></i>
+            Dica de Atualização
+          </h6>
+          <p class="mb-0 small">Recomendamos revisar e atualizar os dados da sua empresa pelo menos a cada 6 meses para garantir precisão.</p>
+        </div>
       </div>
-      
     </div>
+  </div>
 </div>
 <script>
   document.getElementById('empreendedor_empresa').classList.add('s-nav-active');
@@ -72,14 +167,6 @@
               v_obj.value=v_fun(v_obj.value)
           }
 </script>
-
-<style>
-  .border{
-    border-color: rgba(146, 146, 146, 0.2) !important;
-  }
-</style>
-
-
 
 {% endblock %}
 {% block footer %}

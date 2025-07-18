@@ -16,6 +16,7 @@ urlpatterns = [
     path('minha-empresa/pca/download/', views.pca_list_excel_download, name='pca_download'),
     path('minha-empresa/cadastrar', views.cadastrar_empresa, name='cadastrar_empresa'),
     path('minha-empresa/<id>/editar/', views.editar_empresa, name='editar_empresa'),
+    path('minha-empresa/<int:empresa_id>/perfil/', views.perfil_empresa, name='perfil_empresa'),
     path('minha-empresa/<id>/vitrine/', views.minha_vitrine, name='minha_vitrine'),
     path('minha-empresa/<id>/vitrine/alterar-logo', views.enviar_ou_trocar_logo, name='enviar_ou_trocar_logo'),
     path('minha-empresa/<id>/cadastrar-vitrine', views.cadastrar_vitrine, name='cadastrar_vitrine'),
@@ -26,6 +27,7 @@ urlpatterns = [
     path('faccao-legal/apagar/', views.apagar_faccao, name='apagar_faccao'),
     path('faccao-legal/exportar/', views.export_faccoes, name='exportar_faccao'),
     path('vitrine-virtual', views.vitrine_virtual, name='vitrine_virtual'),
+    path('pesquisar-empresas', views.pesquisar_empresas, name='paginas_pesquisa-empresa'),
     path('cadastro-fornecedores-e-compras-publicas', views.cadastro_fornecedores_e_compras_publicas, name='compras_publicas'),
     
     path('quero-ser-mei', views.quero_ser_mei, name='quero_ser_mei'),
@@ -148,4 +150,8 @@ urlpatterns = [
     # path('adm/exportar-fornecedores/', views.export_fornecedores_excel, name='export_fornecedores_excel'),
     # 
     path('ver_requerimento/<protocolo>/', views.imprimir_documentos, name='imprimir_documentos'),
+    
+    # API endpoints
+    path('api/empresa/<int:empresa_id>/vitrine/', views.api_toggle_vitrine_virtual, name='api_toggle_vitrine_virtual'),
+    path('toggle-perfil-publico/<int:empresa_id>/', views.toggle_perfil_publico, name='toggle_perfil_publico'),
 ]

@@ -4,45 +4,52 @@
 {% include 'nav_empreendedor.html' %}
 {% endblock %}
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+<link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
 {% endblock %}
 {% block main %}
-<div class="row mx-auto pb-3">
-  <style>
-      body {
-          background-color: #f4f4f4;
-          font-family: Arial, sans-serif;
-          text-align: center;
-      }
-
-      .construction-icon {
-          font-size: 48px;
-          color: #e74c3c;
-      }
-
-      .message {
-          font-size: 24px;
-          margin-top: 20px;
-          color: #333;
-      }
-
-      .contact {
-          font-size: 18px;
-          margin-top: 20px;
-          color: #666;
-      }
-  </style>
-
-  <div class="py-5">
-      <h3>{{titulo_pag}}</h3>
-      <div class="construction-icon">🚧</div>
-      <div class="message">Desculpe, está página está em construção!</div>
-      <div class="contact"></div>
+<!-- Hero Section -->
+<section class="service-hero">
+  <div class="container pt-4">
+    <div class="hero-content-service" data-aos="fade-up">
+      <div class="row" data-aos="fade-up">
+        <div class="col">
+          <a href="{% url 'empreendedor:index' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Voltar
+          </a>
+        </div>
+      </div>
+      <h1 class="section-title-service">{{titulo_pag}}</h1>
+      <p class="lead">Esta página está sendo atualizada para oferecer uma melhor experiência</p>
+    </div>
   </div>
-  <div class="row mx-auto px-5">
-    <script>
-      // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
-    </script>
+</section>
+
+<div class="container pb-5">
+  <div class="row justify-content-center" data-aos="fade-up">
+    <div class="col-lg-8">
+      <div class="service-card text-center">
+        <div class="card-icon construction-icon">
+          <i class="fas fa-tools"></i>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title mb-4">Página em Construção</h3>
+          <p class="card-text mb-4">
+            Estamos trabalhando para trazer novidades e melhorias. Em breve esta página estará disponível com todas as funcionalidades.
+          </p>
+          <div class="alert-service">
+            <p class="mb-0">
+              <i class="fas fa-info-circle me-2"></i>
+              Enquanto isso, você pode acessar outros serviços disponíveis na Sala do Empreendedor.
+            </p>
+          </div>
+          <a href="{% url 'empreendedor:index' %}" class="btn-service mt-3">
+            <i class="fas fa-home me-2"></i>
+            Voltar ao Início
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

@@ -4,105 +4,183 @@
 {% include 'nav_empreendedor.html' %}
 {% endblock %}
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+<link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
+<style>
+  /* Breadcrumb Styles */
+  .breadcrumb-container {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border-bottom: 1px solid #e9ecef;
+    padding: 1rem 0;
+    margin-bottom: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .breadcrumb-custom {
+    background: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .breadcrumb-item-custom {
+    display: flex;
+    align-items: center;
+    color: #6c757d;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 0.25rem 0;
+  }
+
+  .breadcrumb-item-custom:hover {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+
+  .breadcrumb-item-custom.active {
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+
+  .breadcrumb-separator {
+    color: #adb5bd;
+    margin: 0 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .breadcrumb-icon {
+    margin-right: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 576px) {
+    .breadcrumb-custom {
+      font-size: 0.8rem;
+    }
+    
+    .breadcrumb-container {
+      padding: 0.75rem 0;
+    }
+  }
+</style>
 {% endblock %}
 {% block main %}
-<div class="row pb-3">
-  <style>
-      body {
-          background-color: #f4f4f4;
-          font-family: Arial, sans-serif;
-          text-align: center;
-      }
-
-      .construction-icon {
-          font-size: 48px;
-          color: #e74c3c;
-      }
-
-      .message {
-          font-size: 24px;
-          margin-top: 20px;
-          color: #333;
-      }
-
-      .contact {
-          font-size: 18px;
-          margin-top: 20px;
-          color: #666;
-      }
-  </style>
-
-  <div class="py-5 d-flex flex-column">
-      <h3>{{titulo_pag}}</h3>
-      <i style="font-weight: 300 !important; color: gray; font-size: 10pt;">O regime de autônomo refere-se a profissionais independentes, responsáveis pelo recolhimento do ISS. Use nosso sistema para requerer o ISS ou emitir a taxa anual.</i>
-      
-      <div class="row mt-5" style="text-align: left;">
-            <!-- <div class="col d-flex flex-column">
-              <p class="text-center"><strong>Solicitação de autônomo (ISS) pelo Regin:</strong></p>
-              <div class="item border d-flex flex-column mx-auto div_cursos mt-3">
-                <a target="_blank" href="https://www.jucerja.rj.gov.br/">
-                  <div class="c-img" style="position: relative;">
-                    <img class="banner-img" src="/static/images/icons_servicos/solicitacao-iss-regin.jpg" >
-                  </div>
-                </a> 
-              </div>
-              <p>0. Entrar no site Jucerja (Junta comercial)</p>
-              <p>1. Serviços</p>
-              <p>2. Regin</p>
-              <p>3. Serviços Regin</p>
-              <p>4. Pedido de legalização de inscrição</p>
-              <p>5. Municipio de interesse: Nova Friburgo</p>
-              <p>6. Instituição: Prefeitura Municipal - eventos exclusivos</p>
-              <p>7. Novo Requerimento: É só preencher os dados</p>
-            </div> -->
-            <div class="col d-flex flex-column">
-              <p class="text-center"><strong>Solicitação ISS Uniprofissional:</strong></p>
-              <div class="item border d-flex flex-column mx-auto div_cursos mt-3">
-                <a target="_blank" href="{% url 'empreendedor:requerimento_issqn' %}">
-                  <div class="c-img" style="position: relative;">
-                    <img class="banner-img" src="/static/images/icons_servicos/iss-uniprofissional.jpg" >
-                  </div>
-                </a> 
-              </div>
-              <p>0. Acesse o botão acima.</p>
-              <p>1. Preencha o formulário.</p>
-              <p>2. Acompanhe o processo da requisição.</p>
-            </div>
-            <div class="col text-left d-flex flex-column">
-              <p class="text-center"><strong>Solicitação de autônomo ISS:</strong></p>
-              <div class="item border d-flex flex-column mx-auto div_cursos mt-3">
-                <a target="_blank" href="{% url 'empreendedor:requerimento_iss' %}">
-                  <div class="c-img" style="position: relative;">
-                    <img class="banner-img" src="/static/images/icons_servicos/solicitacao-iss-desenvovle.jpg" >
-                  </div>
-                </a> 
-              </div>
-              <p>0. Acesse o botão acima.</p>
-              <p>1. Preencha o formulário.</p>
-              <p>2. Acompanhe o processo da requisição.</p>
-           </div>
-           <div class="col text-left d-flex flex-column">
-            <p class="text-center"><strong>Emissão de taxa de ISS Anual:</strong></p>
-            <div class="item border mt-3 d-flex flex-column mx-auto div_cursos">
-              <a target="_blank" href="https://servicoonline.novafriburgo.rj.gov.br/services/lancamentos_diversos.php?cod=NF/">
-                <div class="c-img" style="position: relative;">
-                  <img class="banner-img" src="/static/images/icons_servicos/emissao-taxa-anual.jpg" >
-                </div>
-              </a> 
-            </div>
-           </div>
+<!-- Hero Section -->
+<section class="service-hero">
+  <div class="container pt-4">
+    <div class="hero-content-service" data-aos="fade-up">
+      <div class="row" data-aos="fade-up">
+        <div class="col">
+          <a href="{% url 'empreendedor:index' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Voltar
+          </a>
+        </div>
       </div>
-      <div class="mx-auto mt-4">
-        
-      </div>
+      <h1 class="section-title-service">ISS Autônomos</h1>
+      <p class="lead">Serviços relacionados ao Imposto Sobre Serviços para profissionais autônomos</p>
+    </div>
   </div>
-  <div class="row mx-auto px-5">
-    <script>
-      document.getElementById('empreendedor_servicos').classList.add('s-nav-active');
-    </script>
+</section>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb-container">
+  <div class="container">
+    <nav class="breadcrumb-custom" aria-label="Breadcrumb">
+      <a href="{% url 'empreendedor:index' %}" class="breadcrumb-item-custom">
+        <i class="fas fa-home breadcrumb-icon"></i>
+        Início
+      </a>
+      <span class="breadcrumb-separator">
+        <i class="fas fa-chevron-right"></i>
+      </span>
+      <span class="breadcrumb-item-custom active">
+        <i class="fas fa-calculator breadcrumb-icon"></i>
+        ISS Autônomos
+      </span>
+    </nav>
   </div>
 </div>
+
+<div class="container pb-5">
+  <!-- Informação sobre autônomos -->
+  <div class="alert-service" data-aos="fade-up">
+    <h5 class="fw-bold mb-3">
+      <i class="fas fa-info-circle text-primary me-2"></i>
+      Informações importantes
+    </h5>
+    <p class="mb-0">
+      O regime de autônomo refere-se a profissionais independentes, responsáveis pelo recolhimento do ISS. Use nosso sistema para requerer o ISS ou emitir a taxa anual.
+    </p>
+  </div>
+
+  <!-- Cards de serviços -->
+  <div class="row g-4" data-aos="fade-up">
+    <div class="col-lg-4 col-md-6">
+      <a href="{% url 'empreendedor:requerimento_issqn' %}" class="service-card d-block">
+        <div class="card-icon">
+          <i class="fas fa-user-tie"></i>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Solicitação ISS Uniprofissional</h5>
+          <p class="card-text">
+            Faça a solicitação de ISS para profissionais uniprofissionais de forma digital.
+          </p>
+          <ol class="step-list">
+            <li>Acesse o formulário online</li>
+            <li>Preencha os dados solicitados</li>
+            <li>Acompanhe o processo da requisição</li>
+          </ol>
+        </div>
+      </a>
+    </div>
+    
+    <div class="col-lg-4 col-md-6">
+      <a href="{% url 'empreendedor:requerimento_iss' %}" class="service-card d-block">
+        <div class="card-icon">
+          <i class="fas fa-briefcase"></i>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Solicitação de Autônomo ISS</h5>
+          <p class="card-text">
+            Solicite sua inscrição como profissional autônomo para recolhimento do ISS.
+          </p>
+          <ol class="step-list">
+            <li>Acesse o formulário online</li>
+            <li>Preencha todos os campos obrigatórios</li>
+            <li>Acompanhe o andamento do processo</li>
+          </ol>
+        </div>
+      </a>
+    </div>
+    
+    <div class="col-lg-4 col-md-6">
+      <a href="https://servicoonline.novafriburgo.rj.gov.br/services/lancamentos_diversos.php?cod=NF/" target="_blank" class="service-card d-block external-link position-relative">
+        <div class="card-icon">
+          <i class="fas fa-file-invoice-dollar"></i>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Emissão de Taxa ISS Anual</h5>
+          <p class="card-text">
+            Emita sua taxa anual de ISS através do portal de serviços online da prefeitura.
+          </p>
+          <ol class="step-list">
+            <li>Acesse o portal oficial</li>
+            <li>Informe seus dados cadastrais</li>
+            <li>Gere e imprima o boleto</li>
+          </ol>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('empreendedor_servicos').classList.add('s-nav-active');
+</script>
 
 
 {% endblock %}

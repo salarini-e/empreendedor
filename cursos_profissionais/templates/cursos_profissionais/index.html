@@ -4,15 +4,8 @@
 {% include 'nav_empreendedor.html' %}
 {% endblock %}
 {% block css %}
+<link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
 <style>
-  /* Cursos Profissionais - Nova Identidade Visual */
-  :root {
-    --prof-primary: #667eea;
-    --prof-secondary: #764ba2;
-    --prof-accent: #f093fb;
-    --prof-success: #4ecdc4;
-    --prof-warning: #ffa726;
-  }
   
   .cursos-prof-hero {
     background: linear-gradient(135deg, var(--prof-primary), var(--prof-secondary));
@@ -318,16 +311,24 @@
 
 {% block main %}
 <!-- Hero Section -->
-<section class="cursos-prof-hero">
-  <div class="container">
-    <div class="hero-content-prof" data-aos="fade-up">
-      <h1 class="section-title-prof">Cursos Profissionais</h1>
+<section class="service-hero">
+  <div class="container pt-4">
+    <div class="hero-content-service" data-aos="fade-up">
+      <div class="row" data-aos="fade-up">
+        <div class="col">
+          <a href="{% url 'empreendedor:index' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Voltar
+          </a>
+        </div>
+      </div>
+      <h1 class="section-title-service">Cursos Profissionais</h1>
       <p class="lead">Capacitação profissional de qualidade para impulsionar sua carreira</p>
     </div>
   </div>
 </section>
 
-<div class="container">
+<div class="container pb-5">
   <!-- Slide Section -->
   <div class="row mx-auto pb-5" data-aos="fade-up">
     {% include 'slide_cursos_pro.html' %}

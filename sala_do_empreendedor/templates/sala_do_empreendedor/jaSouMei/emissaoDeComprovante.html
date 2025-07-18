@@ -1,37 +1,214 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
+
+{% block title %}Emissão de Comprovante (CCMEI){% endblock %}
+
 {% block nav %}
-{% include 'nav_empreendedor.html' %}
+  
 {% endblock %}
+
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+  <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
+  <style>
+    /* Breadcrumb Styles */
+    .breadcrumb-container {
+      background: linear-gradient(135deg, #ffffff, #f8f9fa);
+      border-bottom: 1px solid #e9ecef;
+      padding: 1rem 0;
+      margin-bottom: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-top: 30px;  
+    }
+
+    .breadcrumb-custom {
+      background: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .breadcrumb-item-custom {
+      display: flex;
+      align-items: center;
+      color: #6c757d;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      padding: 0.25rem 0;
+    }
+
+    .breadcrumb-item-custom:hover {
+      color: #0051A4;
+      text-decoration: none;
+    }
+
+    .breadcrumb-item-custom.active {
+      color: #0051A4;
+      font-weight: 600;
+    }
+
+    .breadcrumb-separator {
+      color: #adb5bd;
+      margin: 0 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .breadcrumb-icon {
+      margin-right: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .content-wrapper {
+      margin-top: 0 !important;
+    }
+
+    @media (max-width: 576px) {
+      .breadcrumb-custom {
+        font-size: 0.8rem;
+      }
+      
+      .breadcrumb-container {
+        padding: 0.75rem 0;
+      }
+    }
+  </style>
 {% endblock %}
+
 {% block main %}
-<div class="container">
-    <div class="row mx-auto ps-4 pb-3">
-        <h3 class="text-center">EMISSÃO DE COMPROVANTE (CCMEI)</h3>
-    </div>
-    <div class="row mx-auto mb-5">
-        <div class="col">
-            <p style="text-align: justify;" class="mb-3"><b>Certificado da Condição do Microempreendedor Individual (CCMEI)</b></p>
-            <p>
-                O Certificado da Condição do Microempreendedor Individual (CCMEI) é o documento que certifica que sua empresa está aberta e comprova a sua inscrição no CNPJ e na Junta Comercial do seu Estado.
-                <br><br>
-                O Certificado de Condição de MEI (CCMEI) tem efeito de Dispensa de Alvará e Licença de Funcionamento, desde que obedecidas as exigências legais necessárias ao bom funcionamento da empresa.
-                <br><br>
-                Caso não saiba quais são essas exigências, procure a Prefeitura de sua cidade para verificar se existe necessidade de alguma adequação no negócio.
-                <br><br>
-                O CCMEI é geralmente solicitado para a abertura de conta de pessoa jurídica, venda de produtos e serviços para grandes empresas, órgãos públicos e comprovação do CNPJ para demais fins.
-                <br><br>
-                <b>Atenção:</b>
-                <br><br>
-                Para consultar o CCMEI, informe os dados da sua conta de acesso único do governo (conta gov.br).
-            </p>
-        </div>
-    </div>
-     {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
+<!-- Breadcrumb -->
+<div class="breadcrumb-container">
+  <div class="container">
+    <nav class="breadcrumb-custom" aria-label="Breadcrumb">
+      <a href="{% url 'empreendedor:index' %}" class="breadcrumb-item-custom">
+        <i class="fas fa-home breadcrumb-icon"></i>
+        Início
+      </a>
+      <span class="breadcrumb-separator">
+        <i class="fas fa-chevron-right"></i>
+      </span>
+      <a href="{% url 'empreendedor:ja_sou_mei' %}" class="breadcrumb-item-custom">
+        <i class="fas fa-check-circle breadcrumb-icon"></i>
+        Já sou MEI
+      </a>
+      <span class="breadcrumb-separator">
+        <i class="fas fa-chevron-right"></i>
+      </span>
+      <span class="breadcrumb-item-custom active">
+        <i class="fas fa-certificate breadcrumb-icon"></i>
+        Emissão de Comprovante
+      </span>
+    </nav>
+  </div>
 </div>
-{% endblock %}
-{% block footer %}
-{% include 'desenvolve_nf/instagram.html' %}
+
+<div class="content-wrapper">
+  <div class="container pt-4">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-wrapper">
+            <h1 class="page-title">Emissão de Comprovante (CCMEI)</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="page-content">
+      <div class="row">
+        <div class="col-12">
+          <div class="content-card">
+            <!-- O que é o CCMEI -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-certificate me-2"></i>
+                Certificado da Condição do Microempreendedor Individual (CCMEI)
+              </h4>
+              <p>
+                O Certificado da Condição do Microempreendedor Individual (CCMEI) é o documento que certifica que sua empresa está aberta e comprova a sua inscrição no CNPJ e na Junta Comercial do seu Estado.
+              </p>
+            </div>
+
+            <!-- Função do CCMEI -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-shield-alt me-2"></i>
+                Função do CCMEI
+              </h4>
+              <div class="alert alert-success">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong>Importante:</strong> O Certificado de Condição de MEI (CCMEI) tem efeito de Dispensa de Alvará e Licença de Funcionamento, desde que obedecidas as exigências legais necessárias ao bom funcionamento da empresa.
+              </div>
+              <div class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong>Atenção:</strong> Caso não saiba quais são essas exigências, procure a Prefeitura de sua cidade para verificar se existe necessidade de alguma adequação no negócio.
+              </div>
+            </div>
+
+            <!-- Para que serve -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-list-check me-2"></i>
+                Para que serve o CCMEI?
+              </h4>
+              <p class="mb-3">O CCMEI é geralmente solicitado para:</p>
+              <ul class="info-list">
+                <li>Abertura de conta de pessoa jurídica</li>
+                <li>Venda de produtos e serviços para grandes empresas</li>
+                <li>Fornecimento para órgãos públicos</li>
+                <li>Comprovação do CNPJ para demais fins</li>
+                <li>Participação em licitações</li>
+                <li>Acesso a linhas de crédito empresarial</li>
+              </ul>
+            </div>
+
+            <!-- Como consultar -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-key me-2"></i>
+                Como consultar o CCMEI
+              </h4>
+              <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>Requisito:</strong> Para consultar o CCMEI, informe os dados da sua conta de acesso único do governo (conta gov.br).
+              </div>
+              <p>Se você ainda não possui uma conta gov.br, será necessário criar uma antes de prosseguir.</p>
+            </div>
+
+            <!-- Botões de ação -->
+            <div class="action-buttons mt-4">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <a href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/servicos-para-mei/emitir-certificado-ccmei" target="_blank" class="btn btn-primary btn-lg w-100">
+                    <i class="fas fa-download me-2"></i>
+                    Emitir CCMEI
+                  </a>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <a href="https://www.gov.br/pt-br/servicos/criar-sua-conta-meu-gov.br" target="_blank" class="btn btn-outline-primary btn-lg w-100">
+                    <i class="fas fa-user-plus me-2"></i>
+                    Criar Conta Gov.br
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dica adicional -->
+            <div class="alert alert-light mt-4">
+              <i class="fas fa-lightbulb me-2"></i>
+              <strong>Dica:</strong> Mantenha sempre uma cópia digital do seu CCMEI em local seguro e de fácil acesso, pois ele será frequentemente solicitado em suas atividades empresariais.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu de navegação MEI -->
+    {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
+  </div>
+</div>
 {% endblock %}

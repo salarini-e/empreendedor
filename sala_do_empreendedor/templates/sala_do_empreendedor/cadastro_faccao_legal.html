@@ -5,59 +5,55 @@
 {% include 'nav_empreendedor.html' %}
 {% endblock %}
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+<link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
 {% endblock %}
 {% block main %}
-<div class="row mx-auto pb-3">
-  <style>
-      body {
-          background-color: #f4f4f4;
-          font-family: Arial, sans-serif;
-          text-align: center;
-      }
-
-      .construction-icon {
-          font-size: 48px;
-          color: #e74c3c;
-      }
-
-      .message {
-          font-size: 24px;
-          margin-top: 20px;
-          color: #333;
-      }
-
-      .contact {
-          font-size: 18px;
-          margin-top: 20px;
-          color: #666;
-      }
-  </style>
-
-  <div class="row">
-     <div class="col-8 mx-auto" style="text-align: left;">
-      <form method="POST">
-        <h3 class="mb-4">{{titulo_pag}}</h3>
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        <div class="mb-3 hidden" id="div_cadastrar_empresa">
-          <div class="form-check">
-          <input type="checkbox" name="cadastrar_empresa" class="form-check-input" id="cadastrar_empresa">
-          <label class="form-check-label" for="cadastrar_empresa">Gostaria de cadastrar sua empresa em nosso sistema?</label>
+<!-- Hero Section -->
+<section class="service-hero">
+  <div class="container pt-4">
+    <div class="hero-content-service" data-aos="fade-up">
+      <div class="row" data-aos="fade-up">
+        <div class="col">
+          <a href="{% url 'empreendedor:faccao_legal' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Voltar
+          </a>
         </div>
       </div>
-        <div class="row">
-          <div class="col d-flex">
-            <button type="submit" class="btn btn-primary mx-auto">
+      <h1 class="section-title-service">{{titulo_pag}}</h1>
+      <p class="lead">Cadastre-se no programa Facção Legal</p>
+    </div>
+  </div>
+</section>
+
+<div class="container pb-5">
+  <div class="row" data-aos="fade-up">
+    <div class="col-lg-8 mx-auto">
+      <div class="form-container">
+        <form method="POST">
+          <h3 class="text-center mb-4 text-primary">Cadastro Facção Legal</h3>
+          {% csrf_token %}
+          {% bootstrap_form form %}
+          
+          <div class="mb-3 hidden" id="div_cadastrar_empresa">
+            <div class="form-check">
+              <input type="checkbox" name="cadastrar_empresa" class="form-check-input" id="cadastrar_empresa">
+              <label class="form-check-label" for="cadastrar_empresa">Gostaria de cadastrar sua empresa em nosso sistema?</label>
+            </div>
+          </div>
+          
+          <div class="text-center mt-4">
+            <button type="submit" class="btn-service">
+              <i class="fas fa-user-plus me-2"></i>
               Finalizar cadastro de facção
             </button>
           </div>
-        </div>
-      </form>
-     </div>
+        </form>
+      </div>
+    </div>
   </div>
-  <div class="row mx-auto px-5">
-    <script>
+</div>
+<script>
       // // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
       function findParentDiv(element) {
         var parent = element.parentNode;
@@ -193,16 +189,9 @@
             })
             }
       removerElementos();
-    </script>
-  </div>
-</div>
+</script>
 
-<style>
-  .hidden {
-    display: none;
-  }
-</style>
 {% endblock %}
 {% block footer %}
 {% include 'desenvolve_nf/instagram.html' %}
-{% endblock %}x
+{% endblock %}

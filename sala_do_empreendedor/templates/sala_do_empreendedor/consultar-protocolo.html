@@ -4,40 +4,106 @@
 {% include 'nav_empreendedor.html' %}
 {% endblock %}
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+<link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
 {% endblock %}
 {% block main %}
-<div class="container">
-  <div class="row mx-auto ps-4 pb-3">
-    <h3>Consultar protocolo</h3>
+<!-- Hero Section -->
+<section class="service-hero">
+  <div class="container pt-4">
+    <div class="hero-content-service" data-aos="fade-up">
+      <div class="row" data-aos="fade-up">
+        <div class="col">
+          <a href="{% url 'empreendedor:index' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Voltar
+          </a>
+        </div>
+      </div>
+      <h1 class="section-title-service">Consultar Protocolo</h1>
+      <p class="lead">Consulte o andamento dos seus processos digitais</p>
+    </div>
+  </div>
+</section>
+
+<div class="container pb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+      <!-- Instruções -->
+      <div class="alert-service" data-aos="fade-up">
+        <h5 class="fw-bold mb-3">
+          <i class="fas fa-info-circle text-warning me-2"></i>
+          Como consultar
+        </h5>
+        <p class="mb-0">
+          Digite seu CPF (apenas números) para consultar o andamento dos seus processos e protocolos na Sala do Empreendedor.
+        </p>
+      </div>
+
+      <!-- Formulário -->
+      <div class="form-card text-center" data-aos="fade-up">
+        <div class="form-icon">
+          <i class="fas fa-search"></i>
+        </div>
+        
+        <h3 class="mb-4 text-dark">Consulta de Protocolo</h3>
+        
+        <form method="POST">
+          {% csrf_token %}
+          <div class="mb-4">
+            <label for="id_cpf" class="form-label">
+              <i class="fas fa-id-card me-2"></i>
+              CPF (apenas números)
+            </label>
+            <input 
+              type="text" 
+              name="cpf" 
+              id="id_cpf" 
+              class="form-control" 
+              placeholder="12345678901"
+              maxlength="11"
+              pattern="[0-9]{11}"
+              required
+            >
+            <small class="text-muted mt-1 d-block">Digite apenas os números do CPF, sem pontos ou traços</small>
+          </div>
+          
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-search me-2"></i>
+            Consultar Protocolo
+          </button>
+        </form>
+      </div>
+
+      <!-- Resultado -->
+      {% if status or message %}
+      <div class="result-card {% if 'erro' in status|lower or 'erro' in message|lower %}error{% else %}success{% endif %}" data-aos="fade-up">
+        {% if status %}
+          <h5 class="fw-bold mb-2">
+            {% if 'erro' in status|lower %}
+              <i class="fas fa-exclamation-triangle text-danger me-2"></i>
+            {% else %}
+              <i class="fas fa-check-circle text-success me-2"></i>
+            {% endif %}
+            Status: {{ status }}
+          </h5>
+        {% endif %}
+        {% if message %}
+          <p class="mb-0">{{ message }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
   </div>
 </div>
-<div class="row mx-auto">
-  <div class="d-flex flex-wrap justify-content-center">
-      <form method="POST">
-        {% csrf_token %}
-        <label for="id_cpf">CPF</label>
-        <input type="text" name="cpf" id="id_cpf" class="form-control">
-        <button type="submit" class="btn btn-primary">Enviar</button>
-      </form>
-  </div>
-</div>
-<div class="row">
-  <div class="col">
-    <p>{{status}}</p>
-    <p>{{message}}</p>
-  </div>
-</div>
-  <style>
-    span{
-        text-align: center;
-    }
-  </style>
-<div class="row mx-auto px-5">
-  <script>
-    document.getElementById('empreendedor_protocolo').classList.add('s-nav-active');
-  </script>
-</div>
+
+<script>
+  document.getElementById('empreendedor_protocolo').classList.add('s-nav-active');
+  
+  // Máscara para CPF (apenas números)
+  document.getElementById('id_cpf').addEventListener('input', function(e) {
+    this.value = this.value.replace(/\D/g, '');
+  });
+</script>
 
 
 {% endblock %}

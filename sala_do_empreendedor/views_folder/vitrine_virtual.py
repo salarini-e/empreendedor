@@ -4,6 +4,10 @@ from ..forms import FormEmpresa, FormAlterarEmpresa, FormLogoEmpresa, FormCadast
 from django.contrib import messages
 from autenticacao.models import Pessoa
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+import json
 
 @login_required()
 def cadastrar_vitrine(request, id):
@@ -141,3 +145,51 @@ def editar_vitrine(request, id):
         }
         return render(request, 'sala_do_empreendedor/minha-empresa/editar_empresa.html', context)
     return redirect('empreendedor:minha_empresa')
+
+@login_required
+@require_http_methods(["POST"])
+def toggle_perfil_publico(request, empresa_id):
+    """
+    View para alternar o status de perfil público de uma empresa
+    """
+    try:
+        empresa = Empresa.objects.get(id=empresa_id)
+        
+        # Verificar se o usuário tem permissão para alterar esta empresa
+        if not (request.user.is_staff or request.user == empresa.user_register):
+            return JsonResponse({
+                'success': False,
+                'message': 'Você não tem autorização para alterar esta empresa.'
+            }, status=403)
+        
+        # Obter dados da requisição
+        data = json.loads(request.body)
+        novo_status = data.get('perfil_publico', False)
+        
+        # Atualizar o campo perfil_publico
+        empresa.perfil_publico = novo_status
+        empresa.save()
+        
+        return JsonResponse({
+            'success': True,
+            'perfil_publico': empresa.perfil_publico,
+            'message': f'Perfil alterado para {"público" if empresa.perfil_publico else "privado"} com sucesso!'
+        })
+        
+    except Empresa.DoesNotExist:
+        return JsonResponse({
+            'success': False,
+            'message': 'Empresa não encontrada.'
+        }, status=404)
+        
+    except json.JSONDecodeError:
+        return JsonResponse({
+            'success': False,
+            'message': 'Dados inválidos.'
+        }, status=400)
+        
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'message': 'Erro interno do servidor.'
+        }, status=500)

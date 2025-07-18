@@ -1,91 +1,226 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
+
+{% block title %}Registro no Cadastur{% endblock %}
+
 {% block nav %}
-{% include 'nav_empreendedor.html' %}
+  
 {% endblock %}
+
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/quero-ser-mei.css'%}">
-<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+  <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
 {% endblock %}
+
 {% block main %}
-<div class="container">
-    <div class="row mx-auto ps-4 pb-3">
-        <h3 class="text-center">Registro no Cadastur</h3>
-    </div>
-    <div class="row mx-auto mb-5">
-        <div class="col">
-            <p style="text-align: justify;">CADASTUR é o sistema de cadastro de pessoas físicas e jurídicas que atuam no setor de turismo. O programa é executado pelo Ministério do Turismo, em parceria com os órgãos oficiais de turismo, nos 26 estados e no Distrito Federal.<br>
-
-                O cadastro é totalmente online, gratuito e é obrigatório para Acampamentos Turísticos, Agências de Turismo, Meios de Hospedagem, Organizadoras de Eventos, Parques Temáticos, Transportadoras Turísticas e Guias de Turismo. 
-                Além disso, garante diversas vantagens e oportunidades aos seus cadastrados e é também uma importante fonte de consulta para o turista.<br>
-
-                Outras atividades também podem se cadastrar facultativamente: Restaurante, Cafeteria, Bar e Similar; Locadora de Veículos; Prestador Especializado em Segmentos Turísticos; Casa de Espetáculos; 
-                Empreendimento de Entretenimento e Lazer e Parque Aquático; Empreendimento Náutico; Infraestrutura de Apoio para Eventos; e Centro de Convenções.<br>
-
-                Alguns dos benefícios são:<br>
-            </p>
-            <ul>
-                <li>
-                    Acesso a financiamento por meio de bancos oficiais;
+<div class="content-wrapper" style="margin-top: 90px;">
+  <div class="container">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-wrapper">
+            <h1 class="page-title">Registro no Cadastur</h1>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a href="{% url 'empreendedor:index' %}">Início</a>
                 </li>
-                <li>
-                    Apoio em eventos, feiras e ações do Ministério do Turismo;
+                <li class="breadcrumb-item">
+                  <a href="{% url 'empreendedor:quero_ser_mei' %}">Quero ser MEI</a>
                 </li>
-                <li>
-                    Incentivo à participação em programas e projetos do governo federal;
-                </li>
-                <li>
-                    Participação em programas de qualificação promovidos e apoiados pelo Ministério do Turismo.
-                </li>
-            </ul>
-            <p style="text-align: justify;" class="mt-4">
-                Cadastre-se aqui. É bom para você. É bom para o turismo.<br>
-                Confira alguns dos programas ofertados pelo Ministério do Turismo:
-            </p>
-            <ul>
-                <li><a style="color: #0d6efd;" href="https://www.gov.br/turismo/pt-br/acesso-a-informacao/acoes-e-programas/qualificacao">
-                    Programa de Qualificação no Turismo
-                </a></li>
-                <li><a style="color: #0d6efd;" href="https://www.turismo.gov.br/seloresponsavel/">
-                    Selo de Turismo Responsável
-                </a></li>
-                <li><a style="color: #0d6efd;" href="https://www.gov.br/turismo/acl_users/credentials_cookie_auth/require_login?came_from=https%3A//www.gov.br/turismo/pt-br/acesso-a-informacao/acoes-e-programas/fungetur">
-                    Fundo Geral do Turismo – Fungetur
-                </a></li>
-            </ul>
-            <p style="text-align: justify;" class="mt-4">
-                Conforme a Lei do Turismo nº 11.771, de setembro de 2008, <br> os empreendimentos que exercerem suas atividades sem o <br> devido cadastro, ou com este vencido, estão sujeitos às penalidades de:
-            </p>
-            <ul>
-                <li>
-                    multa;
-                </li>
-                <li>
-                    interdição de local, atividade, instalação, estabelecimento empresarial, empreendimento ou equipamento; e
-                </li>
-                <li>
-                    cancelamento do cadastro.
-                </li>
-            </ul>
-            <p style="text-align: justify;" class="mt-4">
-                Legislação correlata: Lei do Turismo nº 11.771, de setembro de 2008; Lei nº 8.623, de 28 de janeiro de 1993; <br> Decreto nº 7.381, de 2 de dezembro de 2010; Decreto nº 946, de 1º de outubro de 1993 e Portaria MTur nº 105, de junho de 2018.
-            </p>
-            <hr>
+                <li class="breadcrumb-item active" aria-current="page">Cadastur</li>
+              </ol>
+            </nav>
+          </div>
         </div>
+      </div>
     </div>
+
+    <!-- Content -->
+    <div class="page-content">
+      <div class="row">
+        <div class="col-12">
+          <div class="content-card">
+            <!-- O que é o Cadastur -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-plane me-2"></i>
+                O que é o Cadastur?
+              </h4>
+              <p>
+                CADASTUR é o sistema de cadastro de pessoas físicas e jurídicas que atuam no setor de turismo. O programa é executado pelo Ministério do Turismo, em parceria com os órgãos oficiais de turismo, nos 26 estados e no Distrito Federal.
+              </p>
+              <div class="alert alert-success">
+                <i class="fas fa-check-circle me-2"></i>
+                <strong>Gratuito e Online:</strong> O cadastro é totalmente online, gratuito e oferece diversas vantagens aos cadastrados.
+              </div>
+            </div>
+
+            <!-- Quem deve se cadastrar -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-clipboard-list me-2"></i>
+                Cadastro Obrigatório
+              </h4>
+              <p class="mb-3">O cadastro é <strong>obrigatório</strong> para:</p>
+              <ul class="info-list">
+                <li>Acampamentos Turísticos</li>
+                <li>Agências de Turismo</li>
+                <li>Meios de Hospedagem</li>
+                <li>Organizadoras de Eventos</li>
+                <li>Parques Temáticos</li>
+                <li>Transportadoras Turísticas</li>
+                <li>Guias de Turismo</li>
+              </ul>
+            </div>
+
+            <!-- Cadastro facultativo -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-hand-paper me-2"></i>
+                Cadastro Facultativo
+              </h4>
+              <p class="mb-3">Outras atividades também podem se cadastrar <strong>facultativamente</strong>:</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <ul class="info-list">
+                    <li>Restaurante, Cafeteria, Bar e Similar</li>
+                    <li>Locadora de Veículos</li>
+                    <li>Prestador Especializado em Segmentos Turísticos</li>
+                    <li>Casa de Espetáculos</li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <ul class="info-list">
+                    <li>Empreendimento de Entretenimento e Lazer</li>
+                    <li>Parque Aquático</li>
+                    <li>Empreendimento Náutico</li>
+                    <li>Infraestrutura de Apoio para Eventos</li>
+                    <li>Centro de Convenções</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Benefícios -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-star me-2"></i>
+                Benefícios do Cadastur
+              </h4>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div class="benefit-card">
+                    <i class="fas fa-university text-success"></i>
+                    <h6>Acesso a Financiamento</h6>
+                    <p class="small">Financiamento por meio de bancos oficiais</p>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="benefit-card">
+                    <i class="fas fa-graduation-cap text-primary"></i>
+                    <h6>Capacitação</h6>
+                    <p class="small">Acesso a cursos e programas de qualificação</p>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="benefit-card">
+                    <i class="fas fa-chart-line text-info"></i>
+                    <h6>Promoção</h6>
+                    <p class="small">Participação em ações promocionais do turismo</p>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="benefit-card">
+                    <i class="fas fa-users text-warning"></i>
+                    <h6>Visibilidade</h6>
+                    <p class="small">Fonte de consulta para turistas</p>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="benefit-card">
+                    <i class="fas fa-handshake text-secondary"></i>
+                    <h6>Parcerias</h6>
+                    <p class="small">Participação em eventos e feiras</p>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="benefit-card">
+                    <i class="fas fa-shield-alt text-danger"></i>
+                    <h6>Credibilidade</h6>
+                    <p class="small">Selo de qualidade e confiança</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Como se cadastrar -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-user-plus me-2"></i>
+                Como se cadastrar
+              </h4>
+              <div class="steps-container">
+                <div class="step-item">
+                  <div class="step-number">1</div>
+                  <div class="step-content">
+                    <strong>Acesse o portal</strong>
+                    <p>Entre no site oficial do Cadastur</p>
+                  </div>
+                </div>
+                <div class="step-item">
+                  <div class="step-number">2</div>
+                  <div class="step-content">
+                    <strong>Escolha sua categoria</strong>
+                    <p>Selecione o tipo de atividade turística</p>
+                  </div>
+                </div>
+                <div class="step-item">
+                  <div class="step-number">3</div>
+                  <div class="step-content">
+                    <strong>Preencha os dados</strong>
+                    <p>Complete as informações solicitadas</p>
+                  </div>
+                </div>
+                <div class="step-item">
+                  <div class="step-number">4</div>
+                  <div class="step-content">
+                    <strong>Envie documentos</strong>
+                    <p>Anexe a documentação necessária</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botão de ação -->
+            <div class="action-buttons mt-4">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <a href="https://cadastur.turismo.gov.br" target="_blank" class="btn btn-primary btn-lg w-100">
+                    <i class="fas fa-external-link-alt me-2"></i>
+                    Acessar Cadastur
+                  </a>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <a href="https://www.gov.br/turismo" target="_blank" class="btn btn-outline-primary btn-lg w-100">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Ministério do Turismo
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-info mt-4">
+              <i class="fas fa-info-circle me-2"></i>
+              <strong>Importante:</strong> O Cadastur é também uma importante fonte de consulta para o turista, aumentando a credibilidade e visibilidade do seu negócio no setor turístico.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu de navegação MEI -->
     {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
-    <style>
-        span {
-            text-align: center;
-        }
-    </style>
-    <div class="row mx-auto px-5">
-        <script>
-    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
-        </script>
-    </div>
+  </div>
 </div>
-{% endblock %}
-{% block footer %}
-{% include 'desenvolve_nf/instagram.html' %}
 {% endblock %}

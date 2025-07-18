@@ -1,130 +1,205 @@
-<div id="menu-grid" class="mx-auto">
-  <div class="item d-flex flex-column border">
-    <a class="w-100 h-100" href="{% url 'empreendedor:por_que_ser_mei' %}">
-      <div class="d-flex flex-column w-100 h-100" >
-        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-        <span class="mx-auto mb-auto mt-2 px-3">Por que ser MEI?</span>
+<!-- MEI Services Navigation -->
+<section class="mei-navigation py-5 mt-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mb-4">
+        <h3 class="section-title-navigation">Explore Mais sobre MEI</h3>
+        <p class="section-subtitle-navigation">Acesse outros recursos importantes para sua jornada empreendedora</p>
       </div>
-    </a> 
-  </div>
-  <div class="item d-flex flex-column border">
-    <a class="w-100 h-100" href="{% url 'empreendedor:o_que_precisa_saber_para_ser_mei' %}">
-      <div class="d-flex flex-column w-100 h-100" >
-        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-        <span class="mx-auto mb-auto mt-2">O que você precisa saber antes de se tornar um MEI?</span>
+    </div>
+    
+    <div class="row g-4">
+      <div class="col-lg-3 col-md-6">
+        <a href="{% url 'empreendedor:por_que_ser_mei' %}" class="mei-nav-card">
+          <div class="mei-nav-card-body">
+            <div class="mei-nav-card-icon">
+              <i class="fas fa-info-circle"></i>
+            </div>
+            <h5 class="mei-nav-card-title">Por que ser MEI?</h5>
+            <p class="mei-nav-card-text">Descubra as vantagens e benefícios</p>
+          </div>
+        </a>
       </div>
-    </a> 
-  </div>
-  <div class="item d-flex flex-column border">
-    <a target="_blank" class="w-100 h-100" href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/quero-ser-mei/obtencao-de-cnpj-acesso-restrito">
-      <div class="d-flex flex-column w-100 h-100" >
-        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-        <span class="mx-auto mt-2 mb-auto">Formalize-se online</span>
+
+      <div class="col-lg-3 col-md-6">
+        <a href="{% url 'empreendedor:o_que_precisa_saber_para_ser_mei' %}" class="mei-nav-card">
+          <div class="mei-nav-card-body">
+            <div class="mei-nav-card-icon">
+              <i class="fas fa-lightbulb"></i>
+            </div>
+            <h5 class="mei-nav-card-title">O que você precisa saber</h5>
+            <p class="mei-nav-card-text">Informações essenciais</p>
+          </div>
+        </a>
       </div>
-    </a> 
-  </div>
-  <div class="item d-flex flex-column border">
-    <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:jornada_empreendedora' %}">
-      <div class="d-flex flex-column w-100 h-100" >
-        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-        <span class="mx-auto mb-auto mt-2">Jornada Empreendedora</span>
+
+      <div class="col-lg-3 col-md-6">
+        <a href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/quero-ser-mei/obtencao-de-cnpj-acesso-restrito" target="_blank" class="mei-nav-card external-link">
+          <div class="mei-nav-card-body">
+            <div class="mei-nav-card-icon">
+              <i class="fas fa-desktop"></i>
+            </div>
+            <h5 class="mei-nav-card-title">Formalize-se online</h5>
+            <p class="mei-nav-card-text">Portal oficial de cadastro</p>
+          </div>
+        </a>
       </div>
-    </a> 
-  </div>
-  <div class="item d-flex flex-column border">
-    <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:documentosNecessarios' %}">
-      <div class="d-flex flex-column w-100 h-100" >
-        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-        <span class="mx-auto mb-auto mt-2">Documentos necessários</span>
+
+      <div class="col-lg-3 col-md-6">
+        <a href="{% url 'empreendedor:jornada_empreendedora' %}" class="mei-nav-card">
+          <div class="mei-nav-card-body">
+            <div class="mei-nav-card-icon">
+              <i class="fas fa-route"></i>
+            </div>
+            <h5 class="mei-nav-card-title">Jornada Empreendedora</h5>
+            <p class="mei-nav-card-text">Caminho para o sucesso</p>
+          </div>
+        </a>
       </div>
-    </a> 
-  </div>
-  <div class="item d-flex flex-column border">
-    <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:quaisAsOcupacoesQuePodemSerMei' %}">
-      <div class="d-flex flex-column w-100 h-100" >
-        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-        <span class="mx-auto mb-auto mt-2">Quais as ocupações que podem ser MEI</span>
+
+      <div class="col-lg-3 col-md-6">
+        <a href="{% url 'empreendedor:documentosNecessarios' %}" class="mei-nav-card">
+          <div class="mei-nav-card-body">
+            <div class="mei-nav-card-icon">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <h5 class="mei-nav-card-title">Documentos necessários</h5>
+            <p class="mei-nav-card-text">Lista completa de documentos</p>
+          </div>
+        </a>
       </div>
-    </a> 
-  </div>
-  <div class="item d-flex flex-column border">
-    <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:dicasDeSegurancaDaVigilanciaSanitaria' %}">
-      <div class="d-flex flex-column w-100 h-100" >
-        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-        <span class="mx-auto mb-auto mt-2">Dicas de Segurança da Vigilância Sanitária</span>
+
+      <div class="col-lg-3 col-md-6">
+        <a href="{% url 'empreendedor:quaisAsOcupacoesQuePodemSerMei' %}" class="mei-nav-card">
+          <div class="mei-nav-card-body">
+            <div class="mei-nav-card-icon">
+              <i class="fas fa-briefcase"></i>
+            </div>
+            <h5 class="mei-nav-card-title">Ocupações Permitidas</h5>
+            <p class="mei-nav-card-text">Atividades que podem ser MEI</p>
+          </div>
+        </a>
       </div>
-    </a> 
-  </div>
-  <div class="item d-flex flex-column border">
-    <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:dicasDeSegurançaDoCorpoDeBombeiros' %}">
-      <div class="d-flex flex-column w-100 h-100" >
-        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-        <span class="mx-auto mb-auto mt-2">Dicas de Segurança do Corpo de Bombeiros</span>
+
+      <div class="col-lg-3 col-md-6">
+        <a href="{% url 'empreendedor:dicasDeSegurancaDaVigilanciaSanitaria' %}" class="mei-nav-card">
+          <div class="mei-nav-card-body">
+            <div class="mei-nav-card-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h5 class="mei-nav-card-title">Vigilância Sanitária</h5>
+            <p class="mei-nav-card-text">Dicas importantes de segurança</p>
+          </div>
+        </a>
       </div>
-    </a> 
-  </div>
-  <div class="item d-flex flex-column border">
-    <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:dicasDeMeioAmbiente' %}">
-      <div class="d-flex flex-column w-100 h-100" >
-        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-        <span class="mx-auto mb-auto mt-2">Dicas de Meio Ambiente</span>
+
+      <div class="col-lg-3 col-md-6">
+        <a href="{% url 'empreendedor:dicasDeSegurançaDoCorpoDeBombeiros' %}" class="mei-nav-card">
+          <div class="mei-nav-card-body">
+            <div class="mei-nav-card-icon">
+              <i class="fas fa-fire-extinguisher"></i>
+            </div>
+            <h5 class="mei-nav-card-title">Corpo de Bombeiros</h5>
+            <p class="mei-nav-card-text">Orientações de segurança</p>
+          </div>
+        </a>
       </div>
-    </a> 
-  </div>
-  <div class="item d-flex flex-column border">
-    <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:prepareSe' %}">
-      <div class="d-flex flex-column w-100 h-100" >
-        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-        <span class="mx-auto mb-auto mt-2">Prepare-se</span>
+
+      <div class="col-lg-3 col-md-6">
+        <a href="{% url 'empreendedor:dicasDeMeioAmbiente' %}" class="mei-nav-card">
+          <div class="mei-nav-card-body">
+            <div class="mei-nav-card-icon">
+              <i class="fas fa-leaf"></i>
+            </div>
+            <h5 class="mei-nav-card-title">Meio Ambiente</h5>
+            <p class="mei-nav-card-text">Responsabilidades ambientais</p>
+          </div>
+        </a>
       </div>
-    </a> 
-  </div>
-  <div class="item d-flex flex-column border">
-    <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:transportadorAutonomoDeCargas' %}">
-      <div class="d-flex flex-column w-100 h-100" >
-        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-        <span class="mx-auto mb-auto mt-2">Quero ser MEI Caminhoneiro</span>
+
+      <div class="col-lg-3 col-md-6">
+        <a href="{% url 'empreendedor:prepareSe' %}" class="mei-nav-card">
+          <div class="mei-nav-card-body">
+            <div class="mei-nav-card-icon">
+              <i class="fas fa-user-graduate"></i>
+            </div>
+            <h5 class="mei-nav-card-title">Prepare-se</h5>
+            <p class="mei-nav-card-text">Capacitação e preparação</p>
+          </div>
+        </a>
       </div>
-    </a> 
-  </div>
-  <div class="item d-flex flex-column border">
-    <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:direitosEObrigacoes' %}">
-      <div class="d-flex flex-column w-100 h-100" >
-        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-        <span class="mx-auto mb-auto mt-2">Direitos e Obrigações</span>
+
+      <div class="col-lg-3 col-md-6">
+        <a href="{% url 'empreendedor:transportadorAutonomoDeCargas' %}" class="mei-nav-card">
+          <div class="mei-nav-card-body">
+            <div class="mei-nav-card-icon">
+              <i class="fas fa-truck"></i>
+            </div>
+            <h5 class="mei-nav-card-title">MEI Caminhoneiro</h5>
+            <p class="mei-nav-card-text">Informações específicas</p>
+          </div>
+        </a>
       </div>
-    </a> 
-  </div>
-  <div class="item d-flex flex-column border">
-    <a target="_blank" class="w-100 h-100" href="{% url 'empreendedor:registrocadastur' %}">
-      <div class="d-flex flex-column w-100 h-100" >
-        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-        <span class="mx-auto mb-auto mt-2">Cadastro de Atividade Turística - Cadastur</span>
+
+      <div class="col-lg-3 col-md-6">
+        <a href="{% url 'empreendedor:direitosEObrigacoes' %}" class="mei-nav-card">
+          <div class="mei-nav-card-body">
+            <div class="mei-nav-card-icon">
+              <i class="fas fa-balance-scale"></i>
+            </div>
+            <h5 class="mei-nav-card-title">Direitos e Obrigações</h5>
+            <p class="mei-nav-card-text">Seus direitos e deveres</p>
+          </div>
+        </a>
       </div>
-    </a> 
-  </div>
-  <div class="item d-flex flex-column border">
-    <a target="_blank" class="w-100 h-100" href="https://portal.antt.gov.br/rntrc">
-      <div class="d-flex flex-column w-100 h-100" >
-        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-        <span class="mx-auto mb-auto mt-2">RNTRC</span>
+
+      <div class="col-lg-3 col-md-6">
+        <a href="{% url 'empreendedor:registrocadastur' %}" class="mei-nav-card">
+          <div class="mei-nav-card-body">
+            <div class="mei-nav-card-icon">
+              <i class="fas fa-map-marked-alt"></i>
+            </div>
+            <h5 class="mei-nav-card-title">Cadastur</h5>
+            <p class="mei-nav-card-text">Atividade turística</p>
+          </div>
+        </a>
       </div>
-    </a> 
-  </div>
-  <div class="item d-flex flex-column border">
-    <a target="_blank" class="w-100 h-100" href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes">
-      <div class="d-flex flex-column w-100 h-100" >
-        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-        <span class="mx-auto mb-auto mt-2">Perguntas Frequentes</span>
+
+      <div class="col-lg-3 col-md-6">
+        <a href="https://portal.antt.gov.br/rntrc" target="_blank" class="mei-nav-card external-link">
+          <div class="mei-nav-card-body">
+            <div class="mei-nav-card-icon">
+              <i class="fas fa-id-card"></i>
+            </div>
+            <h5 class="mei-nav-card-title">RNTRC</h5>
+            <p class="mei-nav-card-text">Registro Nacional</p>
+          </div>
+        </a>
       </div>
-    </a> 
-  </div>
-  <div class="item d-flex flex-column border">
-    <a target="_blank" class="w-100 h-100" href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/ajuda">
-      <div class="d-flex flex-column w-100 h-100" >
-        <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-        <span class="mx-auto mb-auto mt-2">Ajuda</span>
+
+      <div class="col-lg-3 col-md-6">
+        <a href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes" target="_blank" class="mei-nav-card external-link">
+          <div class="mei-nav-card-body">
+            <div class="mei-nav-card-icon">
+              <i class="fas fa-question-circle"></i>
+            </div>
+            <h5 class="mei-nav-card-title">Perguntas Frequentes</h5>
+            <p class="mei-nav-card-text">Dúvidas comuns</p>
+          </div>
+        </a>
       </div>
-    </a> 
+
+      <div class="col-lg-3 col-md-6">
+        <a href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/ajuda" target="_blank" class="mei-nav-card external-link">
+          <div class="mei-nav-card-body">
+            <div class="mei-nav-card-icon">
+              <i class="fas fa-life-ring"></i>
+            </div>
+            <h5 class="mei-nav-card-title">Ajuda</h5>
+            <p class="mei-nav-card-text">Suporte e orientações</p>
+          </div>
+        </a>
+      </div>
+    </div>
   </div>
-</div>
+</section>

@@ -4,50 +4,84 @@
 {% include 'nav_empreendedor.html' %}
 {% endblock %}
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/cursos.css' %}">
+<link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
 {% endblock %}
 {% block main %}
-<div class="container">
-
-  <div class="row">
-    <div class="col d-flex flex-column">
-        <h1 class="" style="display: inline;">Capacitação</h1>
-        <p class="text-secondary">Escolha o caminho certo para o seu crescimento, amplie suas competências! Estamos de mãos dadas com o seu desenvolvimento!</p>
-        
-        <div class="row mx-auto px-5 py-4">
-            <div class="d-flex flex-wrap justify-content-around">
-                <div class="item border border d-flex flex-column mx-2 div_cursos">
-                    <a href="{% url 'cursos_profissionais:index' %}">
-                      <div class="c-img" style="position: relative;">
-                        <img class="banner-img" src="/static/images/icons_servicos/capacitacao-profissional.png" >
-                      </div>
-                    </a> 
-                  </div>
-                  <div class="item border border d-flex flex-column mx-2 div_cursos">
-                    <a href="{% url 'cursos_empresariais:home' %}">
-                      <div class="c-img" style="position: relative;">
-                        <img class="banner-img" src="/static/images/icons_servicos/capacitacao-empresarial.png" >
-                      </div>
-                    </a> 
-                  </div>
-            </div>
+<!-- Hero Section -->
+<section class="service-hero">
+  <div class="container pt-4">
+    <div class="hero-content-service" data-aos="fade-up">
+      <div class="row" data-aos="fade-up">
+        <div class="col">
+          <a href="{% url 'empreendedor:index' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Voltar
+          </a>
         </div>
-<div class="row">
-  <div class="col pb-5">
-    <p class="text-justify">
-    <strong>Atenção!</strong>  A Sala do Empreendedor está aberta a novas parcerias com universidades, instituições educacionais e empresariais para a oferta de cursos gratuitos voltados à população em geral e aos microempreendedores. Nossa missão é fortalecer o empreendedorismo e capacitar os cidadãos, promovendo o desenvolvimento econômico local. Interessados devem encaminhar ofícios para a Sala do Empreendedor.
-  </p>
+      </div>
+      <h1 class="section-title-service">Capacitação</h1>
+      <p class="lead">Escolha o caminho certo para o seu crescimento, amplie suas competências! Estamos de mãos dadas com o seu desenvolvimento!</p>
+    </div>
   </div>
-</div>
+</section>
 
-        <div class="row mx-auto px-5">
-        <script>
-            document.getElementById('empreendedor_capacita').classList.add('s-nav-active');
-        </script>
+<div class="container pb-5">
+  <!-- Cards de cursos -->
+  <div class="row g-4 mb-5" data-aos="fade-up">
+    <div class="col-md-6">
+      <div class="service-card">
+        <div class="card-icon">
+          <i class="fas fa-user-graduate"></i>
         </div>
+        <div class="card-body">
+          <h5 class="card-title">Capacitação Profissional</h5>
+          <p class="card-text">
+            Desenvolva suas habilidades profissionais com cursos especializados e certificações reconhecidas pelo mercado.
+          </p>
+          <a href="{% url 'cursos_profissionais:index' %}" class="btn-service">
+            Acessar Cursos <i class="fas fa-arrow-right ms-2"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="service-card">
+        <div class="card-icon">
+          <i class="fas fa-building"></i>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Capacitação Empresarial</h5>
+          <p class="card-text">
+            Aprenda estratégias empresariais, gestão de negócios e técnicas para fazer sua empresa crescer no mercado.
+          </p>
+          <a href="{% url 'cursos_empresariais:home' %}" class="btn-service">
+            Acessar Cursos <i class="fas fa-arrow-right ms-2"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Informações importantes -->
+  <div class="row" data-aos="fade-up">
+    <div class="col-12">
+      <div class="alert-service">
+        <h5 class="fw-bold mb-3">
+          <i class="fas fa-info-circle text-primary me-2"></i>
+          Informações Importantes
+        </h5>
+        <p class="mb-0">
+          <strong>Atenção!</strong> A Sala do Empreendedor está aberta a novas parcerias com universidades, instituições educacionais e empresariais para a oferta de cursos gratuitos voltados à população em geral e aos microempreendedores. Nossa missão é fortalecer o empreendedorismo e capacitar os cidadãos, promovendo o desenvolvimento econômico local. Interessados devem encaminhar ofícios para a Sala do Empreendedor.
+        </p>
+      </div>
     </div>
   </div>
 </div>
+
+<script>
+  document.getElementById('empreendedor_capacita').classList.add('s-nav-active');
+</script>
 {% endblock %}
 {% block footer %}
 {% include 'instagram_desenvolve.html' %}

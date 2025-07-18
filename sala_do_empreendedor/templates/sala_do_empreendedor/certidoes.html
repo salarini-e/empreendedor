@@ -1,177 +1,295 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
-{% block nav %}
-{% include 'nav_empreendedor.html' %}
-{% endblock %}
-{% block css %}
-  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
-{% endblock %}
-{% block main %}
-<div class="container">
-<div class="row mx-auto ps-4 pb-3">
-<h3>QUERO SER MEI</h3>
-</div>
-<style>
-    .item{
-        margin: auto !important;
-    }
-</style>
-<div class="row mx-auto">
-  <div class="d-flex flex-wrap justify-content-center">
-    <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
-      <a target="_blank" class="w-100 h-100" href="#">
-        <div class="d-flex flex-column w-100 h-100" >
-          <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-          <span class="mx-auto mb-auto mt-2 px-5">Por que ser MEI?</span>
-        </div>
-      </a> 
-    </div>
-    <div class="item d-flex flex-column border" style="width: 300x; height: 200px;">
-        <a target="_blank" class="w-100 h-100" href="#">
-          <div class="d-flex flex-column w-100 h-100" >
-            <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-            <span class="mx-auto mb-auto mt-2 px-5">O que você precisa saber antes de se tornar um MEI?</span>
-          </div>
-        </a> 
-      </div>
-      <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
-        <a target="_blank" class="w-100 h-100" href="#">
-          <div class="d-flex flex-column w-100 h-100" >
-            <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-            <span class="mx-auto mb-auto mt-2 px-5">Formalize-se</span>
-          </div>
-        </a> 
-      </div>
-      <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
-        <a target="_blank" class="w-100 h-100" href="#">
-          <div class="d-flex flex-column w-100 h-100" >
-            <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-            <span class="mx-auto mb-auto mt-2 px-5">Jornada Empreendedora</span>
-          </div>
-        </a> 
-      </div>
-  </div>
-</div>
-<div class="row mx-auto mt-3">
-    <div class="d-flex flex-wrap justify-content-center">
-      <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
-        <a target="_blank" class="w-100 h-100" href="#">
-          <div class="d-flex flex-column w-100 h-100" >
-            <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-            <span class="mx-auto mb-auto mt-2">Documentos necessários</span>
-          </div>
-        </a> 
-      </div>
-      <div class="item d-flex flex-column border" style="width: 300x; height: 200px;">
-          <a target="_blank" class="w-100 h-100" href="#">
-            <div class="d-flex flex-column w-100 h-100" >
-              <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-              <span class="mx-auto mb-auto mt-2 px-5">Quais as ocupações que podem ser MEI</span>
-            </div>
-          </a> 
-        </div>
-        <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
-          <a target="_blank" class="w-100 h-100" href="#">
-            <div class="d-flex flex-column w-100 h-100" >
-              <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-              <span class="mx-auto mb-auto mt-2 px-5">Dicas de Segurança da Vigilância Sanitária</span>
-            </div>
-          </a> 
-        </div>
-        <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
-          <a target="_blank" class="w-100 h-100" href="#">
-            <div class="d-flex flex-column w-100 h-100" >
-              <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-              <span class="mx-auto mb-auto mt-2 px-5">Dicas de Segurança do Corpo de Bombeiros</span>
-            </div>
-          </a> 
-        </div>
-    </div>
-  </div>
-  <div class="row mx-auto mt-3">
-    <div class="d-flex flex-wrap justify-content-center">
-      <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
-        <a target="_blank" class="w-100 h-100" href="#">
-          <div class="d-flex flex-column w-100 h-100" >
-            <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-            <span class="mx-auto mb-auto mt-2 px-5">Dicas de Meio Ambiente</span>
-          </div>
-        </a> 
-      </div>
-      <div class="item d-flex flex-column border" style="width: 300x; height: 200px;">
-          <a target="_blank" class="w-100 h-100" href="#">
-            <div class="d-flex flex-column w-100 h-100" >
-              <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-              <span class="mx-auto mb-auto mt-2 px-5">Prepare-se</span>
-            </div>
-          </a> 
-        </div>
-        <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
-          <a target="_blank" class="w-100 h-100" href="#">
-            <div class="d-flex flex-column w-100 h-100" >
-              <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-              <span class="mx-auto mb-auto mt-2 px-5">Quero ser MEI Caminhoneiro</span>
-            </div>
-          </a> 
-        </div>
-        <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
-          <a target="_blank" class="w-100 h-100" href="#">
-            <div class="d-flex flex-column w-100 h-100" >
-              <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-              <span class="mx-auto mb-auto mt-2 px-5">Direitos e Obrigações</span>
-            </div>
-          </a> 
-        </div>
-    </div>
-  </div>
-  <div class="row mx-auto mt-3">
-    <div class="d-flex flex-wrap justify-content-center">
-      <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
-        <a target="_blank" class="w-100 h-100" href="#">
-          <div class="d-flex flex-column w-100 h-100" >
-            <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-            <span class="mx-auto mb-auto mt-2 px-5">Cadastro de Atividade Turística - Cadastur</span>
-          </div>
-        </a> 
-      </div>
-      <div class="item d-flex flex-column border" style="width: 300x; height: 200px;">
-          <a target="_blank" class="w-100 h-100" href="#">
-            <div class="d-flex flex-column w-100 h-100" >
-              <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-              <span class="mx-auto mb-auto mt-2 px-5">RNTRC</span>
-            </div>
-          </a> 
-        </div>
-        <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
-          <a target="_blank" class="w-100 h-100" href="#">
-            <div class="d-flex flex-column w-100 h-100" >
-              <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-              <span class="mx-auto mb-auto mt-2 px-5">Perguntas Frequentes</span>
-            </div>
-          </a> 
-        </div>
-        <div class="item d-flex flex-column border" style="width: 300px; height: 200px;">
-          <a target="_blank" class="w-100 h-100" href="#">
-            <div class="d-flex flex-column w-100 h-100" >
-              <span class="mx-auto mt-auto mb-2"><i class="fa-2x fa-solid fa-circle-info"></i></span>
-              <span class="mx-auto mb-auto mt-2 px-5">Ajuda</span>
-            </div>
-          </a> 
-        </div>
-    </div>
-  </div>
-  <style>
-    span{
-        text-align: center;
-    }
-  </style>
-<div class="row mx-auto px-5">
-  <script>
-    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
-  </script>
-</div>
-</div>
 
+{% block css %}
+<style>
+  /* Certidões - Design System Moderno */
+  :root {
+    --certidoes-primary: #0727b4;
+    --certidoes-secondary: #3652f0;
+    --certidoes-accent: #e0b731;
+    --certidoes-success: #4ecdc4;
+    --certidoes-warning: #ffa726;
+    --certidoes-danger: #ff6b6b;
+  }
+  
+  .certidoes-hero {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.479), rgba(255, 255, 255, 0.842)), url("{% static 'images/bg-empresa.jpg' %}") no-repeat center center;
+    background-size: cover;
+    color: rgb(0, 0, 0);
+    padding: 40px 0 20px 0;
+    margin-bottom: 60px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(7, 39, 180, 0.137);
+  }
+  
+  .hero-content-certidoes {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  
+  .section-title-certidoes {
+    font-family: var(--font-secondary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .section-title-certidoes::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--certidoes-accent);
+    border-radius: 2px;
+  }
+  
+  .back-button {
+    background: linear-gradient(135deg, var(--certidoes-primary), var(--certidoes-secondary));
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .back-button:hover {
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+  }
+  
+  .certidoes-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: none;
+    margin-bottom: 2rem;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .certidoes-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 60px rgba(102, 126, 234, 0.2);
+  }
+  
+  .certidoes-card a {
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  .certidoes-card a:hover {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  .certidoes-card i {
+    font-size: 3rem;
+    color: var(--certidoes-primary);
+    margin-bottom: 1rem;
+  }
+  
+  .certidoes-card span {
+    text-align: center;
+    font-weight: 600;
+    color: var(--dark);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .section-title-certidoes {
+      font-size: 2rem;
+    }
+    
+    .certidoes-hero {
+      padding: 40px 0;
+    }
+    
+    .certidoes-card {
+      width: 280px;
+      margin: 0.5rem;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block main %}
+<!-- Hero Section -->
+<section class="certidoes-hero">
+  <div class="container pt-4">
+    <div class="hero-content-certidoes" data-aos="fade-up">
+      <h1 class="section-title-certidoes">Quero Ser MEI</h1>
+      <p class="lead">Encontre todas as informações e serviços para se tornar um Microempreendedor Individual</p>
+    </div>
+  </div>
+</section>
+
+<div class="container pb-5">
+  <!-- Back Button -->
+  <div class="row" data-aos="fade-up">
+    <div class="col">
+      <a href="javascript:history.back()" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        Voltar
+      </a>
+  </div>
+
+  <!-- MEI Information Cards -->
+  <div class="row g-4" data-aos="fade-up">
+    <div class="col-md-6 col-lg-3">
+      <div class="certidoes-card">
+        <a target="_blank" href="#">
+          <i class="fas fa-question-circle"></i>
+          <span>Por que ser MEI?</span>
+        </a> 
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="certidoes-card">
+        <a target="_blank" href="#">
+          <i class="fas fa-lightbulb"></i>
+          <span>O que você precisa saber antes de se tornar um MEI?</span>
+        </a> 
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="certidoes-card">
+        <a target="_blank" href="#">
+          <i class="fas fa-file-signature"></i>
+          <span>Formalize-se</span>
+        </a> 
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="certidoes-card">
+        <a target="_blank" href="#">
+          <i class="fas fa-route"></i>
+          <span>Jornada Empreendedora</span>
+        </a> 
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="certidoes-card">
+        <a target="_blank" href="#">
+          <i class="fas fa-folder-open"></i>
+          <span>Documentos necessários</span>
+        </a> 
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="certidoes-card">
+        <a target="_blank" href="#">
+          <i class="fas fa-briefcase"></i>
+          <span>Quais as ocupações que podem ser MEI</span>
+        </a> 
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="certidoes-card">
+        <a target="_blank" href="#">
+          <i class="fas fa-shield-alt"></i>
+          <span>Dicas de Segurança da Vigilância Sanitária</span>
+        </a> 
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="certidoes-card">
+        <a target="_blank" href="#">
+          <i class="fas fa-fire-extinguisher"></i>
+          <span>Dicas de Segurança do Corpo de Bombeiros</span>
+        </a> 
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="certidoes-card">
+        <a target="_blank" href="#">
+          <i class="fas fa-leaf"></i>
+          <span>Dicas de Meio Ambiente</span>
+        </a> 
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="certidoes-card">
+        <a target="_blank" href="#">
+          <i class="fas fa-clipboard-check"></i>
+          <span>Prepare-se</span>
+        </a> 
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="certidoes-card">
+        <a target="_blank" href="#">
+          <i class="fas fa-truck"></i>
+          <span>Quero ser MEI Caminhoneiro</span>
+        </a> 
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="certidoes-card">
+        <a target="_blank" href="#">
+          <i class="fas fa-balance-scale"></i>
+          <span>Direitos e Obrigações</span>
+        </a> 
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="certidoes-card">
+        <a target="_blank" href="#">
+          <i class="fas fa-map-marked-alt"></i>
+          <span>Cadastro de Atividade Turística - Cadastur</span>
+        </a> 
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="certidoes-card">
+        <a target="_blank" href="#">
+          <i class="fas fa-id-card"></i>
+          <span>RNTRC</span>
+        </a> 
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="certidoes-card">
+        <a target="_blank" href="#">
+          <i class="fas fa-question-circle"></i>
+          <span>Perguntas Frequentes</span>
+        </a> 
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-3">
+      <div class="certidoes-card">
+        <a target="_blank" href="#">
+          <i class="fas fa-hands-helping"></i>
+          <span>Ajuda</span>
+        </a> 
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
 {% block footer %}

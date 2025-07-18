@@ -1,0 +1,97 @@
+<!-- Breadcrumb Template Reutilizável -->
+<!-- 
+  Uso:
+  {% include 'sala_do_empreendedor/includes/breadcrumb.html' with breadcrumb_items=breadcrumb_items %}
+  
+  Exemplo de breadcrumb_items na view:
+  breadcrumb_items = [
+    {'url': 'empreendedor:index', 'icon': 'fas fa-home', 'label': 'Início'},
+    {'url': 'empreendedor:quero_ser_mei', 'icon': 'fas fa-user-plus', 'label': 'Quero ser MEI'},
+    {'icon': 'fas fa-file-alt', 'label': 'Documentos Necessários', 'active': True}
+  ]
+-->
+
+<style>
+  /* Breadcrumb Styles */
+  .breadcrumb-container {
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border-bottom: 1px solid #e9ecef;
+    padding: 1rem 0;
+    margin-bottom: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .breadcrumb-custom {
+    background: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .breadcrumb-item-custom {
+    display: flex;
+    align-items: center;
+    color: #6c757d;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 0.25rem 0;
+  }
+
+  .breadcrumb-item-custom:hover {
+    color: #0051A4;
+    text-decoration: none;
+  }
+
+  .breadcrumb-item-custom.active {
+    color: #0051A4;
+    font-weight: 600;
+  }
+
+  .breadcrumb-separator {
+    color: #adb5bd;
+    margin: 0 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .breadcrumb-icon {
+    margin-right: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 576px) {
+    .breadcrumb-custom {
+      font-size: 0.8rem;
+    }
+    
+    .breadcrumb-container {
+      padding: 0.75rem 0;
+    }
+  }
+</style>
+
+<div class="breadcrumb-container">
+  <div class="container">
+    <nav class="breadcrumb-custom" aria-label="Breadcrumb">
+      {% for item in breadcrumb_items %}
+        {% if not forloop.last %}
+          <a href="{% url item.url %}" class="breadcrumb-item-custom">
+            <i class="{{ item.icon }} breadcrumb-icon"></i>
+            {{ item.label }}
+          </a>
+          <span class="breadcrumb-separator">
+            <i class="fas fa-chevron-right"></i>
+          </span>
+        {% else %}
+          <span class="breadcrumb-item-custom active">
+            <i class="{{ item.icon }} breadcrumb-icon"></i>
+            {{ item.label }}
+          </span>
+        {% endif %}
+      {% endfor %}
+    </nav>
+  </div>
+</div>

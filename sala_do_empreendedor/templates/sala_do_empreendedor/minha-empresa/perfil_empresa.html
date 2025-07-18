@@ -1,0 +1,613 @@
+{% extends 'template.html' %}
+{% load static %}
+{% block nav %}
+{% include 'nav_empreendedor.html' %}
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
+<style>
+/* Switch da Vitrine Virtual */
+.vitrine-switch-container {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  padding: 1rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.vitrine-switch-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.vitrine-info {
+  display: flex;
+  align-items: center;
+}
+
+.switch-container {
+  margin-left: auto;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 25px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 19px;
+  width: 19px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #0051A4;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #0051A4;
+}
+
+input:checked + .slider:before {
+  transform: translateX(25px);
+}
+
+.slider.round {
+  border-radius: 25px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.vitrine-status-text {
+  color: #6c757d;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.switch input:disabled + .slider {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+.switch input:disabled + .slider:before {
+  background-color: #f8f9fa;
+}
+
+/* Loading state */
+.switch.loading .slider {
+  background-color: #ffc107;
+}
+
+.switch.loading .slider:before {
+  animation: switchPulse 1s infinite;
+}
+
+@keyframes switchPulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Toast notifications */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.toast {
+  min-width: 300px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 10px;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.3s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toast.success {
+  border-left: 4px solid #28a745;
+}
+
+.toast.error {
+  border-left: 4px solid #dc3545;
+}
+
+.toast-body {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.toast-body i {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.toast.success .toast-body i {
+  color: #28a745;
+}
+
+.toast.error .toast-body i {
+  color: #dc3545;
+}
+</style>
+{% endblock %}
+{% block main %}
+<!-- Hero Section -->
+<section class="service-hero">
+  <div class="container pt-4">
+    <div class="hero-content-service" data-aos="fade-up">
+      <div class="row" data-aos="fade-up">
+        <div class="col">
+          <a href="{% url 'empreendedor:minha_empresa' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Voltar
+          </a>
+        </div>
+      </div>
+      <h1 class="section-title-service">{{empresa.nome}}</h1>
+      <p class="lead">Perfil completo da empresa</p>
+    </div>
+  </div>
+</section>
+
+<div class="container pb-5">
+  <div class="row g-5" data-aos="fade-up">
+    <!-- Coluna Principal - Informações da Empresa -->
+    <div class="col-lg-8">
+      <!-- Card Principal da Empresa -->
+      <div class="empresa-profile-card mb-4">
+        <div class="empresa-header">
+          <div class="empresa-logo">
+            {% if registro_no_vitrine_virtual.logo %}
+              <img src="{{ registro_no_vitrine_virtual.logo.url }}" alt="Logo da {{ empresa.nome }}" class="logo-img">
+            {% else %}
+              <img src="https://www.totaltoner.com.br/loja/img/system/sem-imagem.gif" alt="sem logo" class="logo-img">
+            {% endif %}
+          </div>
+          <div class="empresa-info">
+            <h2 class="empresa-nome">{{ empresa.nome }}</h2>
+            <p class="empresa-cnpj">CNPJ: {{ empresa.cnpj }}</p>
+            {% if empresa.porte %}
+              <span class="empresa-badge">{{ empresa.porte }}</span>
+            {% endif %}
+          </div>
+          <!-- <div class="empresa-actions">
+            <a href="{% url 'empreendedor:editar_empresa' empresa.id %}" class="btn-action btn-edit">
+              <i class="fas fa-edit"></i>
+              Editar
+            </a>
+          </div> -->
+        </div>
+      </div>
+
+      <!-- Informações Detalhadas -->
+      <div class="row g-4">
+        <!-- Dados Básicos -->
+        <div class="col-md-6">
+          <div class="info-card">
+            <h4 class="info-title">
+              <i class="fas fa-info-circle me-2"></i>
+              Dados Básicos
+            </h4>
+            <div class="info-content">
+              <div class="info-item">
+                <label>Nome da empresa:</label>
+                <span>{{ empresa.nome }}</span>
+              </div>
+              <div class="info-item">
+                <label>CNPJ:</label>
+                <span>{{ empresa.cnpj }}</span>
+              </div>
+              {% if empresa.porte %}
+                <div class="info-item">
+                  <label>Porte da empresa:</label>
+                  <span>{{ empresa.porte }}</span>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Contato -->
+        <div class="col-md-6">
+          <div class="info-card">
+            <h4 class="info-title">
+              <i class="fas fa-phone me-2"></i>
+              Contato
+            </h4>
+            <div class="info-content">
+              {% if empresa.telefone %}
+                <div class="info-item">
+                  <label>Telefone:</label>
+                  <span>{{ empresa.telefone }}</span>
+                </div>
+              {% endif %}
+              {% if empresa.whatsapp %}
+                <div class="info-item">
+                  <label>WhatsApp:</label>
+                  <span>{{ empresa.whatsapp }}</span>
+                </div>
+              {% endif %}
+              {% if empresa.email %}
+                <div class="info-item">
+                  <label>E-mail:</label>
+                  <span>{{ empresa.email }}</span>
+                </div>
+              {% endif %}
+              {% if empresa.site %}
+                <div class="info-item">
+                  <label>Website:</label>
+                  <span><a href="{{ empresa.site }}" target="_blank" class="link-empresa">{{ empresa.site }}</a></span>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Descrição da Empresa -->
+        {% if empresa.descricao %}
+        <div class="col-12">
+          <div class="info-card">
+            <h4 class="info-title">
+              <i class="fas fa-align-left me-2"></i>
+              Descrição da Empresa
+            </h4>
+            <div class="info-content">
+              <p style="text-align: justify;">{{ empresa.descricao }}</p>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- Atividade Empresarial -->
+        {% if empresa.atividade_principal or empresa.atividades_secundarias %}
+          <div class="col-12">
+            <div class="info-card">
+              <h4 class="info-title">
+                <i class="fas fa-briefcase me-2"></i>
+                Atividades Empresariais
+              </h4>
+              <div class="info-content">
+                {% if empresa.atividade_principal %}
+                  <div class="info-item">
+                    <label>Atividade Principal:</label>
+                    <span>{{ empresa.atividade_principal }}</span>
+                  </div>
+                {% endif %}
+                {% if empresa.atividades_secundarias %}
+                  <div class="info-item">
+                    <label>Atividades Secundárias:</label>
+                    <span>{{ empresa.atividades_secundarias }}</span>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+      
+      </div>
+    </div>
+
+    <!-- Sidebar - Ações e Informações Adicionais -->
+    <div class="col-lg-4">
+      <div class="empresa-sidebar">
+        <!-- Status da Empresa -->
+        <div class="status-card mb-4">
+          <h5 class="status-title">Status da Empresa</h5>
+          <div class="status-item">
+            <i class="fas fa-calendar me-2"></i>
+            <span>Cadastrado em: {{ empresa.dt_register|date:"d/m/Y" }}</span>
+          </div>
+          <div class="status-item">
+            <i class="fas fa-check-circle text-success me-2"></i>
+            <span>Cadastrada no Mapeamento</span>
+          </div>          
+          {% if empresa.validacao %}
+            <div class="status-item">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              <span>Empresa Validada</span>
+            </div>
+          {% endif %}
+          
+          <!-- Switch da Vitrine Virtual -->
+          <div class="status-item vitrine-switch-container">
+            <div class="vitrine-switch-wrapper">
+              <div class="vitrine-info">
+                <i class="fas fa-store text-primary me-2"></i>
+                <span>Vitrine Virtual</span>
+                {% if empresa.cadastrada_na_vitrine and empresa.registro_no_vitrine_virtual.url %}
+                  <a href="{{ empresa.registro_no_vitrine_virtual.url }}" target="_blank" class="ms-2">
+                    <i style="font-size: 12px;" class="fas fa-external-link-alt"></i> 
+                  </a>
+                {% endif %}
+              </div>
+              <div class="switch-container">
+                <label class="switch">
+                  <input type="checkbox" id="vitrine-switch" 
+                         {% if empresa.cadastrada_na_vitrine %}checked{% endif %}
+                         data-empresa-id="{{ empresa.id }}">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+            <small class="vitrine-status-text">
+              {% if empresa.cadastrada_na_vitrine %}
+                Sua empresa está visível na vitrine virtual
+                <br>
+                <a href="{% url 'empreendedor:vitrine_virtual' %}" class="btn btn-outline-primary btn-sm mt-2">
+                  <i class="fas fa-eye me-1"></i>Ver na Vitrine Virtual
+                </a>
+              {% else %}
+                Ative para exibir sua empresa na vitrine virtual
+              {% endif %}
+            </small>
+          </div>
+        </div>
+
+        <!-- Ações Rápidas -->
+        <div class="actions-card mb-4">
+          <h5 class="actions-title">Ações Rápidas</h5>
+          <div class="action-buttons">
+            <a href="{% url 'empreendedor:editar_empresa' empresa.id %}" class="action-btn">
+              <i class="fas fa-edit me-2"></i>
+              Editar Dados
+            </a>
+            <a href="{% url 'empreendedor:vitrine_virtual' %}" class="action-btn">
+              <i class="fas fa-store me-2"></i>
+              Vitrine Virtual
+            </a>
+            {% if empresa.email %}
+              <a href="mailto:{{ empresa.email }}" class="action-btn">
+                <i class="fas fa-envelope me-2"></i>
+                Enviar E-mail
+              </a>
+            {% endif %}
+            {% if empresa.telefone %}
+              <a href="tel:{{ empresa.telefone }}" class="action-btn">
+                <i class="fas fa-phone me-2"></i>
+                Ligar
+              </a>
+            {% endif %}
+            {% if empresa.site %}
+              <a href="{{ empresa.site }}" target="_blank" class="action-btn">
+                <i class="fas fa-external-link-alt me-2"></i>
+                Visitar Site
+              </a>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Atividades e Ramos -->
+        {% if empresa.atividade.all or empresa.ramo.all %}
+        <div class="activities-card mb-4">
+          <h5 class="activities-title">Atividades e Ramos</h5>
+          {% if empresa.atividade.all %}
+            <div class="activity-section">
+              <h6><i class="fas fa-briefcase me-2"></i>Atividades</h6>
+              <div class="tags-container">
+                {% for atividade in empresa.atividade.all %}
+                  <span class="activity-tag">{{ atividade.atividade }}</span>
+                {% endfor %}
+                {% if empresa.outra_atividade %}
+                  <span class="activity-tag">{{ empresa.outra_atividade }}</span>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+          {% if empresa.ramo.all %}
+            <div class="activity-section">
+              <h6><i class="fas fa-industry me-2"></i>Ramos de Atuação</h6>
+              <div class="tags-container">
+                {% for ramo in empresa.ramo.all %}
+                  <span class="ramo-tag">{{ ramo.ramo }}</span>
+                {% endfor %}
+                {% if empresa.outro_ramo %}
+                  <span class="ramo-tag">{{ empresa.outro_ramo }}</span>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+        {% endif %}
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container"></div>
+
+<script>
+  // Verificar se o elemento existe antes de adicionar a classe
+  const empresaNavElement = document.getElementById('empreendedor_empresa');
+  if (empresaNavElement) {
+    empresaNavElement.classList.add('s-nav-active');
+  }
+
+  // Função para mostrar toast notifications
+  function showToast(message, type = 'success') {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    
+    const icon = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-triangle';
+    
+    toast.innerHTML = `
+      <div class="toast-body">
+        <i class="${icon}"></i>
+        <span>${message}</span>
+      </div>
+    `;
+    
+    container.appendChild(toast);
+    
+    // Mostrar toast
+    setTimeout(() => toast.classList.add('show'), 100);
+    
+    // Remover toast após 4 segundos
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => container.removeChild(toast), 300);
+    }, 4000);
+  }
+
+  // Função para obter CSRF token
+  function getCSRFToken() {
+    return document.querySelector('[name=csrfmiddlewaretoken]')?.value || 
+           document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || 
+           '{{ csrf_token }}';
+  }
+
+  // Controle do switch da vitrine virtual
+  document.addEventListener('DOMContentLoaded', function() {
+    const vitrineSwitch = document.getElementById('vitrine-switch');
+    const statusText = document.querySelector('.vitrine-status-text');
+    const switchContainer = document.querySelector('.switch');
+    
+    if (vitrineSwitch) {
+      vitrineSwitch.addEventListener('change', async function() {
+        const empresaId = this.getAttribute('data-empresa-id');
+        const isChecked = this.checked;
+        const originalState = !isChecked;
+        
+        // Desabilitar o switch e mostrar loading
+        this.disabled = true;
+        switchContainer.classList.add('loading');
+        
+        // Atualizar texto temporariamente
+        statusText.textContent = isChecked ? 
+          'Adicionando empresa à vitrine virtual...' : 
+          'Removendo empresa da vitrine virtual...';
+        
+        try {
+          const response = await fetch(`/sala-do-empreendedor/api/empresa/${empresaId}/vitrine/`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': getCSRFToken(),
+            },
+            body: JSON.stringify({
+              acao: isChecked ? 'adicionar' : 'remover'
+            })
+          });
+          
+          const data = await response.json();
+          
+          if (response.ok && data.success) {
+            // Sucesso
+            statusText.textContent = isChecked ? 
+              'Sua empresa está visível na vitrine virtual' : 
+              'Ative para exibir sua empresa na vitrine virtual';
+            
+            showToast(
+              isChecked ? 
+                'Empresa adicionada à vitrine virtual com sucesso!' : 
+                'Empresa removida da vitrine virtual com sucesso!',
+              'success'
+            );
+            
+            // Se foi adicionada e tem URL, atualizar o link
+            if (isChecked && data.vitrine_url) {
+              const linkContainer = document.querySelector('.vitrine-info');
+              let link = linkContainer.querySelector('a');
+              if (!link) {
+                link = document.createElement('a');
+                link.href = data.vitrine_url;
+                link.target = '_blank';
+                link.className = 'ms-2';
+                link.innerHTML = '<i style="font-size: 12px;" class="fas fa-external-link-alt"></i>';
+                linkContainer.appendChild(link);
+              } else {
+                link.href = data.vitrine_url;
+              }
+            } else if (!isChecked) {
+              // Remover link se foi removida da vitrine
+              const link = document.querySelector('.vitrine-info a');
+              if (link) {
+                link.remove();
+              }
+            }
+            
+          } else {
+            // Erro - reverter o switch
+            this.checked = originalState;
+            statusText.textContent = originalState ? 
+              'Sua empresa está visível na vitrine virtual' : 
+              'Ative para exibir sua empresa na vitrine virtual';
+            
+            showToast(
+              data.message || 'Erro ao atualizar status da vitrine virtual. Tente novamente.',
+              'error'
+            );
+          }
+          
+        } catch (error) {
+          console.error('Erro na requisição:', error);
+          
+          // Reverter o switch em caso de erro
+          this.checked = originalState;
+          statusText.textContent = originalState ? 
+            'Sua empresa está visível na vitrine virtual' : 
+            'Ative para exibir sua empresa na vitrine virtual';
+          
+          showToast(
+            'Erro de conexão. Verifique sua internet e tente novamente.',
+            'error'
+          );
+        } finally {
+          // Re-habilitar o switch e remover loading
+          this.disabled = false;
+          switchContainer.classList.remove('loading');
+        }
+      });
+    }
+  });
+</script>
+
+{% endblock %}
+{% block footer %}
+{% include 'desenvolve_nf/instagram.html' %}
+{% endblock %}

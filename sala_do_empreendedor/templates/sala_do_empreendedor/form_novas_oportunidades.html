@@ -5,37 +5,73 @@
 {% include 'nav_empreendedor.html' %}
 {% endblock %}
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+<link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
 {% endblock %}
 {% block main %}
-<div class="container">  
+<!-- Hero Section -->
+<section class="service-hero">
+  <div class="container pt-4">
+    <div class="hero-content-service" data-aos="fade-up">
+      <div class="row" data-aos="fade-up">
+        <div class="col">
+          <a href="{% url 'empreendedor:index' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Voltar
+          </a>
+        </div>
+      </div>
+      <h1 class="section-title-service">Cadastro de Artesão</h1>
+      <p class="lead">Censo da habilidade criativa em Nova Friburgo</p>
+    </div>
+  </div>
+</section>
+
+<div class="container pb-5">
   {% if request.user.is_superuser %}
-  <div class="row mb-3">
-    <div class="col mx-auto d-flex border" style="text-align: left; background-color: white !important; padding: 20px; border-radius: 20px;">
-      <h3 style="line-height: auto; margin: auto 0px;"><strong>ADMIN</strong></h3>
-      <a href="{% url 'empreendedor:exportar_faccao' %}" class="btn btn-success ms-auto my-auto">
-        <i class="fa-solid fa-file-excel me-1"></i> Exportar dados
-      </a>
+  <div class="row mb-4" data-aos="fade-up">
+    <div class="col">
+      <div class="admin-card">
+        <h3 class="admin-title">
+          <i class="fas fa-user-shield me-2"></i>
+          ADMIN
+        </h3>
+        <a href="{% url 'empreendedor:exportar_faccao' %}" class="btn-service">
+          <i class="fa-solid fa-file-excel me-2"></i> Exportar dados
+        </a>
+      </div>
     </div>
   </div>
   {% endif %}
-  <div class="row">
-    <div class="col">
-      <h1>Cadastro de Artesão</h1>
-      <p class="mb-3">A Sala do Empreendedor, da Prefeitura Municipal de Nova Friburgo, está realizando o senso da habilidade criativa. Queremos entender, quantos são, o que fazem, onde estão localizados, dificuldades encontradas e, a partir daí, entender que tipo de política pública pode ser realizada para estímulo ao setor.</p>
-      <div class="row">
-        <div class="col">
-            <form method="POST">                
-                {% csrf_token %}
-                {% bootstrap_form form %}
-                <p style="margin-top: 20px; font-size: 0.9em; text-align: justify; color: #555;">
-                  Ao clicar em "Enviar", <strong>você declara estar ciente e de acordo com o envio das informações fornecidas neste formulário</strong> à Prefeitura de Nova Friburgo, autorizando o uso dos dados conforme a Lei Geral de Proteção de Dados (LGPD). Caso deseje solicitar a exclusão de suas respostas, encaminhe um ofício formal à Prefeitura de Nova Friburgo, direcionado à Sala do Empreendedor, com a solicitação expressa de exclusão de dados.
-              </p>
-                <input class="mt-3 btn btn-primary" type="submit" value="Enviar">
-            </form>
+  
+  <div class="row" data-aos="fade-up">
+    <div class="col-lg-8 mx-auto">
+      <div class="form-container">
+        <h3 class="text-center mb-4 text-primary">Cadastro de Artesão</h3>
+        
+        <div class="alert-service mb-4">
+          <p class="mb-0">
+            A Sala do Empreendedor, da Prefeitura Municipal de Nova Friburgo, está realizando o censo da habilidade criativa. Queremos entender quantos são, o que fazem, onde estão localizados, dificuldades encontradas e, a partir daí, entender que tipo de política pública pode ser realizada para estímulo ao setor.
+          </p>
         </div>
-    </div>
-      
+        
+        <form method="POST">                
+          {% csrf_token %}
+          {% bootstrap_form form %}
+          
+          <div class="form-disclaimer">
+            <p>
+              Ao clicar em "Enviar", <strong>você declara estar ciente e de acordo com o envio das informações fornecidas neste formulário</strong> à Prefeitura de Nova Friburgo, autorizando o uso dos dados conforme a Lei Geral de Proteção de Dados (LGPD). Caso deseje solicitar a exclusão de suas respostas, encaminhe um ofício formal à Prefeitura de Nova Friburgo, direcionado à Sala do Empreendedor, com a solicitação expressa de exclusão de dados.
+            </p>
+          </div>
+          
+          <div class="text-center mt-4">
+            <button type="submit" class="btn-service">
+              <i class="fas fa-paper-plane me-2"></i>
+              Enviar Cadastro
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

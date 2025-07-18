@@ -133,7 +133,7 @@
   }
   
   .status-ativa {
-    background: linear-gradient(135deg, var(--empresa-success), #26a69a);
+    background: linear-gradient(135deg, var(--empresa-success), #26a631);
     color: white;
   }
   
@@ -302,7 +302,21 @@
   input:checked + .vitrine-slider:before {
     transform: translateX(25px);
   }
-  
+   .back-button {
+   background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+
+  }
   /* Responsive Design */
   @media (max-width: 768px) {
     .section-title-empresa {
@@ -326,6 +340,7 @@
     .empresa-actions {
       flex-direction: column;
     }
+   
   }
 </style>
 {% endblock %}
@@ -335,6 +350,14 @@
 <section class="empresa-hero">
   <div class="container pt-4">
     <div class="hero-content-empresa" data-aos="fade-up">
+      <div class="row" data-aos="fade-up">
+        <div class="col">
+          <a href="{% url 'empreendedor:index' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Voltar
+          </a>
+        </div>
+      </div>
       <h1 class="section-title-empresa">Minha Empresa</h1>
       <p class="lead">Gerencie suas empresas e acesse serviços exclusivos da Prefeitura</p>
     </div>
@@ -392,12 +415,18 @@
     </div>
   </div> -->
 
-  <!-- Add New Company Button -->
+  <!-- Action Buttons -->
   <div class="row" data-aos="fade-up">
-    <div class="col">
+    <div class="col-md-6 mb-3">
       <a href="{% url 'empreendedor:cadastrar_empresa' %}" class="add-empresa-btn">
         <i class="fas fa-plus"></i>
         Cadastrar Empresa
+      </a>
+    </div>
+    <div class="col-md-6 mb-3 d-flex">
+      <a href="{% url 'empreendedor:paginas_pesquisa-empresa' %}" class="add-empresa-btn ms-auto" style="background: linear-gradient(135deg, var(--empresa-accent), #f39c12);">
+        <i class="fas fa-search"></i>
+        Outras Empresas 
       </a>
     </div>
   </div>
@@ -413,6 +442,7 @@
             <th><i class="fas fa-tag me-2"></i>Nome da Empresa</th>
             <th><i class="fas fa-chart-bar me-2"></i>Porte</th>
             <th><i class="fas fa-store me-2"></i>Vitrine Virtual</th>
+            <th><i class="fas fa-eye me-2"></i>Perfil Público</th>
             <th><i class="fas fa-traffic-light me-2"></i>Status</th>
             <th class="text-center"><i class="fas fa-cogs me-2"></i>Ações</th>
           </tr>
@@ -432,11 +462,25 @@
               </div>
             </td>
             <td>
-              <span class="empresa-status status-ativa">{{ empresa.get_porte_display|default:"Não informado" }}</span>
+              <span class="empresa-status">{{ empresa.porte|default:"Não informado" }}</span>
             </td>
-            <td>
+            <td style="text-align: center;">
               <label class="vitrine-toggle">
-                <input type="checkbox" {% if empresa.vitrine_ativa %}checked{% endif %}>
+                <input type="checkbox" 
+                       id="vitrine-switch-{{ empresa.id }}"
+                       class="vitrine-switch"
+                       data-empresa-id="{{ empresa.id }}"
+                       {% if empresa.cadastrada_na_vitrine %}checked{% endif %}>
+                <span class="vitrine-slider"></span>
+              </label>
+            </td>
+            <td style="text-align: center;">
+              <label class="vitrine-toggle">
+                <input type="checkbox" 
+                       id="perfil-publico-switch-{{ empresa.id }}"
+                       class="perfil-publico-switch"
+                       data-empresa-id="{{ empresa.id }}"
+                       {% if empresa.perfil_publico %}checked{% endif %}>
                 <span class="vitrine-slider"></span>
               </label>
             </td>
@@ -448,7 +492,7 @@
                 <a href="{% url 'empreendedor:editar_empresa' empresa.id %}" class="btn-action btn-edit" title="Editar">
                   <i class="fas fa-edit"></i>
                 </a>
-                <a href="#" class="btn-action btn-view" title="Visualizar">
+                <a href="{% url 'empreendedor:perfil_empresa' empresa.id %}" class="btn-action btn-view" title="Ver Perfil">
                   <i class="fas fa-eye"></i>
                 </a>
                 <a href="#" class="btn-action btn-delete" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir esta empresa?')">
@@ -485,7 +529,7 @@
         <div class="row g-3">
           <div class="col-md-4">
             <div class="d-flex align-items-center p-3 bg-light rounded">
-              <i class="fas fa-certificate text-primary me-3" style="font-size: 2rem;"></i>
+              <i class="fas fa-certificate service-list-icon text-primary me-3"></i>
               <div>
                 <h6 class="mb-1">Certidões Online</h6>
                 <small class="text-muted">Emita certidões de forma rápida</small>
@@ -494,7 +538,7 @@
           </div>
           <div class="col-md-4">
             <div class="d-flex align-items-center p-3 bg-light rounded">
-              <i class="fas fa-file-invoice text-success me-3" style="font-size: 2rem;"></i>
+              <i class="fas fa-file-invoice service-list-icon text-success me-3"></i>
               <div>
                 <h6 class="mb-1">Nota Fiscal Eletrônica</h6>
                 <small class="text-muted">Gestão completa de NFE</small>
@@ -503,7 +547,7 @@
           </div>
           <div class="col-md-4">
             <div class="d-flex align-items-center p-3 bg-light rounded">
-              <i class="fas fa-store text-warning me-3" style="font-size: 2rem;"></i>
+              <i class="fas fa-store service-list-icon text-warning me-3"></i>
               <div>
                 <h6 class="mb-1">Vitrine Virtual</h6>
                 <small class="text-muted">Promova sua empresa online</small>
@@ -515,5 +559,198 @@
     </div>
   </div>
 </div>
+
+<!-- Toast Container -->
+<div class="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+
+<script>
+// Verificar se o elemento existe antes de adicionar a classe
+const empresaNavElement = document.getElementById('empreendedor_empresa');
+if (empresaNavElement) {
+  empresaNavElement.classList.add('s-nav-active');
+}
+
+// Toast notification system
+function showToast(message, type = 'success') {
+  const container = document.querySelector('.toast-container');
+  const toast = document.createElement('div');
+  const bgColor = type === 'success' ? '#d4edda' : '#f8d7da';
+  const borderColor = type === 'success' ? '#c3e6cb' : '#f5c6cb';
+  const textColor = type === 'success' ? '#155724' : '#721c24';
+  
+  toast.style.cssText = `
+    background-color: ${bgColor};
+    border: 1px solid ${borderColor};
+    color: ${textColor};
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.3s ease;
+    font-size: 14px;
+    min-width: 300px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  `;
+  
+  const icon = type === 'success' ? '✓' : '⚠';
+  toast.innerHTML = `<span style="font-weight: bold;">${icon}</span> ${message}`;
+  
+  container.appendChild(toast);
+  
+  // Animate in
+  setTimeout(() => {
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateX(0)';
+  }, 100);
+  
+  // Remove after 4 seconds
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(100%)';
+    setTimeout(() => {
+      if (container.contains(toast)) {
+        container.removeChild(toast);
+      }
+    }, 300);
+  }, 4000);
+}
+
+// Get CSRF token
+function getCSRFToken() {
+  return document.querySelector('[name=csrfmiddlewaretoken]')?.value || 
+         document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || 
+         '{{ csrf_token }}';
+}
+
+// Vitrine Virtual switch handlers
+document.addEventListener('DOMContentLoaded', function() {
+  const vitrineSwitches = document.querySelectorAll('.vitrine-switch');
+  console.log('Switches encontrados:', vitrineSwitches.length);
+  
+  vitrineSwitches.forEach(switchElement => {
+    console.log('Configurando switch para empresa:', switchElement.getAttribute('data-empresa-id'));
+    switchElement.addEventListener('change', async function() {
+      const empresaId = this.getAttribute('data-empresa-id');
+      const isChecked = this.checked;
+      const originalState = !isChecked;
+      
+      console.log('Switch clicado - Empresa:', empresaId, 'Checked:', isChecked);
+      
+      // Disable switch during request
+      this.disabled = true;
+      
+      try {
+        const response = await fetch(`/sala-do-empreendedor/api/empresa/${empresaId}/vitrine/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCSRFToken(),
+          },
+          body: JSON.stringify({
+            acao: isChecked ? 'adicionar' : 'remover'
+          })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok && data.success) {
+          // Success
+          showToast(
+            isChecked ? 
+              'Empresa adicionada à vitrine virtual com sucesso!' : 
+              'Empresa removida da vitrine virtual com sucesso!',
+            'success'
+          );
+        } else {
+          // Error - revert switch
+          this.checked = originalState;
+          showToast(
+            data.message || 'Erro ao atualizar status da vitrine virtual. Tente novamente.',
+            'error'
+          );
+        }
+        
+      } catch (error) {
+        console.error('Erro na requisição:', error);
+        
+        // Revert switch on error
+        this.checked = originalState;
+        showToast(
+          'Erro de conexão. Verifique sua internet e tente novamente.',
+          'error'
+        );
+      } finally {
+        // Re-enable switch
+        this.disabled = false;
+      }
+    });
+  });
+
+  // Perfil Público switch handlers
+  const perfilPublicoSwitches = document.querySelectorAll('.perfil-publico-switch');
+  console.log('Switches de perfil público encontrados:', perfilPublicoSwitches.length);
+  
+  perfilPublicoSwitches.forEach(switchElement => {
+    console.log('Configurando switch de perfil público para empresa:', switchElement.getAttribute('data-empresa-id'));
+    switchElement.addEventListener('change', async function() {
+      const empresaId = this.getAttribute('data-empresa-id');
+      const isChecked = this.checked;
+      const originalState = !isChecked;
+      
+      console.log('Switch de perfil público clicado - Empresa:', empresaId, 'Checked:', isChecked);
+      
+      // Disable switch during request
+      this.disabled = true;
+      
+      try {
+        const response = await fetch(`/sala-do-empreendedor/toggle-perfil-publico/${empresaId}/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCSRFToken(),
+          },
+          body: JSON.stringify({
+            perfil_publico: isChecked
+          })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok && data.success) {
+          // Success
+          showToast(
+            `Perfil alterado para ${isChecked ? 'público' : 'privado'} com sucesso!`,
+            'success'
+          );
+        } else {
+          // Error - revert switch
+          this.checked = originalState;
+          showToast(
+            data.message || 'Erro ao alterar perfil público. Tente novamente.',
+            'error'
+          );
+        }
+        
+      } catch (error) {
+        console.error('Erro na requisição de perfil público:', error);
+        
+        // Revert switch on error
+        this.checked = originalState;
+        showToast(
+          'Erro de conexão. Verifique sua internet e tente novamente.',
+          'error'
+        );
+      } finally {
+        // Re-enable switch
+        this.disabled = false;
+      }
+    });
+  });
+});
+</script>
 
 {% endblock %}

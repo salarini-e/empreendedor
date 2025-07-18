@@ -1,0 +1,569 @@
+{% extends 'template_new.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+  /* Perfil da Empresa - Identidade Visual */
+  :root {
+    --perfil-primary: #0727b4;
+    --perfil-secondary: #3652f0;
+    --perfil-accent: #e0b731;
+    --perfil-success: #4ecdc4;
+    --perfil-light: #f8fafc;
+    --perfil-border: #e2e8f0;
+  }
+
+  .perfil-header {
+    background: linear-gradient(135deg, var(--perfil-primary), var(--perfil-secondary));
+    color: white;
+    padding: 3rem 0;
+    position: relative;
+  }
+
+  .perfil-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("{% static 'images/pattern-bg.svg' %}") repeat;
+    opacity: 0.1;
+  }
+
+  .empresa-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 2;
+  }
+
+  .empresa-avatar i {
+    font-size: 3rem;
+    color: var(--perfil-primary);
+  }
+
+  .empresa-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .perfil-content {
+    margin-top: -2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .info-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    border: 1px solid var(--perfil-border);
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .info-card:hover {
+    box-shadow: 0 12px 48px rgba(0,0,0,0.12);
+    transform: translateY(-2px);
+  }
+
+  .info-card h3 {
+    color: var(--perfil-primary);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .info-card h3 i {
+    font-size: 1.2rem;
+    color: var(--perfil-accent);
+  }
+
+  .info-row {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .info-row:last-child {
+    border-bottom: none;
+  }
+
+  .info-label {
+    font-weight: 600;
+    color: #64748b;
+    min-width: 140px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .info-value {
+    color: #1e293b;
+    flex: 1;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .badge-success {
+    background: rgba(74, 222, 128, 0.1);
+    color: #059669;
+  }
+
+  .badge-warning {
+    background: rgba(251, 191, 36, 0.1);
+    color: #d97706;
+  }
+
+  .badge-primary {
+    background: rgba(59, 130, 246, 0.1);
+    color: #2563eb;
+  }
+
+  .actions-sidebar {
+    position: sticky;
+    top: 2rem;
+  }
+
+  .action-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    border: 1px solid var(--perfil-border);
+    margin-bottom: 1.5rem;
+  }
+
+  .action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1.25rem;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-bottom: 0.75rem;
+    width: 100%;
+    border: 1px solid var(--perfil-border);
+    color: #475569;
+  }
+
+  .action-btn:hover {
+    background: var(--perfil-primary);
+    color: white;
+    text-decoration: none;
+    transform: translateX(4px);
+  }
+
+  .action-btn:last-child {
+    margin-bottom: 0;
+  }
+
+  .contact-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .contact-info a {
+    color: var(--perfil-primary);
+    text-decoration: none;
+  }
+
+  .contact-info a:hover {
+    text-decoration: underline;
+  }
+
+  .atividades-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .atividade-tag {
+    background: var(--perfil-light);
+    color: var(--perfil-primary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    border: 1px solid var(--perfil-border);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    border: 1px solid var(--perfil-border);
+  }
+
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--perfil-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    color: #64748b;
+    font-size: 0.875rem;
+  }
+
+  @media (max-width: 768px) {
+    .perfil-header {
+      padding: 2rem 0;
+    }
+    
+    .empresa-avatar {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 1rem;
+    }
+    
+    .empresa-avatar i {
+      font-size: 2rem;
+    }
+    
+    .info-card {
+      padding: 1.5rem;
+    }
+    
+    .info-label {
+      min-width: auto;
+      margin-bottom: 0.25rem;
+    }
+    
+    .info-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block main %}
+<div class="perfil-header">
+  <div class="container">
+    <div class="hero-content-empresa text-center">
+      <div class="empresa-avatar">
+        {% if empresa.registro_no_vitrine_virtual_set.first.logo %}
+          <img src="{{ empresa.registro_no_vitrine_virtual_set.first.logo.url }}" alt="Logo {{ empresa.nome }}">
+        {% else %}
+          <i class="fas fa-building"></i>
+        {% endif %}
+      </div>
+      <h1 class="section-title-empresa mb-3">{{ empresa.nome }}</h1>
+      <p class="lead mb-0">CNPJ: {{ empresa.cnpj }}</p>
+      {% if empresa.descricao %}
+        <p class="mt-3 opacity-90">{{ empresa.descricao }}</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="container perfil-content">
+  <div class="row">
+    <!-- Informações Principais -->
+    <div class="col-lg-8">
+      
+      <!-- Estatísticas -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">{{ empresa.produto_set.count }}</div>
+          <div class="stat-label">Produtos/Serviços</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">{{ empresa.atividade.count }}</div>
+          <div class="stat-label">Atividades</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">{{ empresa.ramo.count }}</div>
+          <div class="stat-label">Ramos de Atuação</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">
+            {% if empresa.validacao %}
+              <i class="fas fa-check-circle text-success"></i>
+            {% else %}
+              <i class="fas fa-clock text-warning"></i>
+            {% endif %}
+          </div>
+          <div class="stat-label">Status</div>
+        </div>
+      </div>
+
+      <!-- Informações da Empresa -->
+      <div class="info-card">
+        <h3><i class="fas fa-info-circle"></i> Informações da Empresa</h3>
+        
+        <div class="info-row">
+          <span class="info-label">
+            <i class="fas fa-building"></i>
+            Nome:
+          </span>
+          <span class="info-value">{{ empresa.nome }}</span>
+        </div>
+        
+        <div class="info-row">
+          <span class="info-label">
+            <i class="fas fa-id-card"></i>
+            CNPJ:
+          </span>
+          <span class="info-value">{{ empresa.cnpj }}</span>
+        </div>
+        
+        <div class="info-row">
+          <span class="info-label">
+            <i class="fas fa-chart-bar"></i>
+            Porte:
+          </span>
+          <span class="info-value">
+            <span class="badge badge-primary">{{ empresa.porte }}</span>
+          </span>
+        </div>
+        
+        <div class="info-row">
+          <span class="info-label">
+            <i class="fas fa-check-circle"></i>
+            Status:
+          </span>
+          <span class="info-value">
+            {% if empresa.validacao %}
+              <span class="badge badge-success">Validada</span>
+            {% else %}
+              <span class="badge badge-warning">Pendente</span>
+            {% endif %}
+          </span>
+        </div>
+        
+        <div class="info-row">
+          <span class="info-label">
+            <i class="fas fa-calendar"></i>
+            Cadastrado em:
+          </span>
+          <span class="info-value">{{ empresa.dt_register|date:"d/m/Y" }}</span>
+        </div>
+      </div>
+
+      <!-- Contato -->
+      <div class="info-card">
+        <h3><i class="fas fa-phone"></i> Informações de Contato</h3>
+        
+        {% if empresa.telefone %}
+        <div class="contact-info">
+          <i class="fas fa-phone"></i>
+          <strong>Telefone:</strong>
+          <a href="tel:{{ empresa.telefone }}">{{ empresa.telefone }}</a>
+        </div>
+        {% endif %}
+        
+        {% if empresa.whatsapp %}
+        <div class="contact-info">
+          <i class="fab fa-whatsapp"></i>
+          <strong>WhatsApp:</strong>
+          <a href="https://wa.me/{{ empresa.whatsapp }}" target="_blank">{{ empresa.whatsapp }}</a>
+        </div>
+        {% endif %}
+        
+        {% if empresa.email %}
+        <div class="contact-info">
+          <i class="fas fa-envelope"></i>
+          <strong>E-mail:</strong>
+          <a href="mailto:{{ empresa.email }}">{{ empresa.email }}</a>
+        </div>
+        {% endif %}
+        
+        {% if empresa.site %}
+        <div class="contact-info">
+          <i class="fas fa-globe"></i>
+          <strong>Website:</strong>
+          <a href="{{ empresa.site }}" target="_blank">{{ empresa.site }}</a>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Atividades -->
+      {% if empresa.atividade.all %}
+      <div class="info-card">
+        <h3><i class="fas fa-briefcase"></i> Atividades</h3>
+        <div class="atividades-list">
+          {% for atividade in empresa.atividade.all %}
+            <span class="atividade-tag">{{ atividade.atividade }}</span>
+          {% endfor %}
+          {% if empresa.outra_atividade %}
+            <span class="atividade-tag">{{ empresa.outra_atividade }}</span>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Ramos de Atuação -->
+      {% if empresa.ramo.all %}
+      <div class="info-card">
+        <h3><i class="fas fa-industry"></i> Ramos de Atuação</h3>
+        <div class="atividades-list">
+          {% for ramo in empresa.ramo.all %}
+            <span class="atividade-tag">{{ ramo.ramo }}</span>
+          {% endfor %}
+          {% if empresa.outro_ramo %}
+            <span class="atividade-tag">{{ empresa.outro_ramo }}</span>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Produtos/Serviços -->
+      {% if produtos %}
+      <div class="info-card">
+        <h3><i class="fas fa-shopping-bag"></i> Produtos e Serviços</h3>
+        <div class="row">
+          {% for produto in produtos %}
+          <div class="col-md-6 mb-3">
+            <div class="d-flex align-items-start">
+              {% if produto.imagem %}
+                <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" 
+                     style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; margin-right: 1rem;">
+              {% else %}
+                <div style="width: 60px; height: 60px; background: var(--perfil-light); border-radius: 8px; margin-right: 1rem; display: flex; align-items: center; justify-content: center;">
+                  <i class="fas fa-box text-muted"></i>
+                </div>
+              {% endif %}
+              <div>
+                <h6 class="mb-1">{{ produto.nome }}</h6>
+                <p class="text-muted mb-0 small">{{ produto.descricao|truncatewords:10 }}</p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Sidebar de Ações -->
+    <div class="col-lg-4">
+      <div class="actions-sidebar">
+        
+        <!-- Ações Rápidas -->
+        <div class="action-card">
+          <h5 class="mb-3">Ações Rápidas</h5>
+          
+          {% if empresa.whatsapp %}
+          <a href="https://wa.me/{{ empresa.whatsapp }}" target="_blank" class="action-btn">
+            <i class="fab fa-whatsapp"></i>
+            <span>Conversar no WhatsApp</span>
+          </a>
+          {% endif %}
+          
+          {% if empresa.email %}
+          <a href="mailto:{{ empresa.email }}" class="action-btn">
+            <i class="fas fa-envelope"></i>
+            <span>Enviar E-mail</span>
+          </a>
+          {% endif %}
+          
+          {% if empresa.site %}
+          <a href="{{ empresa.site }}" target="_blank" class="action-btn">
+            <i class="fas fa-globe"></i>
+            <span>Visitar Website</span>
+          </a>
+          {% endif %}
+          
+          <a href="{% url 'empreendedor:paginas_amarelas' %}" class="action-btn">
+            <i class="fas fa-search"></i>
+            <span>Buscar Outras Empresas</span>
+          </a>
+        </div>
+
+        <!-- Informações Adicionais -->
+        <div class="action-card">
+          <h6 class="mb-3">Informações Adicionais</h6>
+          
+          <div class="d-flex align-items-center mb-2">
+            <i class="fas fa-store-alt me-2"></i>
+            <small class="text-muted">
+              {% if empresa.cadastrada_na_vitrine %}
+                <span class="text-success">Cadastrada na Vitrine Virtual</span>
+              {% else %}
+                <span class="text-muted">Não cadastrada na Vitrine</span>
+              {% endif %}
+            </small>
+          </div>
+          
+          <div class="d-flex align-items-center mb-2">
+            <i class="fas fa-handshake me-2"></i>
+            <small class="text-muted">
+              {% if empresa.cadastrada_como_fornecedor %}
+                <span class="text-success">Fornecedor da Prefeitura</span>
+              {% else %}
+                <span class="text-muted">Não é fornecedor</span>
+              {% endif %}
+            </small>
+          </div>
+          
+          <div class="d-flex align-items-center">
+            <i class="fas fa-bell me-2"></i>
+            <small class="text-muted">
+              {% if empresa.receber_noticias %}
+                <span class="text-info">Recebe notificações</span>
+              {% else %}
+                <span class="text-muted">Não recebe notificações</span>
+              {% endif %}
+            </small>
+          </div>
+        </div>
+
+        <!-- Empresas Relacionadas -->
+        {% if empresas_relacionadas %}
+        <div class="action-card">
+          <h6 class="mb-3">Empresas Similares</h6>
+          {% for empresa_rel in empresas_relacionadas %}
+          <div class="d-flex align-items-center mb-2">
+            <div class="me-2" style="width: 32px; height: 32px; background: var(--perfil-light); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <i class="fas fa-building text-muted" style="font-size: 0.75rem;"></i>
+            </div>
+            <div>
+              <a href="{% url 'empreendedor:perfil_empresa' empresa_rel.id %}" class="text-decoration-none">
+                <small class="fw-bold">{{ empresa_rel.nome|truncatechars:25 }}</small>
+              </a>
+              <br>
+              <small class="text-muted">{{ empresa_rel.porte }}</small>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

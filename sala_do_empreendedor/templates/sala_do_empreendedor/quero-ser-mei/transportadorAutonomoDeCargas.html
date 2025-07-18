@@ -1,115 +1,397 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
-{% block nav %}
-{% include 'nav_empreendedor.html' %}
-{% endblock %}
+
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/quero-ser-mei.css'%}">
-<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+<link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
+<style>
+/* Breadcrumb Styles */
+.breadcrumb-container {
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  border-bottom: 1px solid #e9ecef;
+  padding: 1rem 0;
+  margin-bottom: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.breadcrumb-custom {
+  background: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.breadcrumb-item-custom {
+  display: flex;
+  align-items: center;
+  color: #6c757d;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  padding: 0.25rem 0;
+}
+
+.breadcrumb-item-custom:hover {
+  color: #0051A4;
+  text-decoration: none;
+}
+
+.breadcrumb-current {
+  color: #0051A4;
+  font-weight: 500;
+  pointer-events: none;
+}
+
+.breadcrumb-separator {
+  color: #dee2e6;
+  font-size: 0.7rem;
+  margin: 0 0.25rem;
+}
+
+@media (max-width: 768px) {
+  .breadcrumb-custom {
+    font-size: 0.8rem;
+  }
+  
+  .breadcrumb-container {
+    padding: 0.75rem 0;
+  }
+}
+
+/* Transportador Autônomo - Visual moderno */
+.hero-section {
+  background: linear-gradient(135deg, #0051A4 0%, #003a7a 100%);
+  padding: 80px 0 60px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("{% static 'images/bg-empresa.jpg' %}") center/cover;
+  opacity: 0.1;
+  z-index: 1;
+}
+
+.hero-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-section .breadcrumb {
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+
+.hero-section .breadcrumb-item a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+}
+
+.hero-section .breadcrumb-item.active {
+  color: white;
+}
+
+.content-section {
+  background: white;
+  border-radius: 15px;
+  padding: 3rem 2rem;
+  margin: 2rem 0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.info-card {
+  background: linear-gradient(135deg, #f8f9fa, #ffffff);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 1.5rem 0;
+  border-left: 4px solid #218A39;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.requirements-list {
+  list-style: none;
+  padding: 0;
+}
+
+.requirements-list li {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
+  align-items: flex-start;
+}
+
+.requirements-list li:last-child {
+  border-bottom: none;
+}
+
+.requirements-list li::before {
+  content: '✓';
+  color: #218A39;
+  font-weight: bold;
+  margin-right: 1rem;
+  margin-top: 0.2rem;
+}
+
+.occupation-table {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  margin: 2rem 0;
+}
+
+.occupation-table table {
+  width: 100%;
+  margin: 0;
+}
+
+.occupation-table th {
+  background: linear-gradient(135deg, #0051A4, #003a7a);
+  color: white;
+  padding: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.occupation-table td {
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.occupation-table tr:last-child td {
+  border-bottom: none;
+}
+
+.occupation-table tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.steps-section {
+  background: linear-gradient(135deg, #218A39, #1a6b2e);
+  color: white;
+  border-radius: 15px;
+  padding: 2.5rem;
+  margin: 2rem 0;
+}
+
+.steps-list {
+  list-style: none;
+  padding: 0;
+}
+
+.steps-list li {
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.steps-list li:last-child {
+  border-bottom: none;
+}
+
+.steps-list .sub-list {
+  margin-left: 2rem;
+  margin-top: 1rem;
+}
+
+.steps-list .sub-list li {
+  padding: 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.external-link {
+  color: #D2B336;
+  text-decoration: none;
+}
+
+.external-link:hover {
+  color: #f4d03f;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 60px 0 40px;
+  }
+  
+  .hero-section h1 {
+    font-size: 2rem;
+  }
+  
+  .content-section {
+    padding: 2rem 1rem;
+    margin: 1rem 0;
+  }
+  
+  .occupation-table {
+    font-size: 0.9rem;
+  }
+  
+  .occupation-table th,
+  .occupation-table td {
+    padding: 0.8rem 0.5rem;
+  }
+}
+</style>
 {% endblock %}
+
+{% block nav %}
+{% endblock %}
+
 {% block main %}
-<div class="container">
-    <div class="row mx-auto ps-4 pb-3">
-        <h3 class="text-center">Transportador autônomo de cargas (MEI Caminhoneiro)</h3>
-    </div>
-    <div class="row mx-auto mb-5">
-        <div class="col">
-            <p style="text-align: justify;"><b>Para se formalizar como transportados autônomo de cargas (MEI Caminhoneiro), deverá observar as seguintes condições:</b></p>
-            <div class="my-3">
-                <ul class="mt-3">
-                    <li>
-                        Exercer uma das ocupações da tabela B do anexo XI da Resolução 140 de 2018;
-                    </li>
-                    <li>
-                        Faturar até R$ 251,6 mil de faturamento anual (sendo este valor proporcional no ano de abertura) recolhimento de INSS 12%;
-                    </li>
-                    <li>
-                        Não ter outro CNPJ como (titular, sócio ou administrador de outra empresa);
-                    </li>
-                    <li>
-                        Não ter ou abrir filial;    
-                    </li>
-                    <li>
-                        Contratar no máximo um empregado ou empregada, que receba o piso da categoria ou 1 salário mínimo.
-                    </li>
-                </ul>
+<!-- Hero Section -->
+<section class="hero-section bg-primary text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12">
+
+                <h1 class="display-4 fw-bold mb-4">Transportador autônomo de cargas (MEI Caminhoneiro)</h1>
+                <p class="lead mb-4">Saiba como se formalizar como transportador autônomo de cargas através do MEI Caminhoneiro e quais são as condições e ocupações permitidas.</p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="{% url 'quero_ser_mei:menu' %}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-arrow-left me-2"></i>Voltar ao Menu
+                    </a>
+                </div>
             </div>
-            <p><b>Anexo XI da Resolução CGSN nº 140 de 2018(Ocupações Permitidas ao MEI - Tabela B)</b></p>
-            <table class="w-75 container my-5" style="flex-direction: column;">
-                <thead>
-                    <th rowspan="5">OCUPAÇÃO</th>
-                    <th>CNAE</th>
-                    <th>ISS</th>
-                    <th>ICMS</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Transportador Autônomo De Carga - Municipal</td>
-                        <td>4930-2/01</td>
-                        <td>S</td>
-                        <td>N</td>
-                    </tr>
-                    <tr>
-                        <td>Transportador Autônomo De Carga Intermunicipal, Interestadual E Internacional</td>
-                        <td>4930-2/02</td>
-                        <td>N</td>
-                        <td>S</td>
-                    </tr>
-                    <tr>
-                        <td>Transportador Autônomo De Carga - Produtos Perigosos</td>
-                        <td>4930-2/03</td>
-                        <td>S</td>
-                        <td>S</td>
-                    </tr>
-                    <tr>
-                        <td>Transportador Autônomo De Carga - Mudanças</td>
-                        <td>4930-2/04</td>
-                        <td>S</td>
-                        <td>S</td>
-                    </tr>
-                </tbody>
-            </table>
-            <hr>
-            <p><b>Qual é o caminho para quem é transportador autônomo de cargas  se formalizar como MEI?</b></p>
-            <ul>
-                <li class="mt-2">Ter a conta gov.br:</li>
-                <ul class="mt-2" type="disc">
-                    <li>No caso de <b>brasileiros</b>, a conta gov.br deve ter o nível <b>Prata</b> ou <b>Ouro.</b> </li>
-                    <li>No caso de estrangeiros, se a conta tiver o nível <b>Bronze</b>, será solicitado os dados de identificação civil do estrangeiro. 
-                        Para os níveis Prata ou Ouro não será necessário informar esse dados.</li>
-                </ul>
-                <li class="mt-2">Acessar o Card "Formalize-se" ao lado e inserir os dados do seu negócio : tipo de ocupação <b>"Tabela B"</b>, forma de atuação e local onde o negócio é realizado.</li>
-            </ul>
-            <p class="mt-3">*Para mais informações sobre a conta gov.br níveis da conta gov.br, clique 
-                <a href="https://www.gov.br/governodigital/pt-br/conta-gov-br/saiba-mais-sobre-os-niveis-da-conta-govbr">aqui.</a>
-            </p>
         </div>
     </div>
-    <style>
-        .divLinks{
-            display: flex;
-            flex-direction: column;
-        }
-        .divLinks a{
-            background-color: lightgrey;
-            padding: 20px;
-            margin: 5px;
-            border-radius: 5px;
-        }
-    </style>
-    {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
-    <style>
-        span {
-            text-align: center;
-        }
-    </style>
-    <div class="row mx-auto px-5">
-        <script>
-    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
-        </script>
+</section>
+
+<!-- Breadcrumb Moderno -->
+<div class="breadcrumb-container">
+  <div class="container">
+    <nav class="breadcrumb-custom" aria-label="breadcrumb">
+      <a href="{% url 'sala_do_empreendedor:inicio' %}" class="breadcrumb-item-custom">
+        <i class="fas fa-home me-1"></i>
+        Início
+      </a>
+      <i class="fas fa-chevron-right breadcrumb-separator"></i>
+      <a href="{% url 'quero_ser_mei:menu' %}" class="breadcrumb-item-custom">
+        <i class="fas fa-user-plus me-1"></i>
+        Quero ser MEI
+      </a>
+      <i class="fas fa-chevron-right breadcrumb-separator"></i>
+      <span class="breadcrumb-item-custom breadcrumb-current">
+        <i class="fas fa-truck me-1"></i>
+        Transportador autônomo de cargas
+      </span>
+    </nav>
+  </div>
+</div>
+
+<div class="container pb-5" style="margin-top: 90px;">
+  <!-- Condições para formalização -->
+  <div class="content-section">
+    <div class="info-card">
+      <h4 class="mb-3">
+        <i class="fas fa-truck me-2"></i>
+        Condições para se formalizar como MEI Caminhoneiro
+      </h4>
+      <p class="lead mb-3">
+        Para se formalizar como transportador autônomo de cargas (MEI Caminhoneiro), 
+        deverá observar as seguintes condições:
+      </p>
+      
+      <ul class="requirements-list">
+        <li>Exercer uma das ocupações da tabela B do anexo XI da Resolução 140 de 2018</li>
+        <li>Faturar até R$ 251,6 mil de faturamento anual (sendo este valor proporcional no ano de abertura) recolhimento de INSS 12%</li>
+        <li>Não ter outro CNPJ como (titular, sócio ou administrador de outra empresa)</li>
+        <li>Não ter ou abrir filial</li>
+        <li>Contratar no máximo um empregado ou empregada, que receba o piso da categoria ou 1 salário mínimo</li>
+      </ul>
     </div>
+
+    <!-- Tabela de ocupações -->
+    <div class="info-card">
+      <h4 class="mb-3">
+        <i class="fas fa-list-alt me-2"></i>
+        Anexo XI da Resolução CGSN nº 140 de 2018 (Ocupações Permitidas ao MEI - Tabela B)
+      </h4>
+      
+      <div class="occupation-table">
+        <table>
+          <thead>
+            <tr>
+              <th>OCUPAÇÃO</th>
+              <th>CNAE</th>
+              <th>ISS</th>
+              <th>ICMS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Transportador Autônomo De Carga - Municipal</td>
+              <td>4930-2/01</td>
+              <td>S</td>
+              <td>N</td>
+            </tr>
+            <tr>
+              <td>Transportador Autônomo De Carga Intermunicipal, Interestadual E Internacional</td>
+              <td>4930-2/02</td>
+              <td>N</td>
+              <td>S</td>
+            </tr>
+            <tr>
+              <td>Transportador Autônomo De Carga - Produtos Perigosos</td>
+              <td>4930-2/03</td>
+              <td>S</td>
+              <td>S</td>
+            </tr>
+            <tr>
+              <td>Transportador Autônomo De Carga - Mudanças</td>
+              <td>4930-2/04</td>
+              <td>S</td>
+              <td>S</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Passos para formalização -->
+    <div class="steps-section">
+      <h4 class="mb-3">
+        <i class="fas fa-road me-2"></i>
+        Caminho para formalização como MEI Caminhoneiro
+      </h4>
+      
+      <ul class="steps-list">
+        <li>
+          <strong>Ter a conta gov.br:</strong>
+          <ul class="sub-list">
+            <li>No caso de <strong>brasileiros</strong>, a conta gov.br deve ter o nível <strong>Prata</strong> ou <strong>Ouro</strong></li>
+            <li>No caso de estrangeiros, se a conta tiver o nível <strong>Bronze</strong>, será solicitado os dados de identificação civil do estrangeiro. Para os níveis Prata ou Ouro não será necessário informar esses dados</li>
+          </ul>
+        </li>
+        <li>
+          Acessar o Card "Formalize-se" ao lado e inserir os dados do seu negócio: tipo de ocupação <strong>"Tabela B"</strong>, forma de atuação e local onde o negócio é realizado
+        </li>
+      </ul>
+      
+      <div class="alert alert-light mt-3">
+        <i class="fas fa-info-circle me-2"></i>
+        Para mais informações sobre a conta gov.br e níveis da conta gov.br, 
+        <a href="https://www.gov.br/governodigital/pt-br/conta-gov-br/saiba-mais-sobre-os-niveis-da-conta-govbr" 
+           target="_blank" class="external-link">clique aqui</a>.
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu de navegação -->
+  {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
 </div>
 {% endblock %}
+
 {% block footer %}
 {% include 'desenvolve_nf/instagram.html' %}
 {% endblock %}

@@ -1,51 +1,205 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
-{% block nav %}
-{% include 'nav_empreendedor.html' %}
-{% endblock %}
-{% block css %}
-<link rel="stylesheet" href="{% static 'css/quero-ser-mei.css'%}">
-<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
-{% endblock %}
-{% block main %}
-<div class="container">
-    <div class="row mx-auto ps-4 pb-3">
-        <h3 class="text-center">Dicas de Segurança da Vigilância Sanitária</h3>
-    </div>
-    <div class="row mx-auto mb-5">
-        <div class="col">
-            <p style="text-align: justify;">Caso sua ocupação envolva a (s) seguinte (s) atividade (s): manipulação, preparação, fracionamento, armazenamento, distribuição, transporte, exposição à 
-                venda e entrega de alimentos preparados ao consumo, tais como cantinas, bufês, confeitarias, lanchonetes, padarias, pastelarias, restaurantes, rotisserias 
-                e congêneres, é importante que você conheça e aplique as Boas Práticas para Serviços de Alimentação. “Boas Práticas” são práticas de higiene que devem ser 
-                obedecidas pelos manipuladores desde a escolha e compra dos produtos a serem utilizados no preparo do alimento até a venda para o consumidor. O objetivo 
-                das Boas Práticas é evitar a ocorrência de doenças provocadas pelo consumo de alimentos contaminados. Aqui você encontra informações sobre como produzir 
-                com segurança sanitária e atendendo as boas práticas de manipulação de alimentos:</p>
-            
-            <ul class="mt-3">
-                <li><a style="color: #0d6efd;" href="https://www.gov.br/anvisa/pt-br/centraisdeconteudo/publicacoes/alimentos/manuais-guias-e-orientacoes/cartilha-boas-praticas-para-servicos-de-alimentacao.pdf/view">
-                    Cartilha sobre as Boas Práticas para Serviços de Alimentação
-                </a></li>
-                <p class="mt-4 mb-4">Você também pode obter maiores informações visitando o <a style="color: #0d6efd;" href="https://www.gov.br/anvisa/pt-br">Portal da Anvisa</a> ou pelos links:</p>
-                <li>atividades econômicas de <a style="color: #0d6efd;" href="https://www.gov.br/anvisa/pt-br/assuntos/cosmeticos">cosméticos;</a></li>
-                <li>atividades econômicas de <a style="color: #0d6efd;" href="https://www.gov.br/anvisa/pt-br/assuntos/alimentos">alimentos;</a></li>
-                <li>atividades econômicas de <a style="color: #0d6efd;" href="https://www.gov.br/anvisa/pt-br/assuntos/saneantes">saneantes.</a></li>
-            </ul>
 
+{% block title %}Dicas de Segurança da Vigilância Sanitária{% endblock %}
+
+{% block nav %}
+  
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
+  <style>
+    /* Breadcrumb Styles */
+    .breadcrumb-container {
+      background: linear-gradient(135deg, #ffffff, #f8f9fa);
+      border-bottom: 1px solid #e9ecef;
+      padding: 1rem 0;
+      margin-bottom: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .breadcrumb-custom {
+      background: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .breadcrumb-item-custom {
+      display: flex;
+      align-items: center;
+      color: #6c757d;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      padding: 0.25rem 0;
+    }
+
+    .breadcrumb-item-custom:hover {
+      color: #0051A4;
+      text-decoration: none;
+    }
+
+    .breadcrumb-current {
+      color: #0051A4;
+      font-weight: 500;
+      pointer-events: none;
+    }
+
+    .breadcrumb-separator {
+      color: #dee2e6;
+      font-size: 0.7rem;
+      margin: 0 0.25rem;
+    }
+
+    @media (max-width: 768px) {
+      .breadcrumb-custom {
+        font-size: 0.8rem;
+      }
+      
+      .breadcrumb-container {
+        padding: 0.75rem 0;
+      }
+    }
+  </style>
+{% endblock %}
+
+{% block main %}
+<!-- Breadcrumb Moderno -->
+<div class="breadcrumb-container">
+  <div class="container">
+    <nav class="breadcrumb-custom" aria-label="breadcrumb">
+      <a href="{% url 'empreendedor:index' %}" class="breadcrumb-item-custom">
+        <i class="fas fa-home me-1"></i>
+        Início
+      </a>
+      <i class="fas fa-chevron-right breadcrumb-separator"></i>
+      <a href="{% url 'empreendedor:quero_ser_mei' %}" class="breadcrumb-item-custom">
+        <i class="fas fa-user-plus me-1"></i>
+        Quero ser MEI
+      </a>
+      <i class="fas fa-chevron-right breadcrumb-separator"></i>
+      <span class="breadcrumb-item-custom breadcrumb-current">
+        <i class="fas fa-shield-alt me-1"></i>
+        Vigilância Sanitária
+      </span>
+    </nav>
+  </div>
+</div>
+
+<div class="content-wrapper" style="margin-top: 90px;">
+  <div class="container">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-wrapper">
+            <h1 class="page-title">Dicas de Segurança da Vigilância Sanitária</h1>
+          </div>
         </div>
+      </div>
     </div>
+
+    <!-- Content -->
+    <div class="page-content">
+      <div class="row">
+        <div class="col-12">
+          <div class="content-card">
+            <div class="alert alert-info mb-4">
+              <i class="fas fa-shield-alt me-2"></i>
+              <strong>Importante:</strong> Estas dicas se aplicam a atividades que envolvem manipulação de alimentos.
+            </div>
+
+            <!-- Atividades que requerem atenção -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-utensils me-2"></i>
+                Atividades que requerem boas práticas sanitárias
+              </h4>
+              <p class="mb-3">Caso sua ocupação envolva as seguintes atividades:</p>
+              <ul class="info-list">
+                <li>Manipulação, preparação, fracionamento, armazenamento e distribuição de alimentos</li>
+                <li>Transporte, exposição à venda e entrega de alimentos preparados ao consumo</li>
+                <li>Cantinas, bufês, confeitarias, lanchonetes, padarias, pastelarias</li>
+                <li>Restaurantes, rotisserias e congêneres</li>
+              </ul>
+            </div>
+
+            <!-- Sobre as Boas Práticas -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-check-circle me-2"></i>
+                O que são Boas Práticas?
+              </h4>
+              <p>
+                "Boas Práticas" são práticas de higiene que devem ser obedecidas pelos manipuladores desde a escolha e compra dos produtos a serem utilizados no preparo do alimento até a venda para o consumidor.
+              </p>
+              <div class="alert alert-success">
+                <i class="fas fa-target me-2"></i>
+                <strong>Objetivo:</strong> Evitar a ocorrência de doenças provocadas pelo consumo de alimentos contaminados.
+              </div>
+            </div>
+
+            <!-- Recursos e Links -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-book me-2"></i>
+                Recursos e Informações
+              </h4>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div class="resource-card">
+                    <h6><i class="fas fa-file-pdf me-2"></i>Cartilha Oficial</h6>
+                    <p class="small">Guia completo sobre boas práticas para serviços de alimentação</p>
+                    <a href="https://www.gov.br/anvisa/pt-br/centraisdeconteudo/publicacoes/alimentos/manuais-guias-e-orientacoes/cartilha-boas-praticas-para-servicos-de-alimentacao.pdf/view" target="_blank" class="btn btn-primary btn-sm">
+                      <i class="fas fa-download me-1"></i>Baixar Cartilha
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="resource-card">
+                    <h6><i class="fas fa-globe me-2"></i>Portal da ANVISA</h6>
+                    <p class="small">Acesse o portal oficial para mais informações</p>
+                    <a href="https://www.gov.br/anvisa/pt-br" target="_blank" class="btn btn-outline-primary btn-sm">
+                      <i class="fas fa-external-link-alt me-1"></i>Visitar Portal
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Links por categoria -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-link me-2"></i>
+                Atividades econômicas específicas
+              </h4>
+              <div class="links-grid">
+                <a href="https://www.gov.br/anvisa/pt-br/assuntos/cosmeticos" target="_blank" class="link-card">
+                  <i class="fas fa-spa"></i>
+                  <span>Cosméticos</span>
+                </a>
+                <a href="https://www.gov.br/anvisa/pt-br/assuntos/alimentos" target="_blank" class="link-card">
+                  <i class="fas fa-apple-alt"></i>
+                  <span>Alimentos</span>
+                </a>
+                <a href="https://www.gov.br/anvisa/pt-br/assuntos/saneantes" target="_blank" class="link-card">
+                  <i class="fas fa-spray-can"></i>
+                  <span>Saneantes</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu de navegação MEI -->
     {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
-    <style>
-        span {
-            text-align: center;
-        }
-    </style>
-    <div class="row mx-auto px-5">
-        <script>
-    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
-        </script>
-    </div>
+  </div>
 </div>
 {% endblock %}
-{% block footer %}
-{% include 'desenvolve_nf/instagram.html' %}
-{% endblock %}x

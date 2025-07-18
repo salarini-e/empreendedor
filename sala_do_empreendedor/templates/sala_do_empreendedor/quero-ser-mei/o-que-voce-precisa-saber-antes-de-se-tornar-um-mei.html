@@ -1,73 +1,209 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
+
+{% block title %}O que você precisa saber antes de se tornar um MEI{% endblock %}
+
 {% block nav %}
-{% include 'nav_empreendedor.html' %}
+  
 {% endblock %}
+
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/quero-ser-mei.css'%}">
-  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+  <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
+  <style>
+    /* Breadcrumb Styles */
+    .breadcrumb-container {
+      background: linear-gradient(135deg, #ffffff, #f8f9fa);
+      border-bottom: 1px solid #e9ecef;
+      padding: 1rem 0;
+      margin-bottom: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-top: 90px;
+    }
+
+    .breadcrumb-custom {
+      background: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .breadcrumb-item-custom {
+      display: flex;
+      align-items: center;
+      color: #6c757d;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      padding: 0.25rem 0;
+    }
+
+    .breadcrumb-item-custom:hover {
+      color: #0051A4;
+      text-decoration: none;
+    }
+
+    .breadcrumb-item-custom.active {
+      color: #0051A4;
+      font-weight: 600;
+    }
+
+    .breadcrumb-separator {
+      color: #adb5bd;
+      margin: 0 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .breadcrumb-icon {
+      margin-right: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .content-wrapper {
+      margin-top: 0 !important;
+    }
+
+    @media (max-width: 576px) {
+      .breadcrumb-custom {
+        font-size: 0.8rem;
+      }
+      
+      .breadcrumb-container {
+        padding: 0.75rem 0;
+      }
+    }
+  </style>>
 {% endblock %}
+
 {% block main %}
-<div class="container">
-<div class="row mx-auto ps-4 pb-3">
-<h3 class="text-center">O que você precisa saber antes de se tornar um MEI?</h3>
-</div>
-<div class="row mx-auto mb-5">
-  <div class="col">
-    <p>Alguns benefícios poderão ser impactados após a sua formalização como MEI.</p>
-    <p class="mb-4">Veja se você recebe algum desses:</p>
-    <b>Benefícios previdenciários que serão cancelados</b>
-    <ul>
-        <li>Aposentadoria por invalidez.</li>
-        <li>Auxílio-doença ou salário maternidade.</li>        
-    </ul>
-    <p class="mt-4">
-      <b>Benefícios assistencialistas que podem ser cancelados:</b>
-    </p>    <ul>
-        <li>Seguro desemprego.</li>
-        <li>BPC-LOAS.</li>
-        <li>Prouni, FIES.</li>
-        <li>Bolsa Família.</li>
-    </ul>
-    <p class="mt-4">
-      <b>Benefícios que NÃO serão cancelados após a formalização como MEI:  </b>
-    </p>
-    <ul>
-        <li>Aposentadoria especial por insalubridade, idade ou por tempo de contribuição.</li>
-        <li>Fundo de garantia por tempo de serviço (FGTS).</li>
-        <li>Programa de integração social (PIS).</li>
-        <li>Pensão por falecimento do cônjuge/filho.</li>
-        <li>Pensão por falecimento dos pais.</li>
-        <li>Pensão recebida por tutor de menor de idade, por morte do responsável.</li>
-    </ul>
-    <p class="mt-4 text-secondary"><b class="text-dark" style="font-weight: 500;">Obs.:</b> Funcionários públicos federais não podem ser MEI. Funcionários públicos municipais ou estaduais têm que verificar o seu estatuto para analisar se há impedimento.</p>
-    <p class="mt-4"><b class="mt-3">Para saber se pode ser MEI, verifique se você atende as condições abaixo:</b></p>  
-    <ul>
-      <li>Exercer atividades que estejam na lista de ocupações permitidas para o MEI.</li>
-      <li>Contratar, no máximo, um empregado que receba o piso da categoria ou um salário mínimo.</li>
-      <li>Não ser titular, sócio ou administrador de outra empresa.</li>
-      <li>Não ter ou abrir filial de outra empresa.</li>
-      <li>Ter um faturamento anual de até R$ 81.000,00* ou até R$ 251.600,00* para o transportador autônomo de cargas que tenha como ocupação profissional exclusiva o transporte rodoviário de cargas, de acordo com a tabela B, Anexo XI da Resolução CGSN nº 140/2018</li>
-    </ul>
-    <p class="mt-5 mb-4 p-4 bg-secondary text-light" style="border-radius: 30px;">*Se você abrir um MEI após o mês de janeiro, o limite de faturamento será ajustado proporcionalmente ao número de meses em que você atuar como MEI. Isso significa que o limite será calculado levando em consideração o período de atividade durante o ano.</p>
+<!-- Breadcrumb -->
+<div class="breadcrumb-container">
+  <div class="container">
+    <nav class="breadcrumb-custom" aria-label="Breadcrumb">
+      <a href="{% url 'empreendedor:index' %}" class="breadcrumb-item-custom">
+        <i class="fas fa-home breadcrumb-icon"></i>
+        Início
+      </a>
+      <span class="breadcrumb-separator">
+        <i class="fas fa-chevron-right"></i>
+      </span>
+      <a href="{% url 'empreendedor:quero_ser_mei' %}" class="breadcrumb-item-custom">
+        <i class="fas fa-user-plus breadcrumb-icon"></i>
+        Quero ser MEI
+      </a>
+      <span class="breadcrumb-separator">
+        <i class="fas fa-chevron-right"></i>
+      </span>
+      <span class="breadcrumb-item-custom active">
+        <i class="fas fa-info-circle breadcrumb-icon"></i>
+        O que precisa saber
+      </span>
+    </nav>
   </div>
 </div>
 
-{% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
-  <style>
-    span{
-        text-align: center;
-    }
-  </style>
-<div class="row mx-auto px-5">
-  <script>
-    // document.getElementById('empreendedor_inicio').classList.add('s-nav-active');
-  </script>
-</div>
-</div>
+<div class="content-wrapper">
+  <div class="container">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="row">
+        <div class="col-12">
+          <div class="page-title-wrapper">
+            <h1 class="page-title">O que você precisa saber antes de se tornar um MEI?</h1>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <!-- Content -->
+    <div class="page-content">
+      <div class="row">
+        <div class="col-12">
+          <div class="content-card">
+            <div class="alert alert-warning mb-4">
+              <i class="fas fa-exclamation-triangle me-2"></i>
+              <strong>Atenção:</strong> Alguns benefícios poderão ser impactados após a sua formalização como MEI.
+            </div>
+            
+            <p class="lead mb-4">Veja se você recebe algum desses:</p>
+            
+            <!-- Benefícios que serão cancelados -->
+            <div class="info-section">
+              <h4 class="section-title danger">
+                <i class="fas fa-times-circle me-2"></i>
+                Benefícios previdenciários que serão cancelados
+              </h4>
+              <ul class="info-list">
+                <li>Aposentadoria por invalidez</li>
+                <li>Auxílio-doença ou salário maternidade</li>        
+              </ul>
+            </div>
 
-{% endblock %}
-{% block footer %}
-{% include 'desenvolve_nf/instagram.html' %}
+            <!-- Benefícios assistenciais que podem ser cancelados -->
+            <div class="info-section">
+              <h4 class="section-title warning">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                Benefícios assistencialistas que podem ser cancelados
+              </h4>
+              <ul class="info-list">
+                <li>Seguro desemprego</li>
+                <li>BPC-LOAS</li>
+                <li>Prouni, FIES</li>
+                <li>Bolsa Família</li>
+              </ul>
+            </div>
+
+            <!-- Benefícios que NÃO serão cancelados -->
+            <div class="info-section">
+              <h4 class="section-title success">
+                <i class="fas fa-check-circle me-2"></i>
+                Benefícios que NÃO serão cancelados após a formalização como MEI
+              </h4>
+              <ul class="info-list">
+                <li>Aposentadoria especial por insalubridade, idade ou por tempo de contribuição</li>
+                <li>Fundo de garantia por tempo de serviço (FGTS)</li>
+                <li>Programa de integração social (PIS)</li>
+                <li>Pensão por falecimento do cônjuge/filho</li>
+                <li>Pensão por falecimento dos pais</li>
+                <li>Pensão recebida por tutor de menor de idade, por morte do responsável</li>
+              </ul>
+            </div>
+
+            <!-- Observação importante -->
+            <div class="alert alert-info">
+              <i class="fas fa-info-circle me-2"></i>
+              <strong>Obs.:</strong> Funcionários públicos federais não podem ser MEI. Funcionários públicos municipais ou estaduais têm que verificar o seu estatuto para analisar se há impedimento.
+            </div>
+
+            <!-- Condições para ser MEI -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-clipboard-check me-2"></i>
+                Para saber se pode ser MEI, verifique se você atende as condições abaixo
+              </h4>
+              <ul class="info-list">
+                <li>Exercer atividades que estejam na lista de ocupações permitidas para o MEI</li>
+                <li>Contratar, no máximo, um empregado que receba o piso da categoria ou um salário mínimo</li>
+                <li>Não ser titular, sócio ou administrador de outra empresa</li>
+                <li>Não ter ou abrir filial de outra empresa</li>
+                <li>Ter um faturamento anual de até R$ 81.000,00* ou até R$ 251.600,00* para o transportador autônomo de cargas que tenha como ocupação profissional exclusiva o transporte rodoviário de cargas, de acordo com a tabela B, Anexo XI da Resolução CGSN nº 140/2018</li>
+              </ul>
+            </div>
+
+            <!-- Observação sobre faturamento -->
+            <div class="alert alert-primary">
+              <i class="fas fa-calculator me-2"></i>
+              <strong>*Importante:</strong> Se você abrir um MEI após o mês de janeiro, o limite de faturamento será ajustado proporcionalmente ao número de meses em que você atuar como MEI. Isso significa que o limite será calculado levando em consideração o período de atividade durante o ano.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu de navegação MEI -->
+    {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
+  </div>
+</div>
 {% endblock %}
