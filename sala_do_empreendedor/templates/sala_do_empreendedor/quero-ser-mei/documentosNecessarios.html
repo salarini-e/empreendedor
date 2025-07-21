@@ -2,479 +2,446 @@
 {% load static %}
 
 {% block css %}
-<style>
-  /* Documentos Necessários - Design System Moderno */
-  :root {
-    --mei-primary: #0051A4;
-    --mei-primary-dark: #003a7a;
-    --mei-secondary: #218A39;
-    --mei-accent: #D2B336;
-    --mei-info: #17a2b8;
-  }
-  
-  .mei-hero {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.479), rgba(255, 255, 255, 0.842)), url("{% static 'images/bg-empresa.jpg' %}") no-repeat center center;
-    background-size: cover;
-    background-position: center;
-    color: rgb(0, 0, 0);
-    padding: 80px 0 60px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 8px 24px rgba(33, 138, 57, 0.2);
-  }
-  
-  .hero-content-mei {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-  }
-  
-  .section-title-mei {
-    font-family: var(--font-secondary);
-    font-size: 2.8rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    position: relative;
-    display: inline-block;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-    line-height: 1.2;
-  }
-  
-  .section-title-mei::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 4px;
-    background: var(--mei-accent);
-    border-radius: 2px;
-  }
-  
-  .hero-subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    opacity: 0.95;
-    font-weight: 300;
-  }
-  
-  .intro-box {
-    background-color: white;
-    color: var(--dark-color);
-    border-radius: 20px;
-    padding: 2.5rem;
-    margin: 3rem 0;
-    text-align: center;
-    box-shadow: 0 10px 25px rgba(129, 129, 129, 0.3);
-  }
-  
-  .intro-box h3 {
-    font-family: var(--font-secondary);
-    font-weight: 600;
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-  }
-  
-  .intro-box p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin: 0;
-  }
-  
-  .docs-section {
-    background: white;
-    border-radius: 20px;
-    padding: 3rem 2rem;
-    margin: 3rem 0;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  }
-  
-  .docs-title {
-    font-family: var(--font-secondary);
-    font-size: 2rem;
-    font-weight: 600;
-    color: var(--mei-primary);
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-  
-  .docs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin: 2rem 0;
-  }
-  
-  .doc-card {
-    background: linear-gradient(135deg, #f8f9fa, #ffffff);
-    border-radius: 15px;
-    padding: 2rem;
-    /* border-left: 5px solid var(--mei-secondary); */
-    box-shadow: 0 15px 30px rgba(33, 138, 57, 0.15);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  
-  .doc-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .doc-icon {
-    font-size: 2rem;
-    color: var(--mei-secondary);
-  }
-  
-  .doc-title {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--mei-primary);
-    margin: 0;
-    font-family: var(--font-secondary);
-  }
-  
-  .doc-description {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--gray-700);
-  }
-  
-  .obs-section {
-    background: linear-gradient(135deg, #e7f3ff, #f0f8ff);
-    /* border-left: 5px solid var(--mei-info); */
-    border-radius: 15px;
-    padding: 2rem;
-    margin: 3rem 0;
-    box-shadow: 0 5px 15px rgba(23, 162, 184, 0.1);
-  }
-  
-  .obs-title {
-    font-family: var(--font-secondary);
-    font-weight: 600;
-    color: var(--mei-info);
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.3rem;
-  }
-  
-  .obs-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .obs-list li {
-    padding: 0.5rem 0;
-    position: relative;
-    padding-left: 2rem;
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--gray-700);
-  }
-  
-  .obs-list li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--mei-info);
-  }
-  
-  .nested-list {
-    margin-top: 1rem;
-    padding-left: 2rem;
-  }
-  
-  .nested-list li {
-    padding-left: 1.5rem;
-    font-size: 0.95rem;
-  }
-  
-  .link-highlight {
-    color: var(--mei-secondary);
-    text-decoration: none;
-    font-weight: 600;
-  }
-  
-  .link-highlight:hover {
-    color: var(--mei-primary);
-    text-decoration: underline;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .section-title-mei {
-      font-size: 2.2rem;
+<link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
+  <style>
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, #0051A4 0%, #003a7a 100%);
+      padding: 80px 0 60px;
+      color: white;
+      position: relative;
+      overflow: hidden;
     }
-    
-    .mei-hero {
-      padding: 60px 0 40px 0;
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("{% static 'images/bg-empresa.jpg' %}") center/cover;
+      opacity: 0.1;
+      z-index: 1;
     }
-    
+
+    .hero-section .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-section .breadcrumb {
+      background: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .hero-section .breadcrumb-item a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+    }
+
+    .hero-section .breadcrumb-item.active {
+      color: white;
+    }
+
+    .content-section {
+      background: white;
+      border-radius: 15px;
+      padding: 3rem 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    /* Introduction Box */
+    .intro-box {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      border-radius: 15px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .intro-box h3 {
+      color: #0051A4;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+
+    .intro-box p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #495057;
+      margin: 0;
+    }
+
+    /* Documents Grid */
     .docs-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
     }
-    
-    .docs-section {
-      padding: 2rem 1.5rem;
-    }
-    
+
     .doc-card {
-      padding: 1.5rem;
+      background: #fff;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      border: 1px solid #e9ecef;
+      transition: all 0.3s ease;
+      text-align: center;
     }
-  }
-.back-button {
-    background: #6c757d;
-    color: white;
-    border: none;
-    border-radius: 50px;
-    padding: 10px 20px;
-    font-weight: 500;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-    margin-bottom: 1rem;
-  }
 
-  .back-button:hover {
-    background: #5a6268;
-    color: white;
-    text-decoration: none;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
-  }
-
-  /* Breadcrumb Styles */
-  .breadcrumb-container {
-    background: linear-gradient(135deg, #ffffff, #f8f9fa);
-    border-bottom: 1px solid #e9ecef;
-    padding: 1rem 0;
-    margin-bottom: 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  }
-
-  .breadcrumb-custom {
-    background: none;
-    margin: 0;
-    padding: 0;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .breadcrumb-item-custom {
-    display: flex;
-    align-items: center;
-    color: #6c757d;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    padding: 0.25rem 0;
-  }
-
-  .breadcrumb-item-custom:hover {
-    color: var(--mei-primary);
-    text-decoration: none;
-  }
-
-  .breadcrumb-item-custom.active {
-    color: var(--mei-primary);
-    font-weight: 600;
-  }
-
-  .breadcrumb-separator {
-    color: #adb5bd;
-    margin: 0 0.5rem;
-    font-size: 0.8rem;
-  }
-
-  .breadcrumb-icon {
-    margin-right: 0.5rem;
-    font-size: 0.8rem;
-  }
-
-  @media (max-width: 576px) {
-    .breadcrumb-custom {
-      font-size: 0.8rem;
+    .doc-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(0,81,164,0.15);
     }
-    
-    .breadcrumb-container {
-      padding: 0.75rem 0;
+
+    .doc-icon {
+      font-size: 2.5rem;
+      color: #0051A4;
+      margin-bottom: 1rem;
     }
-  }
-</style>
+
+    .doc-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #212529;
+      margin-bottom: 1rem;
+    }
+
+    .doc-description {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #6c757d;
+      margin: 0;
+    }
+
+    .link-highlight {
+      color: #0051A4;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .link-highlight:hover {
+      color: #003a7a;
+      text-decoration: underline;
+    }
+
+    /* Observations Section */
+    .obs-section {
+      border-radius: 15px;
+      padding: 2.5rem;
+      margin: 3rem 0;
+    }
+
+    .obs-title {
+      color: #0051A4;
+      font-weight: 600;
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .obs-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .obs-list li {
+      position: relative;
+      padding: 0.75rem 0 0.75rem 2rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #495057;
+    }
+
+
+
+    .nested-list {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(0,81,164,0.05);
+      border-radius: 10px;
+    }
+
+    .nested-list .obs-list li::before {
+      content: '✓';
+      color: #0051A4;
+      font-weight: bold;
+    }
+
+    /* Section Titles */
+    .section-title {
+      color: #0051A4;
+      font-weight: 600;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #6c757d;
+      font-size: 1.1rem;
+      margin-bottom: 3rem;
+    }
+
+    /* Call to Action */
+    .cta-section {
+      background: linear-gradient(135deg, #0051A4, #003a7a);
+      color: white;
+      border-radius: 20px;
+      padding: 3rem;
+      text-align: center;
+      margin: 3rem 0;
+    }
+
+    .cta-button {
+      background: linear-gradient(135deg, #D2B336, #f4d03f);
+      color: #212529;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 25px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .cta-button:hover {
+      color: #212529;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(244, 208, 63, 0.4);
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 60px 0 40px;
+      }
+
+      .docs-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .content-section {
+        padding: 2rem 1.5rem;
+      }
+
+      .intro-box {
+        padding: 1.5rem;
+      }
+
+      .obs-section {
+        padding: 2rem;
+      }
+
+      .section-title {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
 {% endblock %}
 
 {% block main %}
 <!-- Hero Section -->
-<section class="mei-hero">
+<section class="hero-section">
   <div class="container">
-    <div class="hero-content-mei" data-aos="fade-up">
-      <div class="row" data-aos="fade-up">
-        <div class="col">
-          <a href="{% url 'empreendedor:quero_ser_mei' %}" class="back-button">
-            <i class="fas fa-arrow-left"></i>
-            Voltar
+    <div class="hero-content">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="hero-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:index' %}">
+              <i class="fas fa-home"></i> Início
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:quero_ser_mei' %}">
+              <i class="fas fa-user-plus"></i> Quero ser MEI
+            </a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <i class="fas fa-file-alt"></i> Documentos Necessários
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Hero Text -->
+      <div class="hero-text">
+        <h1 class="hero-title">Documentos Necessários</h1>
+        <p class="hero-description">
+          Tudo o que você precisa ter em mãos para se formalizar como MEI de forma rápida e segura.
+        </p>
+        
+        <!-- Hero Action -->
+        <div class="hero-action">
+          <a href="{% url 'empreendedor:quero_ser_mei' %}" class="btn btn-outline-light btn-lg">
+            <i class="fas fa-arrow-left me-2"></i>
+            Voltar ao Menu
           </a>
         </div>
       </div>
-      <h1 class="section-title-mei">Documentos Necessários</h1>
-      <p class="hero-subtitle">Tudo o que você precisa ter em mãos para se formalizar como MEI</p>
     </div>
   </div>
 </section>
 
-<!-- Breadcrumb -->
-<div class="breadcrumb-container">
+<!-- Main Content -->
+<section class="content-section">
   <div class="container">
-    <nav class="breadcrumb-custom" aria-label="Breadcrumb">
-      <a href="{% url 'empreendedor:index' %}" class="breadcrumb-item-custom">
-        <i class="fas fa-home breadcrumb-icon"></i>
-        Início
-      </a>
-      <span class="breadcrumb-separator">
-        <i class="fas fa-chevron-right"></i>
-      </span>
-      <a href="{% url 'empreendedor:quero_ser_mei' %}" class="breadcrumb-item-custom">
-        <i class="fas fa-user-plus breadcrumb-icon"></i>
-        Quero ser MEI
-      </a>
-      <span class="breadcrumb-separator">
-        <i class="fas fa-chevron-right"></i>
-      </span>
-      <span class="breadcrumb-item-custom active">
-        <i class="fas fa-file-alt breadcrumb-icon"></i>
-        Documentos Necessários
-      </span>
-    </nav>
-  </div>
-</div>
-
-<div class="container pb-5">
-  <!-- Introduction -->
-  <div class="intro-box" data-aos="fade-up">
-    <h3><i class="fas fa-info-circle"></i> Preparação Importante</h3>
-    <p>
-      Antes de começar o processo de formalização, veja a seguir os documentos que você precisa ter em 
-      mãos e o passo a passo deste processo.
-    </p>
-  </div>
-
-  <!-- Documents Section -->
-  <div class="docs-section" data-aos="fade-up">
-    <h2 class="docs-title">Documentos e Informações Necessárias</h2>
-    
-    <div class="docs-grid">
-      <div class="doc-card" >
-        <div class="doc-header">
-          <i class="fas fa-id-card doc-icon"></i>
-          <h3 class="doc-title">Dados Pessoais</h3>
-        </div>
-        <p class="doc-description">
-          RG, dados de contato e endereço residencial completo.
-        </p>
-      </div>
-
-      <div class="doc-card" >
-        <div class="doc-header">
-          <i class="fas fa-briefcase doc-icon"></i>
-          <h3 class="doc-title">Dados do Negócio</h3>
-        </div>
-        <p class="doc-description">
-          Tipo de ocupação, forma de atuação e local onde o negócio é realizado.
-        </p>
-      </div>
-
-      <div class="doc-card" >
-        <div class="doc-header">
-          <i class="fas fa-key doc-icon"></i>
-          <h3 class="doc-title">Conta gov.br</h3>
-        </div>
-        <p class="doc-description">
-          Senha de acesso ao Portal de Serviços do Governo Federal - 
-          <a href="https://www.gov.br/governodigital/pt-br/conta-gov-br/conta-gov-br/" 
-             target="_blank" class="link-highlight">Plataforma gov.br</a>
-        </p>
-      </div>
+    <!-- Introduction -->
+    <div class="intro-box">
+      <h3><i class="fas fa-info-circle me-2"></i>Preparação Importante</h3>
+      <p>
+        Antes de começar o processo de formalização, veja a seguir os documentos que você precisa ter em 
+        mãos e o passo a passo deste processo. Tenha tudo organizado para uma experiência mais rápida e tranquila.
+      </p>
     </div>
 
-    <!-- Important Notes Grid -->
-    <div class="docs-grid mt-4">
-      <div class="doc-card">
-        <div class="doc-header">
-          <i class="fas fa-check-circle doc-icon"></i>
-          <h3 class="doc-title">Se você já possui conta</h3>
-        </div>
-        <p class="doc-description">
-          A conta gov.br deve ter o nível <strong>Prata ou Ouro</strong> para brasileiros.
-        </p>
-      </div>
-
-      <div class="doc-card" >
-        <div class="doc-header">
-          <i class="fas fa-user-plus doc-icon"></i>
-          <h3 class="doc-title">Se ainda não possui</h3>
-        </div>
-        <p class="doc-description">
-          Clique na opção "Fazer Cadastro". Depois que finalizar, com a senha em mãos, 
-          acesse novamente o Portal do Empreendedor e clique em "Formalize-se".
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Observations Section -->
-  <div class="obs-section" data-aos="fade-up">
-    <h3 class="obs-title">
-      <i class="fas fa-exclamation-circle"></i>
-      Observações Importantes
-    </h3>
-    
-    <div class="mt-3">
-      <h4 style="color: var(--mei-info); margin-bottom: 1rem;">Para ter a conta gov.br:</h4>
+    <!-- Documents Section -->
+    <div class="docs-section">
+      <h2 class="section-title">Documentos e Informações Necessárias</h2>
+      <p class="section-subtitle">
+        Prepare estes itens essenciais para completar sua formalização como MEI
+      </p>
       
-      <ul class="obs-list">
-        <li>
-          <strong>Brasileiros:</strong> A conta gov.br deve ter o nível Prata ou Ouro.
-        </li>
-        <li>
-          <strong>Estrangeiros:</strong> Se a conta tiver o nível Bronze, será solicitado os dados de 
-          identificação civil do estrangeiro. Para os níveis Prata ou Ouro não será necessário informar esses dados.
-          
-          <div class="nested-list">
-            <h5 style="color: var(--mei-primary); margin: 1rem 0 0.5rem 0;">
-              Dados de identificação civil do estrangeiro:
-            </h5>
-            <ul class="obs-list">
-              <li>
-                O país de nacionalidade, conforme cadastro CPF (importante verificar se os dados do CPF estão 
-                atualizados junto à Receita Federal)
-              </li>
-              <li>
-                Dados de identificação civil do estrangeiro, conforme cadastro Polícia Federal. 
-                São aceitos os seguintes documentos emitidos pela PF: Carteira Nacional de Registro Migratório, 
-                Documento Provisório de Registro Nacional Migratório e Protocolo de Solicitação de Refúgio.
-              </li>
-            </ul>
+      <div class="docs-grid">
+        <div class="doc-card">
+          <div class="doc-header">
+            <i class="fas fa-id-card doc-icon"></i>
+            <h3 class="doc-title">Dados Pessoais</h3>
           </div>
-        </li>
-      </ul>
+          <p class="doc-description">
+            • RG (Registro Geral)<br>
+            • Dados de contato atualizados<br>
+            • Endereço residencial completo<br>
+            • Informações básicas de identificação
+          </p>
+        </div>
+
+        <div class="doc-card">
+          <div class="doc-header">
+            <i class="fas fa-briefcase doc-icon"></i>
+            <h3 class="doc-title">Dados do Negócio</h3>
+          </div>
+          <p class="doc-description">
+            • Tipo de ocupação que exercerá<br>
+            • Forma de atuação (física/online)<br>
+            • Local onde o negócio será realizado<br>
+            • Descrição das atividades
+          </p>
+        </div>
+
+        <div class="doc-card">
+          <div class="doc-header">
+            <i class="fas fa-key doc-icon"></i>
+            <h3 class="doc-title">Conta gov.br</h3>
+          </div>
+          <p class="doc-description">
+            Acesso ao Portal de Serviços do Governo Federal através da 
+            <a href="https://www.gov.br/governodigital/pt-br/conta-gov-br/conta-gov-br/" 
+               target="_blank" class="link-highlight">Plataforma gov.br</a><br>
+            • Conta ativa e senha atualizada
+          </p>
+        </div>
+      </div>
+
+      <!-- Account Status Grid -->
+      <div class="docs-grid">
+        <div class="doc-card">
+          <div class="doc-header">
+            <i class="fas fa-check-circle doc-icon" style="color: #28a745;"></i>
+            <h3 class="doc-title">Se você já possui conta</h3>
+          </div>
+          <p class="doc-description">
+            A conta gov.br deve ter o nível <strong>Prata ou Ouro</strong> para brasileiros.<br>
+            Verifique seu nível antes de iniciar o processo.
+          </p>
+        </div>
+
+        <div class="doc-card">
+          <div class="doc-header">
+            <i class="fas fa-user-plus doc-icon" style="color: #ffc107;"></i>
+            <h3 class="doc-title">Se ainda não possui</h3>
+          </div>
+          <p class="doc-description">
+            Clique na opção "Fazer Cadastro" na plataforma gov.br.<br>
+            Após finalizar, acesse o Portal do Empreendedor e clique em "Formalize-se".
+          </p>
+        </div>
+      </div>
     </div>
+
+    <!-- Observations Section -->
+    <div class="obs-section">
+      <h3 class="obs-title">
+        <i class="fas fa-exclamation-circle"></i>
+        Observações Importantes
+      </h3>
+      
+      <div class="mt-3">
+        <h4 style="color: #0051A4; margin-bottom: 1.5rem; font-weight: 600;">
+          Requisitos para conta gov.br:
+        </h4>
+        
+        <ul class="obs-list">
+          <li>
+            <strong>Para Brasileiros:</strong> A conta gov.br deve ter o nível <strong>Prata ou Ouro</strong> 
+            para garantir acesso completo aos serviços de formalização.
+          </li>
+          <li>
+            <strong>Para Estrangeiros:</strong> Se a conta tiver o nível Bronze, será solicitado os dados de 
+            identificação civil do estrangeiro. Para os níveis Prata ou Ouro não será necessário informar esses dados.
+            
+            <div class="nested-list">
+              <h5 style="color: #0051A4; margin: 1rem 0 1rem 0; font-weight: 600;">
+                Dados adicionais necessários para estrangeiros (nível Bronze):
+              </h5>
+              <ul class="obs-list">
+                <li>
+                  <strong>País de nacionalidade:</strong> Conforme cadastro no CPF (verifique se os dados estão 
+                  atualizados na Receita Federal)
+                </li>
+                <li>
+                  <strong>Documento de identificação:</strong> Emitido pela Polícia Federal. São aceitos:
+                  <br>• Carteira Nacional de Registro Migratório
+                  <br>• Documento Provisório de Registro Nacional Migratório
+                  <br>• Protocolo de Solicitação de Refúgio
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="cta-section">
+      <h3 style="margin-bottom: 1rem;">Pronto para se Formalizar?</h3>
+      <p style="margin-bottom: 2rem; opacity: 0.9;">
+        Com todos os documentos em mãos, você está preparado para dar o próximo passo e se tornar um MEI.
+      </p>
+      <a href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/quero-ser-mei/obtencao-de-cnpj-acesso-restrito" 
+         target="_blank" class="cta-button">
+        <i class="fas fa-external-link-alt"></i>
+        Iniciar Formalização
+      </a>
+    </div>
+
+    <!-- Menu de navegação MEI -->
+    {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
   </div>
-</div>
+</section>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -488,5 +455,4 @@
 {% endblock %}
 
 {% block footer %}
-{% include 'desenvolve_nf/instagram.html' %}
 {% endblock %}

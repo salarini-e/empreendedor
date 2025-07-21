@@ -9,33 +9,108 @@
 
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
+  <style>
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, #0051A4 0%, #003a7a 100%);
+      padding: 80px 0 60px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("{% static 'images/bg-empresa.jpg' %}") center/cover;
+      opacity: 0.1;
+      z-index: 1;
+    }
+
+    .hero-section .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-section .breadcrumb {
+      background: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .hero-section .breadcrumb-item a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+    }
+
+    .hero-section .breadcrumb-item.active {
+      color: white;
+    }
+
+    .content-section {
+      background: white;
+      border-radius: 15px;
+      padding: 3rem 2rem;
+      margin: 2rem 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 60px 0 40px;
+      }
+    }
+  </style>
 {% endblock %}
 
 {% block main %}
-<div class="content-wrapper" style="margin-top:  90px;">
+<!-- Hero Section -->
+<section class="hero-section">
   <div class="container">
-    <!-- Header -->
-    <div class="page-header">
-      <div class="row">
-        <div class="col-12">
-          <div class="page-title-wrapper">
-            <h1 class="page-title">Dicas de Segurança do Corpo de Bombeiros</h1>
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                  <a href="{% url 'empreendedor:index' %}">Início</a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a href="{% url 'empreendedor:quero_ser_mei' %}">Quero ser MEI</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">Segurança - Bombeiros</li>
-              </ol>
-            </nav>
-          </div>
+    <div class="hero-content">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="hero-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:index' %}">
+              <i class="fas fa-home"></i> Início
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:quero_ser_mei' %}">
+              <i class="fas fa-user-plus"></i> Quero ser MEI
+            </a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <i class="fas fa-fire-extinguisher"></i> Segurança - Bombeiros
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Hero Text -->
+      <div class="hero-text">
+        <h1 class="hero-title">Dicas de Segurança do Corpo de Bombeiros</h1>
+        <p class="hero-description">
+          Orientações importantes sobre segurança para seu MEI conforme normas do Corpo de Bombeiros.
+        </p>
+        
+        <!-- Hero Action -->
+        <div class="hero-action">
+          <a href="{% url 'empreendedor:quero_ser_mei' %}" class="btn btn-outline-light btn-lg">
+            <i class="fas fa-arrow-left me-2"></i>
+            Voltar ao Menu
+          </a>
         </div>
       </div>
     </div>
+  </div>
+</section>
 
+<div class="container pb-5" style="margin-top: 90px;">
     <!-- Content -->
     <div class="page-content">
       <div class="row">
@@ -173,5 +248,5 @@
     <!-- Menu de navegação MEI -->
     {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
   </div>
-</div>
+</section>
 {% endblock %}

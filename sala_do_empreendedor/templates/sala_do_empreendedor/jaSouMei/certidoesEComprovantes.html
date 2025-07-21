@@ -1,62 +1,293 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
+
+{% block title %}Certidões e Comprovantes{% endblock %}
+
 {% block nav %}
-{% include 'nav_empreendedor.html' %}
+  
 {% endblock %}
+
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+  <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
+  <style>
+    .breadcrumb-container {
+      background: linear-gradient(135deg, #ffffff, #f8f9fa);
+      border-bottom: 1px solid #e9ecef;
+      padding: 1rem 0;
+      margin-bottom: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .breadcrumb-custom {
+      background: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .breadcrumb-item-custom {
+      display: flex;
+      align-items: center;
+      color: #6c757d;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      padding: 0.25rem 0;
+    }
+
+    .breadcrumb-item-custom:hover {
+      color: #0051A4;
+      text-decoration: none;
+    }
+
+    .breadcrumb-current {
+      color: #0051A4;
+      font-weight: 500;
+      pointer-events: none;
+    }
+
+    .breadcrumb-separator {
+      color: #dee2e6;
+      font-size: 0.7rem;
+      margin: 0 0.25rem;
+    }
+
+    @media (max-width: 768px) {
+      .breadcrumb-custom {
+        font-size: 0.8rem;
+      }
+      
+      .breadcrumb-container {
+        padding: 0.75rem 0;
+      }
+    }
+
+    /* Transportador Autônomo - Visual moderno */
+    .hero-section {
+      background: linear-gradient(135deg, #0051A4 0%, #003a7a 100%);
+      padding: 80px 0 60px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("{% static 'images/bg-empresa.jpg' %}") center/cover;
+      opacity: 0.1;
+      z-index: 1;
+    }
+
+    .hero-section .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-section .breadcrumb {
+      background: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .hero-section .breadcrumb-item a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+    }
+
+    .hero-section .breadcrumb-item.active {
+      color: white;
+    }
+
+    .content-section {
+      background: white;
+      border-radius: 15px;
+      padding: 3rem 2rem;
+      margin: 2rem 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+  </style>
 {% endblock %}
+
 {% block main %}
-<div class="container" style="margin-top: 90px;">
-    <div class="row mx-auto ps-4 pb-3">
-        <h3 class="text-center">Certidões e Comprovantes</h3>
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="hero-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:index' %}">
+              <i class="fas fa-home"></i> Início
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:ja_sou_mei' %}">
+              <i class="fas fa-check-circle"></i> Já sou MEI
+            </a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <i class="fas fa-certificate"></i> Certidões e Comprovantes
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Hero Text -->
+      <div class="hero-text">
+        <h1 class="hero-title">Certidões e Comprovantes</h1>
+        <p class="hero-description">
+          Conheça as principais certidões e comprovantes necessários para manter sua regularidade como MEI e garantir acesso a serviços bancários, licitações e outros benefícios.
+        </p>
+        
+        <!-- Hero Action -->
+        <div class="hero-action">
+          <a href="{% url 'empreendedor:ja_sou_mei' %}" class="btn btn-outline-light btn-lg">
+            <i class="fas fa-arrow-left me-2"></i>
+            Voltar ao Menu
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="row mx-auto mb-5">
-        <div class="col">
-            <p class="text-justify">
+  </div>
+</section>
+
+<!-- Main Content -->
+<section class="content-section">
+  <div class="container">
+    <!-- Content -->
+    <div class="page-content">
+      <div class="row">
+        <div class="col-12">
+          <div class="content-card">
+            <!-- Introdução -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-info-circle me-2"></i>
+                Importância das Certidões
+              </h4>
+              <p>
                 As certidões e comprovantes de regularidade são documentos que certificam que você está em dia com suas obrigações. Elas podem ser solicitadas 
                 para abrir conta bancária, solicitar empréstimo, participar de licitações, entre outros. Veja abaixo as principais declarações e para que serve 
                 cada uma delas.
-            </p>
-            <p class="my-4"><b>Certidão de regularidade fiscal (CND)</b></p>
-            <p class="text-justify">
-                É um documento que comprova a prova de regularidade fiscal perante a Fazenda Nacional para quaisquer fins é efetuada mediante apresentação de 
-                certidão expedida conjuntamente pela Secretaria Especial da Receita Federal do Brasil (RFB) e pela Procuradoria-Geral da Fazenda Nacional (PGFN), 
-                referente a todos os créditos tributários federais e à Dívida Ativa da União (DAU) por elas administrados.
-                <br><br>
-                Para obter segunda via de certidões já emitidas utilize o serviço Consultar certidões emitidas pela Receita Federal.
-            </p>
-            <p class="my-4"><b>Certidão do FGTS – Caixa Econômica Federal</b></p>
-            <p class="text-justify">
-                É um documento que comprova a quitação do pagamento do fundo de garantia por tempo de Serviço. Este documento é importante para você que é MEI 
+              </p>
+            </div>
+
+            <!-- CND -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-file-invoice me-2"></i>
+                Certidão de Regularidade Fiscal (CND)
+              </h4>
+              <p>
+                É um documento que comprova a regularidade fiscal perante a Fazenda Nacional. É expedida conjuntamente pela Secretaria Especial da Receita Federal do Brasil (RFB) e pela Procuradoria-Geral da Fazenda Nacional (PGFN), referente a todos os créditos tributários federais e à Dívida Ativa da União (DAU).
+              </p>
+              <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                Para obter segunda via de certidões já emitidas utilize o serviço "Consultar certidões emitidas pela Receita Federal".
+              </div>
+            </div>
+
+            <!-- FGTS -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-university me-2"></i>
+                Certidão do FGTS – Caixa Econômica Federal
+              </h4>
+              <p>
+                É um documento que comprova a quitação do pagamento do Fundo de Garantia por Tempo de Serviço. Este documento é importante para você que é MEI 
                 comprovar a quitação de suas obrigações, e para o seu empregado solicitar o saque do fundo de garantia ou mesmo para comprovar uma eventual 
                 situação de desemprego.
-            </p>
-            <p class="my-4"><b>Certidão do INSS – Previdência Social</b></p>
-            <p class="text-justify">
+              </p>
+            </div>
+
+            <!-- INSS -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-shield-alt me-2"></i>
+                Certidão do INSS – Previdência Social
+              </h4>
+              <p>
                 A certidão negativa INSS é um certificado emitido pela Receita Federal que mostra que o MEI não tem pendências com a Previdência Social nem débitos 
                 previdenciários, ou seja, é o atestado de regularidade junto ao Instituto Nacional do Seguro Social (INSS).
-                <br><br>
+              </p>
+              <p>
                 Diversos processos exigem a certidão negativa INSS, entre eles estão a entrada de documentação para a aposentadoria, a revalidação de registro de 
                 imóveis e a requisição de indenização do INSS. É possível também que precise dessa certidão para abrir conta em banco, solicitar um crédito, iniciar um 
                 financiamento, vender ou comprar imóvel, até mesmo para participar de uma concorrência pública.
-            </p>
-            <p class="my-4"><b>Certidão Negativa de Débitos Trabalhistas</b></p>
-            <p class="text-justify">A certidão negativa de débito trabalhistas é um documento de extrema importância tanto para o MEI quanto para o empregado. Esta certidão comprova a 
+              </p>
+            </div>
+
+            <!-- Trabalhista -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-gavel me-2"></i>
+                Certidão Negativa de Débitos Trabalhistas
+              </h4>
+              <p>
+                A certidão negativa de débito trabalhistas é um documento de extrema importância tanto para o MEI quanto para o empregado. Esta certidão comprova a 
                 regularidade ou não do empregador com a Justiça do Trabalho. Também, é um dos documentos analisados na hora de participar de licitações para fornecimento
-                 de serviços ou produtos.</p>
-            <p class="my-4"><b>Comprovante de Situação Cadastral no CPF</b></p>
-            <p class="text-justify">O Comprovante de Situação Cadastral no CPF é o documento que informa sobre a regularidade cadastral do MEI perante a Receita Federal 
+                de serviços ou produtos.
+              </p>
+            </div>
+
+            <!-- CPF -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-id-card me-2"></i>
+                Comprovante de Situação Cadastral no CPF
+              </h4>
+              <p>
+                O Comprovante de Situação Cadastral no CPF é o documento que informa sobre a regularidade cadastral do MEI perante a Receita Federal 
                 em relação ao seu CPF (Cadastro de Pessoas Físicas) e é importante para que você abra contas bancárias, de poupança ou de investimentos e garanta todos os
-                 direitos da sua família e o seu como MEI</p>
-            <p class="my-4"><b>Comprovante de Situação Cadastral CNPJ</b></p>
-            <p class="text-justify">A situação cadastral de CNPJ é o registro da empresa junto à Receita Federal. A partir da análise, é possível saber qual é a 
-                situação da sua empresa. É possível ver se há processos judiciais, dívidas tributárias, protestos em aberto e pendências comerciais e judiciais. </p>
+                direitos da sua família e o seu como MEI.
+              </p>
+            </div>
+
+            <!-- CNPJ -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-building me-2"></i>
+                Comprovante de Situação Cadastral CNPJ
+              </h4>
+              <p>
+                A situação cadastral de CNPJ é o registro da empresa junto à Receita Federal. A partir da análise, é possível saber qual é a 
+                situação da sua empresa. É possível ver se há processos judiciais, dívidas tributárias, protestos em aberto e pendências comerciais e judiciais.
+              </p>
+            </div>
+
+            <!-- Botões de ação -->
+            <div class="action-buttons mt-4">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <a href="https://solucoes.receita.fazenda.gov.br/Servicos/certidaointernet/PJ/Emitir" target="_blank" class="btn btn-primary btn-lg w-100">
+                    <i class="fas fa-download me-2"></i>
+                    Emitir CND Federal
+                  </a>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <a href="https://www.tst.jus.br/certidao" target="_blank" class="btn btn-outline-primary btn-lg w-100">
+                    <i class="fas fa-gavel me-2"></i>
+                    Certidão Trabalhista
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-     {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
-</div>
-{% endblock %}
-{% block footer %}
-{% include 'desenvolve_nf/instagram.html' %}
+
+    <!-- Menu de navegação MEI -->
+    {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
+  </div>
+</section>
 {% endblock %}

@@ -2,356 +2,288 @@
 {% load static %}
 
 {% block css %}
-<style>
-  /* Breadcrumb Styles */
-  .breadcrumb-container {
-    background: linear-gradient(135deg, #ffffff, #f8f9fa);
-    border-bottom: 1px solid #e9ecef;
-    padding: 1rem 0;
-    margin-bottom: 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  }
-
-  .breadcrumb-custom {
-    background: none;
-    margin: 0;
-    padding: 0;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .breadcrumb-item-custom {
-    display: flex;
-    align-items: center;
-    color: #6c757d;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    padding: 0.25rem 0;
-  }
-
-  .breadcrumb-item-custom:hover {
-    color: var(--mei-primary);
-    text-decoration: none;
-  }
-
-  .breadcrumb-item-custom.active {
-    color: var(--mei-primary);
-    font-weight: 600;
-  }
-
-  .breadcrumb-separator {
-    color: #adb5bd;
-    margin: 0 0.5rem;
-    font-size: 0.8rem;
-  }
-
-  .breadcrumb-icon {
-    margin-right: 0.5rem;
-    font-size: 0.8rem;
-  }
-
-  @media (max-width: 576px) {
-    .breadcrumb-custom {
-      font-size: 0.8rem;
+<link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
+  <style>
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, #0051A4 0%, #003a7a 100%);
+      padding: 80px 0 60px;
+      color: white;
+      position: relative;
+      overflow: hidden;
     }
-    
-    .breadcrumb-container {
-      padding: 0.75rem 0;
-    }
-  }
 
-  /* Por que ser MEI - Design System Moderno */
-  :root {
-    --mei-primary: #0051A4;
-    --mei-primary-dark: #003a7a;
-    --mei-secondary: #218A39;
-    --mei-accent: #D2B336;
-    --mei-success: #4ecdc4;
-    --mei-warning: #ffa726;
-  }
-  
-  .mei-hero {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.479), rgba(255, 255, 255, 0.842)), url("{% static 'images/bg-empresa.jpg' %}") no-repeat center center;
-    background-size: cover;
-    background-position: center;
-    color: rgb(0, 0, 0);
-    padding: 80px 60px 40px 50px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 8px 24px rgba(33, 138, 57, 0.2);
-  }
-  
-  .hero-content-mei {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-  }
-  
-  .section-title-mei {
-    font-family: var(--font-secondary);
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    position: relative;
-    display: inline-block;
-  }
-  
-  .section-title-mei::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background: var(--mei-accent);
-    border-radius: 2px;
-  }
-  
-  .hero-subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    opacity: 0.95;
-    font-weight: 300;
-  }
-  
-  .content-section {
-    background: white;
-    border-radius: 20px;
-    padding: 3rem 2rem;
-    margin: 3rem 0;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  }
-  
-  .intro-text {
-    font-size: 1.2rem;
-    line-height: 1.7;
-    color: var(--gray-700);
-    text-align: center;
-    margin-bottom: 3rem;
-    font-weight: 500;
-  }
-  
-  .advantages-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin: 3rem 0;
-  }
-  
-  .advantage-card {
-    background: linear-gradient(135deg, #f8f9fa, #ffffff);
-    border-radius: 15px;
-    padding: 2rem;
-    /* border-left: 5px solid var(--mei-secondary); */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.205);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  /* .advantage-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(33, 138, 57, 0.15);
-  } */
-  
-  .advantage-icon {
-    font-size: 2.5rem;
-    color: var(--mei-primary);
-    margin: auto;
-    margin-bottom: 1rem;
-    
-  }
-  
-  .advantage-title {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--mei-primary);
-    margin-bottom: 1rem;
-    font-family: var(--font-secondary);
-    text-align: center;
-  }
-  
-  .advantage-text {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--gray-700);
-  }
-  
-  .conclusion-box {
-    background: linear-gradient(135deg, var(--mei-accent), #f4d03f);
-    color: var(--dark-color);
-    border-radius: 20px;
-    padding: 2.5rem;
-    margin: 3rem 0;
-    text-align: center;
-    box-shadow: 0 10px 25px rgba(210, 179, 54, 0.3);
-  }
-  
-  .conclusion-box h3 {
-    font-family: var(--font-secondary);
-    font-weight: 600;
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-  }
-  
-  .conclusion-box p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin: 0;
-  }
-  
-  .cta-section {
-    background: linear-gradient(135deg, var(--mei-primary), var(--mei-primary-dark));
-    color: white;
-    border-radius: 20px;
-    padding: 3rem 2rem;
-    text-align: center;
-    margin: 3rem 0;
-    box-shadow: 0 10px 30px rgba(0, 81, 164, 0.2);
-  }
-  
-  .cta-title {
-    font-family: var(--font-secondary);
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-  }
-  
-  .cta-text {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
-  }
-  
-  .cta-button {
-    background: linear-gradient(135deg, var(--mei-accent), #f4d03f);
-    color: var(--dark-color);
-    border: none;
-    padding: 15px 30px;
-    border-radius: 25px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.1rem;
-  }
-  
-  .cta-button:hover {
-    color: var(--dark-color);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(244, 208, 63, 0.4);
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .section-title-mei {
-      font-size: 2.2rem;
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("{% static 'images/bg-empresa.jpg' %}") center/cover;
+      opacity: 0.1;
+      z-index: 1;
     }
-    
-    .mei-hero {
-      padding: 60px 0 40px 0;
+
+    .hero-section .container {
+      position: relative;
+      z-index: 2;
     }
-    
-    .advantages-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
+
+    .hero-section .breadcrumb {
+      background: none;
+      padding: 0;
+      margin: 0;
     }
-    
+
+    .hero-section .breadcrumb-item a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+    }
+
+    .hero-section .breadcrumb-item.active {
+      color: white;
+    }
+
     .content-section {
-      padding: 2rem 1.5rem;
+      background: white;
+      border-radius: 15px;
+      padding: 3rem 2rem;
+      margin: 2rem 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
-    
+
+    /* Por que ser MEI - Estilos específicos */
     .intro-text {
+      font-size: 1.2rem;
+      line-height: 1.7;
+      color: #495057;
+      text-align: center;
+      margin-bottom: 3rem;
+      font-weight: 500;
+    }
+
+    .advantages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .advantage-card {
+      background: linear-gradient(135deg, #f8f9fa, #ffffff);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .advantage-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 81, 164, 0.15);
+    }
+
+    .advantage-icon {
+      font-size: 2.5rem;
+      color: #0051A4;
+      margin-bottom: 1rem;
+    }
+
+    .advantage-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #0051A4;
+      margin-bottom: 1rem;
+    }
+
+    .advantage-text {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #495057;
+    }
+
+    .conclusion-box {
+      background: linear-gradient(135deg, #ffffff, #ffffff);
+      color: #212529;
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin: 3rem 0;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(105, 105, 105, 0.3);
+    }
+
+    .conclusion-box h3 {
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .conclusion-box p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .cta-section {
+      background: linear-gradient(135deg, #ffffff, #ffffff);
+      color: rgb(19, 18, 18);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 3rem 0;
+      box-shadow: 0 10px 30px rgba(0, 81, 164, 0.2);
+    }
+
+    .cta-title {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .cta-text {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .cta-button {
+      background: linear-gradient(135deg, #D2B336, #f4d03f);
+      color: #212529;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 25px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
       font-size: 1.1rem;
     }
-  }
-</style>
+
+    .cta-button:hover {
+      color: #212529;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(244, 208, 63, 0.4);
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 60px 0 40px;
+      }
+
+      .advantages-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .content-section {
+        padding: 2rem 1.5rem;
+      }
+
+      .intro-text {
+        font-size: 1.1rem;
+      }
+
+      .cta-title {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
 {% endblock %}
 
 {% block main %}
 <!-- Hero Section -->
-<section class="mei-hero">
+<section class="hero-section">
   <div class="container">
-    <div class="hero-content-mei" data-aos="fade-up">
-      <h1 class="section-title-mei">Por que ser MEI?</h1>
-      <p class="hero-subtitle">Descubra todas as vantagens de se tornar um Microempreendedor Individual</p>
+    <div class="hero-content">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="hero-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:index' %}">
+              <i class="fas fa-home"></i> Início
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:quero_ser_mei' %}">
+              <i class="fas fa-user-plus"></i> Quero ser MEI
+            </a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <i class="fas fa-question-circle"></i> Por que ser MEI
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Hero Text -->
+      <div class="hero-text">
+        <h1 class="hero-title">Por que ser MEI?</h1>
+        <p class="hero-description">
+          Descubra todas as vantagens e benefícios de se tornar um Microempreendedor Individual.
+        </p>
+        
+        <!-- Hero Action -->
+        <div class="hero-action">
+          <a href="{% url 'empreendedor:quero_ser_mei' %}" class="btn btn-outline-light btn-lg">
+            <i class="fas fa-arrow-left me-2"></i>
+            Voltar ao Menu
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Breadcrumb -->
-<div class="breadcrumb-container">
+<!-- Main Content -->
+<section class="content-section">
   <div class="container">
-    <nav class="breadcrumb-custom" aria-label="Breadcrumb">
-      <a href="{% url 'empreendedor:index' %}" class="breadcrumb-item-custom">
-        <i class="fas fa-home breadcrumb-icon"></i>
-        Início
-      </a>
-      <span class="breadcrumb-separator">
-        <i class="fas fa-chevron-right"></i>
-      </span>
-      <a href="{% url 'empreendedor:quero_ser_mei' %}" class="breadcrumb-item-custom">
-        <i class="fas fa-user-plus breadcrumb-icon"></i>
-        Quero ser MEI
-      </a>
-      <span class="breadcrumb-separator">
-        <i class="fas fa-chevron-right"></i>
-      </span>
-      <span class="breadcrumb-item-custom active">
-        <i class="fas fa-question-circle breadcrumb-icon"></i>
-        Por que ser MEI
-      </span>
-    </nav>
-  </div>
-</div>
-
-<div class="container pb-5">
-  <!-- Introduction -->
-  <div class="content-section" data-aos="fade-up">
-    <p class="intro-text">
-      A formalização como MEI traz uma série de vantagens que podem transformar 
-      sua atividade informal em um negócio próspero e legalizado.
-    </p>
+    <!-- Introduction -->
+    <div class="intro-section">
+      <p class="intro-text">
+        A formalização como MEI traz uma série de vantagens que podem transformar 
+        sua atividade informal em um negócio próspero e legalizado.
+      </p>
+    </div>
 
     <!-- Advantages Grid -->
     <div class="advantages-grid">
-      <div class="advantage-card" >
+      <div class="advantage-card">
         <i class="fas fa-id-card advantage-icon"></i>
         <h3 class="advantage-title">CNPJ Próprio</h3>
         <p class="advantage-text">Tenha um CNPJ para formalizar seu negócio e aumentar sua credibilidade no mercado.</p>
       </div>
 
-      <div class="advantage-card" >
+      <div class="advantage-card">
         <i class="fas fa-gift advantage-icon"></i>
         <h3 class="advantage-title">Isenção de Taxas</h3>
         <p class="advantage-text">Registro gratuito sem custos de abertura, cartório ou taxas governamentais.</p>
       </div>
 
-      <div class="advantage-card" >
+      <div class="advantage-card">
         <i class="fas fa-coins advantage-icon"></i>
         <h3 class="advantage-title">Tributos Fixos</h3>
         <p class="advantage-text">Pagamento de tributos com valores fixos mensais (INSS, ICMS e/ou ISS).</p>
       </div>
 
-      <div class="advantage-card" >
+      <div class="advantage-card">
         <i class="fas fa-rocket advantage-icon"></i>
         <h3 class="advantage-title">Início Imediato</h3>
         <p class="advantage-text">Comece suas atividades imediatamente, sem necessidade de alvará prévio.</p>
       </div>
 
-      <div class="advantage-card" >
+      <div class="advantage-card">
         <i class="fas fa-file-invoice advantage-icon"></i>
         <h3 class="advantage-title">Emissão de Notas</h3>
         <p class="advantage-text">Emita notas fiscais e comprove a procedência dos seus produtos e serviços.</p>
       </div>
 
-      <div class="advantage-card" >
+      <div class="advantage-card">
         <i class="fas fa-handshake advantage-icon"></i>
         <h3 class="advantage-title">Poder de Negociação</h3>
         <p class="advantage-text">Obtenha descontos especiais para pessoa jurídica junto aos fornecedores.</p>
@@ -378,23 +310,25 @@
         do seu negócio, mas exige cumprir algumas condições que são simples e acessíveis.
       </p>
     </div>
-  </div>
 
-  <!-- Call to Action -->
-  <div class="cta-section" data-aos="fade-up">
-    <h2 class="cta-title">Pronto para Começar?</h2>
-    <p class="cta-text">
-      Agora que você conhece as vantagens, descubra como dar o próximo passo 
-      para se tornar um Microempreendedor Individual.
-    </p>
-    <a href="{% url 'empreendedor:o_que_precisa_saber_para_ser_mei' %}" class="cta-button">
-      <i class="fas fa-arrow-right"></i>
-      Próximo Passo
-    </a>
+    <!-- Call to Action -->
+    <div class="cta-section">
+      <h2 class="cta-title">Pronto para Começar?</h2>
+      <p class="cta-text">
+        Agora que você conhece as vantagens, descubra como dar o próximo passo 
+        para se tornar um Microempreendedor Individual.
+      </p>
+      <a href="{% url 'empreendedor:o_que_precisa_saber_para_ser_mei' %}" class="cta-button">
+        <i class="fas fa-arrow-right me-2"></i>
+        Próximo Passo
+      </a>
+    </div>
+
+    <!-- Menu de navegação MEI -->
+    {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
   </div>
-</div>
+</section>
 {% endblock %}
 
 {% block footer %}
-{% include 'desenvolve_nf/instagram.html' %}
 {% endblock %}

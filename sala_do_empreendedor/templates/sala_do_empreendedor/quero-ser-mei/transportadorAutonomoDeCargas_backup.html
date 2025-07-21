@@ -58,7 +58,6 @@
   border-radius: 12px;
   padding: 2rem;
   margin: 1.5rem 0;
-  border-left: 4px solid #218A39;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
@@ -200,12 +199,12 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-transparent mb-3">
                         <li class="breadcrumb-item">
-                            <a href="{% url 'sala_do_empreendedor:inicio' %}" class="text-white-50">
+                            <a href="{% url 'empreendedor:index' %}" class="text-white-50">
                                 <i class="fas fa-home"></i> Início
                             </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="{% url 'quero_ser_mei:menu' %}" class="text-white-50">Quero ser MEI</a>
+                            <a href="{% url 'empreendedor:quero_ser_mei' %}" class="text-white-50">Quero ser MEI</a>
                         </li>
                         <li class="breadcrumb-item active text-white" aria-current="page">
                             Transportador autônomo de cargas
@@ -215,7 +214,7 @@
                 <h1 class="display-4 fw-bold mb-4">Transportador autônomo de cargas (MEI Caminhoneiro)</h1>
                 <p class="lead mb-4">Saiba como se formalizar como transportador autônomo de cargas através do MEI Caminhoneiro e quais são as condições e ocupações permitidas.</p>
                 <div class="d-flex gap-3 flex-wrap">
-                    <a href="{% url 'quero_ser_mei:menu' %}" class="btn btn-outline-light btn-lg">
+                    <a href="{% url 'empreendedor:quero_ser_mei' %}" class="btn btn-outline-light btn-lg">
                         <i class="fas fa-arrow-left me-2"></i>Voltar ao Menu
                     </a>
                 </div>

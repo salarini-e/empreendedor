@@ -1,86 +1,294 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
+
+{% block title %}Pagamento da Contribuição Mensal (DAS){% endblock %}
+
 {% block nav %}
-{% include 'nav_empreendedor.html' %}
+  
 {% endblock %}
+
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+  <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
+  <style>
+    .breadcrumb-container {
+      background: linear-gradient(135deg, #ffffff, #f8f9fa);
+      border-bottom: 1px solid #e9ecef;
+      padding: 1rem 0;
+      margin-bottom: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .breadcrumb-custom {
+      background: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .breadcrumb-item-custom {
+      display: flex;
+      align-items: center;
+      color: #6c757d;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      padding: 0.25rem 0;
+    }
+
+    .breadcrumb-item-custom:hover {
+      color: #0051A4;
+      text-decoration: none;
+    }
+
+    .breadcrumb-current {
+      color: #0051A4;
+      font-weight: 500;
+      pointer-events: none;
+    }
+
+    .breadcrumb-separator {
+      color: #dee2e6;
+      font-size: 0.7rem;
+      margin: 0 0.25rem;
+    }
+
+    @media (max-width: 768px) {
+      .breadcrumb-custom {
+        font-size: 0.8rem;
+      }
+      
+      .breadcrumb-container {
+        padding: 0.75rem 0;
+      }
+    }
+
+    /* Transportador Autônomo - Visual moderno */
+    .hero-section {
+      background: linear-gradient(135deg, #0051A4 0%, #003a7a 100%);
+      padding: 80px 0 60px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("{% static 'images/bg-empresa.jpg' %}") center/cover;
+      opacity: 0.1;
+      z-index: 1;
+    }
+
+    .hero-section .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-section .breadcrumb {
+      background: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .hero-section .breadcrumb-item a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+    }
+
+    .hero-section .breadcrumb-item.active {
+      color: white;
+    }
+
+    .content-section {
+      background: white;
+      border-radius: 15px;
+      padding: 3rem 2rem;
+      margin: 2rem 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+  </style>
 {% endblock %}
+
 {% block main %}
-<div class="container" style="margin-top: 90px;">
-    <div class="row mx-auto ps-4 pb-3">
-        <h3 class="text-center">Pagamento da Contribuição Mensal (Das)</h3>
-    </div>
-    <div class="row mx-auto mb-5">
-        <div class="col">
-            <p class="text-center"><b>Atenção!</b></p>
-            <p class="text-justify">
-                Essa informação é para você MEI registrado nos municípios de Bertioga, Caraguatatuba, Guarujá, Ilhabela, São Sebastião e Ubatuba de São Paulo.
-                <br><br>
-                Entendemos que situação decorrente do desastre natural não está fácil!
-                <br><br>
-                Com a decretação de calamidade pública, foi prorrogado os prazos para o pagamento dos tributos do MEI.
-                <br><br>
-                Confira os detalhes <a href="https://www8.receita.fazenda.gov.br/SimplesNacional/Noticias/NoticiaCompleta.aspx?id=43fe753a-de9c-4fc4-ad2f-d927e99726c1">aqui.</a>
-                <br><br>
-                Mas fica uma dica!
-                <br><br>
-                Se for possível, mantenha o pagamento do DAS em dia para que não acumule com os meses que foram prorrogados.                
-            </p>
-            <ul class="my-4">
-                <p><b>Agora que já está com o CNPJ em mãos, pode ter direito aos seguintes benefícios previdenciários:</b></p>
-                <li>Aposentadoria por idade</li>
-                <li>Aposentadoria por invalidez</li>
-                <li>Auxílio-doença</li>
-                <li>Licença-maternidade</li>
-                <li>Auxílio-reclusão</li>
-                <li>Pensão por morte</li>
-                <p class="text-justify">
-                    Para conseguir todos estes benefícios, basta pagar a contribuição mensal (DAS) em dia e cumprir a carência necessária para cada um.
-                    Se deixar de pagar estes boletos, além da possibilidade de ocorrer o cancelamento automático do MEI, você pode comprometer o recebimento 
-                    destes benefícios.
-                </p>
-            </ul>
-            <p><b>Mas afinal, o que é pago no DAS?</b></p>
-            <ul>
-                <li>É por meio deste boleto que você, MEI, vai recolher seus impostos e a contribuição para o INSS.</li>
-                <li>Veja o que você vai pagar, dependendo de suas ocupações:</li>
-            </ul>
-            <table class="mx-auto my-3">
-                <thead>
-                    <th>O que é pago?</th>
-                    <th>Valor</th>
-                    <th>Quais Ocupações Pagam?</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>INSS(Previdência Social)</td>
-                        <td>5% do salário mínimo vigente</td>
-                        <td>Todas as ocupações</td>
-                    </tr>
-                    <tr>
-                        <td>ICMS(Imposto sobre Circulação de Mercadorias e Serviços)</td>
-                        <td>R$1,00</td>
-                        <td>Comércio, indústria e transporte entre estados e municípios</td>
-                    </tr>
-                    <tr>
-                        <td>ISS(Imposto sobre Serviços)</td>
-                        <td>R$ 5,00</td>
-                        <td>Prestação de Serviços em geral</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p class="my-3">
-                Como MEI, além de um valor baixo, os impostos são fixos, independente do seu faturamento (desde que dentro do limite anual). 
-                Assim você pode colocar este gasto no seu controle de despesas fixas e não ter surpresas no final do mês.
-                <br><br>
-                Agora clique no botão Como pagar seu DAS, veja como você pode efetuar o pagamento. 
-            </p>
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="hero-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:index' %}">
+              <i class="fas fa-home"></i> Início
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:ja_sou_mei' %}">
+              <i class="fas fa-check-circle"></i> Já sou MEI
+            </a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <i class="fas fa-credit-card"></i> Pagamento Mensal
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Hero Text -->
+      <div class="hero-text">
+        <h1 class="hero-title">Pagamento da Contribuição Mensal (DAS)</h1>
+        <p class="hero-description">
+          Mantenha suas contribuições em dia e garanta acesso aos benefícios previdenciários. Conheça os valores e formas de pagamento do DAS MEI.
+        </p>
+        
+        <!-- Hero Action -->
+        <div class="hero-action">
+          <a href="{% url 'empreendedor:ja_sou_mei' %}" class="btn btn-outline-light btn-lg">
+            <i class="fas fa-arrow-left me-2"></i>
+            Voltar ao Menu
+          </a>
         </div>
+      </div>
     </div>
-     {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
-</div>
-{% endblock %}
-{% block footer %}
-{% include 'desenvolve_nf/instagram.html' %}
+  </div>
+</section>
+
+<!-- Main Content -->
+<section class="content-section">
+  <div class="container">
+    <!-- Content -->
+    <div class="page-content">
+      <div class="row">
+        <div class="col-12">
+          <div class="content-card">
+            <!-- Aviso especial -->
+            <div class="alert alert-warning">
+              <h5><i class="fas fa-exclamation-triangle me-2"></i>Atenção!</h5>
+              <p class="mb-0">
+                Esta informação é para você MEI registrado nos municípios de <strong>Bertioga, Caraguatatuba, Guarujá, Ilhabela, São Sebastião e Ubatuba</strong> de São Paulo.
+              </p>
+            </div>
+
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-calendar-times me-2"></i>
+                Prorrogação de Prazos
+              </h4>
+              <p>
+                Entendemos que a situação decorrente do desastre natural não está fácil! Com a decretação de calamidade pública, foi prorrogado os prazos para o pagamento dos tributos do MEI.
+              </p>
+              <p>
+                Confira os detalhes <a href="https://www8.receita.fazenda.gov.br/SimplesNacional/Noticias/NoticiaCompleta.aspx?id=43fe753a-de9c-4fc4-ad2f-d927e99726c1" target="_blank" class="text-primary">aqui</a>.
+              </p>
+              <div class="alert alert-info">
+                <i class="fas fa-lightbulb me-2"></i>
+                <strong>Dica:</strong> Se for possível, mantenha o pagamento do DAS em dia para que não acumule com os meses que foram prorrogados.
+              </div>
+            </div>
+
+            <!-- Benefícios previdenciários -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-shield-alt me-2"></i>
+                Benefícios Previdenciários
+              </h4>
+              <p>Agora que já está com o CNPJ em mãos, pode ter direito aos seguintes benefícios previdenciários:</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <ul class="benefit-list">
+                    <li><i class="fas fa-check text-success me-2"></i>Aposentadoria por idade</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Aposentadoria por invalidez</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Auxílio-doença</li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <ul class="benefit-list">
+                    <li><i class="fas fa-check text-success me-2"></i>Licença-maternidade</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Auxílio-reclusão</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Pensão por morte</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                Para conseguir todos estes benefícios, basta pagar a contribuição mensal (DAS) em dia e cumprir a carência necessária para cada um. Se deixar de pagar, pode comprometer o recebimento destes benefícios e ocorrer o cancelamento automático do MEI.
+              </div>
+            </div>
+
+            <!-- O que é pago no DAS -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-file-invoice-dollar me-2"></i>
+                O que é pago no DAS?
+              </h4>
+              <p>É por meio deste boleto que você, MEI, vai recolher seus impostos e a contribuição para o INSS.</p>
+              
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                  <thead class="table-dark">
+                    <tr>
+                      <th>O que é pago?</th>
+                      <th>Valor</th>
+                      <th>Quais Ocupações Pagam?</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>INSS</strong> (Previdência Social)</td>
+                      <td>5% do salário mínimo vigente</td>
+                      <td>Todas as ocupações</td>
+                    </tr>
+                    <tr>
+                      <td><strong>ICMS</strong> (Imposto sobre Circulação de Mercadorias e Serviços)</td>
+                      <td>R$ 1,00</td>
+                      <td>Comércio, indústria e transporte entre estados e municípios</td>
+                    </tr>
+                    <tr>
+                      <td><strong>ISS</strong> (Imposto sobre Serviços)</td>
+                      <td>R$ 5,00</td>
+                      <td>Prestação de Serviços em geral</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="alert alert-success">
+                <i class="fas fa-info-circle me-2"></i>
+                Como MEI, além de um valor baixo, os impostos são fixos, independente do seu faturamento (desde que dentro do limite anual). Assim você pode colocar este gasto no seu controle de despesas fixas e não ter surpresas no final do mês.
+              </div>
+            </div>
+
+            <!-- Botões de ação -->
+            <div class="action-buttons mt-4">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <a href="https://www8.receita.fazenda.gov.br/SimplesNacional/Aplicacoes/ATSPO/pgmei.app/identificacao" target="_blank" class="btn btn-primary btn-lg w-100">
+                    <i class="fas fa-credit-card me-2"></i>
+                    Gerar DAS MEI
+                  </a>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <a href="https://www8.receita.fazenda.gov.br/SimplesNacional/" target="_blank" class="btn btn-outline-primary btn-lg w-100">
+                    <i class="fas fa-external-link-alt me-2"></i>
+                    Portal Simples Nacional
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu de navegação MEI -->
+    {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
+  </div>
+</section>
 {% endblock %}

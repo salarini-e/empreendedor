@@ -1,59 +1,286 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
+
+{% block title %}Soluções Financeiras - CRED+{% endblock %}
+
 {% block nav %}
-{% include 'nav_empreendedor.html' %}
+  
 {% endblock %}
+
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+  <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
+  <style>
+    .breadcrumb-container {
+      background: linear-gradient(135deg, #ffffff, #f8f9fa);
+      border-bottom: 1px solid #e9ecef;
+      padding: 1rem 0;
+      margin-bottom: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .breadcrumb-custom {
+      background: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .breadcrumb-item-custom {
+      display: flex;
+      align-items: center;
+      color: #6c757d;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      padding: 0.25rem 0;
+    }
+
+    .breadcrumb-item-custom:hover {
+      color: #0051A4;
+      text-decoration: none;
+    }
+
+    .breadcrumb-current {
+      color: #0051A4;
+      font-weight: 500;
+      pointer-events: none;
+    }
+
+    .breadcrumb-separator {
+      color: #dee2e6;
+      font-size: 0.7rem;
+      margin: 0 0.25rem;
+    }
+
+    @media (max-width: 768px) {
+      .breadcrumb-custom {
+        font-size: 0.8rem;
+      }
+      
+      .breadcrumb-container {
+        padding: 0.75rem 0;
+      }
+    }
+
+    /* Transportador Autônomo - Visual moderno */
+    .hero-section {
+      background: linear-gradient(135deg, #0051A4 0%, #003a7a 100%);
+      padding: 80px 0 60px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("{% static 'images/bg-empresa.jpg' %}") center/cover;
+      opacity: 0.1;
+      z-index: 1;
+    }
+
+    .hero-section .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-section .breadcrumb {
+      background: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .hero-section .breadcrumb-item a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+    }
+
+    .hero-section .breadcrumb-item.active {
+      color: white;
+    }
+
+    .content-section {
+      background: white;
+      border-radius: 15px;
+      padding: 3rem 2rem;
+      margin: 2rem 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+  </style>
 {% endblock %}
+
 {% block main %}
-<div class="container" style="margin-top: 90px;">
-    <div class="row mx-auto ps-4 pb-3">
-        <h3 class="text-center">Conheça o Programa de Simplificação do Acesso a Produtos e Serviços Financeiros para os Pequenos Negócios(CRED+)</h3>
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="hero-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:index' %}">
+              <i class="fas fa-home"></i> Início
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:ja_sou_mei' %}">
+              <i class="fas fa-check-circle"></i> Já sou MEI
+            </a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <i class="fas fa-dollar-sign"></i> Soluções Financeiras
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Hero Text -->
+      <div class="hero-text">
+        <h1 class="hero-title">Soluções Financeiras - CRED+</h1>
+        <p class="hero-description">
+          Conheça o Programa de Simplificação do Acesso a Produtos e Serviços Financeiros para os Pequenos Negócios e facilite o crescimento do seu empreendimento.
+        </p>
+        
+        <!-- Hero Action -->
+        <div class="hero-action">
+          <a href="{% url 'empreendedor:ja_sou_mei' %}" class="btn btn-outline-light btn-lg">
+            <i class="fas fa-arrow-left me-2"></i>
+            Voltar ao Menu
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="row mx-auto mb-5">
-        <div class="col">
-            <p class="text-justify">
-                <b>Programa de Simplificação do Acesso a Produtos e Serviços Financeiros para os Pequenos Negócios (CRED+)</b>
-                <br>
-                Serviço que busca facilitar o acesso do Microempreendedor Individual e da Micro e Pequena Empresa a diversas soluções financeiras que ajudam sua empresa a crescer.
-            </p>
-            <p class="my-5">
-                <b>Algumas das soluções disponíveis são:</b>
-            </p>
-            <ul>
-                <li>Conta corrente de pessoa jurídica, onde você pode movimentar o dinheiro do seu negócio</li>
-                <li>Máquinas de débito e crédito, para facilitar a venda de produtos ou prestação de serviços</li>
-                <li>Antecipação de recebíveis, onde você recebe à vista os valores vendidos no crédito</li>
-                <li>Cartão de crédito ou débito empresarial</li>
-                <li>Crédito para comprar mercadorias, insumos ou matérias-primas</li>
-                <li>Crédito para comprar máquinas, equipamentos, móveis ou utensílios de produção</li>
-                <li>Crédito para ampliar o negócio</li>
-                <li>Crédito para comprar veículo (carro, moto, etc)</li>
-                <li>Seguros para proteger seu negócio ou sua família</li>
-                <li>Investimentos</li>
-            </ul>
-            <p>
+  </div>
+</section>
+
+<!-- Main Content -->
+<section class="content-section">
+  <div class="container">
+    <!-- Content -->
+    <div class="page-content">
+      <div class="row">
+        <div class="col-12">
+          <div class="content-card">
+            <!-- Programa CRED+ -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-handshake me-2"></i>
+                Programa CRED+
+              </h4>
+              <p>
+                O <strong>Programa de Simplificação do Acesso a Produtos e Serviços Financeiros para os Pequenos Negócios (CRED+)</strong> é um serviço que busca facilitar o acesso do Microempreendedor Individual e da Micro e Pequena Empresa a diversas soluções financeiras que ajudam sua empresa a crescer.
+              </p>
+            </div>
+
+            <!-- Soluções disponíveis -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-list-ul me-2"></i>
+                Soluções Disponíveis
+              </h4>
+              <div class="row">
+                <div class="col-md-6">
+                  <ul class="info-list">
+                    <li><i class="fas fa-university text-primary me-2"></i>Conta corrente de pessoa jurídica</li>
+                    <li><i class="fas fa-credit-card text-primary me-2"></i>Máquinas de débito e crédito</li>
+                    <li><i class="fas fa-money-bill-wave text-primary me-2"></i>Antecipação de recebíveis</li>
+                    <li><i class="fas fa-id-card text-primary me-2"></i>Cartão de crédito ou débito empresarial</li>
+                    <li><i class="fas fa-shopping-cart text-primary me-2"></i>Crédito para comprar mercadorias</li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <ul class="info-list">
+                    <li><i class="fas fa-tools text-primary me-2"></i>Crédito para equipamentos</li>
+                    <li><i class="fas fa-chart-line text-primary me-2"></i>Crédito para ampliar o negócio</li>
+                    <li><i class="fas fa-car text-primary me-2"></i>Crédito para comprar veículo</li>
+                    <li><i class="fas fa-shield-alt text-primary me-2"></i>Seguros empresariais</li>
+                    <li><i class="fas fa-piggy-bank text-primary me-2"></i>Investimentos</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Como funciona -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-cogs me-2"></i>
+                Como Funciona
+              </h4>
+              <p>
                 Use este canal para criar solicitações de produtos e serviços financeiros. Estas solicitações são encaminhadas para as instituições escolhidas por você, 
                 juntamente com sua documentação, pessoal e empresarial. Este processo facilita o trâmite da sua solicitação e garante que você possa ter acesso a diversas 
                 soluções de maneira totalmente eletrônica.
-            </p>
-            <p class="my-4"><b>Passo a passo da solicitação</b></p>
-            <ul>
-                <li>Para acessar o Programa, clique no botão FAÇA SUA SOLICITAÇÃO, disponível nesta página. </li>
-                <li>O acesso ao serviço é realizado com uma conta de acesso único do governo (conta gov.br) - antigo Brasil Cidadão. Se você ainda não tem sua conta, 
-                    clique no botãobr
-                    <br>
-                    <a href="https://sso.acesso.gov.br/login?client_id=contas.acesso.gov.br&authorization_id=18a04849270">Criar Conta Gov.Br.</a>
-                </li>
-                <li>Revise seus dados cadastrais e preencha o formulário de solicitação. Tenha em mãos um documento de identidade, um comprovante de residência e a Declaração Anual do Simples 
-                    Nacional (DASN-SIMEI). Você precisará adicionar a cópia destes documentos na sua solicitação. </li>
-            </ul>
+              </p>
+            </div>
+
+            <!-- Passo a passo -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-list-ol me-2"></i>
+                Passo a Passo da Solicitação
+              </h4>
+              <div class="steps-list">
+                <div class="step-item">
+                  <div class="step-number">1</div>
+                  <div class="step-content">
+                    <h6>Acesse o Programa</h6>
+                    <p>Para acessar o Programa, clique no botão "FAÇA SUA SOLICITAÇÃO", disponível nesta página.</p>
+                  </div>
+                </div>
+                <div class="step-item">
+                  <div class="step-number">2</div>
+                  <div class="step-content">
+                    <h6>Login com Gov.br</h6>
+                    <p>O acesso ao serviço é realizado com uma conta de acesso único do governo (conta gov.br). Se você ainda não tem sua conta, crie uma antes de prosseguir.</p>
+                  </div>
+                </div>
+                <div class="step-item">
+                  <div class="step-number">3</div>
+                  <div class="step-content">
+                    <h6>Preencha o Formulário</h6>
+                    <p>Revise seus dados cadastrais e preencha o formulário de solicitação. Tenha em mãos um documento de identidade, um comprovante de residência e a Declaração Anual do Simples Nacional (DASN-SIMEI).</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botões de ação -->
+            <div class="action-buttons mt-4">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <a href="https://credmais.gov.br/" target="_blank" class="btn btn-primary btn-lg w-100">
+                    <i class="fas fa-external-link-alt me-2"></i>
+                    Fazer Solicitação CRED+
+                  </a>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <a href="https://sso.acesso.gov.br/login" target="_blank" class="btn btn-outline-primary btn-lg w-100">
+                    <i class="fas fa-user-plus me-2"></i>
+                    Criar Conta Gov.br
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dica -->
+            <div class="alert alert-info mt-4">
+              <i class="fas fa-lightbulb me-2"></i>
+              <strong>Dica:</strong> Tenha todos os documentos necessários organizados antes de iniciar sua solicitação para agilizar o processo.
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-     {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
-</div>
-{% endblock %}
-{% block footer %}
-{% include 'desenvolve_nf/instagram.html' %}
+
+    <!-- Menu de navegação MEI -->
+    {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
+  </div>
+</section>
 {% endblock %}

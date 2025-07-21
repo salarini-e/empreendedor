@@ -11,111 +11,103 @@
   <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
   <style>
     /* Breadcrumb Styles */
-    .breadcrumb-container {
-      background: linear-gradient(135deg, #ffffff, #f8f9fa);
-      border-bottom: 1px solid #e9ecef;
-      padding: 1rem 0;
-      margin-bottom: 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      margin-top: 90px;
-    }
-
-    .breadcrumb-custom {
-      background: none;
-      margin: 0;
-      padding: 0;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .breadcrumb-item-custom {
-      display: flex;
-      align-items: center;
-      color: #6c757d;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      padding: 0.25rem 0;
-    }
-
-    .breadcrumb-item-custom:hover {
-      color: #0051A4;
+    .hero-section .breadcrumb-item a {
+      color: rgba(255, 255, 255, 0.7);
       text-decoration: none;
     }
 
-    .breadcrumb-item-custom.active {
-      color: #0051A4;
-      font-weight: 600;
+    .hero-section .breadcrumb-item.active {
+      color: white;
     }
 
-    .breadcrumb-separator {
-      color: #adb5bd;
-      margin: 0 0.5rem;
-      font-size: 0.8rem;
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, #0051A4 0%, #003a7a 100%);
+      padding: 80px 0 60px;
+      color: white;
+      position: relative;
+      overflow: hidden;
     }
 
-    .breadcrumb-icon {
-      margin-right: 0.5rem;
-      font-size: 0.8rem;
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("{% static 'images/bg-empresa.jpg' %}") center/cover;
+      opacity: 0.1;
+      z-index: 1;
+    }
+
+    .hero-section .container {
+      position: relative;
+      z-index: 2;
     }
 
     .content-wrapper {
       margin-top: 0 !important;
     }
 
-    @media (max-width: 576px) {
-      .breadcrumb-custom {
-        font-size: 0.8rem;
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 60px 0 40px;
       }
       
-      .breadcrumb-container {
-        padding: 0.75rem 0;
+      .hero-section h1 {
+        font-size: 2rem;
       }
     }
-  </style>>
+  </style>
 {% endblock %}
 
 {% block main %}
-<!-- Breadcrumb -->
-<div class="breadcrumb-container">
+<!-- Hero Section -->
+<section class="hero-section">
   <div class="container">
-    <nav class="breadcrumb-custom" aria-label="Breadcrumb">
-      <a href="{% url 'empreendedor:index' %}" class="breadcrumb-item-custom">
-        <i class="fas fa-home breadcrumb-icon"></i>
-        Início
-      </a>
-      <span class="breadcrumb-separator">
-        <i class="fas fa-chevron-right"></i>
-      </span>
-      <a href="{% url 'empreendedor:quero_ser_mei' %}" class="breadcrumb-item-custom">
-        <i class="fas fa-user-plus breadcrumb-icon"></i>
-        Quero ser MEI
-      </a>
-      <span class="breadcrumb-separator">
-        <i class="fas fa-chevron-right"></i>
-      </span>
-      <span class="breadcrumb-item-custom active">
-        <i class="fas fa-info-circle breadcrumb-icon"></i>
-        O que precisa saber
-      </span>
-    </nav>
-  </div>
-</div>
+    <div class="hero-content">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="hero-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:index' %}">
+              <i class="fas fa-home"></i> Início
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:quero_ser_mei' %}">
+              <i class="fas fa-user-plus"></i> Quero ser MEI
+            </a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <i class="fas fa-info-circle"></i> O que precisa saber
+          </li>
+        </ol>
+      </nav>
 
-<div class="content-wrapper">
-  <div class="container">
-    <!-- Header -->
-    <div class="page-header">
-      <div class="row">
-        <div class="col-12">
-          <div class="page-title-wrapper">
-            <h1 class="page-title">O que você precisa saber antes de se tornar um MEI?</h1>
-          </div>
+      <!-- Hero Text -->
+      <div class="hero-text">
+        <h1 class="hero-title">O que você precisa saber antes de se tornar um MEI</h1>
+        <p class="hero-description">
+          Alguns benefícios poderão ser impactados após a sua formalização como MEI. Veja se você recebe algum desses benefícios.
+        </p>
+        
+        <!-- Hero Action -->
+        <div class="hero-action">
+          <a href="{% url 'empreendedor:quero_ser_mei' %}" class="btn btn-outline-light btn-lg">
+            <i class="fas fa-arrow-left me-2"></i>
+            Voltar ao Menu
+          </a>
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<section class="content-section">
+  <div class="container">
 
     <!-- Content -->
     <div class="page-content">

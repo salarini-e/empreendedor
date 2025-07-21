@@ -9,158 +9,523 @@
 
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
+  <style>
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, #0051A4 0%, #003a7a 100%);
+      padding: 80px 0 60px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("{% static 'images/bg-empresa.jpg' %}") center/cover;
+      opacity: 0.1;
+      z-index: 1;
+    }
+
+    .hero-section .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-section .breadcrumb {
+      background: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .hero-section .breadcrumb-item a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+    }
+
+    .hero-section .breadcrumb-item.active {
+      color: white;
+    }
+
+    .content-section {
+      background: white;
+      border-radius: 15px;
+      padding: 3rem 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    /* Introduction Box */
+    .intro-box {
+      padding: 2rem;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .intro-box h3 {
+      color: #0051A4;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+
+    .intro-box p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #495057;
+      margin: 0;
+    }
+
+    /* Environment Cards */
+    .env-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .env-card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      border: 1px solid #e9ecef;
+      transition: all 0.3s ease;
+    }
+
+    .env-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(0, 81, 164, 0.15);
+    }
+
+    .env-card-icon {
+      font-size: 2.5rem;
+      color: #0051A4;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .env-card-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #0051A4;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .env-card-text {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #495057;
+      text-align: justify;
+    }
+
+    /* Practices Grid */
+    .practices-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .practice-card {
+      background: linear-gradient(135deg, #f8f9fa, #ffffff);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px solid #e9ecef;
+      transition: all 0.3s ease;
+    }
+
+    .practice-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .practice-card i {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .practice-card h6 {
+      font-weight: 600;
+      color: #212529;
+      margin-bottom: 0.5rem;
+    }
+
+    .practice-card p {
+      font-size: 0.9rem;
+      color: #6c757d;
+      margin: 0;
+    }
+
+    /* Alert Boxes */
+    .alert-env {
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      border: none;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .alert-success-env {
+      background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+      color: #0c5460;
+      border-left: 4px solid #17a2b8;
+    }
+
+    .alert-warning-env {
+      background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+      color: #856404;
+      border-left: 4px solid #ffc107;
+    }
+
+    .alert-info-env {
+      background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+      color: #0c5460;
+      border-left: 4px solid #17a2b8;
+    }
+
+    /* Links Grid */
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .link-card {
+      background: linear-gradient(135deg, #0051A4, #003a7a);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .link-card:hover {
+      color: white;
+      text-decoration: none;
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 81, 164, 0.3);
+    }
+
+    .link-card i {
+      font-size: 2rem;
+    }
+
+    .link-card span {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    /* Section Titles */
+    .section-title {
+      color: #0051A4;
+      font-weight: 600;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #6c757d;
+      font-size: 1.1rem;
+      margin-bottom: 3rem;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, #0051A4, #003a7a);
+      color: white;
+      border-radius: 20px;
+      padding: 3rem;
+      text-align: center;
+      margin: 3rem 0;
+    }
+
+    .cta-button {
+      background: linear-gradient(135deg, #D2B336, #f4d03f);
+      color: #212529;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 25px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .cta-button:hover {
+      color: #212529;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(244, 208, 63, 0.4);
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 60px 0 40px;
+      }
+
+      .env-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .practices-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .links-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .content-section {
+        padding: 2rem 1.5rem;
+      }
+
+      .intro-box {
+        padding: 1.5rem;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 {% endblock %}
 
 {% block main %}
-<div class="content-wrapper" style="margin-top: 90px;">
+<!-- Hero Section -->
+<section class="hero-section">
   <div class="container">
-    <!-- Header -->
-    <div class="page-header">
-      <div class="row">
-        <div class="col-12">
-          <div class="page-title-wrapper">
-            <h1 class="page-title">Dicas de Meio Ambiente para MEI</h1>
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                  <a href="{% url 'empreendedor:index' %}">Início</a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a href="{% url 'empreendedor:quero_ser_mei' %}">Quero ser MEI</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">Meio Ambiente</li>
-              </ol>
-            </nav>
+    <div class="hero-content">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="hero-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:index' %}">
+              <i class="fas fa-home"></i> Início
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:quero_ser_mei' %}">
+              <i class="fas fa-user-plus"></i> Quero ser MEI
+            </a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <i class="fas fa-leaf"></i> Meio Ambiente
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Hero Text -->
+      <div class="hero-text">
+        <h1 class="hero-title">Dicas de Meio Ambiente para MEI</h1>
+        <p class="hero-description">
+          Conheça as orientações ambientais essenciais para seu MEI e mantenha seu negócio sustentável.
+        </p>
+        
+        <!-- Hero Action -->
+        <div class="hero-action">
+          <a href="{% url 'empreendedor:quero_ser_mei' %}" class="btn btn-outline-light btn-lg">
+            <i class="fas fa-arrow-left me-2"></i>
+            Voltar ao Menu
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<section class="content-section">
+  <div class="container">
+    <!-- Introduction -->
+    <div class="intro-box">
+      <!-- <h3><i class="fas fa-leaf me-2"></i>Sustentabilidade Empresarial</h3> -->
+      <p>
+        Empreender com responsabilidade ambiental é fundamental para um negócio sustentável e próspero. 
+        Conheça as orientações essenciais para manter seu MEI em conformidade ambiental.
+      </p>
+    </div>
+
+    <!-- Environmental Requirements -->
+    <div class="env-section mb-5">
+      <h2 class="section-title">
+        <i class="fas fa-clipboard-check"></i>
+        Principais Exigências Ambientais
+      </h2>
+      <p class="section-subtitle">
+        Verificações importantes antes de iniciar suas atividades como MEI
+      </p>
+
+      <div class="env-cards-grid">
+        <div class="env-card">
+          <div class="env-card-icon">
+            <i class="fas fa-certificate"></i>
           </div>
+          <h4 class="env-card-title">Licenciamento Ambiental</h4>
+          <p class="env-card-text">
+            Verifique se sua atividade necessita de licença ambiental junto ao órgão de meio ambiente 
+            do seu Estado, Município ou Distrito Federal. Nem todas as atividades MEI precisam, 
+            mas é essencial verificar antes de iniciar.
+          </p>
+        </div>
+
+        <div class="env-card">
+          <div class="env-card-icon">
+            <i class="fas fa-registered"></i>
+          </div>
+          <h4 class="env-card-title">Cadastro Técnico Federal (CTF/APP)</h4>
+          <p class="env-card-text">
+            Caso necessária licença ambiental, verifique a obrigação de inscrição no Cadastro Técnico Federal 
+            de Atividades Potencialmente Poluidoras ou Utilizadoras de Recursos Ambientais do IBAMA.
+          </p>
+        </div>
+
+        <div class="env-card">
+          <div class="env-card-icon">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <h4 class="env-card-title">Relatórios e Taxas</h4>
+          <p class="env-card-text">
+            Verifique obrigações como entrega do Relatório Anual (RAPP), pagamento da Taxa de Controle 
+            e Fiscalização Ambiental (TCFA) e outros relatórios específicos da sua atividade.
+          </p>
         </div>
       </div>
     </div>
 
-    <!-- Content -->
-    <div class="page-content">
-      <div class="row">
-        <div class="col-12">
-          <div class="content-card">
-            <div class="alert alert-success mb-4">
-              <i class="fas fa-leaf me-2"></i>
-              <strong>Sustentabilidade:</strong> Empreender com responsabilidade ambiental é fundamental para um negócio sustentável.
-            </div>
+    <!-- Sustainable Practices -->
+    <div class="practices-section mb-5">
+      <h3 class="section-title">
+        <i class="fas fa-recycle"></i>
+        Práticas Sustentáveis para MEI
+      </h3>
+      <p class="section-subtitle">
+        Adote práticas que beneficiam o meio ambiente e reduzem custos operacionais
+      </p>
 
-            <!-- Licenças ambientais -->
-            <div class="info-section">
-              <h4 class="section-title">
-                <i class="fas fa-clipboard-check me-2"></i>
-                Licenciamento Ambiental
-              </h4>
-              <p class="mb-3">
-                Antes de iniciar sua atividade, verifique se é necessária obtenção de algum tipo de licença ambiental, junto ao Órgão de Meio Ambiente do seu Estado, Município ou do Distrito Federal.
-              </p>
-              <div class="alert alert-warning">
-                <i class="fas fa-exclamation-triangle me-2"></i>
-                <strong>Importante:</strong> Nem todas as atividades MEI precisam de licença ambiental, mas é essencial verificar antes de iniciar as operações.
-              </div>
-            </div>
+      <div class="practices-grid">
+        <div class="practice-card">
+          <i class="fas fa-save text-success"></i>
+          <h6>Economia de Recursos</h6>
+          <p>Reduza o consumo de água, energia elétrica e materiais em suas operações diárias</p>
+        </div>
 
-            <!-- CTF/APP -->
-            <div class="info-section">
-              <h4 class="section-title">
-                <i class="fas fa-registered me-2"></i>
-                Cadastro Técnico Federal (CTF/APP)
-              </h4>
-              <p class="mb-3">
-                Caso seja necessária licença ambiental, verifique se há obrigação de inscrição no Cadastro Técnico Federal de Atividades Potencialmente Poluidoras ou Utilizadoras de Recursos Ambientais (CTF/APP) do Ibama.
-              </p>
-              <a href="https://www.ibama.gov.br/cadastro-tecnico-federal-ctf" target="_blank" class="btn btn-outline-primary">
-                <i class="fas fa-external-link-alt me-2"></i>
-                Consultar CTF/APP no IBAMA
-              </a>
-            </div>
+        <div class="practice-card">
+          <i class="fas fa-trash-alt text-primary"></i>
+          <h6>Gestão de Resíduos</h6>
+          <p>Implemente a separação, reciclagem e descarte correto de todos os tipos de resíduos</p>
+        </div>
 
-            <!-- Obrigações -->
-            <div class="info-section">
-              <h4 class="section-title">
-                <i class="fas fa-tasks me-2"></i>
-                Outras Obrigações Ambientais
-              </h4>
-              <p class="mb-3">Verifique se existem outras obrigações ambientais relacionadas a sua atividade:</p>
-              <ul class="info-list">
-                <li>Entrega do Relatório Anual de Atividades Potencialmente Poluidoras ou Utilizadoras de Recursos Ambientais (RAPP)</li>
-                <li>Pagamento da Taxa de Controle e Fiscalização Ambiental (TCFA)</li>
-                <li>Outros relatórios específicos da sua atividade</li>
-              </ul>
-            </div>
+        <div class="practice-card">
+          <i class="fas fa-file-alt text-warning"></i>
+          <h6>Documentação Digital</h6>
+          <p>Prefira documentos digitais, notas fiscais eletrônicas e reduza o uso de papel</p>
+        </div>
 
-            <!-- Dicas sustentáveis -->
-            <div class="info-section">
-              <h4 class="section-title">
-                <i class="fas fa-recycle me-2"></i>
-                Práticas Sustentáveis para MEI
-              </h4>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <div class="practice-card">
-                    <i class="fas fa-save text-success"></i>
-                    <h6>Economia de Recursos</h6>
-                    <p class="small">Reduza o consumo de água, energia e materiais</p>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <div class="practice-card">
-                    <i class="fas fa-trash-alt text-primary"></i>
-                    <h6>Gestão de Resíduos</h6>
-                    <p class="small">Separe, recicle e descarte corretamente os resíduos</p>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <div class="practice-card">
-                    <i class="fas fa-file-alt text-warning"></i>
-                    <h6>Documentação Digital</h6>
-                    <p class="small">Prefira documentos digitais para reduzir papel</p>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <div class="practice-card">
-                    <i class="fas fa-truck text-info"></i>
-                    <h6>Logística Verde</h6>
-                    <p class="small">Otimize entregas e use embalagens sustentáveis</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div class="practice-card">
+          <i class="fas fa-truck text-info"></i>
+          <h6>Logística Verde</h6>
+          <p>Otimize rotas de entrega e utilize embalagens sustentáveis e recicláveis</p>
+        </div>
 
-            <!-- Links úteis -->
-            <div class="info-section">
-              <h4 class="section-title">
-                <i class="fas fa-link me-2"></i>
-                Links Úteis
-              </h4>
-              <div class="links-grid">
-                <a href="https://www.ibama.gov.br" target="_blank" class="link-card">
-                  <i class="fas fa-leaf"></i>
-                  <span>IBAMA</span>
-                </a>
-                <a href="https://www.mma.gov.br" target="_blank" class="link-card">
-                  <i class="fas fa-globe-americas"></i>
-                  <span>Ministério do Meio Ambiente</span>
-                </a>
-                <a href="https://servicos.ibama.gov.br" target="_blank" class="link-card">
-                  <i class="fas fa-cog"></i>
-                  <span>Serviços IBAMA</span>
-                </a>
-              </div>
-            </div>
+        <div class="practice-card">
+          <i class="fas fa-lightbulb text-warning"></i>
+          <h6>Eficiência Energética</h6>
+          <p>Use equipamentos eficientes e iluminação LED para reduzir o consumo energético</p>
+        </div>
 
-            <div class="alert alert-info mt-4">
-              <i class="fas fa-info-circle me-2"></i>
-              <strong>Lembre-se:</strong> Consulte sempre os órgãos ambientais locais e mantenha-se atualizado sobre as exigências específicas da sua atividade e região.
-            </div>
-          </div>
+        <div class="practice-card">
+          <i class="fas fa-users text-success"></i>
+          <h6>Educação Ambiental</h6>
+          <p>Conscientize clientes e colaboradores sobre práticas sustentáveis</p>
         </div>
       </div>
+    </div>
+
+    <!-- Important Alerts -->
+    <div class="alerts-section mb-4">
+      <div class="alert-env alert-warning-env">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        <strong>Importante:</strong> Nem todas as atividades MEI precisam de licença ambiental, 
+        mas é essencial verificar as exigências específicas da sua atividade antes de iniciar as operações.
+      </div>
+
+      <div class="alert-env alert-info-env">
+        <i class="fas fa-info-circle me-2"></i>
+        <strong>Dica:</strong> Consulte sempre os órgãos ambientais locais e mantenha-se atualizado 
+        sobre as exigências específicas da sua atividade e região.
+      </div>
+    </div>
+
+    <!-- Useful Links -->
+    <div class="links-section mb-5">
+      <h3 class="section-title">
+        <i class="fas fa-link"></i>
+        Links Úteis
+      </h3>
+      <p class="section-subtitle">
+        Acesse os principais órgãos e serviços ambientais
+      </p>
+
+      <div class="links-grid">
+        <a href="https://www.ibama.gov.br" target="_blank" class="link-card">
+          <i class="fas fa-leaf"></i>
+          <span>IBAMA</span>
+        </a>
+
+        <a href="https://www.mma.gov.br" target="_blank" class="link-card">
+          <i class="fas fa-globe-americas"></i>
+          <span>Ministério do Meio Ambiente</span>
+        </a>
+
+        <a href="https://servicos.ibama.gov.br" target="_blank" class="link-card">
+          <i class="fas fa-cog"></i>
+          <span>Serviços IBAMA</span>
+        </a>
+
+        <a href="https://www.ibama.gov.br/cadastro-tecnico-federal-ctf" target="_blank" class="link-card">
+          <i class="fas fa-clipboard-list"></i>
+          <span>CTF/APP</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="cta-section">
+      <h3 style="margin-bottom: 1rem;">Comprometa-se com a Sustentabilidade</h3>
+      <p style="margin-bottom: 2rem; opacity: 0.9;">
+        Adote práticas sustentáveis em seu negócio e contribua para um futuro melhor 
+        enquanto reduz custos e aumenta a competitividade.
+      </p>
+      <a href="https://www.ibama.gov.br/empreendedor" target="_blank" class="cta-button">
+        <i class="fas fa-external-link-alt"></i>
+        Saiba Mais no IBAMA
+      </a>
     </div>
 
     <!-- Menu de navegação MEI -->
     {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
   </div>
-</div>
+</section>
 {% endblock %}

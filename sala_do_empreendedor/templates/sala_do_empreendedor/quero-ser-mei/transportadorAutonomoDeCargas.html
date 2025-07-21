@@ -4,62 +4,6 @@
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
 <style>
-/* Breadcrumb Styles */
-.breadcrumb-container {
-  background: linear-gradient(135deg, #ffffff, #f8f9fa);
-  border-bottom: 1px solid #e9ecef;
-  padding: 1rem 0;
-  margin-bottom: 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-
-.breadcrumb-custom {
-  background: none;
-  margin: 0;
-  padding: 0;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.breadcrumb-item-custom {
-  display: flex;
-  align-items: center;
-  color: #6c757d;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  padding: 0.25rem 0;
-}
-
-.breadcrumb-item-custom:hover {
-  color: #0051A4;
-  text-decoration: none;
-}
-
-.breadcrumb-current {
-  color: #0051A4;
-  font-weight: 500;
-  pointer-events: none;
-}
-
-.breadcrumb-separator {
-  color: #dee2e6;
-  font-size: 0.7rem;
-  margin: 0 0.25rem;
-}
-
-@media (max-width: 768px) {
-  .breadcrumb-custom {
-    font-size: 0.8rem;
-  }
-  
-  .breadcrumb-container {
-    padding: 0.75rem 0;
-  }
-}
-
 /* Transportador Autônomo - Visual moderno */
 .hero-section {
   background: linear-gradient(135deg, #0051A4 0%, #003a7a 100%);
@@ -114,7 +58,6 @@
   border-radius: 12px;
   padding: 2rem;
   margin: 1.5rem 0;
-  border-left: 4px solid #218A39;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
@@ -250,46 +193,50 @@
 
 {% block main %}
 <!-- Hero Section -->
-<section class="hero-section bg-primary text-white">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-12">
+<section class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="hero-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:index' %}">
+              <i class="fas fa-home"></i> Início
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:quero_ser_mei' %}">
+              <i class="fas fa-user-plus"></i> Quero ser MEI
+            </a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <i class="fas fa-truck"></i> Transportador autônomo de cargas
+          </li>
+        </ol>
+      </nav>
 
-                <h1 class="display-4 fw-bold mb-4">Transportador autônomo de cargas (MEI Caminhoneiro)</h1>
-                <p class="lead mb-4">Saiba como se formalizar como transportador autônomo de cargas através do MEI Caminhoneiro e quais são as condições e ocupações permitidas.</p>
-                <div class="d-flex gap-3 flex-wrap">
-                    <a href="{% url 'quero_ser_mei:menu' %}" class="btn btn-outline-light btn-lg">
-                        <i class="fas fa-arrow-left me-2"></i>Voltar ao Menu
-                    </a>
-                </div>
-            </div>
+      <!-- Hero Text -->
+      <div class="hero-text">
+        <h1 class="hero-title">Transportador autônomo de cargas (MEI Caminhoneiro)</h1>
+        <p class="hero-description">
+          Saiba como se formalizar como transportador autônomo de cargas através do MEI Caminhoneiro e quais são as condições e ocupações permitidas.
+        </p>
+        
+        <!-- Hero Action -->
+        <div class="hero-action">
+          <a href="{% url 'empreendedor:quero_ser_mei' %}" class="btn btn-outline-light btn-lg">
+            <i class="fas fa-arrow-left me-2"></i>
+            Voltar ao Menu
+          </a>
         </div>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- Breadcrumb Moderno -->
-<div class="breadcrumb-container">
+<!-- Main Content -->
+<section class="content-section">
   <div class="container">
-    <nav class="breadcrumb-custom" aria-label="breadcrumb">
-      <a href="{% url 'sala_do_empreendedor:inicio' %}" class="breadcrumb-item-custom">
-        <i class="fas fa-home me-1"></i>
-        Início
-      </a>
-      <i class="fas fa-chevron-right breadcrumb-separator"></i>
-      <a href="{% url 'quero_ser_mei:menu' %}" class="breadcrumb-item-custom">
-        <i class="fas fa-user-plus me-1"></i>
-        Quero ser MEI
-      </a>
-      <i class="fas fa-chevron-right breadcrumb-separator"></i>
-      <span class="breadcrumb-item-custom breadcrumb-current">
-        <i class="fas fa-truck me-1"></i>
-        Transportador autônomo de cargas
-      </span>
-    </nav>
-  </div>
-</div>
-
-<div class="container pb-5" style="margin-top: 90px;">
   <!-- Condições para formalização -->
   <div class="content-section">
     <div class="info-card">
@@ -385,11 +332,11 @@
            target="_blank" class="external-link">clique aqui</a>.
       </div>
     </div>
-  </div>
 
-  <!-- Menu de navegação -->
-  {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
-</div>
+    <!-- Menu de navegação -->
+    {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
+  </div>
+</section>
 {% endblock %}
 
 {% block footer %}

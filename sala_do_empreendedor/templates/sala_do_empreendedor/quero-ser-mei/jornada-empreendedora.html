@@ -11,202 +11,369 @@
   <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
   <style>
     /* Breadcrumb Styles */
-    .breadcrumb-container {
-      background: linear-gradient(135deg, #ffffff, #f8f9fa);
-      border-bottom: 1px solid #e9ecef;
-      padding: 1rem 0;
-      margin-bottom: 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      margin-top: 90px;
-    }
-
-    .breadcrumb-custom {
-      background: none;
-      margin: 0;
-      padding: 0;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .breadcrumb-item-custom {
-      display: flex;
-      align-items: center;
-      color: #6c757d;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      padding: 0.25rem 0;
-    }
-
-    .breadcrumb-item-custom:hover {
-      color: #0051A4;
+    .hero-section .breadcrumb-item a {
+      color: rgba(255, 255, 255, 0.7);
       text-decoration: none;
     }
 
-    .breadcrumb-item-custom.active {
-      color: #0051A4;
-      font-weight: 600;
+    .hero-section .breadcrumb-item.active {
+      color: white;
     }
 
-    .breadcrumb-separator {
-      color: #adb5bd;
-      margin: 0 0.5rem;
-      font-size: 0.8rem;
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, #0051A4 0%, #003a7a 100%);
+      padding: 80px 0 60px;
+      color: white;
+      position: relative;
+      overflow: hidden;
     }
 
-    .breadcrumb-icon {
-      margin-right: 0.5rem;
-      font-size: 0.8rem;
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("{% static 'images/bg-empresa.jpg' %}") center/cover;
+      opacity: 0.1;
+      z-index: 1;
+    }
+
+    .hero-section .container {
+      position: relative;
+      z-index: 2;
     }
 
     .content-wrapper {
       margin-top: 0 !important;
     }
 
-    @media (max-width: 576px) {
-      .breadcrumb-custom {
-        font-size: 0.8rem;
+    /* Services Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .service-card {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      border: 1px solid #e9ecef;
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(0,81,164,0.15);
+    }
+
+    .service-icon {
+      background: linear-gradient(135deg, #0051A4, #003a7a);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Steps */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .step-card {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.205);
+      transition: all 0.3s ease;
+    }
+
+    .step-card:hover {
+      transform: translateX(5px);
+      box-shadow: 0 6px 25px rgba(0,81,164,0.15);
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .step-number {
+      background: linear-gradient(135deg, #0051A4, #003a7a);
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+      margin-right: 1rem;
+      flex-shrink: 0;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      padding: 3rem;
+      border-radius: 15px;
+      text-align: center;
+      margin: 3rem 0;
+    }
+
+    .cta-icon {
+      font-size: 3rem;
+      color: #0051A4;
+      margin-bottom: 1rem;
+    }
+
+    .cta-button {
+      background: linear-gradient(135deg, #0051A4, #003a7a);
+      border: none;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,81,164,0.3);
+      color: white;
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 60px 0 40px;
       }
       
-      .breadcrumb-container {
-        padding: 0.75rem 0;
+      .hero-section h1 {
+        font-size: 2rem;
+      }
+      
+      .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .steps-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .cta-section {
+        padding: 2rem;
       }
     }
   </style>
 {% endblock %}
 
 {% block main %}
-<!-- Breadcrumb -->
-<div class="breadcrumb-container">
+<!-- Hero Section -->
+<section class="hero-section">
   <div class="container">
-    <nav class="breadcrumb-custom" aria-label="Breadcrumb">
-      <a href="{% url 'empreendedor:index' %}" class="breadcrumb-item-custom">
-        <i class="fas fa-home breadcrumb-icon"></i>
-        Início
-      </a>
-      <span class="breadcrumb-separator">
-        <i class="fas fa-chevron-right"></i>
-      </span>
-      <a href="{% url 'empreendedor:quero_ser_mei' %}" class="breadcrumb-item-custom">
-        <i class="fas fa-user-plus breadcrumb-icon"></i>
-        Quero ser MEI
-      </a>
-      <span class="breadcrumb-separator">
-        <i class="fas fa-chevron-right"></i>
-      </span>
-      <span class="breadcrumb-item-custom active">
-        <i class="fas fa-route breadcrumb-icon"></i>
-        Jornada Empreendedora
-      </span>
-    </nav>
-  </div>
-</div>
+    <div class="hero-content">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="hero-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:index' %}">
+              <i class="fas fa-home"></i> Início
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:quero_ser_mei' %}">
+              <i class="fas fa-user-plus"></i> Quero ser MEI
+            </a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <i class="fas fa-route"></i> Jornada Empreendedora
+          </li>
+        </ol>
+      </nav>
 
-<div class="content-wrapper">
-  <div class="container pt-4">
-    <!-- Header -->
-    <div class="page-header">
+      <!-- Hero Text -->
+      <div class="hero-text">
+        <h1 class="hero-title">Jornada Empreendedora</h1>
+        <p class="hero-description">
+          Acompanhe sua trajetória empreendedora e descubra os passos importantes para o sucesso do seu negócio.
+        </p>
+        
+        <!-- Hero Action -->
+        <div class="hero-action">
+          <a href="{% url 'empreendedor:quero_ser_mei' %}" class="btn btn-outline-light btn-lg">
+            <i class="fas fa-arrow-left me-2"></i>
+            Voltar ao Menu
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<section class="content-section">
+  <div class="container">
+    
+
+    <!-- Serviços Disponíveis -->
+    <div class="services-section mb-5">
       <div class="row">
         <div class="col-12">
-          <div class="page-title-wrapper">
-            <h1 class="page-title">Jornada Empreendedora</h1>
+          <h3 class="section-title text-center mb-4">            
+            Serviços Disponíveis
+          </h3>
+        </div>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-search"></i>
           </div>
+          <h5>Informações Detalhadas</h5>
+          <p>Acesse informações completas sobre cada profissão/ocupação MEI, incluindo competências necessárias, ferramentas tecnológicas e nível de preparação requerido.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-clipboard-check"></i>
+          </div>
+          <h5>Teste de Competências</h5>
+          <p>Faça uma autoavaliação das suas competências atuais e identifique quais habilidades ainda precisam ser desenvolvidas para o crescimento do seu negócio.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-route"></i>
+          </div>
+          <h5>Trilha Personalizada</h5>
+          <p>Receba uma trilha de aprendizagem criada especialmente para você, direcionada para suas principais necessidades de desenvolvimento profissional.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h5>Cursos Direcionados</h5>
+          <p>Seja direcionado para cursos específicos que atendem às suas necessidades identificadas, conectados diretamente com sua trilha de aprendizagem.</p>
         </div>
       </div>
     </div>
 
-    <!-- Content -->
-    <div class="page-content">
+    <!-- Passo a Passo -->
+    <div class="steps-section mb-5">
       <div class="row">
-        <div class="col-12">
-          <div class="content-card">
-            <!-- Serviços disponíveis -->
-            <div class="info-section">
-              <h4 class="section-title">
-                <i class="fas fa-concierge-bell me-2"></i>
-                Serviços disponíveis
-              </h4>
-              <ul class="info-list">
-                <li>Informações detalhadas sobre cada uma das profissões/ocupações exercidas por MEI, com descrição das competências necessárias para exercê-las, ferramentas tecnológicas que precisam ser dominadas e o nível de preparação requerido</li>
-                <li>Teste das competências possuídas por cada empreendedor, a fim de identificar as competências que ainda precisam ser desenvolvidas para crescer o seu negócio</li>
-                <li>Apresentação de uma trilha de aprendizagem personalizada, que endereça as principais necessidades de desenvolvimento profissional</li>
-                <li>Direcionamento para cursos conectados com a trilha sugerida e escolhidos especificamente para atender às principais necessidades identificadas</li>
-              </ul>
-            </div>
-
-            <!-- Passo a passo -->
-            <div class="info-section">
-              <h4 class="section-title">
-                <i class="fas fa-list-ol me-2"></i>
-                Passo a passo da utilização dos serviços
-              </h4>
-              <div class="steps-container">
-                <div class="step-item">
-                  <div class="step-number">1</div>
-                  <div class="step-content">
-                    <strong>Consulte a profissão MEI</strong>
-                    <p>Consulte a profissão MEI que você já exerce ou que tem interesse em exercer. A consulta pode se dar diretamente pela busca por nome da profissão/ocupação ou por meio da busca por campo de atuação (comércio; logística e transporte; indústria e construção civil; etc).</p>
-                  </div>
-                </div>
-
-                <div class="step-item">
-                  <div class="step-number">2</div>
-                  <div class="step-content">
-                    <strong>Conheça as competências necessárias</strong>
-                    <p>Conheça as principais competências necessárias para exercício da ocupação pesquisada.</p>
-                  </div>
-                </div>
-
-                <div class="step-item">
-                  <div class="step-number">3</div>
-                  <div class="step-content">
-                    <strong>Avalie suas competências</strong>
-                    <p>Avalie as suas competências em relação à ocupação desejada. Para isso, clique no botão "começar" e faça seu login com uma conta de acesso único do governo (conta gov.br) - antigo Brasil Cidadão. Se você ainda não tem sua conta, clique no botão "Criar Conta Gov.Br".</p>
-                  </div>
-                </div>
-
-                <div class="step-item">
-                  <div class="step-number">4</div>
-                  <div class="step-content">
-                    <strong>Receba o diagnóstico</strong>
-                    <p>Após concluir o questionário de teste, receba automaticamente e de maneira gratuita um diagnóstico das competências que você já domina e daquelas que ainda precisa desenvolver para o sucesso do seu negócio.</p>
-                  </div>
-                </div>
-
-                <div class="step-item">
-                  <div class="step-number">5</div>
-                  <div class="step-content">
-                    <strong>Visualize sua trilha de capacitação</strong>
-                    <p>Na sequência, visualize a trilha de capacitação montada especificamente para você e para atender às suas necessidades de desenvolvimento.</p>
-                  </div>
-                </div>
-
-                <div class="step-item">
-                  <div class="step-number">6</div>
-                  <div class="step-content">
-                    <strong>Selecione os temas de interesse</strong>
-                    <p>Desta trilha, selecione os temas nos quais deseje se capacitar.</p>
-                  </div>
-                </div>
-
-                <div class="step-item">
-                  <div class="step-number">7</div>
-                  <div class="step-content">
-                    <strong>Acesse os cursos</strong>
-                    <p>Seja direcionado para os cursos de qualificação nos temas indicados, que te ajudarão a desenvolver as competências necessárias.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="col-12 pt-4">
+          <h3 class="section-title text-center mb-4">            
+            Como Utilizar a Jornada Empreendedora
+          </h3>
+          <p class="text-center text-muted mb-5">
+            Siga estes passos simples para aproveitar ao máximo os serviços da Jornada Empreendedora
+          </p>
         </div>
       </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-number">1</div>
+            <h5 class="mb-0">Consulte a Profissão MEI</h5>
+          </div>
+          <p>Pesquise a profissão MEI que você já exerce ou tem interesse em exercer. Use a busca por nome da profissão ou por campo de atuação (comércio, logística, indústria, etc.).</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-number">2</div>
+            <h5 class="mb-0">Conheça as Competências</h5>
+          </div>
+          <p>Descubra quais são as principais competências necessárias para exercer com sucesso a ocupação que você pesquisou.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-number">3</div>
+            <h5 class="mb-0">Avalie suas Competências</h5>
+          </div>
+          <p>Faça login com sua conta gov.br e avalie suas competências atuais em relação à ocupação desejada através do nosso questionário.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-number">4</div>
+            <h5 class="mb-0">Receba o Diagnóstico</h5>
+          </div>
+          <p>Obtenha automaticamente um diagnóstico gratuito das competências que você já domina e daquelas que precisa desenvolver.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-number">5</div>
+            <h5 class="mb-0">Visualize sua Trilha</h5>
+          </div>
+          <p>Acesse sua trilha de capacitação personalizada, criada especificamente para atender às suas necessidades de desenvolvimento.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-number">6</div>
+            <h5 class="mb-0">Selecione os Temas</h5>
+          </div>
+          <p>Escolha dentro da sua trilha os temas específicos nos quais você deseja se capacitar primeiro.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-header">
+            <div class="step-number">7</div>
+            <h5 class="mb-0">Acesse os Cursos</h5>
+          </div>
+          <p>Seja direcionado para cursos de qualificação nos temas escolhidos, que desenvolverão as competências necessárias para seu sucesso.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+      <div class="cta-icon">
+        <i class="fas fa-rocket"></i>
+      </div>
+      <h3>Pronto para Começar sua Jornada?</h3>
+      <p class="mb-4">
+        Acesse a plataforma da Jornada Empreendedora e comece hoje mesmo a desenvolver 
+        as competências que farão a diferença no seu negócio.
+      </p>
+      <a href="#" class="cta-button">
+        <i class="fas fa-play"></i>
+        Iniciar Jornada Empreendedora
+      </a>
     </div>
 
     <!-- Menu de navegação MEI -->
     {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
   </div>
-</div>
+</section>
 {% endblock %}

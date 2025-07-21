@@ -9,157 +9,532 @@
 
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
+  <style>
+    /* Hero Section */
+    .card .subsection{
+      text-align: justify;
+    }
+    .hero-section {
+      background: linear-gradient(135deg, #0051A4 0%, #003a7a 100%);
+      padding: 80px 0 60px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("{% static 'images/bg-empresa.jpg' %}") center/cover;
+      opacity: 0.1;
+      z-index: 1;
+    }
+
+    .hero-section .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-section .breadcrumb {
+      background: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .hero-section .breadcrumb-item a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+    }
+
+    .hero-section .breadcrumb-item.active {
+      color: white;
+    }
+
+    /* Content Section */
+    .content-section {
+      background: white;
+      border-radius: 15px;
+      padding: 3rem 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    /* Card Enhancements */
+    .card {
+      transition: all 0.3s ease;
+      border-radius: 15px;
+      overflow: hidden;
+      border: none;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .card-header {
+      border-radius: 15px 15px 0 0 !important;
+      border-bottom: none;
+      padding: 2rem 2rem 1.5rem;
+      position: relative;
+    }
+
+    .card-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 2px;
+    }
+
+    .card-body {
+      padding: 2rem;
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    /* Enhanced List Styling */
+    .list-unstyled li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      transition: all 0.2s ease;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      padding-left: 0.5rem;
+    }
+
+    .list-unstyled li:hover {
+      background: rgba(0,0,0,0.02);
+      transform: translateX(5px);
+    }
+
+    .list-unstyled li:last-child {
+      border-bottom: none;
+    }
+
+    /* Subsection Headers */
+    .subsection h5 {
+      position: relative;
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .subsection h5::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: currentColor;
+      opacity: 0.3;
+    }
+
+    /* Success Card Specific */
+    .bg-primary {
+      background: linear-gradient(135deg, #0051A4, #003a7a) !important;
+    }
+
+    /* Info Cards Enhancement */
+    .border-info {
+      border: 2px solid #17a2b8 !important;
+      border-radius: 12px;
+    }
+
+    .border-primary {
+      border: 2px solid #0051A4 !important;
+      border-radius: 12px;
+    }
+
+    .border-success {
+      border: 2px solid #007bff !important;
+      border-radius: 12px;
+    }
+
+    .card.border-info:hover,
+    .card.border-primary:hover,
+    .card.border-success:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    /* Icons Enhancement */
+    .fas.fa-2x {
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+
+    .fas.fa-3x {
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.1));
+    }
+
+    /* Alert Enhancements */
+    .alert {
+      border-radius: 12px;
+      border: none;
+      padding: 1.5rem;
+    }
+
+    .alert-link {
+      font-weight: 600;
+    }
+
+    /* Button Enhancements */
+    .btn {
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 60px 0 40px;
+      }
+      
+      .content-section {
+        padding: 2rem 1rem;
+        margin: 1rem 0;
+      }
+      
+      .card-body {
+        padding: 1.5rem;
+      }
+      
+      .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero-section {
+        padding: 40px 0 30px;
+      }
+      
+      .hero-title {
+        font-size: 1.8rem;
+      }
+      
+      .hero-description {
+        font-size: 1rem;
+      }
+    }
+  </style>
 {% endblock %}
 
 {% block main %}
-<div class="content-wrapper" style="margin-top: 90px;">
+<!-- Hero Section -->
+<section class="hero-section">
   <div class="container">
-    <!-- Header -->
-    <div class="page-header">
-      <div class="row">
-        <div class="col-12">
-          <div class="page-title-wrapper">
-            <h1 class="page-title">Direitos e Obrigações do MEI</h1>
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                  <a href="{% url 'empreendedor:index' %}">Início</a>
+    <div class="hero-content">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="hero-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:index' %}">
+              <i class="fas fa-home"></i> Início
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:quero_ser_mei' %}">
+              <i class="fas fa-user-plus"></i> Quero ser MEI
+            </a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <i class="fas fa-balance-scale"></i> Direitos e Obrigações
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Hero Text -->
+      <div class="hero-text">
+        <h1 class="hero-title">Direitos e Obrigações do MEI</h1>
+        <p class="hero-description">
+          Conheça seus direitos e responsabilidades como Microempreendedor Individual.
+        </p>
+        
+        <!-- Hero Action -->
+        <div class="hero-action">
+          <a href="{% url 'empreendedor:quero_ser_mei' %}" class="btn btn-outline-light btn-lg">
+            <i class="fas fa-arrow-left me-2"></i>
+            Voltar ao Menu
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content -->
+<section class="content-section">
+  <div class="container">
+    <!-- Alert informativo -->
+    <div class="alert alert-info mb-4">
+      <i class="fas fa-info-circle me-2"></i>
+      <strong>Importante:</strong> Para aproveitar os benefícios, é obrigatório pagar as 
+      <a href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/servicos-para-mei/pagamento-de-contribuicao-mensal" target="_blank" class="alert-link">guias mensais (DAS)</a>
+      até a data do vencimento e cumprir o número mínimo de contribuições (carência INSS).
+    </div>
+
+    <div class="row">
+      <!-- Card Direitos -->
+      <div class="col-lg-6 mb-4">
+        <div class="card h-100 border-0 shadow">
+          <div class="card-header bg-dark">
+            <h4 class="card-title  text-white mb-0">
+              <i class="fas fa-check-circle me-2"></i>
+              Seus Direitos como MEI
+            </h4>
+          </div>
+          <div class="card-body">
+            <!-- Benefícios Previdenciários -->
+            <div class="subsection mb-4">
+              <h5 class="h6 fw-bold text-primary mb-3">
+                <i class="fas fa-shield-alt me-2"></i>
+                Benefícios previdenciários
+              </h5>
+              <ul class="list-unstyled">
+                <li class="mb-2">
+                  <i class="fas fa-check text-primary me-2"></i>
+                  <strong>Aposentadoria por idade</strong> - A partir dos 65 anos (homens) ou 60 anos (mulheres)
                 </li>
-                <li class="breadcrumb-item">
-                  <a href="{% url 'empreendedor:quero_ser_mei' %}">Quero ser MEI</a>
+                <li class="mb-2">
+                  <i class="fas fa-check text-primary me-2"></i>
+                  <strong>Aposentadoria por invalidez</strong> - Em caso de incapacidade permanente
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Direitos e Obrigações</li>
-              </ol>
-            </nav>
+                <li class="mb-2">
+                  <i class="fas fa-check text-primary me-2"></i>
+                  <strong>Auxílio-doença</strong> - Durante afastamento médico
+                </li>
+                <li class="mb-2">
+                  <i class="fas fa-check text-primary me-2"></i>
+                  <strong>Salário-maternidade</strong> - 120 dias de licença remunerada
+                </li>
+                <li class="mb-2">
+                  <i class="fas fa-check text-primary me-2"></i>
+                  <strong>Pensão por morte</strong> - Para dependentes
+                </li>
+              </ul>
+            </div>
+
+            <!-- Benefícios Empresariais -->
+            <div class="subsection">
+              <h5 class="h6 fw-bold text-primary mb-3">
+                <i class="fas fa-briefcase me-2"></i>
+                Vantagens empresariais
+              </h5>
+              <ul class="list-unstyled">
+                <li class="mb-2">
+                  <i class="fas fa-check text-primary me-2"></i>
+                  <strong>CNPJ gratuito</strong> - Registro empresarial sem custos
+                </li>
+                <li class="mb-2">
+                  <i class="fas fa-check text-primary me-2"></i>
+                  <strong>Conta bancária empresarial</strong> - Acesso facilitado ao crédito
+                </li>
+                <li class="mb-2">
+                  <i class="fas fa-check text-primary me-2"></i>
+                  <strong>Emissão de notas fiscais</strong> - Vendas para empresas
+                </li>
+                <li class="mb-2">
+                  <i class="fas fa-check text-primary me-2"></i>
+                  <strong>Participação em licitações</strong> - Vendas para órgãos públicos
+                </li>
+                <li class="mb-2">
+                  <i class="fas fa-check text-primary me-2"></i>
+                  <strong>Contratação de funcionário</strong> - Até 1 empregado
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Obrigações -->
+      <div class="col-lg-6 mb-4">
+        <div class="card h-100 border-0 shadow">
+          <div class="card-header bg-dark" >
+            <h4 class="card-title mb-0  text-white">
+              <i class="fas fa-exclamation-circle me-2"></i>
+              Suas Obrigações como MEI
+            </h4>
+          </div>
+          <div class="card-body">
+            <!-- Pagamentos Mensais -->
+            <div class="subsection mb-4">
+              <h5 class="h6 fw-bold mb-3" style="color: #0051A4;">
+                <i class="fas fa-credit-card me-2"></i>
+                Pagamentos mensais (DAS)
+              </h5>
+              <ul class="list-unstyled">
+                <li class="mb-2">
+                  <i class="fas fa-calendar-check me-2" style="color: #0051A4;"></i>
+                  <strong>Vencimento:</strong> Todo dia 20 de cada mês
+                </li>
+                <li class="mb-2">
+                  <i class="fas fa-calculator me-2" style="color: #0051A4;"></i>
+                  <strong>INSS:</strong> 5% do salário mínimo vigente
+                </li>
+                <li class="mb-2">
+                  <i class="fas fa-store me-2" style="color: #0051A4;"></i>
+                  <strong>ICMS:</strong> R$ 1,00 (comércio e indústria)
+                </li>
+                <li class="mb-2">
+                  <i class="fas fa-tools me-2" style="color: #0051A4;"></i>
+                  <strong>ISS:</strong> R$ 5,00 (prestação de serviços)
+                </li>
+              </ul>
+            </div>
+
+            <!-- Declarações -->
+            <div class="subsection mb-4">
+              <h5 class="h6 fw-bold mb-3" style="color: #0051A4;">
+                <i class="fas fa-file-invoice me-2"></i>
+                Declarações anuais
+              </h5>
+              <ul class="list-unstyled">
+                <li class="mb-2">
+                  <i class="fas fa-calendar-alt me-2" style="color: #0051A4;"></i>
+                  <strong>DASN-SIMEI:</strong> Até 31 de maio de cada ano
+                </li>
+                <li class="mb-2">
+                  <i class="fas fa-chart-bar me-2" style="color: #0051A4;"></i>
+                  <strong>Relatório mensal:</strong> Controle de receitas
+                </li>
+                <li class="mb-2">
+                  <i class="fas fa-folder me-2" style="color: #0051A4;"></i>
+                  <strong>Documentos:</strong> Organizar comprovantes por 5 anos
+                </li>
+              </ul>
+            </div>
+
+            <!-- Limites -->
+            <div class="subsection">
+              <h5 class="h6 fw-bold mb-3" style="color: #0051A4;">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                Limites importantes
+              </h5>
+              <ul class="list-unstyled">
+                <li class="mb-2">
+                  <i class="fas fa-dollar-sign me-2" style="color: #0051A4;"></i>
+                  <strong>Faturamento:</strong> Máximo R$ 81.000,00 por ano
+                </li>
+                <li class="mb-2">
+                  <i class="fas fa-users me-2" style="color: #0051A4;"></i>
+                  <strong>Funcionários:</strong> Máximo 1 empregado
+                </li>
+                <li class="mb-2">
+                  <i class="fas fa-handshake me-2" style="color: #0051A4;"></i>
+                  <strong>Sociedade:</strong> Não pode ser sócio de outras empresas
+                </li>
+                <li class="mb-2">
+                  <i class="fas fa-list me-2" style="color: #0051A4;"></i>
+                  <strong>Atividades:</strong> Apenas ocupações permitidas pelo MEI
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Content -->
-    <div class="page-content">
-      <div class="row">
-        <div class="col-12">
-          <div class="content-card">
-            <div class="alert alert-info mb-4">
-              <i class="fas fa-info-circle me-2"></i>
-              <strong>Importante:</strong> Para aproveitar os benefícios, é obrigatório pagar as 
-              <a href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/servicos-para-mei/pagamento-de-contribuicao-mensal" target="_blank">guias mensais (DAS)</a>
-              até a data do vencimento e cumprir o número mínimo de contribuições (carência INSS).
+    <!-- Cards de Informações Importantes -->
+    <div class="row mt-5">
+      <div class="col-md-4 mb-3">
+        <div class="card h-100">
+          <div class="card-body text-center">
+            <i class="fas fa-calendar-alt fa-3x text-info mb-3"></i>
+            <h5 class="card-title">DAS Mensal</h5>
+            <p class="card-text">Pague até o dia 20 de cada mês para manter seus direitos em dia e evitar multas.</p>
+            <div class="alert alert-info mb-3">
+              <small><strong>Próximo vencimento:</strong> 20 do mês atual</small>
             </div>
-
-            <div class="row">
-              <!-- Direitos -->
-              <div class="col-lg-6 mb-4">
-                <div class="rights-section">
-                  <h4 class="section-title success">
-                    <i class="fas fa-check-circle me-2"></i>
-                    Direitos
-                  </h4>
-                  
-                  <!-- Para você -->
-                  <div class="subsection">
-                    <h5 class="subsection-title">
-                      <i class="fas fa-user me-2"></i>
-                      Para você
-                    </h5>
-                    <ul class="info-list">
-                      <li>Aposentadoria por idade</li>
-                      <li>Aposentadoria por invalidez</li>
-                      <li>Auxílio-doença</li>
-                      <li>Salário-maternidade</li>
-                      <li>Auxílio-reclusão</li>
-                      <li>Pensão por morte</li>
-                    </ul>
-                  </div>
-
-                  <!-- Para sua família -->
-                  <div class="subsection">
-                    <h5 class="subsection-title">
-                      <i class="fas fa-users me-2"></i>
-                      Para sua família
-                    </h5>
-                    <ul class="info-list">
-                      <li>Auxílio-reclusão</li>
-                      <li>Pensão por morte</li>
-                    </ul>
-                  </div>
-
-                  <!-- Outros benefícios -->
-                  <div class="subsection">
-                    <h5 class="subsection-title">
-                      <i class="fas fa-gift me-2"></i>
-                      Outros benefícios
-                    </h5>
-                    <ul class="info-list">
-                      <li>Registro no CNPJ</li>
-                      <li>Isenção de taxas para registro da empresa</li>
-                      <li>Acesso a serviços bancários</li>
-                      <li>Emissão de notas fiscais</li>
-                      <li>Venda para o governo</li>
-                      <li>Possibilidade de ter um empregado</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Obrigações -->
-              <div class="col-lg-6 mb-4">
-                <div class="obligations-section">
-                  <h4 class="section-title warning">
-                    <i class="fas fa-exclamation-circle me-2"></i>
-                    Obrigações
-                  </h4>
-                  
-                  <!-- Pagamentos -->
-                  <div class="subsection">
-                    <h5 class="subsection-title">
-                      <i class="fas fa-money-bill me-2"></i>
-                      Pagamentos mensais
-                    </h5>
-                    <ul class="info-list">
-                      <li>Pagar o DAS (Documento de Arrecadação do Simples Nacional) até o dia 20 de cada mês</li>
-                      <li>Valor fixo mensal baseado na atividade exercida</li>
-                      <li>INSS: 5% do salário mínimo</li>
-                      <li>ICMS: R$ 1,00 (para comércio e indústria)</li>
-                      <li>ISS: R$ 5,00 (para prestação de serviços)</li>
-                    </ul>
-                  </div>
-
-                  <!-- Declarações -->
-                  <div class="subsection">
-                    <h5 class="subsection-title">
-                      <i class="fas fa-file-alt me-2"></i>
-                      Declarações obrigatórias
-                    </h5>
-                    <ul class="info-list">
-                      <li>Declaração Anual do Simples Nacional (DASN-SIMEI) até 31 de maio</li>
-                      <li>Relatório Mensal de Receitas Brutas</li>
-                      <li>Manter organizados os documentos fiscais</li>
-                    </ul>
-                  </div>
-
-                  <!-- Limites -->
-                  <div class="subsection">
-                    <h5 class="subsection-title">
-                      <i class="fas fa-chart-line me-2"></i>
-                      Limites a respeitar
-                    </h5>
-                    <ul class="info-list">
-                      <li>Faturamento anual máximo de R$ 81.000,00</li>
-                      <li>Máximo de 1 empregado</li>
-                      <li>Não participar como sócio de outra empresa</li>
-                      <li>Exercer apenas atividades permitidas para MEI</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+            <a href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/servicos-para-mei/pagamento-de-contribuicao-mensal" target="_blank" class="btn btn-info">
+              <i class="fas fa-external-link-alt me-1"></i>
+              Pagar DAS
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4 mb-3">
+        <div class="card h-100">
+          <div class="card-body text-center">
+            <i class="fas fa-file-invoice fa-3x text-primary mb-3"></i>
+            <h5 class="card-title">DASN-SIMEI</h5>
+            <p class="card-text">Declaração anual obrigatória até 31 de maio. Declare seu faturamento do ano anterior.</p>
+            <div class="alert alert-primary mb-3">
+              <small><strong>Prazo:</strong> Até 31 de maio</small>
             </div>
+            <a href="https://www8.receita.fazenda.gov.br/SimplesNacional/Aplicacoes/ATSPO/dasnsimei.app/Default.aspx" target="_blank" class="btn btn-primary">
+              <i class="fas fa-external-link-alt me-1"></i>
+              Fazer Declaração
+            </a>
+          </div>
+        </div>
+      </div>
 
-            <!-- Dicas importantes -->
-            <div class="alert alert-success mt-4">
-              <i class="fas fa-lightbulb me-2"></i>
-              <strong>Dica:</strong> Mantenha sempre seus pagamentos em dia e suas obrigações acessórias cumpridas para garantir todos os benefícios e evitar problemas com a Receita Federal.
+      <div class="col-md-4 mb-3">
+        <div class="card h-100">
+          <div class="card-body text-center">
+            <i class="fas fa-question-circle fa-3x text-primary mb-3"></i>
+            <h5 class="card-title">Dúvidas Frequentes</h5>
+            <p class="card-text">Tire suas dúvidas sobre MEI no portal oficial do governo federal.</p>
+            <div class="alert alert-primary mb-3">
+              <small><strong>Suporte:</strong> 24h por dia, 7 dias por semana</small>
+            </div>
+            <a href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/perguntas-frequentes" target="_blank" class="btn btn-primary">
+              <i class="fas fa-external-link-alt me-1"></i>
+              Ver FAQ
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dica final -->
+    <div class="alert alert-info mt-4">
+      <div class="d-flex align-items-center">
+        <i class="fas fa-lightbulb fa-2x text-info me-3"></i>
+        <div>
+          <h5 class="alert-heading mb-2">Dica Importante</h5>
+          <p class="mb-0">Mantenha sempre seus pagamentos em dia e suas obrigações acessórias cumpridas para garantir todos os benefícios e evitar problemas com a Receita Federal.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="row mt-5">
+      <div class="col-12">
+        <div class="card border-0">
+          <div class="card-body text-center py-5">            
+            <h4 class="mb-3">Precisa de ajuda com seus direitos e obrigações?</h4>
+            <p class="mb-4 lead">Nossa equipe está pronta para esclarecer suas dúvidas sobre direitos e obrigações do MEI.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+              <a href="{% url 'empreendedor:quero_ser_mei' %}" class="btn btn-dark btn-lg">
+                <i class="fas fa-arrow-left me-2"></i>
+                Voltar ao Menu
+              </a>
+              <a href=" https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/quero-ser-mei/obtencao-de-cnpj-acesso-restrito" class="btn btn-outline-dark btn-lg">
+                <i class="fas fa-file-signature me-2"></i>
+                Formalizar Online
+              </a>
             </div>
           </div>
         </div>
@@ -169,5 +544,5 @@
     <!-- Menu de navegação MEI -->
     {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
   </div>
-</div>
+</section>
 {% endblock %}

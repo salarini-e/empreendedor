@@ -10,59 +10,310 @@
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
   <style>
-    /* Breadcrumb Styles */
-    .breadcrumb-container {
-      background: linear-gradient(135deg, #ffffff, #f8f9fa);
-      border-bottom: 1px solid #e9ecef;
-      padding: 1rem 0;
-      margin-bottom: 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, #0051A4 0%, #003a7a 100%);
+      padding: 80px 0 60px;
+      color: white;
+      position: relative;
+      overflow: hidden;
     }
 
-    .breadcrumb-custom {
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("{% static 'images/bg-empresa.jpg' %}") center/cover;
+      opacity: 0.1;
+      z-index: 1;
+    }
+
+    .hero-section .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-section .breadcrumb {
       background: none;
-      margin: 0;
       padding: 0;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+      margin: 0;
     }
 
-    .breadcrumb-item-custom {
+    .hero-section .breadcrumb-item a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+    }
+
+    .hero-section .breadcrumb-item.active {
+      color: white;
+    }
+
+    .content-section {
+      background: white;
+      border-radius: 15px;
+      padding: 3rem 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    /* Introduction Box */
+    .intro-box {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      border-radius: 15px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .intro-box h3 {
+      color: #0051A4;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+
+    .intro-box p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #495057;
+      margin: 0;
+    }
+
+    /* Courses Grid */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .course-card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      border: 1px solid #e9ecef;
+      transition: all 0.3s ease;
+      text-align: center;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .course-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(0,81,164,0.15);
+    }
+
+    .course-icon {
+      background: linear-gradient(135deg, #0051A4, #003a7a);
+      color: white;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 1.5rem;
+    }
+
+    .course-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #0051A4;
+      margin-bottom: 1rem;
+    }
+
+    .course-description {
+      font-size: 1rem;
+      line-height: 1.6;
       color: #6c757d;
+      margin-bottom: 2rem;
+      flex-grow: 1;
+    }
+
+    .course-button {
+      background: linear-gradient(135deg, #0051A4, #003a7a);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-weight: 600;
       text-decoration: none;
-      transition: all 0.2s ease;
-      padding: 0.25rem 0;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-top: auto;
     }
 
-    .breadcrumb-item-custom:hover {
-      color: #0051A4;
+    .course-button:hover {
+      color: white;
       text-decoration: none;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,81,164,0.3);
     }
 
-    .breadcrumb-current {
+    /* Tips Section */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .tip-card {
+      background: linear-gradient(135deg, #ffffff, #ffffff);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .tip-card:hover {
+      transform: translateX(5px);
+      
+    }
+
+    .tip-icon {
       color: #0051A4;
-      font-weight: 500;
-      pointer-events: none;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
     }
 
-    .breadcrumb-separator {
-      color: #dee2e6;
-      font-size: 0.7rem;
-      margin: 0 0.25rem;
+    .tip-title {
+      font-weight: 600;
+      color: #0051A4;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .tip-text {
+      font-size: 0.95rem;
+      color: #6c757d;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Additional Resources */
+    .resources-section {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      border-radius: 15px;
+      padding: 2.5rem;
+      margin: 3rem 0;
+      text-align: center;
+    }
+
+    .resource-link {
+      background: linear-gradient(135deg, #0051A4, #003a7a);
+      color: white;
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+
+    .resource-link:hover {
+      color: white;
+      text-decoration: none;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0,81,164,0.3);
+    }
+
+    .resource-link i {
+      font-size: 1.5rem;
+    }
+
+    /* Section Titles */
+    .section-title {
+      color: #0051A4;
+      font-weight: 600;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #6c757d;
+      font-size: 1.1rem;
+      margin-bottom: 3rem;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, #0051A4, #003a7a);
+      color: white;
+      border-radius: 20px;
+      padding: 3rem;
+      text-align: center;
+      margin: 3rem 0;
+    }
+
+    .cta-button {
+      background: linear-gradient(135deg, #D2B336, #f4d03f);
+      color: #212529;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 25px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .cta-button:hover {
+      color: #212529;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(244, 208, 63, 0.4);
+      text-decoration: none;
     }
 
     @media (max-width: 768px) {
-      .breadcrumb-custom {
-        font-size: 0.8rem;
+      .hero-section {
+        padding: 60px 0 40px;
       }
-      
-      .breadcrumb-container {
-        padding: 0.75rem 0;
+
+      .courses-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .tips-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .content-section {
+        padding: 2rem 1.5rem;
+      }
+
+      .intro-box {
+        padding: 1.5rem;
+      }
+
+      .section-title {
+        font-size: 1.7rem;
+      }
+
+      .course-card {
+        padding: 1.5rem;
+      }
+
+      .resources-section {
+        padding: 2rem;
       }
     }
   </style>
@@ -70,145 +321,242 @@
 
 {% block main %}
 <!-- Hero Section -->
-<section class="service-hero">
+<section class="hero-section">
   <div class="container">
-    <div class="hero-content-service" data-aos="fade-up">
-      <div class="row" data-aos="fade-up">
-        <div class="col">
-          <a href="{% url 'empreendedor:quero_ser_mei' %}" class="back-button">
-            <i class="fas fa-arrow-left"></i>
-            Voltar
-          </a>
-        </div>
-      </div>
-      <h1 class="section-title-service">Prepare-se para Empreender</h1>
-      <p class="lead">Capacite-se para o sucesso do seu negócio</p>
-    </div>
-  </div>
-</section>
+    <div class="hero-content">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="hero-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:index' %}">
+              <i class="fas fa-home"></i> Início
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:quero_ser_mei' %}">
+              <i class="fas fa-user-plus"></i> Quero ser MEI
+            </a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <i class="fas fa-graduation-cap"></i> Prepare-se
+          </li>
+        </ol>
+      </nav>
 
-<!-- Breadcrumb Moderno -->
-<div class="breadcrumb-container">
-  <div class="container">
-    <nav class="breadcrumb-custom" aria-label="breadcrumb">
-      <a href="{% url 'empreendedor:index' %}" class="breadcrumb-item-custom">
-        <i class="fas fa-home me-1"></i>
-        Início
-      </a>
-      <i class="fas fa-chevron-right breadcrumb-separator"></i>
-      <a href="{% url 'empreendedor:quero_ser_mei' %}" class="breadcrumb-item-custom">
-        <i class="fas fa-user-plus me-1"></i>
-        Quero ser MEI
-      </a>
-      <i class="fas fa-chevron-right breadcrumb-separator"></i>
-      <span class="breadcrumb-item-custom breadcrumb-current">
-        <i class="fas fa-graduation-cap me-1"></i>
-        Prepare-se para Empreender
-      </span>
-    </nav>
-  </div>
-</div>
-
-<div class="container pb-5">
-  <!-- Main Content -->
-  <div class="row">
-    <div class="col-12">
-      <div class="content-card">
-        <div class="intro-section">
-          <p class="intro-text">
-            Formalizar um negócio é muito simples. O desafio é manter essa empresa no mercado gerando lucro. 
-            Mas as dificuldades podem ser vencidas se você se planejar desde o início para ser dono ou dona 
-            de uma empresa e preparar o seu negócio para ser competitivo.
-          </p>
-        </div>
-
-        <!-- Courses Section -->
-        <div class="info-section">
-          <h4 class="section-title">
-            <i class="fas fa-graduation-cap me-2"></i>
-            Cursos recomendados pelo SEBRAE
-          </h4>
-          <p class="mb-4">Para obter sucesso no seu empreendimento, uma boa dica é fazer os cursos indicados pelo Sebrae:</p>
+      <!-- Hero Text -->
+      <div class="hero-text">
+        <h1 class="hero-title">Prepare-se para Empreender</h1>
+        <p class="hero-description">
+          Capacite-se para o sucesso do seu negócio com as melhores orientações e recursos.
+        </p>
+        
+   
           
-          <div class="row g-4">
-            <div class="col-md-6">
-              <div class="resource-card">
-                <div class="resource-icon">
-                  <i class="fas fa-play-circle"></i>
-                </div>
-                <h5>Começar Bem</h5>
-                <p>São palestras e oficinas que te ensinam, por exemplo, a aumentar o lucro e reduzir prejuízos.</p>
-                <a href="https://www.sebrae.com.br/sites/PortalSebrae/sebraeaz/seu-negocio-comeca-bem-aqui,c744e44499f57410VgnVCM1000003b74010aRCRD" 
-                   target="_blank" class="btn btn-primary external-link">
-                  <i class="fas fa-external-link-alt me-2"></i>Acessar Curso
-                </a>
-              </div>
-            </div>
-            
-            <div class="col-md-6">
-              <div class="resource-card">
-                <div class="resource-icon">
-                  <i class="fas fa-lightbulb"></i>
-                </div>
-                <h5>Aprender a Empreender</h5>
-                <p>Ajuda você a desenvolver atitudes que compõem o perfil empreendedor por meio da interação com conceitos sobre mercado, finanças e empreendedorismo.</p>
-                <a href="https://www.sebrae.com.br/sites/PortalSebrae/cursosonline/aprender-a-empreender,b070b8a6a28bb610VgnVCM1000004c00210aRCRD" 
-                   target="_blank" class="btn btn-primary external-link">
-                  <i class="fas fa-external-link-alt me-2"></i>Acessar Curso
-                </a>
-              </div>
-            </div>
-            
-            <div class="col-md-6">
-              <div class="resource-card">
-                <div class="resource-icon">
-                  <i class="fas fa-rocket"></i>
-                </div>
-                <h5>Iniciando um Pequeno e Grande Negócio</h5>
-                <p>Auxilia na preparação para a abertura de negócios.</p>
-                <a href="https://www.sebrae.com.br/sites/PortalSebrae/cursosonline/iniciando-um-pequeno-grande-negocio,5f60b8a6a28bb610VgnVCM1000004c00210aRCRD" 
-                   target="_blank" class="btn btn-primary external-link">
-                  <i class="fas fa-external-link-alt me-2"></i>Acessar Curso
-                </a>
-              </div>
-            </div>
-            
-            <div class="col-md-6">
-              <div class="resource-card">
-                <div class="resource-icon">
-                  <i class="fas fa-user-tie"></i>
-                </div>
-                <h5>Curso Microempreendedor Individual</h5>
-                <p>Descubra direitos, benefícios e obrigações que o MEI deve cumprir.</p>
-                <a href="https://www.sebrae.com.br/sites/PortalSebrae/artigos/tudo-o-que-voce-precisa-saber-sobre-o-mei,caa7d72060589710VgnVCM100000d701210aRCRD" 
-                   target="_blank" class="btn btn-primary external-link">
-                  <i class="fas fa-external-link-alt me-2"></i>Acessar Curso
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Additional Resources -->
-        <div class="info-section">
-          <h4 class="section-title">
-            <i class="fas fa-link me-2"></i>
-            Recursos Adicionais
-          </h4>
-          <div class="links-grid">
-            <a href="https://www.sebrae.com.br/sites/PortalSebrae/cursosonline" target="_blank" class="link-card external-link">
-              <i class="fas fa-book-open"></i>
-              <span>Todos os Cursos Online</span>
+          <!-- Hero Action -->
+          <div class="hero-action">
+            <a href="{% url 'empreendedor:quero_ser_mei' %}" class="btn btn-outline-light btn-lg">
+              <i class="fas fa-arrow-left me-2"></i>
+              Voltar ao Menu
             </a>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Menu de navegação MEI -->
-  {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
-</div>
+  <!-- Main Content -->
+  <section class="content-section">
+    <div class="container">
+      <!-- Introduction -->
+      <div class="intro-box">
+        <h3><i class="fas fa-lightbulb me-2"></i>A Importância da Preparação</h3>
+        <p>
+          Formalizar um negócio é muito simples. O desafio é manter essa empresa no mercado gerando lucro. 
+          As dificuldades podem ser vencidas se você se planejar desde o início para ser dono ou dona 
+          de uma empresa e preparar o seu negócio para ser competitivo.
+        </p>
+      </div>
+
+      <!-- Courses Section -->
+      <div class="courses-section">
+        <h2 class="section-title">Cursos Recomendados pelo SEBRAE</h2>
+        <p class="section-subtitle">
+          Capacite-se com os melhores cursos para empreendedores e garanta o sucesso do seu MEI
+        </p>
+
+        <div class="courses-grid">
+          <div class="course-card">
+            <div class="course-icon">
+              <i class="fas fa-play-circle"></i>
+            </div>
+            <h4 class="course-title">Começar Bem</h4>
+            <p class="course-description">
+              Palestras e oficinas que ensinam como aumentar o lucro, reduzir prejuízos e estruturar 
+              adequadamente seu negócio desde o início.
+            </p>
+            <a href="https://www.sebrae.com.br/sites/PortalSebrae/sebraeaz/seu-negocio-comeca-bem-aqui,c744e44499f57410VgnVCM1000003b74010aRCRD" 
+               target="_blank" class="course-button">
+              <i class="fas fa-external-link-alt"></i>
+              Acessar Curso
+            </a>
+          </div>
+
+          <div class="course-card">
+            <div class="course-icon">
+              <i class="fas fa-lightbulb"></i>
+            </div>
+            <h4 class="course-title">Aprender a Empreender</h4>
+            <p class="course-description">
+              Desenvolva atitudes que compõem o perfil empreendedor através da interação com conceitos 
+              sobre mercado, finanças e empreendedorismo.
+            </p>
+            <a href="https://www.sebrae.com.br/sites/PortalSebrae/cursosonline/aprender-a-empreender,b070b8a6a28bb610VgnVCM1000004c00210aRCRD" 
+               target="_blank" class="course-button">
+              <i class="fas fa-external-link-alt"></i>
+              Acessar Curso
+            </a>
+          </div>
+
+          <div class="course-card">
+            <div class="course-icon">
+              <i class="fas fa-rocket"></i>
+            </div>
+            <h4 class="course-title">Iniciando um Pequeno e Grande Negócio</h4>
+            <p class="course-description">
+              Curso completo que auxilia na preparação para a abertura de negócios, cobrindo todos 
+              os aspectos essenciais do empreendedorismo.
+            </p>
+            <a href="https://www.sebrae.com.br/sites/PortalSebrae/cursosonline/iniciando-um-pequeno-grande-negocio,5f60b8a6a28bb610VgnVCM1000004c00210aRCRD" 
+               target="_blank" class="course-button">
+              <i class="fas fa-external-link-alt"></i>
+              Acessar Curso
+            </a>
+          </div>
+
+          <div class="course-card">
+            <div class="course-icon">
+              <i class="fas fa-user-tie"></i>
+            </div>
+            <h4 class="course-title">Curso Microempreendedor Individual</h4>
+            <p class="course-description">
+              Descubra todos os direitos, benefícios e obrigações que o MEI deve cumprir para manter 
+              seu negócio em conformidade.
+            </p>
+            <a href="https://www.sebrae.com.br/sites/PortalSebrae/artigos/tudo-o-que-voce-precisa-saber-sobre-o-mei,caa7d72060589710VgnVCM100000d701210aRCRD" 
+               target="_blank" class="course-button">
+              <i class="fas fa-external-link-alt"></i>
+              Acessar Curso
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Success Tips -->
+      <div class="tips-section mb-5">
+        <h3 class="section-title">Dicas Essenciais para o Sucesso</h3>
+        <p class="section-subtitle">
+          Estratégias fundamentais para fazer seu MEI prosperar no mercado
+        </p>
+
+        <div class="tips-grid">
+          <div class="tip-card">
+            <div class="tip-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h5 class="tip-title">Planejamento Financeiro</h5>
+            <p class="tip-text">
+              Mantenha controle rigoroso das finanças, separando despesas pessoais das empresariais 
+              e fazendo reservas para investimentos.
+            </p>
+          </div>
+
+          <div class="tip-card">
+            <div class="tip-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h5 class="tip-title">Conheça seu Cliente</h5>
+            <p class="tip-text">
+              Estude seu mercado-alvo, entenda as necessidades dos clientes e adapte seus produtos 
+              ou serviços às demandas do mercado.
+            </p>
+          </div>
+
+          <div class="tip-card">
+            <div class="tip-icon">
+              <i class="fas fa-bullhorn"></i>
+            </div>
+            <h5 class="tip-title">Marketing Digital</h5>
+            <p class="tip-text">
+              Utilize redes sociais e ferramentas digitais para divulgar seu negócio e alcançar 
+              mais clientes de forma econômica.
+            </p>
+          </div>
+
+          <div class="tip-card">
+            <div class="tip-icon">
+              <i class="fas fa-handshake"></i>
+            </div>
+            <h5 class="tip-title">Networking</h5>
+            <p class="tip-text">
+              Construa uma rede de contatos profissionais, participe de eventos do setor e 
+              mantenha bom relacionamento com fornecedores.
+            </p>
+          </div>
+
+          <div class="tip-card">
+            <div class="tip-icon">
+              <i class="fas fa-star"></i>
+            </div>
+            <h5 class="tip-title">Qualidade e Inovação</h5>
+            <p class="tip-text">
+              Mantenha sempre a qualidade dos produtos/serviços e busque inovar para se 
+              diferenciar da concorrência.
+            </p>
+          </div>
+
+          <div class="tip-card">
+            <div class="tip-icon">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h5 class="tip-title">Educação Contínua</h5>
+            <p class="tip-text">
+              Invista constantemente em seu conhecimento através de cursos, workshops e 
+              leituras especializadas.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Resources -->
+      <div class="resources-section">
+        <h3 style="color: #0051A4; margin-bottom: 1rem;">Explore Mais Recursos</h3>
+        <p style="color: #6c757d; margin-bottom: 2rem;">
+          Acesse a biblioteca completa de cursos online do SEBRAE e continue sua capacitação
+        </p>
+        <a href="https://www.sebrae.com.br/sites/PortalSebrae/cursosonline" target="_blank" class="resource-link">
+          <i class="fas fa-book-open"></i>
+          <span>Todos os Cursos Online SEBRAE</span>
+        </a>
+      </div>
+
+      <!-- Call to Action -->
+      <div class="cta-section">
+        <h3 style="margin-bottom: 1rem;">Pronto para Começar sua Jornada?</h3>
+        <p style="margin-bottom: 2rem; opacity: 0.9;">
+          Com a preparação adequada e os conhecimentos necessários, você estará pronto para 
+          empreender com segurança e confiança.
+        </p>
+        <a href="{% url 'empreendedor:por_que_ser_mei' %}" class="cta-button">
+          <i class="fas fa-arrow-right"></i>
+          Próximo Passo: Por que ser MEI
+        </a>
+      </div>
+
+      <!-- Menu de navegação MEI -->
+      {% include 'sala_do_empreendedor/quero-ser-mei/menu.html' %}
+    </div>
+  </section>
+</section>
 {% endblock %}
 
 {% block footer %}

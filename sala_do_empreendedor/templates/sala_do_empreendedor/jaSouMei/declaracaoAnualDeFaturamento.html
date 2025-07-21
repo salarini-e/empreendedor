@@ -1,44 +1,247 @@
-{% extends 'template.html' %}
+{% extends 'template_new.html' %}
 {% load static %}
+
+{% block title %}Declaração Anual de Faturamento - DASN{% endblock %}
+
 {% block nav %}
-{% include 'nav_empreendedor.html' %}
+  
 {% endblock %}
+
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+  <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
+  <style>
+    .breadcrumb-container {
+      background: linear-gradient(135deg, #ffffff, #f8f9fa);
+      border-bottom: 1px solid #e9ecef;
+      padding: 1rem 0;
+      margin-bottom: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .breadcrumb-custom {
+      background: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .breadcrumb-item-custom {
+      display: flex;
+      align-items: center;
+      color: #6c757d;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      padding: 0.25rem 0;
+    }
+
+    .breadcrumb-item-custom:hover {
+      color: #0051A4;
+      text-decoration: none;
+    }
+
+    .breadcrumb-current {
+      color: #0051A4;
+      font-weight: 500;
+      pointer-events: none;
+    }
+
+    .breadcrumb-separator {
+      color: #dee2e6;
+      font-size: 0.7rem;
+      margin: 0 0.25rem;
+    }
+
+    @media (max-width: 768px) {
+      .breadcrumb-custom {
+        font-size: 0.8rem;
+      }
+      
+      .breadcrumb-container {
+        padding: 0.75rem 0;
+      }
+    }
+
+    /* Transportador Autônomo - Visual moderno */
+    .hero-section {
+      background: linear-gradient(135deg, #0051A4 0%, #003a7a 100%);
+      padding: 80px 0 60px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("{% static 'images/bg-empresa.jpg' %}") center/cover;
+      opacity: 0.1;
+      z-index: 1;
+    }
+
+    .hero-section .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-section .breadcrumb {
+      background: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .hero-section .breadcrumb-item a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+    }
+
+    .hero-section .breadcrumb-item.active {
+      color: white;
+    }
+
+    .content-section {
+      background: white;
+      border-radius: 15px;
+      padding: 3rem 2rem;
+      margin: 2rem 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+  </style>
 {% endblock %}
+
 {% block main %}
-<div class="container" style="margin-top: 90px;">
-    <div class="row mx-auto ps-4 pb-3">
-        <h3 class="text-center">Declaração Anual de Faturamento - DASN</h3>
-    </div>
-    <div class="row mx-auto mb-5">
-        <div class="col">
-            <p class="text-justify">
-                Em regra, a DASN-SIMEI deve ser transmitida até 31 de maio do ano-calendário subsequente ao da ocorrência dos fatos geradores dos tributos previstos 
-                no Simei.
-            </p>
-            <p class="my-4"><b>Importante!</b></p>
-            <ul>
-                <li>Ao entregar a declaração em atraso você fica sujeito ao pagamento de multa, no valor mínimo de R$ 50,00 (cinquenta reais).O boleto para pagamento 
-                    da multa é gerado no momento da transmissão da declaração e pode ser impresso junto do recibo de entrega da DASN- SIMEI. Caso o pagamento seja feito 
-                    em até 30 dias, a multa será reduzida em 50%, totalizando R$ 25,00.</li>
-                <li>Lembre-se que nos casos de baixa de MEI, também é necessário entregar a DASN-SIMEI.</li>
-                <li>A declaração deve ser enviada mesmo que a empresa não tenha tido faturamento durante o ano.</li>
-                <li>
-                    Caso extrapole o limite permitido de faturamento do MEI, será preciso buscar o apoio de um(a) profissional de contabilidade e realizar seu 
-                    desenquadramento do regime do MEI, pois a empresa passará a recolher impostos como Simples Nacional.
-                </li>
-            </ul>
-            <p class="my-4"><b>Observação:</b></p>
-            <p>A Declaração Anual Simplificada para o Microempreendedor Individual (DASN-SIMEI) de <b>situação especial</b>, para o MEI que tenha baixado o CNPJ a partir 
-                de 01/01/2023, já está disponível.</p>
-            <p>O prazo para transmissão, para o MEI que baixou o CNPJ entre 01/01/2023 e 31/04/2023, encerra-se em 30/06/2023. A  orientação está publicada em 
-                "Notícias Simples Nacional" <a href="https://www8.receita.fazenda.gov.br/SimplesNacional/Noticias/NoticiaCompleta.aspx?id=832c4b57-e808-46bf-967a-10b37863994c">DASN SIMEI Situação Especial de Baixa Disponível</a></p>
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="hero-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:index' %}">
+              <i class="fas fa-home"></i> Início
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'empreendedor:ja_sou_mei' %}">
+              <i class="fas fa-check-circle"></i> Já sou MEI
+            </a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            <i class="fas fa-file-invoice-dollar"></i> Declaração Anual
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Hero Text -->
+      <div class="hero-text">
+        <h1 class="hero-title">Declaração Anual de Faturamento - DASN</h1>
+        <p class="hero-description">
+          Conheça as informações importantes sobre a Declaração Anual Simplificada para o Microempreendedor Individual (DASN-SIMEI) e mantenha suas obrigações em dia.
+        </p>
+        
+        <!-- Hero Action -->
+        <div class="hero-action">
+          <a href="{% url 'empreendedor:ja_sou_mei' %}" class="btn btn-outline-light btn-lg">
+            <i class="fas fa-arrow-left me-2"></i>
+            Voltar ao Menu
+          </a>
         </div>
+      </div>
     </div>
-     {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
-</div>
-{% endblock %}
-{% block footer %}
-{% include 'desenvolve_nf/instagram.html' %}
+  </div>
+</section>
+
+<!-- Main Content -->
+<section class="content-section">
+  <div class="container">
+    <!-- Content -->
+    <div class="page-content">
+      <div class="row">
+        <div class="col-12">
+          <div class="content-card">
+            <!-- Prazo e informações gerais -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-calendar-alt me-2"></i>
+                Prazo de Entrega
+              </h4>
+              <div class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong>Importante:</strong> A DASN-SIMEI deve ser transmitida até <strong>31 de maio</strong> do ano-calendário subsequente ao da ocorrência dos fatos geradores dos tributos previstos no Simei.
+              </div>
+            </div>
+
+            <!-- Informações importantes -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-info-circle me-2"></i>
+                Informações Importantes
+              </h4>
+              <ul class="info-list">
+                <li>
+                  <strong>Multa por atraso:</strong> Ao entregar a declaração em atraso você fica sujeito ao pagamento de multa, no valor mínimo de R$ 50,00. Se o pagamento for feito em até 30 dias, a multa será reduzida para R$ 25,00.
+                </li>
+                <li>
+                  <strong>Baixa de MEI:</strong> Nos casos de baixa de MEI, também é necessário entregar a DASN-SIMEI.
+                </li>
+                <li>
+                  <strong>Sem faturamento:</strong> A declaração deve ser enviada mesmo que a empresa não tenha tido faturamento durante o ano.
+                </li>
+                <li>
+                  <strong>Extrapolação do limite:</strong> Caso extrapole o limite permitido de faturamento do MEI, será preciso buscar o apoio de um profissional de contabilidade e realizar seu desenquadramento do regime do MEI, pois a empresa passará a recolher impostos como Simples Nacional.
+                </li>
+              </ul>
+            </div>
+
+            <!-- Situação especial -->
+            <div class="info-section">
+              <h4 class="section-title">
+                <i class="fas fa-star me-2"></i>
+                DASN-SIMEI de Situação Especial
+              </h4>
+              <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>Observação:</strong> A Declaração Anual Simplificada para o Microempreendedor Individual (DASN-SIMEI) de <strong>situação especial</strong>, para o MEI que tenha baixado o CNPJ a partir de 01/01/2023, já está disponível.
+              </div>
+              <p>
+                O prazo para transmissão, para o MEI que baixou o CNPJ entre 01/01/2023 e 31/04/2023, encerra-se em 30/06/2023. A orientação está publicada em 
+                "Notícias Simples Nacional": <a href="https://www8.receita.fazenda.gov.br/SimplesNacional/Noticias/NoticiaCompleta.aspx?id=832c4b57-e808-46bf-967a-10b37863994c" target="_blank" class="text-primary">DASN SIMEI Situação Especial de Baixa Disponível</a>
+              </p>
+            </div>
+
+            <!-- Botão de ação -->
+            <div class="action-buttons mt-4">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <a href="https://www8.receita.fazenda.gov.br/SimplesNacional/Aplicacoes/ATSPO/dasnsimei.app/default.aspx" target="_blank" class="btn btn-primary btn-lg w-100">
+                    <i class="fas fa-file-upload me-2"></i>
+                    Fazer DASN-SIMEI
+                  </a>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <a href="https://www8.receita.fazenda.gov.br/SimplesNacional/" target="_blank" class="btn btn-outline-primary btn-lg w-100">
+                    <i class="fas fa-external-link-alt me-2"></i>
+                    Portal Simples Nacional
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu de navegação MEI -->
+    {% include 'sala_do_empreendedor/jaSouMei/menuJaSouMei.html' %}
+  </div>
+</section>
 {% endblock %}

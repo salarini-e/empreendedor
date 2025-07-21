@@ -11,108 +11,108 @@
   <link rel="stylesheet" href="{% static 'css/sala_empreendedor_pages.css' %}">
   <style>
     .breadcrumb-container {
-  background: linear-gradient(135deg, #ffffff, #f8f9fa);
-  border-bottom: 1px solid #e9ecef;
-  padding: 1rem 0;
-  margin-bottom: 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
+      background: linear-gradient(135deg, #ffffff, #f8f9fa);
+      border-bottom: 1px solid #e9ecef;
+      padding: 1rem 0;
+      margin-bottom: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
 
-.breadcrumb-custom {
-  background: none;
-  margin: 0;
-  padding: 0;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
+    .breadcrumb-custom {
+      background: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
 
-.breadcrumb-item-custom {
-  display: flex;
-  align-items: center;
-  color: #6c757d;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  padding: 0.25rem 0;
-}
+    .breadcrumb-item-custom {
+      display: flex;
+      align-items: center;
+      color: #6c757d;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      padding: 0.25rem 0;
+    }
 
-.breadcrumb-item-custom:hover {
-  color: #0051A4;
-  text-decoration: none;
-}
+    .breadcrumb-item-custom:hover {
+      color: #0051A4;
+      text-decoration: none;
+    }
 
-.breadcrumb-current {
-  color: #0051A4;
-  font-weight: 500;
-  pointer-events: none;
-}
+    .breadcrumb-current {
+      color: #0051A4;
+      font-weight: 500;
+      pointer-events: none;
+    }
 
-.breadcrumb-separator {
-  color: #dee2e6;
-  font-size: 0.7rem;
-  margin: 0 0.25rem;
-}
+    .breadcrumb-separator {
+      color: #dee2e6;
+      font-size: 0.7rem;
+      margin: 0 0.25rem;
+    }
 
-@media (max-width: 768px) {
-  .breadcrumb-custom {
-    font-size: 0.8rem;
-  }
-  
-  .breadcrumb-container {
-    padding: 0.75rem 0;
-  }
-}
+    @media (max-width: 768px) {
+      .breadcrumb-custom {
+        font-size: 0.8rem;
+      }
+      
+      .breadcrumb-container {
+        padding: 0.75rem 0;
+      }
+    }
 
-/* Transportador Autônomo - Visual moderno */
-.hero-section {
-  background: linear-gradient(135deg, #0051A4 0%, #003a7a 100%);
-  padding: 80px 0 60px;
-  color: white;
-  position: relative;
-  overflow: hidden;
-}
+    /* Transportador Autônomo - Visual moderno */
+    .hero-section {
+      background: linear-gradient(135deg, #0051A4 0%, #003a7a 100%);
+      padding: 80px 0 60px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
 
-.hero-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url("{% static 'images/bg-empresa.jpg' %}") center/cover;
-  opacity: 0.1;
-  z-index: 1;
-}
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("{% static 'images/bg-empresa.jpg' %}") center/cover;
+      opacity: 0.1;
+      z-index: 1;
+    }
 
-.hero-section .container {
-  position: relative;
-  z-index: 2;
-}
+    .hero-section .container {
+      position: relative;
+      z-index: 2;
+    }
 
-.hero-section .breadcrumb {
-  background: none;
-  padding: 0;
-  margin: 0;
-}
+    .hero-section .breadcrumb {
+      background: none;
+      padding: 0;
+      margin: 0;
+    }
 
-.hero-section .breadcrumb-item a {
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-}
+    .hero-section .breadcrumb-item a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+    }
 
-.hero-section .breadcrumb-item.active {
-  color: white;
-}
+    .hero-section .breadcrumb-item.active {
+      color: white;
+    }
 
-.content-section {
-  background: white;
-  border-radius: 15px;
-  padding: 3rem 2rem;
-  margin: 2rem 0;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
+    .content-section {
+      background: white;
+      border-radius: 15px;
+      padding: 3rem 2rem;
+      margin: 2rem 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
 
   </style>
 {% endblock %}
